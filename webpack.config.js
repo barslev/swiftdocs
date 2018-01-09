@@ -52,6 +52,10 @@ module.exports = {
             {
                 test: /\.yaml$/,
                 loader: 'yaml-loader'
+            },
+            {
+                test: /\.scss$/,
+                loaders: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader']
             }
         ]
     },
