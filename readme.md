@@ -21,7 +21,7 @@ You'll need to require swiftdocs javascript file in your html and then bootstrap
 	    <script>
 	    	var swiftDocs = new SwiftDocs('#app', 'yourDocumentId')
 	    	// Any plugins and additional config will go here...
-	    	swiftDocs.init()
+	    	swiftDocs.start()
 	    </script>
 	</body>
 	</html>
@@ -41,7 +41,7 @@ You have to explicitly choose this driver when instantiating SwiftDocs like so:
 
 	var swiftDocs = new SwiftDocs('#app', documentId, 'server')
 	
-And before you initialize with the `.init()` command, call the following command:
+And before you initialize with the `.start()` command, call the following command:
 
 	swiftDocs.storage.configure("http://yourserver.com/api/swiftdocs", axios)
 
