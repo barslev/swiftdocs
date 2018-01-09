@@ -9,6 +9,9 @@
 <body>
     <div id="app"></div>
     <script src="/build/swiftdocs.js"></script>
-    <script>new SwiftDocs('#app')</script>
+    <script>
+    var swiftDocs = new SwiftDocs('#app', 'test')
+    swiftDocs.init()
+    </script>
 </body>
 </html>

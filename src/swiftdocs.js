@@ -1,17 +1,28 @@
 import Vue from 'vue'
+import storage from './storage'
 import * as _ from './bootstrap'
 
 class SwiftDocs {
-    constructor(el) {
+
+    constructor(el, documentId, storageDriver = 'local') {
         this.el = el
-        this._initApp = this._initApp.bind(this)
-        window.addEventListener('load', this._initApp)
+        this.documentId = documentId
+        this.storage = new storage[storageDriver]
     }
 
-    _initApp() {
+    init() {
+
+        this.storage.load(this.documentId).then((doc) => {
+            if (doc === null) {
+                // TODO: New document
+            }
+        })
+
+        // TODO: Wait before the document is loaded
+        // TODO: Show document loading progress
         new Vue({
             el: this.el,
-            template: '<swiftdocs></swiftdocs>'
+            template: '<swiftdocs-editor></swiftdocs-editor>'
         })
     }
 }
