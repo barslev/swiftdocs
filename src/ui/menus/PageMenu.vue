@@ -11,7 +11,7 @@
 	</div>
 </template>
 <script>
-import {removePage} from '../../actions/pages'
+import {removePage} from '~/redux/actions/pages'
 
 export default {
 	props: ['id', 'number'],

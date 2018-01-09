@@ -3,9 +3,9 @@ Swiftdocs
 
 Work in progress. Details and documentation will be added in the future.
 
-## Initializng
+## Initializing
 
-You'll need to require swiftdocs javascript file in your html and then bootstrap it like so:
+You'll need to reference swiftdocs.js file in your html and then bootstrap it like so:
 	
 	<!DOCTYPE html>
 	<html lang="en">
@@ -17,7 +17,7 @@ You'll need to require swiftdocs javascript file in your html and then bootstrap
 	</head>
 	<body>
 	    <div id="app"></div>
-	    <script src="/build/swiftdocs.js"></script>
+	    <script src="build/swiftdocs.js"></script>
 	    <script>
 	    	var swiftDocs = new SwiftDocs('#app', 'yourDocumentId')
 	    	// Any plugins and additional config will go here...

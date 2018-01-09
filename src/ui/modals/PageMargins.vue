@@ -27,7 +27,7 @@
     </div>
 </template>
 <script>
-import { updatePageMargin, updateAllPageMargins } from '../../actions/pages'
+import { updatePageMargin, updateAllPageMargins } from '~/redux/actions/pages'
 
 export default {
     data() {

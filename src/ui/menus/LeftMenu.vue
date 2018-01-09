@@ -18,8 +18,7 @@
 </div>
 </template>
 <script>
-import Registry from '../../registry'
-import {addPage} from '../../actions/pages'
+import {addPage} from '~/redux/actions/pages'
 
 export default {
 	mounted() {
@@ -27,7 +26,7 @@ export default {
 	},
 	data() {
 		return {
-			components: Registry.all()
+			components: _swd.registry.all()
 		}
 	},
 	methods: {

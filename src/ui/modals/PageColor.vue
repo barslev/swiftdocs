@@ -13,7 +13,7 @@
     </div>
 </template>
 <script>
-import { updatePageColor, updateAllPageColors } from '../../actions/pages'
+import { updatePageColor, updateAllPageColors } from '~/redux/actions/pages'
 
 export default {
     data() {

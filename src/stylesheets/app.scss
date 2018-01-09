@@ -1,1 +1,113 @@
-@import "tailwind"
+html, body {
+	background-color: #f4f4f4;
+}
+
+@import './designer/tailwind';
+
+@import './vendor/dragula/dragula';
+@import './vendor/vue-notification/vue-notification';
+
+@import './designer/forms';
+@import './designer/modal';
+@import './designer/toolbar';
+@import './designer/dropdown';
+
+#app {
+	display:flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.material-icons {
+	font-size:16px;
+}
+
+.pull-right {
+	float: right;
+}
+
+.clearfix {
+	clear:both;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.document {
+	margin: 10mm;
+	margin-left:-10mm;
+}
+
+.document h2 {
+	margin-bottom: 0;
+}
+
+.document__page {
+	width: 210mm;
+	height: 297mm;
+	background-color: #fff;
+	border-size: 2mm solid #e4e4e4;
+	margin-bottom:10mm;
+}
+
+.document__page_number {
+	color:#b4b4b4;
+	font-size:12px;
+	padding-bottom:4px;
+	padding-top:4px;
+	padding-right:6px;
+	clear:both;
+}
+
+.document__page_number > i {
+	font-size:16px;
+	margin-right: 3px;
+	margin-top: -1px;
+	float: left;
+}
+
+.document__page > div > .document__page-container {
+	min-height: 100%;
+
+}
+
+.document__page-child-container {
+	position:relative;
+	min-height:50px;
+	background-color: rgba(0, 0, 0, 0.1);
+	margin-bottom:5px;
+}
+
+.document__page-child-container:after {
+	clear:both;
+}
+
+.document__page-element {
+	margin-bottom:5px;
+	z-index: 5;
+}
+
+.document__page-element:hover {
+  cursor:pointer;
+}
+
+.document__page-element.hovering::before, .document__page-element.selected::before {
+  content: " ";
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  border: 1px dashed #65B1C9;
+  background-color: transparent;
+}
+
+.document__page-element.selected::before {
+	border: 1px solid #65B1C9;
+}
+
+.element__photo {
+	text-align: center;
+}

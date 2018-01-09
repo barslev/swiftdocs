@@ -1,0 +1,78 @@
+.toolbar {
+    margin-top: 38px;
+    @apply .fixed .bg-grey-lightest;
+    @apply .pt-4 .pr-4 .pl-4 .pb-4;
+    @apply .rounded .border .border-grey-light;
+}
+
+.toolbar-left {
+    @apply .pin-l .rounded-r .border-l-0;
+}
+
+.toolbar-right {
+    width: 250px;
+    @apply .pin-r .rounded-l .border-r-0;
+}
+
+.toolbar h5 {
+    @apply .mb-4 .font-normal .text-grey-dark;
+}
+
+.toolbar hr {
+    @apply .border-0 .border-t .border-grey-light .my-4;
+    display: block;
+    height: 1px;
+}
+
+
+.toolbar__button, .toolbar__button:active, .toolbar__button:focus {
+    outline: 0;
+    @apply .bg-white .border .border-grey-light .w-full .flex .p-1 .my-1 .text-xs .items-center;
+}
+
+.toolbar__button:hover {
+	@apply .bg-black .border-grey-darker .text-white;
+} 
+
+.toolbar__button > i {
+	@apply .mr-1;
+}
+
+
+.toolbar-right h5 {
+    @apply .mb-1 .mt-4 .text-grey-darker .text-xs .uppercase;
+}
+
+.toolbar-right h5:first-child {
+    @apply .mb-1 .mt-0;
+}
+
+.toolbar label {
+    @apply .text-xs .text-grey;
+}
+
+.toolbar input, .toolbar input.form-control, .toolbar input:focus, .toolbar input:active {
+    outline: none;
+    @apply .appearance-none .bg-transparent .border-none .border-b .border-grey-light .w-full .text-grey-darker .text-sm .shadow-none;
+}
+
+.toolbar .checkbox {
+    @apply .inline;
+}
+
+.toolbar .checkbox .material-icons {
+    @apply .text-xl .text-grey;
+}
+
+.toolbar .checkbox .material-icons:hover {
+    cursor: pointer;
+}
+
+.toolbar .checkbox input:checked ~ i,  .toolbar .checkbox .material-icons:hover {
+    @apply .text-grey-darkest;
+}
+
+.toolbar .checkbox input[type="checkbox"] {
+
+    @apply .appearance-none .border-none .w-auto;
+}

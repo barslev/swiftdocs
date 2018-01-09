@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div class="flex">
             <button class="bg-grey-light hover:bg-grey text-grey-darkest flex-1 font-bold py-2 px-4 rounded-l">
                 Basic
@@ -101,8 +100,8 @@
     </div>
 </template>
 <script>
-import {updateStyle} from '../../../actions/styles'
-import {removeContent, selectContent, deselectContent} from '../../../actions/contents'
+import {updateStyle} from '~/redux/actions/styles'
+import {removeContent, selectContent, deselectContent} from '~/redux/actions/contents'
 
 export default {
 

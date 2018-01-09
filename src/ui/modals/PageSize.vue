@@ -18,7 +18,7 @@
     </div>
 </template>
 <script>
-import { updateAllPageDimensions } from '../../actions/pages'
+import { updateAllPageDimensions } from '~/redux/actions/pages'
 
 export default {
     data() {
