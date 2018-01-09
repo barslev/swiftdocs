@@ -11559,6 +11559,9 @@ _vue2.default.use(_vueI18n2.default);
 _vue2.default.use(_vueRouter2.default);
 _vue2.default.use(_vueNotification2.default);
 
+// Register components
+// Register plug-ins
+
 /***/ }),
 /* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -17791,7 +17794,7 @@ module.exports = i18n;
 /* 16 */
 /***/ (function(module, exports) {
 
-module.exports = {"test":"test"}
+module.exports = {"languages":{"de":"German","en":"English","fr":"French","it":"Italian","lo":"Lao","tr":"Turkish","zh":"Chinese"}}
 
 /***/ })
 /******/ ]);

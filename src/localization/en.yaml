@@ -1,1 +1,8 @@
-test: "test"
+languages:
+  de: "German"
+  en: "English"
+  fr: "French"
+  it: "Italian"
+  lo: "Lao"
+  tr: "Turkish"
+  zh: "Chinese"

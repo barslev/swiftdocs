@@ -8,3 +8,6 @@ Vue.use(VModal)
 Vue.use(VueI18n)
 Vue.use(VueRouter)
 Vue.use(Notifications)
+
+// Register components
+// Register plug-ins

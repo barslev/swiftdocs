@@ -11,7 +11,10 @@ const initialState = {
 		height: 297
 	},
 	// Default page background color
-	color: '#ffffff'    
+	color: '#ffffff',
+	languages: [
+		'en'
+	]
 }
 
 export default (state = initialState, action) => {
