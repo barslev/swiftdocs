@@ -22,6 +22,7 @@ class SwiftDocs {
         // TODO: Show document loading progress
         new Vue({
             el: this.el,
+            i18n: require('./localization'),
             template: '<swiftdocs-editor></swiftdocs-editor>'
         })
     }

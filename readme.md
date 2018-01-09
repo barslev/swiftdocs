@@ -39,7 +39,7 @@ LocalStorage is pretty much straightforward. It's selected by default. You don't
 
 You have to explicitly choose this driver when instantiating SwiftDocs like so:
 
-	const swiftDocs = new SwiftDocs('#app', documentId, 'server')
+	var swiftDocs = new SwiftDocs('#app', documentId, 'server')
 	
 And before you initialize with the `.init()` command, call the following command:
 
