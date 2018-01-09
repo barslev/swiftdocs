@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/swiftmade/swiftdocs#readme",
   "dependencies": {
+    "cuid": "^2.0.2",
     "dragula": "^3.7.2",
     "lodash": "^4.17.4",
     "redux": "^3.7.2",

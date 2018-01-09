@@ -12,4 +12,8 @@ Vue.use(VueRouter)
 Vue.use(Notifications)
 
 // Register components
+Vue.component('page', require('./ui/Page.vue'))
+Vue.component('document', require('./ui/Document.vue'))
+Vue.component('designer', require('./ui/Designer.vue'))
+
 // Register plug-ins

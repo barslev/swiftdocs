@@ -37,7 +37,7 @@ class SwiftDocs {
         new Vue({
             el: this.el,
             i18n: require('./localization'),
-            template: '<swiftdocs-editor></swiftdocs-editor>'
+            template: '<designer></designer>'
         })
     }
 }
