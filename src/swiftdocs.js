@@ -3,6 +3,7 @@ const dragula = require('dragula');
 import storage from '~/storage'
 import * as _ from '~/kernel/bootstrap'
 import {Registry} from '~/kernel/registry'
+import {insertContent} from '~/redux/actions/contents'
 
 class SwiftDocs {
 

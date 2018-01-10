@@ -17076,6 +17076,8 @@ var _ = _interopRequireWildcard(_bootstrap);
 
 var _registry = __webpack_require__(104);
 
+var _contents = __webpack_require__(5);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -17167,7 +17169,7 @@ var SwiftDocs = function () {
                             return moveContent(element.getAttribute('data-id'), containerPageId, containerId, siblingId);
                         }
 
-                        return insertContent(element.getAttribute('data-name'), containerPageId, containerId, siblingId);
+                        return (0, _contents.insertContent)(element.getAttribute('data-name'), containerPageId, containerId, siblingId);
                     });
                 }
             });
@@ -17527,6 +17529,7 @@ var _defaultStore2 = _interopRequireDefault(_defaultStore);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+window.Vue = _vue2.default;
 window.store = _defaultStore2.default;
 
 window._ = __webpack_require__(70);
