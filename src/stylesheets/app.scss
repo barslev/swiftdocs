@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 html, body {
-	background-color: #f4f4f4;
+	@apply .bg-grey-lightest;
 }
 
 @import './designer/tailwind';
@@ -14,22 +14,8 @@ html, body {
 @import './designer/toolbar';
 @import './designer/dropdown';
 
-#app {
-	display:flex;
-	align-items: center;
-	justify-content: center;
-}
-
 .material-icons {
 	font-size:16px;
-}
-
-.pull-right {
-	float: right;
-}
-
-.clearfix {
-	clear:both;
 }
 
 .text-center {
@@ -37,8 +23,7 @@ html, body {
 }
 
 .document {
-	margin: 10mm;
-	margin-left:-10mm;
+	margin-top:80px;
 }
 
 .document h2 {
@@ -49,7 +34,7 @@ html, body {
 	width: 210mm;
 	height: 297mm;
 	background-color: #fff;
-	border-size: 2mm solid #e4e4e4;
+	@apply .border;
 	margin-bottom:10mm;
 }
 

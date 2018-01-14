@@ -1,5 +1,5 @@
 <template>
-  <p contenteditable="true" :style="state.style" @blur="update">text goes here</p>
+  <p contenteditable="true" :style="state.style" @blur="update">Text goes here</p>
 </template>
 <script>
 import {getElementState, updateElementState} from '~/redux/actions/contents'
@@ -30,7 +30,7 @@ export default {
     update(event) {
       updateElementState(this.id, {
         ...this.state,
-        text: event.target.innerHTM
+        text: event.target.innerHTML
       })
     }
   }

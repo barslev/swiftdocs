@@ -32,6 +32,7 @@ Vue.component('color', require('~/ui/tools/Color.vue').default)
 Vue.component('page-scope', require('~/ui/tools/PageScope.vue').default)
 Vue.component('toolbar-button', require('~/ui/tools/Button.vue').default)
 Vue.component('dropdown-menu', require('~/ui/tools/DropdownMenu.vue').default)
+Vue.component('dropdown-option', require('~/ui/tools/DropdownOption.vue').default)
 
 /**
  * Toolbar items
@@ -44,6 +45,7 @@ Vue.component('page-margins', require('~/ui/modals/PageMargins.vue').default)
 /**
  * Menus
  */
+Vue.component('top-menu', require('~/ui/menus/TopMenu.vue').default)
 Vue.component('page-menu', require('~/ui/menus/PageMenu.vue').default)
 Vue.component('left-menu', require('~/ui/menus/LeftMenu.vue').default)
 Vue.component('right-menu', require('~/ui/menus/RightMenu.vue').default)
@@ -63,3 +65,19 @@ Vue.mixin({
         window.notifySuccess = this.notifySuccess.bind(this)
     }
 })
+
+Vue.directive('click-outside', {
+  bind: function (el, binding, vnode) {
+    el.event = function (event) {
+      // here I check that click was outside the el and his childrens
+      if (!(el == event.target || el.contains(event.target))) {
+        // and if it did, call method provided in attribute value
+        vnode.context[binding.expression](event);
+      }
+    };
+    document.body.addEventListener('click', el.event)
+  },
+  unbind: function (el) {
+    document.body.removeEventListener('click', el.event)
+  },
+});

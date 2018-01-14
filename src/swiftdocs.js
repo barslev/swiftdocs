@@ -3,7 +3,8 @@ const dragula = require('dragula');
 import storage from '~/storage'
 import * as _ from '~/kernel/bootstrap'
 import {Registry} from '~/kernel/registry'
-import {insertContent} from '~/redux/actions/contents'
+import {DataSource} from '~/kernel/dataSource'
+import {insertContent, moveContent} from '~/redux/actions/contents'
 
 class SwiftDocs {
 
@@ -11,8 +12,9 @@ class SwiftDocs {
         this.el = el
         this.documentId = documentId
         this.registry = new Registry()
+        this.dataSource = new DataSource()
         this.storage = new storage[storageDriver]
-        
+
         this._bootDocument = this._bootDocument.bind(this)
         this._createVueApp = this._createVueApp.bind(this)
         this._useDefaultDesignComponents = this._useDefaultDesignComponents.bind(this)

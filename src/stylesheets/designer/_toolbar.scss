@@ -1,17 +1,18 @@
 .toolbar {
-    margin-top: 38px;
-    @apply .fixed .bg-grey-lightest;
+    margin-top: 52px;
+    @apply .fixed .bg-grey-lighter;
     @apply .pt-4 .pr-4 .pl-4 .pb-4;
-    @apply .rounded .border .border-grey-light;
+    @apply .border .border-grey-light;
+    @apply .pin-y;
 }
 
 .toolbar-left {
-    @apply .pin-l .rounded-r .border-l-0;
+    @apply .pin-l  .border-l-0;
 }
 
 .toolbar-right {
     width: 250px;
-    @apply .pin-r .rounded-l .border-r-0;
+    @apply .pin-r .border-r-0;
 }
 
 .toolbar h5 {
@@ -25,9 +26,14 @@
 }
 
 
-.toolbar__button, .toolbar__button:active, .toolbar__button:focus {
+.toolbar__button, .toolbar__button:active, .toolbar__button:focus, .toolbar__button:disabled:hover  {
     outline: 0;
     @apply .bg-white .border .border-grey-light .w-full .flex .p-1 .my-1 .text-xs .items-center;
+}
+
+.toolbar__button:disabled:hover {
+    @apply .text-grey-darker;
+    cursor: not-allowed;
 }
 
 .toolbar__button:hover {

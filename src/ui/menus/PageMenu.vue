@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<dropdown-menu>
+		<dropdown-menu label="test">
 			<div slot="link" class="document__page_number">
 				<i class="material-icons">menu</i> Page {{ number }}
 			</div>

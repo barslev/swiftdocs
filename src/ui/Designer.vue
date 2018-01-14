@@ -1,16 +1,17 @@
 <template>
 	<div>
 		<notifications position="bottom right"></notifications>
-		<!-- toolbar modals -->
+		<!-- modals -->
 		<page-size></page-size>
 		<page-color></page-color>
 		<page-margins></page-margins>
-		
-		<left-menu></left-menu>
-		<right-menu></right-menu>
 
-		<div>
-			<document></document>
-		</div>
+
+		<top-menu></top-menu>
+		<left-menu></left-menu>
+
+		<div class="flex items-center justify-center">
+			<document />
+		</div>		
 	</div>
 </template>
