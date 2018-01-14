@@ -13,6 +13,9 @@
     <script src="/build/swiftdocs.js"></script>
     <script>
     var swiftDocs = new SwiftDocs('#app', 'test')
+    swiftDocs.dataSource.use({
+        var1: 'Hello World, this is a test.'
+    })
     swiftDocs.start()
     </script>
 </body>

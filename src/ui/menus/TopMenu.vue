@@ -9,13 +9,13 @@
                 </dropdown-option>
                 <dropdown-option @click.native="">
                     <div class="flex items-center">
-                    <i class="material-icons mr-1 text-purple" style="margin-top:-3px">content_copy</i> Page Layout
+                    <i class="material-icons mr-1 text-purple" style="margin-top:-3px">content_copy</i> Document Settings
                     </div>
                 </dropdown-option>
 
-                <dropdown-option @click.native="">
+                <dropdown-option @click.native="beginRenderMode()">
                     <div class="flex items-center">
-                    <i class="material-icons mr-1 text-orange" style="margin-top:-3px">remove_red_eye</i> Preview
+                    <i class="material-icons mr-1 text-orange" style="margin-top:-3px">remove_red_eye</i> Render Document
                     </div>
                 </dropdown-option>
             </dropdown-menu>
@@ -39,3 +39,12 @@
         
     </div>
 </template>
+<script>
+import {beginRenderMode} from '~/redux/actions/mode';
+
+export default {
+    created() {
+        this.beginRenderMode = beginRenderMode
+    }
+}
+</script>

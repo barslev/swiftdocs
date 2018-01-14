@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<page-menu :id="page.id" :number="number"></page-menu>
 		<div class="document__page" :style="pageCss" @click="selectPage()">
 			<div :style="marginCss">
 				<container :id="page.id" :root="true"></container>

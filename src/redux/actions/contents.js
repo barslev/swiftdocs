@@ -97,6 +97,7 @@ export function updateElementState(id, state) {
             state
         }
     })
+    return getElementState(id)
 }
 
 export function getElementState(id, defaultState) {

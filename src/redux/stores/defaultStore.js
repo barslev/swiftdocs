@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Revue from 'revue'	
 import {createStore, combineReducers} from 'redux'
 
+import mode from '../reducers/mode'
 import title from '../reducers/title'
 import pages from '../reducers/pages'
 import styles from '../reducers/styles'
@@ -10,6 +11,7 @@ import defaults from '../reducers/defaults'
 
 // create a redux store
 const reduxStore = createStore(combineReducers({
+	mode,
 	title,
 	pages,
 	styles,

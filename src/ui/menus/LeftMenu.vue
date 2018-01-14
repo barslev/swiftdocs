@@ -15,9 +15,6 @@
 			:key="component.id"
 			:icon="component.icon">{{ component.label }}</toolbar-button>
 	</div>
-	<hr>
-	<h5>Data Source</h5>
-	<toolbar-button icon="refresh" :disabled="source.busy" @click="source.refresh">{{ source.busy ? 'Refreshing...' : 'Refresh' }}</toolbar-button>
 </div>
 </template>
 <script>
@@ -29,7 +26,6 @@ export default {
 	},
 	data() {
 		return {
-			source: _swd.dataSource,
 			components: _swd.registry.all()
 		}
 	},

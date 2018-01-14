@@ -1,5 +1,6 @@
 <template>
-  <p contenteditable="true" :style="state.style" @blur="update">Text goes here</p>
+  <p v-if="!inRenderMode" contenteditable :style="state.style" @blur="update"></p>
+  <compile v-else :template="state.text" :style="state.style"></compile>
 </template>
 <script>
 import {getElementState, updateElementState} from '~/redux/actions/contents'
@@ -15,6 +16,18 @@ const defaultState = {
 
 export default {
   props: ['id'],
+
+  components: {
+    displayer: {
+      props: ['content'],
+      render(h) {
+        return Vue.compile('<div>' + this.content + '</div>').render
+      },
+      staticRenderFns() {
+        return Vue.compile('<div>' + this.content + '</div>').staticRenderFns
+      }
+    }
+  },
   
   data() {
     return {
@@ -28,7 +41,7 @@ export default {
 
   methods: {
     update(event) {
-      updateElementState(this.id, {
+      this.state = updateElementState(this.id, {
         ...this.state,
         text: event.target.innerHTML
       })
@@ -37,7 +50,7 @@ export default {
 }
 </script>
 <style>
-p:focus {
+p {
   outline: 0
 }
 </style>
