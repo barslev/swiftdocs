@@ -16,22 +16,20 @@ const defaultState = {
 
 export default {
   props: ['id'],
-
-  components: {
-    displayer: {
-      props: ['content'],
-      render(h) {
-        return Vue.compile('<div>' + this.content + '</div>').render
-      },
-      staticRenderFns() {
-        return Vue.compile('<div>' + this.content + '</div>').staticRenderFns
-      }
-    }
-  },
   
   data() {
     return {
       state: getElementState(this.id, defaultState)
+    }
+  },
+
+  watch: {
+    inRenderMode(render) {
+      if (!render) {
+        Vue.nextTick(() => {
+          this.$el.innerHTML = this.state.text
+        })
+      }
     }
   },
 

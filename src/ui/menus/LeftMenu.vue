@@ -1,5 +1,5 @@
 <template>
-<div class="toolbar toolbar-left">
+<div class="toolbar toolbar-left" v-show="!inRenderMode">
 	
 	<h5>Page &amp; Layout</h5>
 	<toolbar-button icon="settings_overscan" @onClick="$modal.show('page-margins')">Margins</toolbar-button>
