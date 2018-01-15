@@ -67,7 +67,7 @@ Vue.mixin({
 Vue.mixin({
   data() {
     return {
-      inRenderMode: this.$select('mode as inRenderMode')
+      inRenderMode: this.$select('session.mode as inRenderMode')
     }
   }
 })

@@ -1,14 +1,5 @@
 <template>
     <div>
-        <div class="flex">
-            <button class="bg-grey-light hover:bg-grey text-grey-darkest flex-1 font-bold py-2 px-4 rounded-l">
-                Basic
-            </button>
-            <button class="bg-grey-light hover:bg-grey text-grey-darkest flex-1 font-bold py-2 px-4 rounded-r">
-                Properties
-            </button>
-        </div>
-        
         <h5>Margins</h5>
         <div class="flex flex-wrap">
             <div class="md:w-1/4 pr-2 mb-2">
@@ -101,7 +92,8 @@
 </template>
 <script>
 import {updateStyle} from '~/redux/actions/styles'
-import {removeContent, selectContent, deselectContent} from '~/redux/actions/contents'
+import {removeContent} from '~/redux/actions/contents'
+import {selectContent, deselectContent} from '~/redux/actions/session'
 
 export default {
 

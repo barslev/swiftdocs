@@ -70,24 +70,6 @@ export function removeContent(id)
     dispatchRemoval(id)
 }
 
-export function selectContent(id)
-{
-    store.dispatch({
-        type: 'CONTENT_SELECT',
-        payload: {
-            id
-        }
-    })
-}
-
-export function deselectContent(id) {
-    store.dispatch({
-        type: 'CONTENT_DESELECT',
-        payload: {
-            id
-        }
-    })
-}
 
 export function updateElementState(id, state) {
     store.dispatch({

@@ -37,9 +37,13 @@ class SwiftDocs {
     }
 
     save() {
+        const clonedState = {...window.store.state}
+        // Remove live session state from the persistent data
+        delete clonedState.session
+
         this.storage.persist(
             this.documentId,
-            window.store.state
+            clonedState
         ).then(() => {
             notifySuccess('Saved!', 'All changes saved')
         })

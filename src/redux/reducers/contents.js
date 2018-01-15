@@ -24,24 +24,6 @@ export default (state = initialState, action) => {
             return state.filter((content) => {
                 return content.id !== action.payload.id
             })
-        case 'CONTENT_SELECT':
-            return state.map((content) => {
-                if (content.id === action.payload.id) {
-                    return {
-                        ...content,
-                        selected: true
-                    }
-                }
-                return content
-            })
-        case 'CONTENT_DESELECT':
-            return state.map((content) => {
-                if (content.id === action.payload.id && 'selected' in content) {
-                    delete content.selected
-                    return {...content}
-                }
-                return content
-            })
         case 'CONTENT_UPDATE_STATE':
             return state.map((content) => {
                 if (content.id === action.payload.id) {

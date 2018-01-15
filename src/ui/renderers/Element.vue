@@ -1,7 +1,7 @@
 <template>
     <div :is="element.element"
         class="document__page-element"
-        :class="[element.selected ? 'selected' : '', 'element__' + element.element]"
+        :class="[element.id == selectedId ? 'selected' : '', 'element__' + element.element]"
         :id="element.id"
         :data-id="element.id"
         :page-id="element.page_id"
@@ -15,7 +15,8 @@ export default {
     props: ['element'],
     data() {
         return {
-            styles: this.$select('styles'),
+			styles: this.$select('styles'),
+			selectedId: this.$select('session.selectedId as selectedId'),
         }
     },
     methods: {

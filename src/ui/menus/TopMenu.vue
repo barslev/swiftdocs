@@ -14,16 +14,6 @@
                     <div class="flex items-center">
                         <i class="material-icons mr-1 text-green">save</i> Save
                     </div>
-                </dropdown-option>                    
-                <dropdown-option @click.native="">
-                    <div class="flex items-center">
-                        <i class="material-icons mr-1 text-blue">add</i> New Page
-                    </div>
-                </dropdown-option>
-                <dropdown-option @click.native="">
-                    <div class="flex items-center">
-                    <i class="material-icons mr-1 text-purple" style="margin-top:-3px">content_copy</i> Document Settings
-                    </div>
                 </dropdown-option>
                 <dropdown-option @click.native="beginRenderMode()">
                     <div class="flex items-center">
@@ -53,7 +43,7 @@
     </div>
 </template>
 <script>
-import {beginRenderMode, beginEditMode} from '~/redux/actions/mode';
+import {beginRenderMode, beginEditMode} from '~/redux/actions/session';
 
 export default {
     created() {

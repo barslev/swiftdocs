@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div :class="inRenderMode ? 'renderMode' : ''">
 		<notifications position="bottom right"></notifications>
 		<!-- modals -->
 		<page-size></page-size>
@@ -9,7 +9,6 @@
 
 		<top-menu></top-menu>
 		<left-menu></left-menu>
-		<right-menu></right-menu>
 
 		<div>
 			<document />

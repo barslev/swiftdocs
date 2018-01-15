@@ -1,18 +1,56 @@
 .toolbar {
     margin-top: 52px;
     @apply .fixed .bg-grey-lighter;
-    @apply .pt-4 .pr-4 .pl-4 .pb-4;
     @apply .border .border-grey-light;
     @apply .pin-y;
 }
 
 .toolbar-left {
-    @apply .pin-l  .border-l-0;
+    @apply .pin-l  .border-l-0 .flex;
 }
 
 .toolbar-right {
     width: 250px;
     @apply .pin-r .border-r-0;
+}
+
+.toolbar-tabs {
+    height: 100%;
+    @apply .bg-grey-darkest;
+}
+
+.toolbar-content {
+    width:220px;
+    @apply .p-4;
+}
+
+.toolbar-tabs a {
+    display: flex;
+    position:relative;
+    box-sizing: border-box; 
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 10px;
+    @apply .px-3 .py-4 .text-grey .font-light .uppercase;
+}
+
+.toolbar-tabs a > i {
+    @apply .mb-2;
+}
+
+.toolbar-tabs a:hover {
+    cursor: pointer;
+    @apply .bg-black .text-grey-light;
+}
+
+.toolbar-tabs a.active:before {
+    content: ' ';
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 1px;
+    @apply .absolute .border-l-4 .border-blue;
 }
 
 .toolbar h5 {

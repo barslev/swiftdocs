@@ -25,6 +25,11 @@ html, body {
 
 .document {
 	margin-top:80px;
+	margin-left:300px;
+}
+
+.renderMode .document {
+	margin-left:0;
 }
 
 .document h2 {
