@@ -51458,145 +51458,162 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h5", [_vm._v("Typography")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "pr-2 mb-2" }, [
-      _c("label", { staticClass: "label" }, [_vm._v("Font Type")]),
+  return _c(
+    "div",
+    [
+      _c("h5", [_vm._v("Typography")]),
       _vm._v(" "),
-      _c(
-        "select",
-        {
-          staticClass: "form-control",
-          domProps: { value: _vm.state.style.fontFamily },
-          on: {
-            input: function($event) {
-              _vm.updateStyle("fontFamily", arguments[0].target.value)
+      _c("div", { staticClass: "pr-2 mb-2" }, [
+        _c("label", { staticClass: "label" }, [_vm._v("Font Type")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            staticClass: "form-control",
+            domProps: { value: _vm.state.style.fontFamily },
+            on: {
+              input: function($event) {
+                _vm.updateStyle("fontFamily", arguments[0].target.value)
+              }
             }
-          }
-        },
-        [
-          _c("option", { attrs: { value: "Arial" } }, [_vm._v("Arial")]),
+          },
+          [
+            _c("option", { attrs: { value: "Arial" } }, [_vm._v("Arial")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Helvetica" } }, [
+              _vm._v("Helvetica")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Times New Roman" } }, [
+              _vm._v("Times New Roman")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "pr-2 mb-2" }, [
+        _c("label", { staticClass: "label" }, [_vm._v("Font Size")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            staticClass: "form-control",
+            domProps: { value: _vm.state.style.fontSize },
+            on: {
+              input: function($event) {
+                _vm.updateStyle("fontSize", arguments[0].target.value + "pt")
+              }
+            }
+          },
+          _vm._l(10, function(n) {
+            return _c(
+              "option",
+              { key: "fso" + n, domProps: { value: n * 2 + 4 } },
+              [_vm._v(_vm._s(n * 2 + 4) + " pt")]
+            )
+          })
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "pr-2 mb-2" }, [
+        _c("label", { staticClass: "label" }, [_vm._v("Line Spacing")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            staticClass: "form-control",
+            domProps: { value: _vm.state.style.lineHeight },
+            on: {
+              input: function($event) {
+                _vm.updateStyle("lineHeight", arguments[0].target.value)
+              }
+            }
+          },
+          [
+            _c("option", { attrs: { value: "1em" } }, [_vm._v("Single Line")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "1.25em" } }, [_vm._v("1.25")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "1.5em" } }, [_vm._v("1.5")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "2em" } }, [_vm._v("Double Line")])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("h5", [_vm._v("Alignment")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "checkbox" }, [
+        _c("label", [
+          _c("input", {
+            attrs: { type: "checkbox" },
+            domProps: { checked: _vm.state.style.textAlign == "left" },
+            on: {
+              change: function($event) {
+                _vm.updateStyle("textAlign", "left")
+              }
+            }
+          }),
           _vm._v(" "),
-          _c("option", { attrs: { value: "Helvetica" } }, [
-            _vm._v("Helvetica")
-          ]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "Times New Roman" } }, [
-            _vm._v("Times New Roman")
+          _c("i", { staticClass: "material-icons" }, [
+            _vm._v("format_align_left")
           ])
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "pr-2 mb-2" }, [
-      _c("label", { staticClass: "label" }, [_vm._v("Font Size")]),
+        ])
+      ]),
       _vm._v(" "),
-      _c(
-        "select",
-        {
-          staticClass: "form-control",
-          domProps: { value: _vm.state.style.fontSize },
-          on: {
-            input: function($event) {
-              _vm.updateStyle("fontSize", arguments[0].target.value + "pt")
+      _c("div", { staticClass: "checkbox" }, [
+        _c("label", [
+          _c("input", {
+            attrs: { type: "checkbox" },
+            domProps: { checked: _vm.state.style.textAlign == "center" },
+            on: {
+              change: function($event) {
+                _vm.updateStyle("textAlign", "center")
+              }
             }
-          }
-        },
-        _vm._l(10, function(n) {
-          return _c(
-            "option",
-            { key: "fso" + n, domProps: { value: n * 2 + 4 } },
-            [_vm._v(_vm._s(n * 2 + 4) + " pt")]
-          )
-        })
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "pr-2 mb-2" }, [
-      _c("label", { staticClass: "label" }, [_vm._v("Line Spacing")]),
+          }),
+          _vm._v(" "),
+          _c("i", { staticClass: "material-icons" }, [
+            _vm._v("format_align_center")
+          ])
+        ])
+      ]),
       _vm._v(" "),
-      _c(
-        "select",
-        {
-          staticClass: "form-control",
-          domProps: { value: _vm.state.style.lineHeight },
-          on: {
-            input: function($event) {
-              _vm.updateStyle("lineHeight", arguments[0].target.value)
+      _c("div", { staticClass: "checkbox" }, [
+        _c("label", [
+          _c("input", {
+            attrs: { type: "checkbox" },
+            domProps: { checked: _vm.state.style.textAlign == "right" },
+            on: {
+              change: function($event) {
+                _vm.updateStyle("textAlign", "right")
+              }
             }
-          }
-        },
-        [
-          _c("option", { attrs: { value: "1em" } }, [_vm._v("Single Line")]),
+          }),
           _vm._v(" "),
-          _c("option", { attrs: { value: "1.25em" } }, [_vm._v("1.25")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "1.5em" } }, [_vm._v("1.5")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "2em" } }, [_vm._v("Double Line")])
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c("h5", [_vm._v("Alignment")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "checkbox" }, [
-      _c("label", [
-        _c("input", {
-          attrs: { type: "checkbox" },
-          domProps: { checked: _vm.state.style.textAlign == "left" },
-          on: {
-            change: function($event) {
-              _vm.updateStyle("textAlign", "left")
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("i", { staticClass: "material-icons" }, [
-          _vm._v("format_align_left")
+          _c("i", { staticClass: "material-icons" }, [
+            _vm._v("format_align_right")
+          ])
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "checkbox" }, [
-      _c("label", [
-        _c("input", {
-          attrs: { type: "checkbox" },
-          domProps: { checked: _vm.state.style.textAlign == "center" },
-          on: {
-            change: function($event) {
-              _vm.updateStyle("textAlign", "center")
-            }
+      ]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("h5", [_vm._v("Text Color")]),
+      _vm._v(" "),
+      _c("color", {
+        attrs: { mini: true, value: _vm.state.style.color },
+        on: {
+          input: function($event) {
+            _vm.updateStyle("color", arguments[0])
           }
-        }),
-        _vm._v(" "),
-        _c("i", { staticClass: "material-icons" }, [
-          _vm._v("format_align_center")
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "checkbox" }, [
-      _c("label", [
-        _c("input", {
-          attrs: { type: "checkbox" },
-          domProps: { checked: _vm.state.style.textAlign == "right" },
-          on: {
-            change: function($event) {
-              _vm.updateStyle("textAlign", "right")
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("i", { staticClass: "material-icons" }, [
-          _vm._v("format_align_right")
-        ])
-      ])
-    ])
-  ])
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -52209,6 +52226,10 @@ exports.push([module.i, ".medium-toolbar-arrow-under:after {\n  border-color: #2
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
 //
 //
 //

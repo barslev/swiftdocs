@@ -48,6 +48,10 @@
             <i class="material-icons">format_align_right</i>
         </label>
     </div>
+    <hr>
+    <h5>Text Color</h5>
+    <color :mini="true" :value="state.style.color" @input="updateStyle('color', arguments[0])" />      
+
   </div>
 </template>
 <script>
