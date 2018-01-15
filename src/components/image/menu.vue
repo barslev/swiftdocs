@@ -7,24 +7,24 @@
 
     <hr>
     <h5>Alignment</h5>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" :checked="state.align == 'left'" @change="updateAlignment('left')" />
-                        <i class="material-icons">format_align_left</i>
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" :checked="state.align == 'center'" @change="updateAlignment('center')" />
-                        <i class="material-icons">format_align_center</i>
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" :checked="state.align == 'right'" @change="updateAlignment('right')" />
-                        <i class="material-icons">format_align_right</i>
-                    </label>
-                </div>    
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" :checked="state.align == 'left'" @change="updateAlignment('left')" />
+            <i class="material-icons">format_align_left</i>
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" :checked="state.align == 'center'" @change="updateAlignment('center')" />
+            <i class="material-icons">format_align_center</i>
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" :checked="state.align == 'right'" @change="updateAlignment('right')" />
+            <i class="material-icons">format_align_right</i>
+        </label>
+    </div>    
 </div>
 </template>
 <script>
@@ -42,7 +42,7 @@ export default {
             this.readBase64Image()
                 .then((src) => {
                     this.$refs.file.value = ''
-                    this.state = updateElementState(this.id, {
+                    updateElementState(this.id, {
                         ...this.state,
                         src,
                     })
@@ -71,7 +71,7 @@ export default {
         },
 
         updateAlignment(align) {
-            this.state = updateElementState(this.id, {
+            updateElementState(this.id, {
                 ...this.state,
                 align: align
             })

@@ -24,6 +24,7 @@
     "cuid": "^2.0.2",
     "dragula": "^3.7.2",
     "lodash": "^4.17.4",
+    "medium-editor": "^5.23.3",
     "redux": "^3.7.2",
     "revue": "^3.0.0",
     "tailwindcss": "^0.4.0",

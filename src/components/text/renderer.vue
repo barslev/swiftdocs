@@ -1,8 +1,12 @@
 <template>
-  <p v-if="!inRenderMode" contenteditable :style="state.style" @blur="update"></p>
+  <p v-if="!inRenderMode" style="min-height:inherit !important" :style="state.style" @blur="update" v-html="state.text"></p>
   <compile v-else :template="state.text" :style="state.style"></compile>
 </template>
 <script>
+import 'medium-editor/dist/css/medium-editor.min.css'
+import 'medium-editor/dist/css/themes/default.css'
+
+import MediumEditor from 'medium-editor'
 import {getElementState, updateElementState} from '~/redux/actions/contents'
 
 const defaultState = {
@@ -17,33 +21,47 @@ const defaultState = {
 export default {
   props: ['id'],
   
-  data() {
-    return {
-      state: getElementState(this.id, defaultState)
-    }
-  },
+	data() {
+		return {
+			contents: this.$select('contents')
+		}
+	},
+	computed: {
+		state() {
+			const state = _.get(_.find(this.contents, {id: this.id}), 'state')
+			return !state ? defaultState : state
+		}
+	},
 
   watch: {
     inRenderMode(render) {
       if (!render) {
         Vue.nextTick(() => {
-          this.$el.innerHTML = this.state.text
+          this.activateEditor()
         })
       }
     }
   },
 
   mounted() {
-    this.$el.innerHTML = this.state.text
+    this.activateEditor()
   },
 
   methods: {
+    activateEditor() {
+      this.editor = new MediumEditor(this.$el, {
+        toolbar: {
+          buttons: ['bold', 'italic', 'underline', 'list-extension']
+        }
+      })
+      this.editor.pasteHTML(this.state.text)
+    },
     update(event) {
-      this.state = updateElementState(this.id, {
+      updateElementState(this.id, {
         ...this.state,
         text: event.target.innerHTML
       })
-    }
+    },
   }
 }
 </script>
