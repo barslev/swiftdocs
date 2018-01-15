@@ -1,10 +1,11 @@
 import Vue from 'vue'
-const dragula = require('dragula');
+import Revue from 'revue'
 import storage from '~/storage'
 import * as _ from '~/kernel/bootstrap'
 import {Registry} from '~/kernel/registry'
 import {DataSource} from '~/kernel/dataSource'
-import {insertContent, moveContent} from '~/redux/actions/contents'
+import activateDragDrop from '~/kernel/dragDrop'
+import storeFactory from '~/redux/stores/storeFactory'
 
 class SwiftDocs {
 
@@ -35,15 +36,20 @@ class SwiftDocs {
             .then(this._createVueApp)
     }
 
+    save() {
+        this.storage.persist(
+            this.documentId,
+            window.store.state
+        )
+    }
+
     /**
      * Receives null for new documents, object for existing ones
      * Boots the redux store with the given object so the editor displays the latest state of things.
      * @param {*} doc 
      */
     _bootDocument(doc) {
-        if (doc === null) {
-            // TODO: New document
-        }
+        window.store = new Revue(Vue, storeFactory(doc))        
     }
 
     /**
@@ -55,42 +61,8 @@ class SwiftDocs {
             i18n: require('~/localization'),
             router: require('~/kernel/router'),
             created() {
-                window.drake = dragula({
-                    revertOnSpill: true,
-                    copy(el, source) {
-                        return source.id == 'toolbar_components'
-                    },
-                    copySortSource: false,
-                    accepts(el, target, source, sibling) {
-                        return target.id !== 'toolbar_components'
-                    }
-                })
-                drake.on('drop', function (element, container, source, sibling) {
-                    drake.cancel();
-
-                    const elementId = element.getAttribute('data-id')
-                    const containerPageId = container.getAttribute('page-id')
-                    const containerId = container.getAttribute('container-id')
-                    const siblingId = sibling ? sibling.getAttribute('data-id') : null
-
-                    if (element.hasAttribute('data-id')) {
-                        // An already existing element got relocated
-                        return moveContent(
-                            element.getAttribute('data-id'),
-                            containerPageId,
-                            containerId,
-                            siblingId
-                        )
-                    }
-
-                    return insertContent(
-                        element.getAttribute('data-name'),
-                        containerPageId,
-                        containerId,
-                        siblingId
-                    )
-                });
-            }            
+                activateDragDrop()
+            }
         })
     }
 

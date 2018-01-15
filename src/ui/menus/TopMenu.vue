@@ -10,9 +10,14 @@
                 </dropdown-option>                    
                 </template>
                 <template v-if="!inRenderMode">
+                <dropdown-option @click.native="save()">
+                    <div class="flex items-center">
+                        <i class="material-icons mr-1 text-green">save</i> Save
+                    </div>
+                </dropdown-option>                    
                 <dropdown-option @click.native="">
                     <div class="flex items-center">
-                        <i class="material-icons mr-1 text-green">add</i> New Page
+                        <i class="material-icons mr-1 text-blue">add</i> New Page
                     </div>
                 </dropdown-option>
                 <dropdown-option @click.native="">
@@ -54,6 +59,11 @@ export default {
     created() {
         this.beginEditMode = beginEditMode
         this.beginRenderMode = beginRenderMode
+    },
+    methods: {
+        save() {
+            _swd.save()
+        }
     }
 }
 </script>

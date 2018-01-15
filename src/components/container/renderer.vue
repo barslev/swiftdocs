@@ -16,14 +16,20 @@ export default {
 	},
 	watch: {
 		contents() {
-			this.containerContents = this.contents.filter((content) => {
-				return content.container_id === this.id
-			})
+			this.updateContainerContents()
 		}
 	},
 	mounted() {
 		drake.containers.push(this.$refs.container)
 		// TODO: Remove from drake once it's unmounted
+		this.updateContainerContents()
+	},
+	methods: {
+		updateContainerContents() {
+			this.containerContents = this.contents.filter((content) => {
+				return content.container_id === this.id
+			})			
+		}		
 	}
 }
 </script>

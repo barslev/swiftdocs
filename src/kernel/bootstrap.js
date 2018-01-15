@@ -6,10 +6,7 @@ import VModal from 'vue-js-modal'
 import VueRouter from 'vue-router'
 import Notifications from 'vue-notification'
 
-import store from '~/redux/stores/defaultStore'
 window.Vue = Vue
-window.store = store
-
 window._ = require('lodash')
 
 Vue.use(VModal)
