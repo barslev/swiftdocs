@@ -1,0 +1,25 @@
+@media print {
+  @page {  
+      size:210mm 297mm;  
+      margin:0;
+  }
+  body * {
+    visibility: hidden;
+  }
+  .document {
+      border: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+  }
+  .document__page {
+      margin: 0 !important;
+      border: 0 !important;
+  }
+  .document, .document * {
+    visibility: visible;
+  }
+
+  .document__page-element.hovering::before, .document__page-element.selected::before {
+      display:none;
+  }
+}

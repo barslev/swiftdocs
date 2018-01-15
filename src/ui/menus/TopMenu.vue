@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed pin-x bg-grey-lightest px-4 py-2 border-b border-grey-light" style="z-index:2">
+    <div class="fixed pin-x pin-t bg-grey-lightest px-4 py-2 border-b border-grey-light" style="z-index:6">
         <div class="float-left">
             <dropdown-menu label="FILE">
                 <template v-if="inRenderMode">

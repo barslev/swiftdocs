@@ -13,6 +13,7 @@ html, body {
 @import './designer/modal';
 @import './designer/toolbar';
 @import './designer/dropdown';
+@import './designer/print';
 
 .material-icons {
 	font-size:16px;
@@ -31,11 +32,12 @@ html, body {
 }
 
 .document__page {
-	width: 210mm;
-	height: 297mm;
+	overflow: hidden;
 	background-color: #fff;
 	@apply .border;
 	margin-bottom:10mm;
+	margin-left: auto;
+	margin-right:auto;
 }
 
 .document__page_number {
@@ -56,7 +58,6 @@ html, body {
 
 .document__page > div > .document__page-container {
 	min-height: 100%;
-
 }
 
 .document__page-child-container {

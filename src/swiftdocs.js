@@ -40,7 +40,9 @@ class SwiftDocs {
         this.storage.persist(
             this.documentId,
             window.store.state
-        )
+        ).then(() => {
+            notifySuccess('Saved!', 'All changes saved')
+        })
     }
 
     /**

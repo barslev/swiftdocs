@@ -9,8 +9,9 @@
 
 		<top-menu></top-menu>
 		<left-menu></left-menu>
+		<right-menu></right-menu>
 
-		<div class="flex items-center justify-center">
+		<div>
 			<document />
 		</div>		
 	</div>
