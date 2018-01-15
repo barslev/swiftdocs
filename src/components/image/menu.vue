@@ -4,6 +4,27 @@
     <input ref="file" type="file" accepts="image/*" />
     <button class="mt-4 mr-1 p-2 bg-blue hover:bg-blue-light text-white text-xs font-bold uppercase" @click="update()">Update</button>
     <button class="mt-4 mr-1 p-2 bg-grey-darker hover:bg-grey-dark text-white text-xs font-bold uppercase" @click="remove()">Remove</button>
+
+    <hr>
+    <h5>Alignment</h5>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" :checked="state.align == 'left'" @change="updateAlignment('left')" />
+                        <i class="material-icons">format_align_left</i>
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" :checked="state.align == 'center'" @change="updateAlignment('center')" />
+                        <i class="material-icons">format_align_center</i>
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" :checked="state.align == 'right'" @change="updateAlignment('right')" />
+                        <i class="material-icons">format_align_right</i>
+                    </label>
+                </div>    
 </div>
 </template>
 <script>
@@ -11,14 +32,18 @@ import {getElementState, updateElementState} from '~/redux/actions/contents'
 
 export default {
     props: ['id'],
+    computed: {
+        state() {
+            return getElementState(this.id)
+        }
+    },
     methods: {
         update() {
             this.readBase64Image()
                 .then((src) => {
                     this.$refs.file.value = ''
-                    const state = getElementState(this.id)
-                    updateElementState(this.id, {
-                        ...state,
+                    this.state = updateElementState(this.id, {
+                        ...this.state,
                         src,
                     })
                 })
@@ -43,6 +68,13 @@ export default {
 
         remove() {
             updateElementState(this.id, null)
+        },
+
+        updateAlignment(align) {
+            this.state = updateElementState(this.id, {
+                ...this.state,
+                align: align
+            })
         }
     }
 }

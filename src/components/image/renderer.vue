@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div :class="'text-' + state.align">
 		<img :src="state.src" :style="state.style" />
 	</div>
 </template>
@@ -10,9 +10,10 @@ const defaultPhoto = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAIA
 
 const defaultState = {
 	src: defaultPhoto,
+	align: 'left',
 	style: {
-		width: 250 + 'px',
-		height: 200 + 'px'
+		width: 120 + 'px',
+		height: 100 + 'px'
 	}
 }
 

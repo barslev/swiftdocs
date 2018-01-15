@@ -17329,9 +17329,10 @@ const defaultPhoto = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAIA
 
 const defaultState = {
 	src: defaultPhoto,
+	align: 'left',
 	style: {
-		width: 250 + 'px',
-		height: 200 + 'px'
+		width: 120 + 'px',
+		height: 100 + 'px'
 	}
 };
 
@@ -43290,7 +43291,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { class: "text-" + _vm.state.align }, [
     _c("img", { style: _vm.state.style, attrs: { src: _vm.state.src } })
   ])
 }
@@ -43398,7 +43399,65 @@ var render = function() {
         }
       },
       [_vm._v("Remove")]
-    )
+    ),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("h5", [_vm._v("Alignment")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "checkbox" }, [
+      _c("label", [
+        _c("input", {
+          attrs: { type: "checkbox" },
+          domProps: { checked: _vm.state.align == "left" },
+          on: {
+            change: function($event) {
+              _vm.updateAlignment("left")
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("i", { staticClass: "material-icons" }, [
+          _vm._v("format_align_left")
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "checkbox" }, [
+      _c("label", [
+        _c("input", {
+          attrs: { type: "checkbox" },
+          domProps: { checked: _vm.state.align == "center" },
+          on: {
+            change: function($event) {
+              _vm.updateAlignment("center")
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("i", { staticClass: "material-icons" }, [
+          _vm._v("format_align_center")
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "checkbox" }, [
+      _c("label", [
+        _c("input", {
+          attrs: { type: "checkbox" },
+          domProps: { checked: _vm.state.align == "right" },
+          on: {
+            change: function($event) {
+              _vm.updateAlignment("right")
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("i", { staticClass: "material-icons" }, [
+          _vm._v("format_align_right")
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -43623,11 +43682,13 @@ if (false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_c8ff8ab0_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_menu_vue__ = __webpack_require__(164);
+var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = null
+
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -43638,13 +43699,29 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __vue_script__,
-  __vue_template__,
+  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_c8ff8ab0_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_menu_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
   __vue_module_identifier__
 )
 Component.options.__file = "src/components/grid/menu.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c8ff8ab0", Component.options)
+  } else {
+    hotAPI.reload("data-v-c8ff8ab0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
 
 /* harmony default export */ __webpack_exports__["default"] = (Component.exports);
 
@@ -43862,17 +43939,42 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     props: ['id'],
+    computed: {
+        state() {
+            return Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["getElementState"])(this.id);
+        }
+    },
     methods: {
         update() {
             this.readBase64Image().then(src => {
                 this.$refs.file.value = '';
-                const state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["getElementState"])(this.id);
-                Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, _extends({}, state, {
+                this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, _extends({}, this.state, {
                     src
                 }));
             }).catch(error => {
@@ -43896,9 +43998,44 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
         remove() {
             Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, null);
+        },
+
+        updateAlignment(align) {
+            this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, _extends({}, this.state, {
+                align: align
+            }));
         }
     }
 });
+
+/***/ }),
+/* 164 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h5", [_vm._v("Grid Menu")])])
+  }
+]
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c8ff8ab0", esExports)
+  }
+}
 
 /***/ })
 /******/ ]);
