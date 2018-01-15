@@ -17687,6 +17687,7 @@ const defaultState = {
   text: 'Text goes here',
   style: {
     fontSize: 12,
+    color: '#000000',
     fontFamily: 'Helvetica',
     lineHeight: '1.25em'
   }
@@ -17702,8 +17703,11 @@ const defaultState = {
   },
   computed: {
     state() {
-      const state = _.get(_.find(this.contents, { id: this.id }), 'state');
-      return !state ? defaultState : state;
+      let state = _.get(_.find(this.contents, { id: this.id }), 'state');
+      if (!state) {
+        state = Object(__WEBPACK_IMPORTED_MODULE_3__redux_actions_contents__["updateElementState"])(this.id, defaultState);
+      }
+      return state;
     }
   },
 
@@ -17775,8 +17779,11 @@ const defaultState = {
 	},
 	computed: {
 		state() {
-			const state = _.get(_.find(this.contents, { id: this.id }), 'state');
-			return !state ? defaultState : state;
+			let state = _.get(_.find(this.contents, { id: this.id }), 'state');
+			if (!state) {
+				state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, defaultState);
+			}
+			return state;
 		}
 	}
 });
@@ -40282,7 +40289,7 @@ var render = function() {
               [_vm._v("format_paint")]
             ),
             _vm._v(" "),
-            _c("div", [_vm._v("styling")])
+            _c("div", [_vm._v("element")])
           ]
         ),
         _vm._v(" "),

@@ -12,7 +12,7 @@
 		</a>
 		<a @click="openTab('styling')" :class="tab == 'styling' ? 'active' : ''">
 			<i class="material-icons" style="font-size:24px">format_paint</i>
-			<div>styling</div>
+			<div>element</div>
 		</a>
 
 		<a v-if="customTab" @click="openTab('custom')" :class="tab == 'custom' ? 'active' : ''">
