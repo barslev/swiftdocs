@@ -31,15 +31,8 @@
 		<toolbar-button icon="queue" @onClick="addPage()">Add New Page</toolbar-button>	
 	</div>
 	
-	<div class="toolbar-content" v-show="tab == 'components'">
-		<h5>Elements</h5>
-		<div id="toolbar_components" ref="components">
-			<toolbar-button
-				v-for="component in components"
-				:id="component.id"
-				:key="component.id"
-				:icon="component.icon">{{ component.label }}</toolbar-button>
-		</div>
+	<div class="toolbar-content" v-if="tab == 'components'">
+		<elements :components="components"></elements>
 	</div>
 
 	<div class="toolbar-content" v-show="tab == 'styling'">
@@ -47,7 +40,7 @@
 	</div>
 
 	<div class="toolbar-content" v-if="tab == 'custom'">
-		<div :is="customTab.component"></div>
+		<div :is="customTab.component" :id="selectedId"></div>
 	</div>	
 </div>
 </template>
@@ -56,9 +49,6 @@ import {addPage} from '~/redux/actions/pages'
 import {getSelectedContent} from '~/redux/actions/session'
 
 export default {
-	mounted() {
-		drake.containers.push(this.$refs.components)
-	},
 	data() {
 		return {
 			tab: 'layout',
@@ -80,16 +70,28 @@ export default {
 			this.tab = tab
 		},
 		updateCustomTab() {
-			const content = getSelectedContent()
+
+			if (!this.selectedId) {
+				return this.resetCustomTab('components')
+			}
 			
-			if (content == null) {
-				if(this.tab === 'custom') {
-					this.tab = 'layout'
-				}
-				this.customTab = null
+			const content = getSelectedContent()
+			const menu = _swd.registry.menu(content.element)
+
+			if (!menu) {
+				this.resetCustomTab()
+				this.openTab('styling') // This content has no custom menu. Go to styling.
 				return
 			}
-			this.customTab = _swd.registry.menu(content.element)
+
+			this.customTab = menu
+			this.openTab('custom')
+		},
+		resetCustomTab(go) {
+			if (go && this.tab == 'custom') {
+				this.tab = go
+			}
+			this.customTab = null
 		}
 	}
 }

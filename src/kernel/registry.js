@@ -20,6 +20,10 @@ export class Registry {
     menu(id) {
         const component = _.find(this.components, {id})
 
+        if (!component.menu) {
+            return null
+        }
+
         return {
             icon: component.icon,
             label: component.label,

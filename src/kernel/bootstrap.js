@@ -43,6 +43,7 @@ Vue.component('page-margins', require('~/ui/modals/PageMargins.vue').default)
 /**
  * Menus
  */
+Vue.component('elements', require('~/ui/menus/Elements.vue').default)
 Vue.component('top-menu', require('~/ui/menus/TopMenu.vue').default)
 Vue.component('page-menu', require('~/ui/menus/PageMenu.vue').default)
 Vue.component('left-menu', require('~/ui/menus/LeftMenu.vue').default)
