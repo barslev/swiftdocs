@@ -3,11 +3,5 @@ module.exports = {
     icon: 'text_fields',
     label: 'Text',
     renderer: require('./renderer.vue').default,
-    menus: [
-        {
-            id: 'typography',
-            label: 'Typography',
-            renderer: require('./typography.vue').default
-        }
-    ]
+    menu: require('./menu.vue').default,
 }

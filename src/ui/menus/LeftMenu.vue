@@ -15,6 +15,11 @@
 			<div>styling</div>
 		</a>
 
+		<a v-if="customTab" @click="openTab('custom')" :class="tab == 'custom' ? 'active' : ''">
+			<i class="material-icons" style="font-size:24px">{{ customTab.icon }}</i>
+			<div>{{ customTab.label }}</div>
+		</a>
+
 	</div>
 
 	<div class="toolbar-content" v-if="tab == 'layout'">
@@ -40,10 +45,15 @@
 	<div class="toolbar-content" v-show="tab == 'styling'">
 		<router-view></router-view>
 	</div>
+
+	<div class="toolbar-content" v-if="tab == 'custom'">
+		<div :is="customTab.component"></div>
+	</div>	
 </div>
 </template>
 <script>
 import {addPage} from '~/redux/actions/pages'
+import {getSelectedContent} from '~/redux/actions/session'
 
 export default {
 	mounted() {
@@ -52,7 +62,14 @@ export default {
 	data() {
 		return {
 			tab: 'layout',
-			components: _swd.registry.all()
+			customTab: null,
+			components: _swd.registry.all(),
+			selectedId: this.$select('session.selectedId as selectedId'),
+		}
+	},
+	watch: {
+		selectedId() {
+			return this.updateCustomTab()
 		}
 	},
 	methods: {
@@ -61,6 +78,18 @@ export default {
 		},
 		openTab(tab) {
 			this.tab = tab
+		},
+		updateCustomTab() {
+			const content = getSelectedContent()
+			
+			if (content == null) {
+				if(this.tab === 'custom') {
+					this.tab = 'layout'
+				}
+				this.customTab = null
+				return
+			}
+			this.customTab = _swd.registry.menu(content.element)
 		}
 	}
 }

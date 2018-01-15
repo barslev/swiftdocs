@@ -29,3 +29,8 @@ export function deselectContent() {
         type: 'SESSION_CONTENT_DESELECT'
     })
 }
+
+export function getSelectedContent() {
+    const id = store.state.session.selectedId
+    return id ? _.find(store.state.contents, {id}) : null
+}

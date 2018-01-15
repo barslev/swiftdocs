@@ -11,15 +11,20 @@ export class Registry {
     use(component) {
         this.components.push(component)
         this._registerComponentRenderer(component)
-        this._registerMenuComponents(component)
     }
 
     all() {
         return this.components
     }
 
-    menus(componentId) {
-        return this.menus[componentId]
+    menu(id) {
+        const component = _.find(this.components, {id})
+
+        return {
+            icon: component.icon,
+            label: component.label,
+            component: component.id + '-menu',
+        }
     }
 
     /**
@@ -27,20 +32,17 @@ export class Registry {
      */
 
     _registerComponentRenderer(component) {
-        Vue.component(component.id, component.renderer)
-    }
+        
+        Vue.component(
+            component.id,
+            component.renderer
+        )
 
-    _registerMenuComponents(component) {
-        const menus = _.get(component, 'menus', [])
-
-        if (this.menus[component.id] === undefined) {
-            this.menus[component.id] = []
+        if ('menu' in component) {
+            Vue.component(
+                component.id + '-menu',
+                component.menu
+            )
         }
-
-        _.each(menus, (menu) => {
-            let menuVueName = component.id + '-menus-' + menu.id
-            this.menus[component.id].push(menuVueName)
-            Vue.component(menuVueName, menu.renderer)
-        })
     }
 }
