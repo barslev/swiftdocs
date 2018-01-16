@@ -77,6 +77,7 @@ class SwiftDocs {
         this.registry.use(require('~/components/image'))
         this.registry.use(require('~/components/container'))
         this.registry.use(require('~/components/grid'))
+        this.registry.use(require('~/components/table'))
     }
 }
 

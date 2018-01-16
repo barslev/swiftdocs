@@ -6,6 +6,7 @@
 import 'medium-editor/dist/css/medium-editor.min.css'
 import 'medium-editor/dist/css/themes/default.css'
 
+import base from '~/components/base'
 import MediumEditor from 'medium-editor'
 import {getElementState, updateElementState} from '~/redux/actions/contents'
 
@@ -15,27 +16,16 @@ const defaultState = {
     fontSize: 12,
     color: '#000000',
     fontFamily: 'Helvetica',
-    lineHeight: '1.25em'
+    lineHeight: '1.25em',
+    textAlign: 'left'
   }
 }
 
+
+
 export default {
-  props: ['id'],
-  
-	data() {
-		return {
-			contents: this.$select('contents')
-		}
-	},
-	computed: {
-		state() {
-      let state = _.get(_.find(this.contents, {id: this.id}), 'state')
-      if (!state) {
-        state = updateElementState(this.id, defaultState)
-      }
-			return state
-		}
-	},
+
+  extends: base(defaultState),
 
   watch: {
     inRenderMode(render) {

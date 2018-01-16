@@ -12,17 +12,22 @@ select.form-control:after {
 }
 
 .btn-default {
-    @apply .bg-grey .text-white .font-bold .py-2 .px-4 .rounded;
+    @apply .mr-1 .p-2 .bg-grey-darker .text-white .text-xs .font-bold .uppercase;
 }
 
 .btn-default:hover {
-    @apply .bg-grey-dark .text-white .font-bold .py-2 .px-4 .rounded;
+    @apply .bg-grey-dark;
 }
 
 .btn-primary {
-    @apply .bg-blue .text-white .font-bold .py-2 .px-4 .rounded;
+    @apply .mt-4 .mr-1 .p-2 .bg-blue .text-white .text-xs .font-bold .uppercase;
 }
 
 .btn-primary:hover {
-    @apply .bg-blue-dark;
+    @apply .bg-blue-light;
+}
+
+.btn-default > i {
+    float: left;
+    margin-top:-2px;
 }

@@ -1,0 +1,13 @@
+table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+table td {
+    margin: 0;
+    padding: 0;
+}
+
+.editMode table td {
+    border: 1px dashed #b4b4b4;
+}

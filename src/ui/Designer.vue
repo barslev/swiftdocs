@@ -1,5 +1,5 @@
 <template>
-	<div :class="inRenderMode ? 'renderMode' : ''">
+	<div :class="inRenderMode ? 'renderMode' : 'editMode'">
 		<notifications position="bottom right"></notifications>
 		<!-- modals -->
 		<page-size></page-size>

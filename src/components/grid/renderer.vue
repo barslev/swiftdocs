@@ -7,11 +7,11 @@
 import {insertContent} from '~/redux/actions/contents'
 
 export default {
-    props: ['id', 'pageId'],
+  props: ['id', 'pageId'],
 	data() {
 		return {
-            panes: [],
-            contents: this.$select('contents')
+				panes: [],
+				contents: this.$select('contents')
 		}
 	},
 	watch: {

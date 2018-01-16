@@ -1,6 +1,6 @@
 module.exports = {
     id: 'd-grid',
-    icon: 'grid_on',
+    icon: 'view_column',
     label: 'Grid',
     renderer: require('./renderer.vue').default,
     menu: require('./menu.vue').default

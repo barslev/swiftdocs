@@ -17,7 +17,7 @@ export class DataSource
         throw new Error('Can\'t recognize the type of data source.')
     }
 
-    _useHttpSource() {
+    _useHttpSource(url, axios) {
         this.url = url
         this.axios = axios
         this.refresh()

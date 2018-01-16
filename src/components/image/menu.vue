@@ -2,8 +2,8 @@
 <div>
     <h5>Select Image</h5>
     <input ref="file" type="file" accepts="image/*" />
-    <button class="mt-4 mr-1 p-2 bg-blue hover:bg-blue-light text-white text-xs font-bold uppercase" @click="update()">Update</button>
-    <button class="mt-4 mr-1 p-2 bg-grey-darker hover:bg-grey-dark text-white text-xs font-bold uppercase" @click="remove()">Remove</button>
+    <button class="btn-primary" @click="update()">Update</button>
+    <button class="btn-default" @click="remove()">Remove</button>
 
     <hr>
     <h5>Alignment</h5>

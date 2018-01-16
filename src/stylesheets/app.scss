@@ -14,6 +14,7 @@ html, body {
 @import './designer/toolbar';
 @import './designer/dropdown';
 @import './designer/print';
+@import './designer/table';
 
 .material-icons {
 	font-size:16px;
@@ -25,11 +26,11 @@ html, body {
 
 .document {
 	margin-top:80px;
-	margin-left:300px;
 }
 
-.renderMode .document {
-	margin-left:0;
+.editMode .document {
+	
+	margin-left:330px;
 }
 
 .document h2 {

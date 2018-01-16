@@ -82,6 +82,10 @@ export function updateElementState(id, state) {
     return getElementState(id)
 }
 
+export function findContent(id) {
+    return _.find(store.state.contents, {id})
+}
+
 export function getElementState(id, defaultState) {
-    return _.get(_.find(store.state.contents, {id}), 'state', defaultState)
+    return _.get(findContent(id), 'state', defaultState)
 }

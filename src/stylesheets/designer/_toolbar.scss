@@ -20,7 +20,7 @@
 }
 
 .toolbar-content {
-    width:220px;
+    width:250px;
     @apply .p-4;
 }
 
@@ -97,7 +97,7 @@
 
 .toolbar input, .toolbar input.form-control, .toolbar input:focus, .toolbar input:active {
     outline: none;
-    @apply .appearance-none .bg-transparent .border-none .border-b .border-grey-light .w-full .text-grey-darker .text-sm .shadow-none;
+    @apply .appearance-none .bg-transparent .border-b .border-grey-light .w-full .text-grey-darker .text-sm .shadow-none;
 }
 
 .toolbar .checkbox {

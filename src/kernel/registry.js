@@ -9,8 +9,13 @@ export class Registry {
     }
 
     use(component) {
-        this.components.push(component)
-        this._registerComponentRenderer(component)
+        if (_.isArray(component)) {
+            _.each(component, (c) => {
+                this._registerComponent(c)
+            })
+            return
+        }
+        this._registerComponent(component)
     }
 
     all() {
@@ -35,7 +40,9 @@ export class Registry {
      * Private Methods
      */
 
-    _registerComponentRenderer(component) {
+    _registerComponent(component) {
+
+        this.components.push(component)
         
         Vue.component(
             component.id,
