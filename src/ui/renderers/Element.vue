@@ -4,6 +4,7 @@
         :class="[element.id == selectedId ? 'selected' : '', 'element__' + element.element]"
         :id="element.id"
         :data-id="element.id"
+		:context="context"
         :page-id="element.page_id"
         @click.native="click"
         @mouseover.native="mouseOver"
@@ -12,7 +13,7 @@
 </template>
 <script>
 export default {
-    props: ['element'],
+    props: ['element', 'context'],
     data() {
         return {
 			styles: this.$select('styles'),

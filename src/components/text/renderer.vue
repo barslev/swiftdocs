@@ -1,6 +1,6 @@
 <template>
   <p v-if="!inRenderMode" style="min-height:inherit !important" :style="state.style" @blur="update" v-html="state.text"></p>
-  <compile v-else :template="state.text" :style="state.style"></compile>
+  <compile v-else :template="state.text" :style="state.style" :context="context"></compile>
 </template>
 <script>
 import 'medium-editor/dist/css/medium-editor.min.css'
@@ -21,8 +21,6 @@ const defaultState = {
   }
 }
 
-
-
 export default {
 
   extends: base(defaultState),
@@ -38,7 +36,9 @@ export default {
   },
 
   mounted() {
-    this.activateEditor()
+    if (!this.inRenderMode) {
+      this.activateEditor()
+    }
   },
 
   methods: {

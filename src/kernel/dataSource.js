@@ -3,6 +3,7 @@ export class DataSource
     constructor()
     {
         this.busy = true
+        this.context = {}
         this.refresh = this.refresh.bind(this)
     }
 

@@ -2,7 +2,7 @@
 	<div>
 		<div class="document__page" :style="pageCss" @click="selectPage()">
 			<div :style="marginCss">
-				<container :id="page.id" :root="true"></container>
+				<container :id="page.id" :root="true" :context="page.context"></container>
 			</div>
 		</div>
 	</div>

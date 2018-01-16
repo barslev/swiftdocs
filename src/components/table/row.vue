@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td v-for="(cell, i) in cells" :key="i">
-            <el :element="cell" />            
+            <el :element="cell" :context="context" />            
         </td>
     </tr>
 </template>

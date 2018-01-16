@@ -2,12 +2,13 @@
 	<div class="document__page-container" :container-id="id" ref="container" :page-id="root ? id : null" :class="root ? '' : 'document__page-child-container'">
 		<el v-for="element in containerContents"
 			:key="element.id"
+			:context="context"
 			:element="element" />
 	</div>
 </template>
 <script>
 export default {
-	props: ['id', 'root'],
+	props: ['id', 'root', 'context'],
 	data() {
 		return {
 			containerContents: [],

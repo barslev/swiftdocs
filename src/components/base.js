@@ -2,7 +2,7 @@ import { getElementState, updateElementState } from '~/redux/actions/contents'
 
 export default function(defaultState) {
     return {
-        props: ['id'],
+        props: ['id', 'context'],
         data() {
             return {
                 contents: this.$select('contents')
