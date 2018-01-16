@@ -32,9 +32,14 @@ import {getElementState, updateElementState} from '~/redux/actions/contents'
 
 export default {
     props: ['id'],
-    computed: {
-        state() {
-            return getElementState(this.id)
+    watch: {
+        id() {
+            this.state = getElementState(this.id)
+        }
+    },
+    data() {
+        return {
+            state: getElementState(this.id)
         }
     },
     methods: {
@@ -42,7 +47,7 @@ export default {
             this.readBase64Image()
                 .then((src) => {
                     this.$refs.file.value = ''
-                    updateElementState(this.id, {
+                    this.state = updateElementState(this.id, {
                         ...this.state,
                         src,
                     })
@@ -67,11 +72,11 @@ export default {
         },
 
         remove() {
-            updateElementState(this.id, null)
+            this.state = updateElementState(this.id, null)
         },
 
         updateAlignment(align) {
-            updateElementState(this.id, {
+            this.state = updateElementState(this.id, {
                 ...this.state,
                 align: align
             })

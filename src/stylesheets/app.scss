@@ -78,17 +78,18 @@ html, body {
 }
 
 .document__page-element {
-	margin-bottom:5px;
 	z-index: 5;
+	position:relative;
 }
 
-.document__page-element:hover {
+.editMode .document__page-element:hover {
   cursor:pointer;
 }
 
-.document__page-element.hovering::before, .document__page-element.selected::before {
+.editMode .document__page-element.hovering:after, .editMode .document__page-element.selected:after {
   content: " ";
   position: absolute;
+  display: block;
   z-index: 1;
   top: 0px;
   left: 0px;
@@ -98,10 +99,9 @@ html, body {
   background-color: transparent;
 }
 
-.document__page-element.selected::before {
+.editMode .document__page-element.selected:after {
 	border: 1px solid #65B1C9;
 }
-
 .element__photo {
 	text-align: center;
 }

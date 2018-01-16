@@ -13,7 +13,7 @@ import {getElementState, updateElementState} from '~/redux/actions/contents'
 const defaultState = {
   text: 'Text goes here',
   style: {
-    fontSize: 12,
+    fontSize: '12pt',
     color: '#000000',
     fontFamily: 'Helvetica',
     lineHeight: '1.25em',
@@ -48,7 +48,7 @@ export default {
           buttons: ['bold', 'italic', 'underline', 'list-extension']
         }
       })
-      this.editor.pasteHTML(this.state.text)
+      this.editor.pasteHTML('test')
     },
     update(event) {
       updateElementState(this.id, {

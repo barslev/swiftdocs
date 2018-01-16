@@ -13,8 +13,8 @@
 
     <div class="pr-2 mb-2">
       <label class="label">Font Size</label>
-      <select class="form-control" :value="state.style.fontSize" @input="updateStyle('fontSize', arguments[0].target.value + 'pt')">
-          <option v-for="n in 10" :key="'fso' + n" :value="((n*2 + 4))">{{ (n*2 + 4) }} pt</option>
+      <select class="form-control" :value="state.style.fontSize" @input="updateStyle('fontSize', arguments[0].target.value)">
+          <option v-for="n in 10" :key="'fso' + n" :value="((n*2 + 4)) + 'pt'">{{ (n*2 + 4) }} pt</option>
       </select>
     </div>
 
@@ -42,6 +42,12 @@
             <i class="material-icons">format_align_center</i>
         </label>
     </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" :checked="state.style.textAlign == 'justify'" @change="updateStyle('textAlign', 'justify')" />
+            <i class="material-icons">format_align_justify</i>
+        </label>
+    </div>    
     <div class="checkbox">
         <label>
             <input type="checkbox" :checked="state.style.textAlign == 'right'" @change="updateStyle('textAlign', 'right')" />

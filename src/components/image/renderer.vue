@@ -14,7 +14,6 @@ const defaultState = {
 	align: 'left',
 	style: {
 		width: 120 + 'px',
-		height: 100 + 'px'
 	}
 }
 

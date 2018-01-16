@@ -20,6 +20,11 @@ export default {
         'mini',
         'value',
     ],
+    watch: {
+        value() {
+            this.color = this.value
+        }
+    },
     components: {
         sketch: VueColor.Sketch
     },
