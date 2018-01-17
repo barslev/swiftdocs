@@ -29,6 +29,7 @@ Vue.component('page-scope', require('~/ui/tools/PageScope.vue').default)
 Vue.component('toolbar-button', require('~/ui/tools/Button.vue').default)
 Vue.component('dropdown-menu', require('~/ui/tools/DropdownMenu.vue').default)
 Vue.component('dropdown-option', require('~/ui/tools/DropdownOption.vue').default)
+Vue.component('document-title', require('~/ui/tools/DocumentTitle.vue').default)
 
 /**
  * Toolbar items

@@ -25,7 +25,7 @@
         </div>
 
         <div class="float-left">
-            <h4 class="mt-2">Untitled Document</h4>
+            <document-title></document-title>
         </div>
         
         <div class="float-right">
