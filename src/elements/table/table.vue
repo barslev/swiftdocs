@@ -12,7 +12,7 @@
     </div>
 </template>
 <script>
-import base from '~/components/base'
+import base from '~/elements/base'
 import { findLoopById } from '~/redux/actions/logic'
 
 export default {

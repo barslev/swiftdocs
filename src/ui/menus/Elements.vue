@@ -1,24 +1,24 @@
 <template>
     <div>
 		<h5>Elements</h5>
-		<div id="toolbar_components" ref="components">
+		<div id="toolbar_elements" ref="elements">
 			<toolbar-button
-				v-for="component in components"
-                v-if="!component.hidden"
-				:id="component.id"
-				:key="component.id"
-				:icon="component.icon">{{ component.label }}</toolbar-button>
+				v-for="element in elements"
+                v-if="!element.hidden"
+				:id="element.id"
+				:key="element.id"
+				:icon="element.icon">{{ element.label }}</toolbar-button>
 		</div>
     </div>
 </template>
 <script>
 export default {
-    props: ['components'],
+    props: ['elements'],
     mounted() {
-        drake.containers.push(this.$refs.components)
+        drake.containers.push(this.$refs.elements)
     },
     beforeDestroy() {
-        const index = drake.containers.indexOf(this.$refs.components)
+        const index = drake.containers.indexOf(this.$refs.elements)
         
         if (index >= 0) {
             drake.containers.splice(index, 1)

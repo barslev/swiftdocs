@@ -4,7 +4,7 @@
 	</div>
 </template>
 <script>
-import base from '~/components/base'
+import base from '~/elements/base'
 import placeholder from './placeholder'
 import {getElementState, updateElementState} from '~/redux/actions/contents'
 

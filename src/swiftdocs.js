@@ -18,10 +18,10 @@ class SwiftDocs {
 
         this._bootDocument = this._bootDocument.bind(this)
         this._createVueApp = this._createVueApp.bind(this)
-        this._useDefaultDesignComponents = this._useDefaultDesignComponents.bind(this)
+        this._useDefaultDesignElements = this._useDefaultDesignElements.bind(this)
 
         // Register default design components
-        this._useDefaultDesignComponents()
+        this._useDefaultDesignElements()
         // Make this instance globally accessible
         window._swd = this
     }
@@ -73,12 +73,12 @@ class SwiftDocs {
         })
     }
 
-    _useDefaultDesignComponents() {
-        this.registry.use(require('~/components/text'))
-        this.registry.use(require('~/components/image'))
-        this.registry.use(require('~/components/container'))
-        this.registry.use(require('~/components/grid'))
-        this.registry.use(require('~/components/table'))
+    _useDefaultDesignElements() {
+        this.registry.use(require('~/elements/text'))
+        this.registry.use(require('~/elements/image'))
+        this.registry.use(require('~/elements/container'))
+        this.registry.use(require('~/elements/grid'))
+        this.registry.use(require('~/elements/table'))
     }
 }
 

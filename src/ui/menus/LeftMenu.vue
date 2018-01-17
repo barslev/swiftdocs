@@ -6,9 +6,9 @@
 			<i class="material-icons" style="font-size:24px">assignment</i>
 			<div>Page Layout</div>
 		</a>		
-		<a @click="openTab('components')" :class="tab == 'components' ? 'active' : ''">
+		<a @click="openTab('elements')" :class="tab == 'elements' ? 'active' : ''">
 			<i class="material-icons" style="font-size:24px">layers</i>
-			<div>components</div>
+			<div>elements</div>
 		</a>
 		<a @click="openTab('styling')" :class="tab == 'styling' ? 'active' : ''">
 			<i class="material-icons" style="font-size:24px">format_paint</i>
@@ -30,8 +30,8 @@
 		<toolbar-button icon="queue" @onClick="addPage()">Add New Page</toolbar-button>	
 	</div>
 	
-	<div class="toolbar-content" v-if="tab == 'components'">
-		<elements :components="components"></elements>
+	<div class="toolbar-content" v-if="tab == 'elements'">
+		<elements :elements="elements"></elements>
 	</div>
 
 	<div class="toolbar-content" v-show="tab == 'styling'">
@@ -39,7 +39,7 @@
 	</div>
 
 	<div class="toolbar-content" v-if="tab == 'custom'">
-		<div :is="customTab.component" :id="selectedId"></div>
+		<div :is="customTab.element" :id="selectedId"></div>
 	</div>	
 </div>
 </template>
@@ -52,7 +52,7 @@ export default {
 		return {
 			tab: 'layout',
 			customTab: null,
-			components: _swd.registry.all(),
+			elements: _swd.registry.all(),
 			selectedId: this.$select('session.selectedId as selectedId'),
 		}
 	},
@@ -71,7 +71,7 @@ export default {
 		updateCustomTab() {
 
 			if (!this.selectedId) {
-				return this.resetCustomTab('components')
+				return this.resetCustomTab('elements')
 			}
 			
 			const content = getSelectedContent()

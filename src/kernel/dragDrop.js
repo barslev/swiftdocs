@@ -9,11 +9,11 @@ export default function () {
     window.drake = dragula({
         revertOnSpill: true,
         copy(el, source) {
-            return source.id == 'toolbar_components'
+            return source.id == 'toolbar_elements'
         },
         copySortSource: false,
         accepts(el, target, source, sibling) {
-            return target.id !== 'toolbar_components'
+            return target.id !== 'toolbar_elements'
         }
     })
     drake.on('drop', function (element, container, source, sibling) {

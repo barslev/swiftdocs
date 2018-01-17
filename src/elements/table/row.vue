@@ -6,7 +6,7 @@
     </tr>
 </template>
 <script>
-import base from '~/components/base'
+import base from '~/elements/base'
 
 export default {
     extends: base,

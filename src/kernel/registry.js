@@ -5,36 +5,36 @@ export class Registry {
     constructor() {
         this.menus = {}
         this.languages = []
-        this.components = []
+        this.elements = []
         this.defaultStates = {}
         this.defaultStyles = {}
     }
 
-    use(component) {
-        if (_.isArray(component)) {
-            _.each(component, (c) => {
-                this._registerComponent(c)
+    use(element) {
+        if (_.isArray(element)) {
+            _.each(element, (c) => {
+                this._registerElement(c)
             })
             return
         }
-        this._registerComponent(component)
+        this._registerElement(element)
     }
 
     all() {
-        return this.components
+        return this.elements
     }
 
     menu(id) {
-        const component = _.find(this.components, {id})
+        const element = _.find(this.elements, {id})
 
-        if (!component.menu) {
+        if (!element.menu) {
             return null
         }
 
         return {
-            icon: component.icon,
-            label: component.label,
-            component: component.id + '-menu',
+            icon: element.icon,
+            label: element.label,
+            element: element.id + '-menu',
         }
     }
 
@@ -50,40 +50,40 @@ export class Registry {
      * Private Methods
      */
 
-    _registerComponent(component) {
+    _registerElement(element) {
 
-        this.components.push(component)
-        this._putDefaultState(component)
-        this._putDefaultStyle(component)
-        this._registerComponentMenu(component)
-        this._registerComponentRenderer(component)
+        this.elements.push(element)
+        this._putDefaultState(element)
+        this._putDefaultStyle(element)
+        this._registerElementMenu(element)
+        this._registerElementRenderer(element)
     }
 
-    _registerComponentRenderer(component) {
+    _registerElementRenderer(element) {
         Vue.component(
-            component.id,
-            component.renderer
+            element.id,
+            element.renderer
         )
     }
 
-    _registerComponentMenu(component) {
-        if('menu' in component) {
+    _registerElementMenu(element) {
+        if('menu' in element) {
             Vue.component(
-                component.id + '-menu',
-                component.menu
+                element.id + '-menu',
+                element.menu
             )
         }
     }
 
-    _putDefaultState(component) {
-        if('defaultState' in component) {
-            this.defaultStates[component.id] = component.defaultState
+    _putDefaultState(element) {
+        if('defaultState' in element) {
+            this.defaultStates[element.id] = element.defaultState
         }
     }
 
-    _putDefaultStyle(component) {
-        if ('defaultStyle' in component) {
-            this.defaultStyles[component.id] = component.defaultStyle
+    _putDefaultStyle(element) {
+        if ('defaultStyle' in element) {
+            this.defaultStyles[element.id] = element.defaultStyle
         }
     }    
 }

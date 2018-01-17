@@ -6,7 +6,7 @@
 import 'medium-editor/dist/css/medium-editor.min.css'
 import 'medium-editor/dist/css/themes/default.css'
 
-import base from '~/components/base'
+import base from '~/elements/base'
 import MediumEditor from 'medium-editor'
 import {getElementState, updateElementState} from '~/redux/actions/contents'
 

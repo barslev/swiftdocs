@@ -12,7 +12,7 @@ export default {
             const vm = new Vue({
                 data: {..._swd.dataSource.data, ...this.context},
                 template: '<div>' + this.template + '</div>',
-                // add data that the component needs as well ...
+                // add data that the element needs as well ...
             })
             vm.$mount(el)
         
