@@ -21,6 +21,9 @@ export default {
 	watch: {
 		inRenderMode() {
 			this.refreshPages()
+		},
+		pages() {
+			this.refreshPages()
 		}
 	},
 	mounted() {
@@ -28,8 +31,6 @@ export default {
 			addPage()
 		}
 		this.refreshPages()
-		addPageLoop('cjcgzrl980000ue,_glgrwzob', 'analytes', 'analyte')
-		addPageLoop('cjch060xv000bue,_73bqfpcj', 'analyte.result.resultList', 'result')
 	},
 	
 	methods: {
