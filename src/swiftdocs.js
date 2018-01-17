@@ -19,6 +19,11 @@ class SwiftDocs {
         this._bootDocument = this._bootDocument.bind(this)
         this._createVueApp = this._createVueApp.bind(this)
         this._useDefaultDesignComponents = this._useDefaultDesignComponents.bind(this)
+
+        // Register default design components
+        this._useDefaultDesignComponents()
+        // Make this instance globally accessible
+        window._swd = this
     }
 
     /**
@@ -26,11 +31,7 @@ class SwiftDocs {
      * After you configure your instance
      */
     start() {
-        // Make this instance globally accessible
-        window._swd = this
         // TODO: Show document loading progress
-        this._useDefaultDesignComponents()
-        
         this.storage.load(this.documentId)
             .then(this._bootDocument)
             .then(this._createVueApp)
