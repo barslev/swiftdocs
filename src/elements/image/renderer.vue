@@ -1,6 +1,6 @@
 <template>
 	<div :class="'text-' + state.align">
-		<img :src="photoSrc" :style="style" />
+		<img :src="photoSrc" :width="state.width" :height="state.height" />
 	</div>
 </template>
 <script>
@@ -17,19 +17,6 @@ export default {
 			  return this.state.src
 		  }
 		  return placeholder
-	  },
-	  style() {
-		  const style = {}
-
-		  if ('width' in this.state) {
-			  style.width = this.state.width + 'px'
-		  }
-
-		  if ('height' in this.state) {
-			  style.height = this.state.height + 'px'
-		  }
-		  
-		  return style
 	  }
   }
 }

@@ -10,11 +10,11 @@
     <div class="flex flex-wrap">
         <div class="md:w-1/2 pr-2 mb-2">
             <label>Width</label>
-            <input type="text" :value="state.width" @input="updateStyle('width', arguments[0].target.value)" />
+            <input type="text" :value="state.width" @input="updateWidth(arguments[0].target.value)" />
         </div>
         <div class="md:w-1/4 pr-2 mb-2">
             <label>Height</label>
-            <input type="text" :value="state.height" @input="updateStyle('height', arguments[0].target.value)" />
+            <input type="text" :value="state.height" @input="updateHeight(arguments[0].target.value)" />
         </div>
     </div>
 
@@ -89,15 +89,13 @@ export default {
             this.state = updateElementState(this.id, {align})
         },
 
-        updateStyle(key, value) {
-            const updatedStyle = {
-                ...this.state.style,
-                [key]: value
-            }
-            this.state = updateElementState(this.id, {
-                style: updatedStyle
-            })
-        }
+        updateWidth(width) {
+            this.state = updateElementState(this.id, {width})
+        },
+
+        updateHeight(height) {
+            this.state = updateElementState(this.id, {height})
+        },        
     }
 }
 </script>

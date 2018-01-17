@@ -15164,19 +15164,6 @@ function compose() {
 				return this.state.src;
 			}
 			return __WEBPACK_IMPORTED_MODULE_1__placeholder___default.a;
-		},
-		style() {
-			const style = {};
-
-			if ('width' in this.state) {
-				style.width = this.state.width + 'px';
-			}
-
-			if ('height' in this.state) {
-				style.height = this.state.height + 'px';
-			}
-
-			return style;
 		}
 	}
 });
@@ -15188,8 +15175,6 @@ function compose() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 //
 //
 //
@@ -15279,13 +15264,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, { align });
         },
 
-        updateStyle(key, value) {
-            const updatedStyle = _extends({}, this.state.style, {
-                [key]: value
-            });
-            this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, {
-                style: updatedStyle
-            });
+        updateWidth(width) {
+            this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, { width });
+        },
+
+        updateHeight(height) {
+            this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, { height });
         }
     }
 });
@@ -48632,7 +48616,7 @@ module.exports = {
         src: null,
         align: 'left',
         width: 120,
-        height: null
+        height: 120
     }
 };
 
@@ -48711,7 +48695,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { class: "text-" + _vm.state.align }, [
-    _c("img", { style: _vm.style, attrs: { src: _vm.photoSrc } })
+    _c("img", {
+      attrs: {
+        src: _vm.photoSrc,
+        width: _vm.state.width,
+        height: _vm.state.height
+      }
+    })
   ])
 }
 var staticRenderFns = []
@@ -48831,7 +48821,7 @@ var render = function() {
           domProps: { value: _vm.state.width },
           on: {
             input: function($event) {
-              _vm.updateStyle("width", arguments[0].target.value)
+              _vm.updateWidth(arguments[0].target.value)
             }
           }
         })
@@ -48845,7 +48835,7 @@ var render = function() {
           domProps: { value: _vm.state.height },
           on: {
             input: function($event) {
-              _vm.updateStyle("height", arguments[0].target.value)
+              _vm.updateHeight(arguments[0].target.value)
             }
           }
         })

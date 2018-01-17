@@ -9,6 +9,6 @@ module.exports = {
         src: null,
         align: 'left',
         width: 120,
-        height: null,
+        height: 120,
     },
 }
