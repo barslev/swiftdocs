@@ -4,6 +4,7 @@
 		<div id="toolbar_components" ref="components">
 			<toolbar-button
 				v-for="component in components"
+                v-if="!component.hidden"
 				:id="component.id"
 				:key="component.id"
 				:icon="component.icon">{{ component.label }}</toolbar-button>

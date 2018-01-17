@@ -16231,7 +16231,7 @@ module.exports = function(module) {
 			return {
 				background: this.page.color,
 				width: this.page.dimensions.width + 'mm',
-				minHeight: this.page.dimensions.height + 'mm'
+				height: this.page.dimensions.height + 'mm'
 			};
 		},
 		marginCss() {
@@ -16295,8 +16295,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_pages__["addPage"])();
 		}
 		this.refreshPages();
-		Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_logic__["addPageLoop"])('cjcgzrl980000ue,_glgrwzob', 'analytes', 'analyte');
-		Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_logic__["addPageLoop"])('cjch060xv000bue,_73bqfpcj', 'analyte.result.res', 'r');
 	},
 
 	methods: {
@@ -16937,6 +16935,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+//
 //
 //
 //
@@ -18500,7 +18499,10 @@ var SwiftDocs = function () {
         this._createVueApp = this._createVueApp.bind(this);
         this._useDefaultDesignComponents = this._useDefaultDesignComponents.bind(this);
 
+        // Register default design components
         this._useDefaultDesignComponents();
+        // Make this instance globally accessible
+        window._swd = this;
     }
 
     /**
@@ -18512,11 +18514,7 @@ var SwiftDocs = function () {
     _createClass(SwiftDocs, [{
         key: 'start',
         value: function start() {
-            // Make this instance globally accessible
-            window._swd = this;
             // TODO: Show document loading progress
-
-
             this.storage.load(this.documentId).then(this._bootDocument).then(this._createVueApp);
         }
     }, {
@@ -40283,14 +40281,16 @@ var render = function() {
       "div",
       { ref: "components", attrs: { id: "toolbar_components" } },
       _vm._l(_vm.components, function(component) {
-        return _c(
-          "toolbar-button",
-          {
-            key: component.id,
-            attrs: { id: component.id, icon: component.icon }
-          },
-          [_vm._v(_vm._s(component.label))]
-        )
+        return !component.hidden
+          ? _c(
+              "toolbar-button",
+              {
+                key: component.id,
+                attrs: { id: component.id, icon: component.icon }
+              },
+              [_vm._v(_vm._s(component.label))]
+            )
+          : _vm._e()
       })
     )
   ])
