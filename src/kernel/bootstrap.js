@@ -3,7 +3,6 @@ import '~/stylesheets/app.scss'
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import VModal from 'vue-js-modal'
-import VueRouter from 'vue-router'
 import Notifications from 'vue-notification'
 
 window.Vue = Vue
@@ -11,7 +10,6 @@ window._ = require('lodash')
 
 Vue.use(VModal)
 Vue.use(VueI18n)
-Vue.use(VueRouter)
 Vue.use(Notifications)
 
 /**
@@ -43,11 +41,8 @@ Vue.component('page-margins', require('~/ui/modals/PageMargins.vue').default)
 /**
  * Menus
  */
-Vue.component('elements', require('~/ui/menus/Elements.vue').default)
 Vue.component('top-menu', require('~/ui/menus/TopMenu.vue').default)
-Vue.component('page-menu', require('~/ui/menus/PageMenu.vue').default)
 Vue.component('left-menu', require('~/ui/menus/LeftMenu.vue').default)
-Vue.component('right-menu', require('~/ui/menus/RightMenu.vue').default)
 
 // Mix-ins
 Vue.mixin({

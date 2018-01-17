@@ -4,19 +4,19 @@
         <div class="flex flex-wrap">
             <div class="md:w-1/4 pr-2 mb-2">
                 <label>Top</label>
-                <input type="text" :value="contentStyles.marginTop" @input="updateValue('marginTop', arguments[0])" />
+                <input type="text" :value="styles.marginTop" @input="updateValue('marginTop', arguments[0])" />
             </div>
             <div class="md:w-1/4 pr-2 mb-2">
                 <label>Bottom</label>
-                <input type="text" :value="contentStyles.marginBottom" @input="updateValue('marginBottom', arguments[0])" />
+                <input type="text" :value="styles.marginBottom" @input="updateValue('marginBottom', arguments[0])" />
             </div>
             <div class="md:w-1/4 pr-2 mb-2">
                 <label>Left</label>
-                <input type="text" :value="contentStyles.marginLeft" @input="updateValue('marginLeft', arguments[0])" />
+                <input type="text" :value="styles.marginLeft" @input="updateValue('marginLeft', arguments[0])" />
             </div>            
             <div class="md:w-1/4 mb-2">
                 <label>Right</label>
-                <input type="text" :value="contentStyles.marginRight" @input="updateValue('marginRight', arguments[0])" />
+                <input type="text" :value="styles.marginRight" @input="updateValue('marginRight', arguments[0])" />
             </div>            
         </div>
 
@@ -24,19 +24,19 @@
         <div class="flex flex-wrap">
             <div class="md:w-1/4 pr-2 mb-2">
                 <label>Top</label>
-                <input type="text" :value="contentStyles.paddingTop" @input="updateValue('paddingTop', arguments[0])" />
+                <input type="text" :value="styles.paddingTop" @input="updateValue('paddingTop', arguments[0])" />
             </div>
             <div class="md:w-1/4 pr-2 mb-2">
                 <label>Bottom</label>
-                <input type="text" :value="contentStyles.paddingBottom" @input="updateValue('paddingBottom', arguments[0])" />
+                <input type="text" :value="styles.paddingBottom" @input="updateValue('paddingBottom', arguments[0])" />
             </div>
             <div class="md:w-1/4 pr-2 mb-2">
                 <label>Left</label>
-                <input type="text" :value="contentStyles.paddingLeft" @input="updateValue('paddingLeft', arguments[0])" />
+                <input type="text" :value="styles.paddingLeft" @input="updateValue('paddingLeft', arguments[0])" />
             </div>            
             <div class="md:w-1/4 mb-2">
                 <label>Right</label>
-                <input type="text" :value="contentStyles.paddingRight" @input="updateValue('paddingRight', arguments[0])" />
+                <input type="text" :value="styles.paddingRight" @input="updateValue('paddingRight', arguments[0])" />
             </div>            
         </div>
 
@@ -44,47 +44,47 @@
         <div class="flex flex-wrap">
             <div class="md:w-1/4 pr-4 mb-2">
                 <label>Width</label>
-                <input type="text" :value="contentStyles.borderWidth" @input="updateValue('borderWidth', arguments[0])" />
+                <input type="text" :value="styles.borderWidth" @input="updateValue('borderWidth', arguments[0])" />
             </div>
             <div class="md:w-1/4 pr-4 mb-2">
                 <label>Radius</label>
-                <input type="text" :value="contentStyles.borderRadius" @input="updateValue('borderRadius', arguments[0])" />
+                <input type="text" :value="styles.borderRadius" @input="updateValue('borderRadius', arguments[0])" />
             </div>
             <div class="md:w-1/2 mb-2">
                 <label>Sides</label>
                 <br>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" :checked="contentStyles.borderTop" @change="updateBool('borderTop', arguments[0])" />
+                        <input type="checkbox" :checked="styles.borderTop" @change="updateBool('borderTop', arguments[0])" />
                         <i class="material-icons">border_top</i>
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" :checked="contentStyles.borderBottom" @change="updateBool('borderBottom', arguments[0])" />
+                        <input type="checkbox" :checked="styles.borderBottom" @change="updateBool('borderBottom', arguments[0])" />
                         <i class="material-icons">border_bottom</i>
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" :checked="contentStyles.borderLeft" @change="updateBool('borderLeft', arguments[0])" />
+                        <input type="checkbox" :checked="styles.borderLeft" @change="updateBool('borderLeft', arguments[0])" />
                         <i class="material-icons">border_left</i>
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" :checked="contentStyles.borderRight" @change="updateBool('borderRight', arguments[0])" />
+                        <input type="checkbox" :checked="styles.borderRight" @change="updateBool('borderRight', arguments[0])" />
                         <i class="material-icons">border_right</i>
                     </label>
                 </div>
             </div>
         </div>
         <label>Border Color</label>
-        <color :mini="true" :value="contentStyles.borderColor" @input="updateColor('borderColor', arguments[0])" />
+        <color :mini="true" :value="styles.borderColor" @input="updateColor('borderColor', arguments[0])" />
 
         <h5>Fill</h5>
         <label>Background Color</label>
-        <color :mini="true" :value="contentStyles.backgroundColor" @input="updateColor('backgroundColor', arguments[0])" />  
+        <color :mini="true" :value="styles.backgroundColor" @input="updateColor('backgroundColor', arguments[0])" />  
 
         <h5>Remove Element</h5>
         <toolbar-button icon="delete" @onClick="remove()">Remove This Element</toolbar-button>	    
@@ -96,42 +96,33 @@ import {removeContent} from '~/redux/actions/contents'
 import {selectContent, deselectContent} from '~/redux/actions/session'
 
 export default {
-
     data() {
         return {
-            id: null,
-            contentStyles: {},
-            styles: this.$select('styles')
+            styles: {},
+            id: this.$select('session.selectedId as id'),
+            allStyles: this.$select('styles as allStyles'),
         }
     },
-    created() {
+    mounted() {
         this.getStyles()
     },
-    beforeRouteLeave(to, from, next) {
-        deselectContent(this.id)
-        this.id = null
-        next()
-    },
     watch: {
-        styles() {
-            this.getStyles()
-        },
-        '$route' () {
+        id() {
             this.getStyles()
         }
     },
     methods: {
         getStyles() {
-            if ( ! (this.$route.params.id in this.styles)) {
-                return this.$router.replace({name: 'main'})
+            if ( ! (this.id in this.allStyles)) {
+                deselectContent()
             }
             // If there is a previous id...
-            if (this.id && this.id !== this.$route.params.id) {
-                deselectContent(this.id)
+            if (this.id && this.id !== this.id) {
+                deselectContent()
             }
-            this.id = this.$route.params.id
+            this.id = this.id
             selectContent(this.id)
-            this.contentStyles = Object.assign({}, this.styles[this.id])
+            this.styles = Object.assign({}, this.allStyles[this.id])
         },
         update(prop, value) {
             updateStyle(this.id, prop, value)
@@ -147,7 +138,6 @@ export default {
         },
         remove() {
             removeContent(this.id)
-            this.$router.replace({name: 'main'})
         }
     }
 }

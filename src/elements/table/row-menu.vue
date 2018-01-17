@@ -28,13 +28,17 @@
 </template>
 <script>
 import {findContent} from '~/redux/actions/contents'
+import {selectContent} from '~/redux/actions/session'
 
 export default {
     props: ['id'],
     methods: {
         openTable() {
             const content = findContent(this.id)
-            this.$router.push({name: 'content', params: {id: content.container_id}})
+            selectContent({
+                name: 'content',
+                params: {id: content.container_id}
+            })
         }
     }
 }

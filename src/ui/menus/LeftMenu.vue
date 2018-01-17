@@ -2,57 +2,54 @@
 <div class="toolbar toolbar-left" v-show="!inRenderMode">
 
 	<div class="toolbar-tabs">
-		<a @click="openTab('layout')" :class="tab == 'layout' ? 'active' : ''">
-			<i class="material-icons" style="font-size:24px">assignment</i>
-			<div>Page Layout</div>
-		</a>		
-		<a @click="openTab('elements')" :class="tab == 'elements' ? 'active' : ''">
-			<i class="material-icons" style="font-size:24px">layers</i>
-			<div>elements</div>
-		</a>
-		<a @click="openTab('styling')" :class="tab == 'styling' ? 'active' : ''">
-			<i class="material-icons" style="font-size:24px">format_paint</i>
-			<div>element</div>
-		</a>
-
-		<a v-if="customTab" @click="openTab('custom')" :class="tab == 'custom' ? 'active' : ''">
-			<i class="material-icons" style="font-size:24px">{{ customTab.icon }}</i>
-			<div>{{ customTab.label }}</div>
+		<a v-for="tab in tabs"
+			:key="'tab' + tab.component"
+			@click="openTab(tab)"
+			:class="active == tab ? 'active' : ''">
+			<i class="material-icons" style="font-size:24px">{{ tab.icon }}</i>
+			{{ tab.label }}
 		</a>
 	</div>
 
-	<div class="toolbar-content" v-if="tab == 'layout'">
-		<h5>Page Layout</h5>
-		<toolbar-button icon="settings_overscan" @onClick="$modal.show('page-margins')">Margins</toolbar-button>
-		<toolbar-button icon="tab_unselected" @onClick="$modal.show('page-size')">Page Size</toolbar-button>
-		<toolbar-button icon="color_lens" @onClick="$modal.show('page-color')">Color</toolbar-button>
-		<hr>
-		<toolbar-button icon="queue" @onClick="addPage()">Add New Page</toolbar-button>	
+	<div class="toolbar-content" v-if="active">
+		<div :is="active.component"></div>
 	</div>
-	
-	<div class="toolbar-content" v-if="tab == 'elements'">
-		<elements :elements="elements"></elements>
-	</div>
-
-	<div class="toolbar-content" v-show="tab == 'styling'">
-		<router-view></router-view>
-	</div>
-
-	<div class="toolbar-content" v-if="tab == 'custom'">
-		<div :is="customTab.element" :id="selectedId"></div>
-	</div>	
 </div>
 </template>
 <script>
 import {addPage} from '~/redux/actions/pages'
 import {getSelectedContent} from '~/redux/actions/session'
 
+import Data from './tabs/Data.vue'
+import Style from './tabs/Style.vue'
+import Layout from './tabs/Layout.vue'
+import Elements from './tabs/Elements.vue'
+
+function composeTab(component, label, icon) {
+	return {
+		icon,
+		label,
+		component
+	}
+}
+
 export default {
+	components: {
+		'tab-data': Data,
+		'tab-style': Style,
+		'tab-layout': Layout,
+		'tab-elements': Elements,
+	},
 	data() {
 		return {
-			tab: 'layout',
+			tabs: [
+				composeTab('tab-data', 'Data Connection', 'settings_input_hdmi'),
+				composeTab('tab-layout', 'Page Layout', 'assignment'),
+				composeTab('tab-elements', 'Elements', 'layers'),
+				composeTab('tab-style', 'Style', 'format_paint'),
+			],
+			active: null,
 			customTab: null,
-			elements: _swd.registry.all(),
 			selectedId: this.$select('session.selectedId as selectedId'),
 		}
 	},
@@ -66,7 +63,7 @@ export default {
 			addPage()
 		},
 		openTab(tab) {
-			this.tab = tab
+			this.active = tab
 		},
 		updateCustomTab() {
 

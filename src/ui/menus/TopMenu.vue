@@ -27,9 +27,6 @@
         <div class="float-left">
             <h4 class="mt-2">Untitled Document</h4>
         </div>
-
-
-
         
         <div class="float-right">
             <dropdown-menu icon="settings" align="pin-r">

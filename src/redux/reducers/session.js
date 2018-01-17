@@ -23,7 +23,14 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 selectedId: null
-            }        
+            }
+        case 'CONTENT_REMOVE':
+            if (state.selectedId === action.payload.id) {
+                return {
+                    ...state,
+                    selectedId: null
+                }
+            }
         default:
             return state
     }

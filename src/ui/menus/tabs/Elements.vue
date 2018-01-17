@@ -13,7 +13,11 @@
 </template>
 <script>
 export default {
-    props: ['elements'],
+    data() {
+        return {
+			elements: _swd.registry.all(),            
+        }
+    },
     mounted() {
         drake.containers.push(this.$refs.elements)
     },

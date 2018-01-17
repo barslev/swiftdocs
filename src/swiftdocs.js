@@ -66,7 +66,6 @@ class SwiftDocs {
         new Vue({
             el: this.el,
             i18n: require('~/localization'),
-            router: require('~/kernel/router'),
             created() {
                 activateDragDrop()
             }
