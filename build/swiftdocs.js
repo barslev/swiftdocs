@@ -182,6 +182,9 @@ module.exports = function normalizeComponent (
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.insertContent = insertContent;
 exports.moveContent = moveContent;
 exports.removeContent = removeContent;
@@ -261,15 +264,18 @@ function removeContent(id) {
     dispatchRemoval(id);
 }
 
-function updateElementState(id, state) {
+function updateElementState(id, fragment) {
+
+    var originalState = getElementState(id, {});
+    var modifiedState = _extends({}, originalState, fragment);
+
     store.dispatch({
         type: 'CONTENT_UPDATE_STATE',
-        payload: {
-            id: id,
-            state: state
-        }
+        payload: { id: id, state: modifiedState }
     });
-    return getElementState(id);
+
+    // Return the modified state
+    return modifiedState;
 }
 
 function findContent(id) {
@@ -17794,8 +17800,6 @@ function compose() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_medium_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_medium_editor__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__redux_actions_contents__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__redux_actions_contents__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 //
 //
 //
@@ -17838,9 +17842,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.editor.pasteHTML('test');
     },
     update(event) {
-      Object(__WEBPACK_IMPORTED_MODULE_4__redux_actions_contents__["updateElementState"])(this.id, _extends({}, this.state, {
+      Object(__WEBPACK_IMPORTED_MODULE_4__redux_actions_contents__["updateElementState"])(this.id, {
         text: event.target.innerHTML
-      }));
+      });
     }
   }
 });

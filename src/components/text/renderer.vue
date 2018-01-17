@@ -41,7 +41,6 @@ export default {
     },
     update(event) {
       updateElementState(this.id, {
-        ...this.state,
         text: event.target.innerHTML
       })
     },

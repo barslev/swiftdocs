@@ -73,15 +73,21 @@ export function removeContent(id)
 }
 
 
-export function updateElementState(id, state) {
+export function updateElementState(id, fragment) {
+
+    const originalState = getElementState(id, {})
+    const modifiedState = {
+        ...originalState,
+        ...fragment
+    }
+
     store.dispatch({
         type: 'CONTENT_UPDATE_STATE',
-        payload: {
-            id,
-            state
-        }
+        payload: {id, state: modifiedState}
     })
-    return getElementState(id)
+    
+    // Return the modified state
+    return modifiedState
 }
 
 export function findContent(id) {
