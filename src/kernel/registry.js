@@ -34,7 +34,7 @@ export class Registry {
         return {
             icon: element.icon,
             label: element.label,
-            element: element.id + '-menu',
+            component: element.id + '-menu',
         }
     }
 

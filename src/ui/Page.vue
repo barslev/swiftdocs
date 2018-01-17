@@ -8,6 +8,8 @@
 	</div>
 </template>
 <script>
+import {deselectContent} from '~/redux/actions/session'
+
 export default {
 	props: [
 		'page',
@@ -33,7 +35,7 @@ export default {
 	},
 	methods: {
 		selectPage() {
-			this.$router.push({name: 'main'})
+			deselectContent()
 		}
 	}
 }

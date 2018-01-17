@@ -12,6 +12,8 @@
         :style="format(styles[element.id])" />
 </template>
 <script>
+import {selectContent} from '~/redux/actions/session'
+
 export default {
     props: ['element', 'context'],
     data() {
@@ -22,8 +24,7 @@ export default {
     },
     methods: {
 		click($event) {
-            const contentId = this.element.id
-			this.$router.push({name: 'content', params: {id: contentId}})
+			selectContent(this.element.id)
 			// Stop the event bubbling up the chain
 			$event.stopPropagation()
         },

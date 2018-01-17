@@ -8,3 +8,14 @@
     <toolbar-button icon="queue" @onClick="addPage()">Add New Page</toolbar-button>
     </div>
 </template>
+<script>
+import {addPage} from '~/redux/actions/pages'
+
+export default {
+    methods: {
+		addPage() {
+			addPage()
+		},        
+    }    
+}
+</script>

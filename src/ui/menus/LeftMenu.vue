@@ -3,6 +3,7 @@
 
 	<div class="toolbar-tabs">
 		<a v-for="tab in tabs"
+			v-if="!tab.hidden && (tab.requireSelection ? selectedId : true)"
 			:key="'tab' + tab.component"
 			@click="openTab(tab)"
 			:class="active == tab ? 'active' : ''">
@@ -12,12 +13,11 @@
 	</div>
 
 	<div class="toolbar-content" v-if="active">
-		<div :is="active.component"></div>
+		<div :is="active.component" :id="selectedId"></div>
 	</div>
 </div>
 </template>
 <script>
-import {addPage} from '~/redux/actions/pages'
 import {getSelectedContent} from '~/redux/actions/session'
 
 import Data from './tabs/Data.vue'
@@ -25,11 +25,20 @@ import Style from './tabs/Style.vue'
 import Layout from './tabs/Layout.vue'
 import Elements from './tabs/Elements.vue'
 
-function composeTab(component, label, icon) {
+function composeTab(component, label, icon, requireSelection = false) {
 	return {
 		icon,
 		label,
-		component
+		component,
+		requireSelection,
+	}
+}
+
+function composeCustomTab(menu) {
+	return {
+		...menu,
+		custom: true,
+		requireSelection: true,
 	}
 }
 
@@ -43,10 +52,10 @@ export default {
 	data() {
 		return {
 			tabs: [
-				composeTab('tab-data', 'Data Connection', 'settings_input_hdmi'),
+				composeTab('tab-data', 'Data', 'settings_ethernet'),
 				composeTab('tab-layout', 'Page Layout', 'assignment'),
 				composeTab('tab-elements', 'Elements', 'layers'),
-				composeTab('tab-style', 'Style', 'format_paint'),
+				composeTab('tab-style', 'Style', 'format_paint', true),				
 			],
 			active: null,
 			customTab: null,
@@ -55,40 +64,89 @@ export default {
 	},
 	watch: {
 		selectedId() {
-			return this.updateCustomTab()
+			return this.reactToContentSelection()
 		}
 	},
 	methods: {
-		addPage() {
-			addPage()
-		},
+		
 		openTab(tab) {
 			this.active = tab
 		},
-		updateCustomTab() {
-
+		
+		openTabByName(name) {
+			this.openTab(_.find(this.tabs, {
+				label: name
+			}))
+		},
+		
+		reactToContentSelection() {
 			if (!this.selectedId) {
-				return this.resetCustomTab('elements')
+				return this.onContentDeselected()
 			}
-			
-			const content = getSelectedContent()
+			return this.onContentSelected(
+				getSelectedContent()
+			)
+		},
+		
+		onContentDeselected() {
+			this.removeCustomTabs()
+			this.hideContentSpecificTabs()
+		},
+		
+		onContentSelected(content) {
+			// Get the custom menu for this content
 			const menu = _swd.registry.menu(content.element)
 
-			if (!menu) {
-				this.resetCustomTab()
-				this.openTab('styling') // This content has no custom menu. Go to styling.
+			// Remove any custom tabs previously shown
+			this.removeCustomTabs()
+			this.showContentSpecificTabs()
+			
+			if ( ! menu) {
+				// There is no custom menu for this content.
+				// Just show the styling menu instead
+				this.openTabByName('Style')
 				return
 			}
 
-			this.customTab = menu
-			this.openTab('custom')
-		},
-		resetCustomTab(go) {
-			if (go && this.tab == 'custom') {
-				this.tab = go
+			const tab = composeCustomTab(menu)
+			this.tabs.push(tab)
+
+			// Open custom tab if current tab is not element specific.
+			if (!this.active || !this.active.requireSelection) {
+				this.openTab(tab)
 			}
-			this.customTab = null
-		}
+		},
+
+		showContentSpecificTabs() {
+			this.tabs = this.tabs.map((tab) => {
+				tab.hidden = false
+				return tab
+			})
+		},
+
+		hideContentSpecificTabs() {
+			this.tabs = this.tabs.map((tab) => {
+				if (tab.requireSelection) {
+					if (this.active == tab) {
+						this.active = null
+					}
+					tab.hidden = true
+				}
+				return tab
+			})
+		},
+
+		removeCustomTabs() {
+			this.tabs = _.filter(this.tabs, (tab) => {
+				if (tab.custom) {
+					if (this.active == tab) {
+						this.active = null
+					}
+					return false
+				}
+				return true
+			})
+		},
 	}
 }
 </script>
