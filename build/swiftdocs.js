@@ -15163,7 +15163,20 @@ function compose() {
 			if (this.state.src) {
 				return this.state.src;
 			}
-			return placeholders;
+			return __WEBPACK_IMPORTED_MODULE_1__placeholder___default.a;
+		},
+		style() {
+			const style = {};
+
+			if ('width' in this.state) {
+				style.width = this.state.width + 'px';
+			}
+
+			if ('height' in this.state) {
+				style.height = this.state.height + 'px';
+			}
+
+			return style;
 		}
 	}
 });
@@ -15282,6 +15295,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop__);
 //
 //
 //
@@ -15296,6 +15311,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+
+
 
 /* harmony default export */ __webpack_exports__["a"] = ({
 	props: ['id', 'root', 'context'],
@@ -15311,16 +15328,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		}
 	},
 	mounted() {
-		drake.containers.push(this.$refs.container);
+		__WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop___default.a.add(this.$refs.container);
 		this.updateContainerContents();
 	},
 	beforeDestroy() {
-
-		const index = drake.containers.indexOf(this.$refs.container);
-
-		if (index >= 0) {
-			drake.containers.splice(index, 1);
-		}
+		__WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop___default.a.remove(this.$refs.container);
 	},
 	methods: {
 		updateContainerContents() {
@@ -15369,7 +15381,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		}
 	},
 	mounted() {
-		//drake.containers.push(this.$refs.dropzone)
+		// dragDrop.add(this.$refs.dropzone)
 		// TODO: Remove from drake once it's unmounted
 	},
 	methods: {
@@ -15656,13 +15668,13 @@ var _bootstrap = __webpack_require__(54);
 
 var _ = _interopRequireWildcard(_bootstrap);
 
-var _registry = __webpack_require__(96);
-
-var _dataSource = __webpack_require__(97);
-
 var _dragDrop = __webpack_require__(98);
 
 var _dragDrop2 = _interopRequireDefault(_dragDrop);
+
+var _registry = __webpack_require__(96);
+
+var _dataSource = __webpack_require__(97);
 
 var _storeFactory = __webpack_require__(108);
 
@@ -15743,7 +15755,7 @@ var SwiftDocs = function () {
                 el: this.el,
                 i18n: __webpack_require__(131),
                 created: function created() {
-                    (0, _dragDrop2.default)();
+                    _dragDrop2.default.activate();
                 }
             });
         }
@@ -37936,42 +37948,85 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-exports.default = function () {
-    window.drake = dragula({
-        revertOnSpill: true,
-        copy: function copy(el, source) {
-            return source.id == 'toolbar_elements';
-        },
-
-        copySortSource: false,
-        accepts: function accepts(el, target, source, sibling) {
-            return target.id !== 'toolbar_elements';
-        }
-    });
-    drake.on('drop', function (element, container, source, sibling) {
-        drake.cancel();
-
-        var elementId = element.getAttribute('data-id');
-        var containerPageId = container.getAttribute('page-id');
-        var containerId = container.getAttribute('container-id');
-        var siblingId = sibling ? sibling.getAttribute('data-id') : null;
-
-        if (element.hasAttribute('data-id')) {
-            // An already existing element got relocated
-            return (0, _contents.moveContent)(element.getAttribute('data-id'), containerPageId, containerId, siblingId);
-        }
-
-        return (0, _contents.insertContent)(element.getAttribute('data-name'), containerPageId, containerId, siblingId);
-    });
-};
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _contents = __webpack_require__(2);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*
  * Drag & Drop Engine Activator
  */
 
 var dragula = __webpack_require__(99);
+
+var dragDrop = function () {
+    function dragDrop() {
+        _classCallCheck(this, dragDrop);
+    }
+
+    _createClass(dragDrop, [{
+        key: 'activate',
+        value: function activate() {
+            this._instantiateDragula();
+            this._handleElementDrop();
+        }
+    }, {
+        key: 'add',
+        value: function add(container) {
+            this.drake.containers.push(container);
+        }
+    }, {
+        key: 'remove',
+        value: function remove(container) {
+            var index = this.drake.containers.indexOf(container);
+
+            if (index >= 0) {
+                this.drake.containers.splice(index, 1);
+            }
+        }
+    }, {
+        key: '_instantiateDragula',
+        value: function _instantiateDragula() {
+            this.drake = dragula({
+                revertOnSpill: true,
+                copy: function copy(el, source) {
+                    return source.id == 'toolbar_elements';
+                },
+
+                copySortSource: false,
+                accepts: function accepts(el, target, source, sibling) {
+                    return target.id !== 'toolbar_elements';
+                }
+            });
+        }
+    }, {
+        key: '_handleElementDrop',
+        value: function _handleElementDrop() {
+            var _this = this;
+
+            this.drake.on('drop', function (element, container, source, sibling) {
+                _this.drake.cancel();
+
+                var elementId = element.getAttribute('data-id');
+                var containerPageId = container.getAttribute('page-id');
+                var containerId = container.getAttribute('container-id');
+                var siblingId = sibling ? sibling.getAttribute('data-id') : null;
+
+                if (element.hasAttribute('data-id')) {
+                    // An already existing element got relocated
+                    return (0, _contents.moveContent)(element.getAttribute('data-id'), containerPageId, containerId, siblingId);
+                }
+
+                return (0, _contents.insertContent)(element.getAttribute('data-name'), containerPageId, containerId, siblingId);
+            });
+        }
+    }]);
+
+    return dragDrop;
+}();
+
+exports.default = new dragDrop();
 
 /***/ }),
 /* 99 */
@@ -48656,7 +48711,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { class: "text-" + _vm.state.align }, [
-    _c("img", { style: _vm.state.style, attrs: { src: _vm.photoSrc } })
+    _c("img", { style: _vm.style, attrs: { src: _vm.photoSrc } })
   ])
 }
 var staticRenderFns = []
@@ -48773,7 +48828,7 @@ var render = function() {
         _vm._v(" "),
         _c("input", {
           attrs: { type: "text" },
-          domProps: { value: _vm.state.style.width },
+          domProps: { value: _vm.state.width },
           on: {
             input: function($event) {
               _vm.updateStyle("width", arguments[0].target.value)
@@ -48787,7 +48842,7 @@ var render = function() {
         _vm._v(" "),
         _c("input", {
           attrs: { type: "text" },
-          domProps: { value: _vm.state.style.height },
+          domProps: { value: _vm.state.height },
           on: {
             input: function($event) {
               _vm.updateStyle("height", arguments[0].target.value)
@@ -49829,6 +49884,8 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop__);
 //
 //
 //
@@ -49842,6 +49899,8 @@ if (false) {
 //
 //
 //
+
+
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data() {
@@ -49850,14 +49909,10 @@ if (false) {
         };
     },
     mounted() {
-        drake.containers.push(this.$refs.elements);
+        __WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop___default.a.add(this.$refs.elements);
     },
     beforeDestroy() {
-        const index = drake.containers.indexOf(this.$refs.elements);
-
-        if (index >= 0) {
-            drake.containers.splice(index, 1);
-        }
+        __WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop___default.a.remove(this.$refs.elements);
     }
 });
 

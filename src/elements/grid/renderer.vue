@@ -29,7 +29,7 @@ export default {
 		}
 	},
 	mounted() {
-		//drake.containers.push(this.$refs.dropzone)
+		// dragDrop.add(this.$refs.dropzone)
 		// TODO: Remove from drake once it's unmounted
 	},
 	methods: {

@@ -12,6 +12,8 @@
     </div>
 </template>
 <script>
+import dragDrop from '~/kernel/dragDrop'
+
 export default {
     data() {
         return {
@@ -19,14 +21,10 @@ export default {
         }
     },
     mounted() {
-        drake.containers.push(this.$refs.elements)
+        dragDrop.add(this.$refs.elements)
     },
     beforeDestroy() {
-        const index = drake.containers.indexOf(this.$refs.elements)
-        
-        if (index >= 0) {
-            drake.containers.splice(index, 1)
-        }
+        dragDrop.remove(this.$refs.elements)
     }
 }
 </script>

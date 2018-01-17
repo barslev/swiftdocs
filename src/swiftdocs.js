@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Revue from 'revue'
 import storage from '~/storage'
 import * as _ from '~/kernel/bootstrap'
+import dragDrop from '~/kernel/dragDrop'
 import {Registry} from '~/kernel/registry'
 import {DataSource} from '~/kernel/dataSource'
-import activateDragDrop from '~/kernel/dragDrop'
 import storeFactory from '~/redux/stores/storeFactory'
 
 class SwiftDocs {
@@ -67,7 +67,7 @@ class SwiftDocs {
             el: this.el,
             i18n: require('~/localization'),
             created() {
-                activateDragDrop()
+                dragDrop.activate()
             }
         })
     }

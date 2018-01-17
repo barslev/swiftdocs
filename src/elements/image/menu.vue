@@ -10,11 +10,11 @@
     <div class="flex flex-wrap">
         <div class="md:w-1/2 pr-2 mb-2">
             <label>Width</label>
-            <input type="text" :value="state.style.width" @input="updateStyle('width', arguments[0].target.value)" />
+            <input type="text" :value="state.width" @input="updateStyle('width', arguments[0].target.value)" />
         </div>
         <div class="md:w-1/4 pr-2 mb-2">
             <label>Height</label>
-            <input type="text" :value="state.style.height" @input="updateStyle('height', arguments[0].target.value)" />
+            <input type="text" :value="state.height" @input="updateStyle('height', arguments[0].target.value)" />
         </div>
     </div>
 

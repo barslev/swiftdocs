@@ -5,40 +5,69 @@
 const dragula = require('dragula')
 import { insertContent, moveContent } from '~/redux/actions/contents'
 
-export default function () {
-    window.drake = dragula({
-        revertOnSpill: true,
-        copy(el, source) {
-            return source.id == 'toolbar_elements'
-        },
-        copySortSource: false,
-        accepts(el, target, source, sibling) {
-            return target.id !== 'toolbar_elements'
+class dragDrop
+{
+    activate() {
+        this._instantiateDragula()
+        this._handleElementDrop()
+    }
+
+    add(container) {
+        this.drake
+            .containers
+            .push(container)
+    }
+
+    remove(container) {
+        const index = this.drake
+            .containers
+            .indexOf(container)
+
+        if (index >= 0) {
+            this.drake.containers.splice(index, 1)
         }
-    })
-    drake.on('drop', function (element, container, source, sibling) {
-        drake.cancel();
+    }
 
-        const elementId = element.getAttribute('data-id')
-        const containerPageId = container.getAttribute('page-id')
-        const containerId = container.getAttribute('container-id')
-        const siblingId = sibling ? sibling.getAttribute('data-id') : null
+    _instantiateDragula() {
+        this.drake = dragula({
+            revertOnSpill: true,
+            copy(el, source) {
+                return source.id == 'toolbar_elements'
+            },
+            copySortSource: false,
+            accepts(el, target, source, sibling) {
+                return target.id !== 'toolbar_elements'
+            }
+        })
+    }
 
-        if (element.hasAttribute('data-id')) {
-            // An already existing element got relocated
-            return moveContent(
-                element.getAttribute('data-id'),
+    _handleElementDrop() {
+        this.drake.on('drop', (element, container, source, sibling) => {
+            this.drake.cancel();
+
+            const elementId = element.getAttribute('data-id')
+            const containerPageId = container.getAttribute('page-id')
+            const containerId = container.getAttribute('container-id')
+            const siblingId = sibling ? sibling.getAttribute('data-id') : null
+
+            if (element.hasAttribute('data-id')) {
+                // An already existing element got relocated
+                return moveContent(
+                    element.getAttribute('data-id'),
+                    containerPageId,
+                    containerId,
+                    siblingId
+                )
+            }
+
+            return insertContent(
+                element.getAttribute('data-name'),
                 containerPageId,
                 containerId,
                 siblingId
             )
-        }
-
-        return insertContent(
-            element.getAttribute('data-name'),
-            containerPageId,
-            containerId,
-            siblingId
-        )
-    });    
+        });
+    }
 }
+
+export default new dragDrop()
