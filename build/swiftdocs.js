@@ -13793,29 +13793,9 @@ module.exports = function pad (num, size) {
 
 /***/ }),
 /* 17 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.addPageLoop = addPageLoop;
-exports.findLoopById = findLoopById;
-function addPageLoop(pageId, array, as) {
-    store.dispatch({
-        type: 'LOGIC_ADD_LOOP',
-        payload: {
-            id: pageId,
-            loop: { array: array, as: as }
-        }
-    });
-}
-
-function findLoopById(id) {
-    return _.get(store.state.logic.loops, id, null);
-}
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/aozisik/Documents/Code/swiftdocs/src/redux/actions/logic.js'");
 
 /***/ }),
 /* 18 */
@@ -39434,10 +39414,6 @@ var _pages = __webpack_require__(125);
 
 var _pages2 = _interopRequireDefault(_pages);
 
-var _logic = __webpack_require__(126);
-
-var _logic2 = _interopRequireDefault(_logic);
-
 var _styles = __webpack_require__(127);
 
 var _styles2 = _interopRequireDefault(_styles);
@@ -39459,7 +39435,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = (0, _redux.combineReducers)({
     title: _title2.default,
     pages: _pages2.default,
-    logic: _logic2.default,
     styles: _styles2.default,
     session: _session2.default,
     contents: _contents2.default,
@@ -39535,44 +39510,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 126 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var initialState = {
-    ifs: {},
-    loops: {}
-};
-
-exports.default = function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-    var action = arguments[1];
-
-    switch (action.type) {
-        case 'LOGIC_ADD_LOOP':
-            return _extends({}, state, {
-                loops: _extends({}, state.loops, _defineProperty({}, action.payload.id, action.payload.loop))
-            });
-        case 'LOGIC_ADD_IF':
-            return _extends({}, state, {
-                ifs: _extends({}, state.ifs, _defineProperty({}, action.payload.id, action.payload.loop))
-            });
-        default:
-            return state;
-    }
-};
-
-/***/ }),
+/* 126 */,
 /* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -50611,10 +50549,6 @@ var _title = __webpack_require__(184);
 
 var title = _interopRequireWildcard(_title);
 
-var _logic = __webpack_require__(17);
-
-var logic = _interopRequireWildcard(_logic);
-
 var _pages = __webpack_require__(5);
 
 var pages = _interopRequireWildcard(_pages);
@@ -50653,7 +50587,7 @@ function mergeActions(actions) {
     return output;
 }
 
-exports.default = mergeActions([title, logic, pages, styles, session, contents, defaults]);
+exports.default = mergeActions([title, pages, styles, session, contents, defaults]);
 
 /***/ }),
 /* 187 */,

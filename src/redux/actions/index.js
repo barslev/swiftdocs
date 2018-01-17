@@ -1,5 +1,4 @@
 import * as title from './title'
-import * as logic from './logic'
 import * as pages from './pages'
 import * as styles from './styles'
 import * as session from './session'
@@ -24,7 +23,6 @@ function mergeActions(actions) {
 
 export default mergeActions([
     title,
-    logic,
     pages,
     styles,
     session,
