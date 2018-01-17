@@ -1,7 +1,8 @@
 @media print {
   @page {  
-      size:210mm 297mm;  
-      margin:0;
+      // TODO: These should be set dynamically.
+      size:210mm 297mm;
+      margin: 15mm 15mm;
   }
   body * {
     visibility: hidden;
@@ -15,6 +16,7 @@
       margin: 0 !important;
       border: 0 !important;
   }
+  
   .document, .document * {
     visibility: visible;
   }
