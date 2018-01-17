@@ -60,10 +60,7 @@ export default {
             this.readBase64Image()
                 .then((src) => {
                     this.$refs.file.value = ''
-                    this.state = updateElementState(this.id, {
-                        ...this.state,
-                        src,
-                    })
+                    this.state = updateElementState(this.id, {src})
                 })
                 .catch((error) => {
                     notifyError('Image not selected', 'Select an image before pressing update')
@@ -85,25 +82,22 @@ export default {
         },
 
         remove() {
-            this.state = updateElementState(this.id, null)
+            this.state = updateElementState(this.id, {src: null})
         },
 
         updateAlignment(align) {
-            this.state = updateElementState(this.id, {
-                ...this.state,
-                align: align
-            })
+            this.state = updateElementState(this.id, {align})
         },
 
         updateStyle(key, value) {
+            const updatedStyle = {
+                ...this.state.style,
+                [key]: value
+            }
             this.state = updateElementState(this.id, {
-                ...this.state,
-                style: {
-                    ...this.state.style,
-                    [key]: value
-                }
+                style: updatedStyle
             })
-        }        
+        }
     }
 }
 </script>

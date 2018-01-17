@@ -19,7 +19,6 @@
 			<i class="material-icons" style="font-size:24px">{{ customTab.icon }}</i>
 			<div>{{ customTab.label }}</div>
 		</a>
-
 	</div>
 
 	<div class="toolbar-content" v-if="tab == 'layout'">

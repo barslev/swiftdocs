@@ -58,6 +58,7 @@ export default {
 		},
 		format(styles) {
 			return {
+				...styles,
 				position: styles.position,
 				backgroundColor: styles.backgroundColor,
 				borderColor: styles.borderColor,

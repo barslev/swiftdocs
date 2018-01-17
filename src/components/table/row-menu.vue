@@ -34,7 +34,6 @@ export default {
     methods: {
         openTable() {
             const content = findContent(this.id)
-            console.log(content)
             this.$router.push({name: 'content', params: {id: content.container_id}})
         }
     }

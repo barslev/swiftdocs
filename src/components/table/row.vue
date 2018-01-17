@@ -8,10 +8,8 @@
 <script>
 import base from '~/components/base'
 
-const defaultState = {}
-
 export default {
-    extends: base(defaultState),
+    extends: base,
 
     data() {
         return {

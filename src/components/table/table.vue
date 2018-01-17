@@ -15,10 +15,8 @@
 import base from '~/components/base'
 import { findLoopById } from '~/redux/actions/logic'
 
-const defaultState = {}
-
 export default {
-    extends: base(defaultState),
+    extends: base,
 
     data() {
         return {

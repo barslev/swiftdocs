@@ -18,16 +18,16 @@ export default {
 		contents() {
 			this.updatePanes()
 		}
-    },
-    created() {
+  },
+	created() {
 		this.updatePanes()
 		if (!this.panes.length) {
 			// Default grid elements... Add 3 by default
-			insertContent('container', this.pageId, this.id, null, {marginRight: 10})
-			insertContent('container', this.pageId, this.id, null, {marginRight: 10})
+			insertContent('container', this.pageId, this.id)
+			insertContent('container', this.pageId, this.id)
 			insertContent('container', this.pageId, this.id)
 		}
-    },
+	},
 	mounted() {
 		//drake.containers.push(this.$refs.dropzone)
 		// TODO: Remove from drake once it's unmounted

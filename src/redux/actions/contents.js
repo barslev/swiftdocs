@@ -1,24 +1,26 @@
 import cuid from 'cuid'
 
-export function insertContent(element, pageId, containerId, beforeId = null, style = {}) {
+export function insertContent(element, page_id, container_id, beforeId = null) {
+
+    const state = _swd.registry.defaultState(element)
 
     const content = {
         id: cuid(),
-        page_id: pageId,
-        container_id: containerId,
+        page_id,
+        container_id,
         element,
+        state,
     }
 
     const index = beforeId
         ? _.findIndex(store.state.contents, {id: beforeId})
         : store.state.contents.length
-    
+
     store.dispatch({
         type: 'CONTENT_INSERT',
         payload: {
             index,
             content,
-            style
         }
     })
 

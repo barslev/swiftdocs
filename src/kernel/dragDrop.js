@@ -2,7 +2,7 @@
  * Drag & Drop Engine Activator
  */
 
- const dragula = require('dragula')
+const dragula = require('dragula')
 import { insertContent, moveContent } from '~/redux/actions/contents'
 
 export default function () {

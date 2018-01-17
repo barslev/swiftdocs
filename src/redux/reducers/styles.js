@@ -1,8 +1,7 @@
 const initialState = {}
 
 function defaultStyle(element) {
-
-    let styles = {
+    const defaults = {
         position: 'relative',
         // Default properties for the element
         marginTop: 10,
@@ -26,21 +25,8 @@ function defaultStyle(element) {
         backgroundColor: null,
     }
 
-    if (element === 'container') {
-        styles.borderWidth = 1
-        styles.borderTop = true
-        styles.borderLeft = true
-        styles.borderRight = true
-        styles.borderBottom = true
-        styles.borderColor = '#ebebeb'
-        styles.backgroundColor = '#f4f4f4'
-        styles.paddingTop = 10
-        styles.paddingLeft = 5
-        styles.paddingRight = 5
-        styles.paddingBottom = 10
-    }
-
-    return styles
+    const elementStyles = _swd.registry.defaultStyle(element)
+    return {...defaults, ...elementStyles}
 }
 
 export default (state = initialState, action) => {
@@ -50,12 +36,9 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 // Inject the new content's style
-                [action.payload.content.id]: {
-                    // Get the default style
-                    ...defaultStyle(action.payload.content.element),
-                    // And override with any custom style that's been passed
-                    ...action.payload.style,
-                }
+                [action.payload.content.id]: defaultStyle(
+                    action.payload.content.element
+                )
             }
 
         case 'CONTENT_REMOVE':

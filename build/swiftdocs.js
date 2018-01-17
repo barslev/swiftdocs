@@ -195,16 +195,18 @@ var _cuid2 = _interopRequireDefault(_cuid);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function insertContent(element, pageId, containerId) {
+function insertContent(element, page_id, container_id) {
     var beforeId = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-    var style = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
 
+
+    var state = _swd.registry.defaultState(element);
 
     var content = {
         id: (0, _cuid2.default)(),
-        page_id: pageId,
-        container_id: containerId,
-        element: element
+        page_id: page_id,
+        container_id: container_id,
+        element: element,
+        state: state
     };
 
     var index = beforeId ? _.findIndex(store.state.contents, { id: beforeId }) : store.state.contents.length;
@@ -213,8 +215,7 @@ function insertContent(element, pageId, containerId) {
         type: 'CONTENT_INSERT',
         payload: {
             index: index,
-            content: content,
-            style: style
+            content: content
         }
     });
 
@@ -11547,28 +11548,24 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-exports.default = function (defaultState) {
-    return {
-        props: ['id', 'context'],
-        data: function data() {
-            return {
-                contents: this.$select('contents')
-            };
-        },
-
-        computed: {
-            state: function state() {
-                var state = _.get(_.find(this.contents, { id: this.id }), 'state');
-                if (!state) {
-                    state = (0, _contents.updateElementState)(this.id, defaultState);
-                }
-                return state;
-            }
-        }
-    };
-};
-
 var _contents = __webpack_require__(1);
+
+exports.default = {
+    props: ['id', // Element ID.
+    'context'],
+    data: function data() {
+        return {
+            contents: this.$select('contents')
+        };
+    },
+
+    computed: {
+        state: function state() {
+            var state = _.get(_.find(this.contents, { id: this.id }), 'state');
+            return state;
+        }
+    }
+};
 
 /***/ }),
 /* 9 */
@@ -16447,6 +16444,8 @@ function findLoopById(id) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -16496,7 +16495,7 @@ function findLoopById(id) {
 			return this.pixelArray(styles.borderTop ? styles.borderWidth : null, styles.borderRight ? styles.borderWidth : null, styles.borderBottom ? styles.borderWidth : null, styles.borderLeft ? styles.borderWidth : null);
 		},
 		format(styles) {
-			return {
+			return _extends({}, styles, {
 				position: styles.position,
 				backgroundColor: styles.backgroundColor,
 				borderColor: styles.borderColor,
@@ -16505,7 +16504,7 @@ function findLoopById(id) {
 				borderWidth: this.borderWidths(styles),
 				margin: this.pixelArray(styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft),
 				padding: this.pixelArray(styles.paddingTop, styles.paddingRight, styles.paddingBottom, styles.paddingLeft)
-			};
+			});
 		}
 	}
 });
@@ -17069,7 +17068,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_pages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__redux_actions_pages__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_session__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_session___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__redux_actions_session__);
-//
 //
 //
 //
@@ -17810,20 +17808,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-const defaultState = {
-  text: 'Text goes here',
-  style: {
-    fontSize: '12pt',
-    color: '#000000',
-    fontFamily: 'Helvetica',
-    lineHeight: '1.25em',
-    textAlign: 'left'
-  }
-};
-
 /* harmony default export */ __webpack_exports__["a"] = ({
 
-  extends: __WEBPACK_IMPORTED_MODULE_2__components_base___default()(defaultState),
+  extends: __WEBPACK_IMPORTED_MODULE_2__components_base___default.a,
 
   watch: {
     inRenderMode(render) {
@@ -17863,10 +17850,8 @@ const defaultState = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_styles__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__redux_actions_styles__);
 //
 //
 //
@@ -17936,22 +17921,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   props: ['id'],
   data() {
     return {
-      state: Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["getElementState"])(this.id)
+      allStyles: this.$select('styles as allStyles')
     };
   },
-  watch: {
-    id() {
-      this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["getElementState"])(this.id);
+  computed: {
+    styles() {
+      return _.get(this.allStyles, this.id);
     }
   },
   methods: {
     updateStyle(prop, value) {
-      const state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["getElementState"])(this.id);
-      this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, _extends({}, state, {
-        style: _extends({}, state.style, {
-          [prop]: value
-        })
-      }));
+      Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_styles__["updateStyle"])(this.id, prop, value);
     }
   }
 });
@@ -17963,8 +17943,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_base__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_base___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_base__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__placeholder__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__placeholder___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__placeholder__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__redux_actions_contents__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__redux_actions_contents__);
 //
 //
 //
@@ -17974,18 +17956,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-const defaultPhoto = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAIAAAC6s0uzAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowMTA3OUM4M0JBOEMxMUUyODk1OUUwMDM4ODMyNkMyQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowMTA3OUM4NEJBOEMxMUUyODk1OUUwMDM4ODMyNkMyQiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjAxMDc5QzgxQkE4QzExRTI4OTU5RTAwMzg4MzI2QzJCIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjAxMDc5QzgyQkE4QzExRTI4OTU5RTAwMzg4MzI2QzJCIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+hmM2mwAAD65JREFUeNrs3elvVPW/wHGhm0YtGi9gIsaYGDVGRSVuaIya+MRoYpQnPvQ/EwRqN5ZCRcPWli5QWlq2QosFupe22GlLOzPtzPSeC7lcLz/Ezsp0eL0emKbMnJn59Nh3zyznW9zX1/cYAJBba40AAAQYAAQYABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAEGAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgABBgAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYAAQYABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAEGAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgABBgAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYAAQYABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAEGAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgABBgAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYAAQYABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAQYAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgAEGAAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYABBgABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAQYAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgAEGAAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYABBgABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAQYAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgAEGAAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYABBgABBgABBgAECAAUCAAQABBgABBgAEGABWkWIjIP91dXXFYrGioiKjYCXi8XhpaenmzZuNAgGGtBw6dCgSiRQX211ZkeDPtSeffFKAEWBIVzgcTiQSwWGNUbBCCwsLhkCe8xowq4Ann7HPIMAAgAADgAADAAIMAAIMAAgwAAgwAAgwACDAACDAAIAAA4AAAwACDAACDAD8f9YDpgCVlpZ+/vnnL774YjQaNY1Vf5Swdm0sFjt06ND09LRpIMCQ37t1cfHrr7++ceNGoygYTU1NAkyh/XFpBBSe5eXlcDhsDgUjOAKOx+PmgAADAAIMAAIMAAgwAAgwACDAACDAACDAAIAAA4AAAwAZ4FzQwIrMz89fu3ZtfHw8+CKRSJSUlDz99NObNm166aWXiov9JgEBBjJtaGioo6Ojv79/bm4uFov9/Z/KysrWrVv31ltvffDBB0899ZRZgQADGRAOhxsbG0+ePLm0tHTfC0Sj0YmJiaNHj3Z3d3/yySfvv//+2rVe2AIBBtIQCoWqqqoGBgZWcuGbN2/W1dWNjo5+8803JSUlpgcCDKRibm5u+/btwdFtUtfq6OgIjpW3bdvmOBj+lf9JgHstLi4Gx77J1veOs2fPHj9+3AxBgIGknTp16urVqylfvaGhYXBw0BhBgIEkhEKhlpaWdLaQSCSam5uD/xomCDCwUhcvXpybm0tzI5cvXx4dHTVMEGAgiXamv5F4PN7f32+YIMDAioRCocnJyYxsanh4+J6zdgACDNzf1NRUNBrNyKamp6cztSkQYKDARSKRTL15KhwOOwIGAQZybc2aNYYAAgysyOOPP56pk1gFm7JKEggwZFEhPdH63HPPZepMzuXl5aWlpXYPEGDIilAoVFNTc+PGjcJ4OM8+++z69eszsqlNmzZZlQEEGLKlvb39/Pnzu3fvnpmZKYxH9Nprr6W/kaKioldeecXuAQLMo2X5thzc0M2bNzs6Oh67/emdXbt2pX8CqXywefPm8vLy9CseHAHbFUGAeeTk5kTEzc3N8/Pzd74eGRmprq5eWFhY7aNbt27dxx9/nM4WSkpKtm7dakVCEGDIiuHh4XPnzv39O/39/fv27SuAs098+OGHr776aspX//TTT19++WV7CAgwZEVra2skErnnmxcvXqyrq4vH46v6oZWVlX399dcbN25M4bpvv/32F198YfcAAYasuH79etDa+/5Td3d30ODcvAidPevXr//xxx9feOGFpK713nvvfffdd0VFRfYQEGDIvEQi0dTU9ICP/3Z0dNTX16/2hxk0+KefftqyZctKXs0tLy//9ttvv//+++Do2R4CK+E8NZC03tsefJm2trYgRV999dWqfqRPPPFE0NR33333zJkzV65cue/bvINOv/HGG++8886GDRvsGyDAkC3RaLSxsXEll2xoaAga/Nlnn632h/zybVNTU+Pj4zdu3Lh169by8nJRUdG6deuef/75jRs3Bl/YMUCAIbsuXLgwNDS0wgv/8ccfpaWlH330UQE88P+67c0337z78rblFiAdXgOGJITD4ZaWlqSucvDgwc7OzkIawpr/ZX8AAYYcOX36dLKn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';
-
-const defaultState = {
-	src: defaultPhoto,
-	align: 'left',
-	style: {
-		width: 120 + 'px'
-	}
-};
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	extends: __WEBPACK_IMPORTED_MODULE_0__components_base___default()(defaultState)
+	extends: __WEBPACK_IMPORTED_MODULE_0__components_base___default.a,
+
+	computed: {
+		photoSrc() {
+			if (this.state.src) {
+				return this.state.src;
+			}
+			return placeholders;
+		}
+	}
 });
 
 /***/ }),
@@ -18058,9 +18040,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         update() {
             this.readBase64Image().then(src => {
                 this.$refs.file.value = '';
-                this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, _extends({}, this.state, {
-                    src
-                }));
+                this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, { src });
             }).catch(error => {
                 notifyError('Image not selected', 'Select an image before pressing update');
             });
@@ -18081,21 +18061,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
 
         remove() {
-            this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, null);
+            this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, { src: null });
         },
 
         updateAlignment(align) {
-            this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, _extends({}, this.state, {
-                align: align
-            }));
+            this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, { align });
         },
 
         updateStyle(key, value) {
-            this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, _extends({}, this.state, {
-                style: _extends({}, this.state.style, {
-                    [key]: value
-                })
-            }));
+            const updatedStyle = _extends({}, this.state.style, {
+                [key]: value
+            });
+            this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, {
+                style: updatedStyle
+            });
         }
     }
 });
@@ -18105,6 +18084,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -18129,8 +18114,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 	},
 	mounted() {
 		drake.containers.push(this.$refs.container);
-		// TODO: Remove from drake once it's unmounted
 		this.updateContainerContents();
+	},
+	beforeDestroy() {
+
+		const index = drake.containers.indexOf(this.$refs.container);
+
+		if (index >= 0) {
+			drake.containers.splice(index, 1);
+		}
 	},
 	methods: {
 		updateContainerContents() {
@@ -18173,8 +18165,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		this.updatePanes();
 		if (!this.panes.length) {
 			// Default grid elements... Add 3 by default
-			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["insertContent"])('container', this.pageId, this.id, null, { marginRight: 10 });
-			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["insertContent"])('container', this.pageId, this.id, null, { marginRight: 10 });
+			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["insertContent"])('container', this.pageId, this.id);
+			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["insertContent"])('container', this.pageId, this.id);
 			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["insertContent"])('container', this.pageId, this.id);
 		}
 	},
@@ -18219,10 +18211,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-const defaultState = {};
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-    extends: __WEBPACK_IMPORTED_MODULE_0__components_base___default()(defaultState),
+    extends: __WEBPACK_IMPORTED_MODULE_0__components_base___default.a,
 
     data() {
         return {
@@ -18358,10 +18348,8 @@ const defaultState = {};
 
 
 
-const defaultState = {};
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-    extends: __WEBPACK_IMPORTED_MODULE_0__components_base___default()(defaultState),
+    extends: __WEBPACK_IMPORTED_MODULE_0__components_base___default.a,
 
     data() {
         return {
@@ -18432,7 +18420,6 @@ const defaultState = {};
     methods: {
         openTable() {
             const content = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["findContent"])(this.id);
-            console.log(content);
             this.$router.push({ name: 'content', params: { id: content.container_id } });
         }
     }
@@ -41024,6 +41011,8 @@ var Registry = exports.Registry = function () {
         this.menus = {};
         this.languages = [];
         this.components = [];
+        this.defaultStates = {};
+        this.defaultStyles = {};
     }
 
     _createClass(Registry, [{
@@ -41059,6 +41048,16 @@ var Registry = exports.Registry = function () {
                 component: component.id + '-menu'
             };
         }
+    }, {
+        key: 'defaultState',
+        value: function defaultState(elementId) {
+            return _.get(this.defaultStates, elementId, {});
+        }
+    }, {
+        key: 'defaultStyle',
+        value: function defaultStyle(elementId) {
+            return _.get(this.defaultStyles, elementId, {});
+        }
 
         /**
          * Private Methods
@@ -41069,11 +41068,35 @@ var Registry = exports.Registry = function () {
         value: function _registerComponent(component) {
 
             this.components.push(component);
-
+            this._putDefaultState(component);
+            this._putDefaultStyle(component);
+            this._registerComponentMenu(component);
+            this._registerComponentRenderer(component);
+        }
+    }, {
+        key: '_registerComponentRenderer',
+        value: function _registerComponentRenderer(component) {
             _vue2.default.component(component.id, component.renderer);
-
+        }
+    }, {
+        key: '_registerComponentMenu',
+        value: function _registerComponentMenu(component) {
             if ('menu' in component) {
                 _vue2.default.component(component.id + '-menu', component.menu);
+            }
+        }
+    }, {
+        key: '_putDefaultState',
+        value: function _putDefaultState(component) {
+            if ('defaultState' in component) {
+                this.defaultStates[component.id] = component.defaultState;
+            }
+        }
+    }, {
+        key: '_putDefaultStyle',
+        value: function _putDefaultStyle(component) {
+            if ('defaultStyle' in component) {
+                this.defaultStyles[component.id] = component.defaultStyle;
             }
         }
     }]);
@@ -42888,8 +42911,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var initialState = {};
 
 function defaultStyle(element) {
-
-    var styles = {
+    var defaults = {
         position: 'relative',
         // Default properties for the element
         marginTop: 10,
@@ -42913,21 +42935,8 @@ function defaultStyle(element) {
         backgroundColor: null
     };
 
-    if (element === 'container') {
-        styles.borderWidth = 1;
-        styles.borderTop = true;
-        styles.borderLeft = true;
-        styles.borderRight = true;
-        styles.borderBottom = true;
-        styles.borderColor = '#ebebeb';
-        styles.backgroundColor = '#f4f4f4';
-        styles.paddingTop = 10;
-        styles.paddingLeft = 5;
-        styles.paddingRight = 5;
-        styles.paddingBottom = 10;
-    }
-
-    return styles;
+    var elementStyles = _swd.registry.defaultStyle(element);
+    return _extends({}, defaults, elementStyles);
 }
 
 exports.default = function () {
@@ -42937,7 +42946,7 @@ exports.default = function () {
     switch (action.type) {
 
         case 'CONTENT_INSERT':
-            return _extends({}, state, _defineProperty({}, action.payload.content.id, _extends({}, defaultStyle(action.payload.content.element), action.payload.style)));
+            return _extends({}, state, _defineProperty({}, action.payload.content.id, defaultStyle(action.payload.content.element)));
 
         case 'CONTENT_REMOVE':
             var clone = _extends({}, state);
@@ -43605,7 +43614,19 @@ module.exports = {
     icon: 'text_fields',
     label: 'Text',
     renderer: __webpack_require__(150).default,
-    menu: __webpack_require__(161).default
+    menu: __webpack_require__(161).default,
+
+    defaultState: {
+        text: 'Text goes here...'
+    },
+
+    defaultStyle: {
+        fontSize: '16pt',
+        color: '#000000',
+        fontFamily: 'Helvetica',
+        lineHeight: '1.25em',
+        textAlign: 'left'
+    }
 };
 
 /***/ }),
@@ -51961,13 +51982,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return !_vm.inRenderMode
     ? _c("p", {
-        staticStyle: { "min-height": "inherit !important" },
-        style: _vm.state.style,
+        staticStyle: { "min-height": "initial !important" },
         domProps: { innerHTML: _vm._s(_vm.state.text) },
         on: { blur: _vm.update }
       })
     : _c("compile", {
-        style: _vm.state.style,
         attrs: { template: _vm.state.text, context: _vm.context }
       })
 }
@@ -52056,7 +52075,7 @@ var render = function() {
           "select",
           {
             staticClass: "form-control",
-            domProps: { value: _vm.state.style.fontFamily },
+            domProps: { value: _vm.styles.fontFamily },
             on: {
               input: function($event) {
                 _vm.updateStyle("fontFamily", arguments[0].target.value)
@@ -52084,7 +52103,7 @@ var render = function() {
           "select",
           {
             staticClass: "form-control",
-            domProps: { value: _vm.state.style.fontSize },
+            domProps: { value: _vm.styles.fontSize },
             on: {
               input: function($event) {
                 _vm.updateStyle("fontSize", arguments[0].target.value)
@@ -52108,7 +52127,7 @@ var render = function() {
           "select",
           {
             staticClass: "form-control",
-            domProps: { value: _vm.state.style.lineHeight },
+            domProps: { value: _vm.styles.lineHeight },
             on: {
               input: function($event) {
                 _vm.updateStyle("lineHeight", arguments[0].target.value)
@@ -52135,7 +52154,7 @@ var render = function() {
         _c("label", [
           _c("input", {
             attrs: { type: "checkbox" },
-            domProps: { checked: _vm.state.style.textAlign == "left" },
+            domProps: { checked: _vm.styles.textAlign == "left" },
             on: {
               change: function($event) {
                 _vm.updateStyle("textAlign", "left")
@@ -52153,7 +52172,7 @@ var render = function() {
         _c("label", [
           _c("input", {
             attrs: { type: "checkbox" },
-            domProps: { checked: _vm.state.style.textAlign == "center" },
+            domProps: { checked: _vm.styles.textAlign == "center" },
             on: {
               change: function($event) {
                 _vm.updateStyle("textAlign", "center")
@@ -52171,7 +52190,7 @@ var render = function() {
         _c("label", [
           _c("input", {
             attrs: { type: "checkbox" },
-            domProps: { checked: _vm.state.style.textAlign == "justify" },
+            domProps: { checked: _vm.styles.textAlign == "justify" },
             on: {
               change: function($event) {
                 _vm.updateStyle("textAlign", "justify")
@@ -52189,7 +52208,7 @@ var render = function() {
         _c("label", [
           _c("input", {
             attrs: { type: "checkbox" },
-            domProps: { checked: _vm.state.style.textAlign == "right" },
+            domProps: { checked: _vm.styles.textAlign == "right" },
             on: {
               change: function($event) {
                 _vm.updateStyle("textAlign", "right")
@@ -52208,7 +52227,7 @@ var render = function() {
       _c("h5", [_vm._v("Text Color")]),
       _vm._v(" "),
       _c("color", {
-        attrs: { mini: true, value: _vm.state.style.color },
+        attrs: { mini: true, value: _vm.styles.color },
         on: {
           input: function($event) {
             _vm.updateStyle("color", arguments[0])
@@ -52242,7 +52261,14 @@ module.exports = {
     icon: 'crop_original',
     label: 'Image',
     renderer: __webpack_require__(164).default,
-    menu: __webpack_require__(166).default
+    menu: __webpack_require__(166).default,
+
+    defaultState: {
+        src: null,
+        align: 'left',
+        width: 120,
+        height: null
+    }
 };
 
 /***/ }),
@@ -52308,7 +52334,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { class: "text-" + _vm.state.align }, [
-    _c("img", { style: _vm.state.style, attrs: { src: _vm.state.src } })
+    _c("img", { style: _vm.state.style, attrs: { src: _vm.photoSrc } })
   ])
 }
 var staticRenderFns = []
@@ -52530,7 +52556,21 @@ module.exports = {
     id: 'container',
     icon: 'crop_din',
     label: 'Container',
-    renderer: __webpack_require__(169).default
+    renderer: __webpack_require__(169).default,
+
+    defaultStyle: {
+        borderWidth: 1,
+        borderTop: true,
+        borderLeft: true,
+        borderRight: true,
+        borderBottom: true,
+        borderColor: '#ebebeb',
+        backgroundColor: '#f4f4f4',
+        paddingTop: 10,
+        paddingLeft: 5,
+        paddingRight: 5,
+        paddingBottom: 10
+    }
 };
 
 /***/ }),
@@ -53306,6 +53346,18 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-3f1b7323", esExports)
   }
 }
+
+/***/ }),
+/* 185 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAIAAAC6s0uzAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowMTA3OUM4M0JBOEMxMUUyODk1OUUwMDM4ODMyNkMyQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowMTA3OUM4NEJBOEMxMUUyODk1OUUwMDM4ODMyNkMyQiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjAxMDc5QzgxQkE4QzExRTI4OTU5RTAwMzg4MzI2QzJCIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjAxMDc5QzgyQkE4QzExRTI4OTU5RTAwMzg4MzI2QzJCIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+hmM2mwAAD65JREFUeNrs3elvVPW/wHGhm0YtGi9gIsaYGDVGRSVuaIya+MRoYpQnPvQ/EwRqN5ZCRcPWli5QWlq2QosFupe22GlLOzPtzPSeC7lcLz/Ezsp0eL0emKbMnJn59Nh3zyznW9zX1/cYAJBba40AAAQYAAQYABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAEGAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgABBgAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYAAQYABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAEGAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgABBgAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYAAQYABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAEGAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgABBgAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYAAQYABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAQYAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgAEGAAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYABBgABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAQYAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgAEGAAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYABBgABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAQYAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgAEGAAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYABBgABBgABBgAECAAUCAAQABBgABBgAEGABWkWIjIP91dXXFYrGioiKjYCXi8XhpaenmzZuNAgGGtBw6dCgSiRQX211ZkeDPtSeffFKAEWBIVzgcTiQSwWGNUbBCCwsLhkCe8xowq4Ann7HPIMAAgAADgAADAAIMAAIMAAgwAAgwAAgwACDAACDAAIAAA4AAAwACDAACDAD8f9YDpgCVlpZ+/vnnL774YjQaNY1Vf5Swdm0sFjt06ND09LRpIMCQ37t1cfHrr7++ceNGoygYTU1NAkyh/XFpBBSe5eXlcDhsDgUjOAKOx+PmgAADAAIMAAIMAAgwAAgwACDAACDAACDAAIAAA4AAAwAZ4FzQwIrMz89fu3ZtfHw8+CKRSJSUlDz99NObNm166aWXiov9JgEBBjJtaGioo6Ojv79/bm4uFov9/Z/KysrWrVv31ltvffDBB0899ZRZgQADGRAOhxsbG0+ePLm0tHTfC0Sj0YmJiaNHj3Z3d3/yySfvv//+2rVe2AIBBtIQCoWqqqoGBgZWcuGbN2/W1dWNjo5+8803JSUlpgcCDKRibm5u+/btwdFtUtfq6OgIjpW3bdvmOBj+lf9JgHstLi4Gx77J1veOs2fPHj9+3AxBgIGknTp16urVqylfvaGhYXBw0BhBgIEkhEKhlpaWdLaQSCSam5uD/xomCDCwUhcvXpybm0tzI5cvXx4dHTVMEGAgiXamv5F4PN7f32+YIMDAioRCocnJyYxsanh4+J6zdgACDNzf1NRUNBrNyKamp6cztSkQYKDARSKRTL15KhwOOwIGAQZybc2aNYYAAgysyOOPP56pk1gFm7JKEggwZFEhPdH63HPPZepMzuXl5aWlpXYPEGDIilAoVFNTc+PGjcJ4OM8+++z69eszsqlNmzZZlQEEGLKlvb39/Pnzu3fvnpmZKYxH9Nprr6W/kaKioldeecXuAQLMo2X5thzc0M2bNzs6Oh67/emdXbt2pX8CqXywefPm8vLy9CseHAHbFUGAeeTk5kTEzc3N8/Pzd74eGRmprq5eWFhY7aNbt27dxx9/nM4WSkpKtm7dakVCEGDIiuHh4XPnzv39O/39/fv27SuAs098+OGHr776aspX//TTT19++WV7CAgwZEVra2skErnnmxcvXqyrq4vH46v6oZWVlX399dcbN25M4bpvv/32F198YfcAAYasuH79etDa+/5Td3d30ODcvAidPevXr//xxx9feOGFpK713nvvfffdd0VFRfYQEGDIvEQi0dTU9ICP/3Z0dNTX16/2hxk0+KefftqyZctKXs0tLy//9ttvv//+++Do2R4CK+E8NZC03tsefJm2trYgRV999dWqfqRPPPFE0NR33333zJkzV65cue/bvINOv/HGG++8886GDRvsGyDAkC3RaLSxsXEll2xoaAga/Nlnn632h/zybVNTU+Pj4zdu3Lh169by8nJRUdG6deuef/75jRs3Bl/YMUCAIbsuXLgwNDS0wgv/8ccfpaWlH330UQE88P+67c0337z78rblFiAdXgOGJITD4ZaWlqSucvDgwc7OzkIawpr/ZX8AAYYcOX36dLKn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';
 
 /***/ })
 /******/ ]);

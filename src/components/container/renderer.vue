@@ -1,9 +1,15 @@
 <template>
-	<div class="document__page-container" :container-id="id" ref="container" :page-id="root ? id : null" :class="root ? '' : 'document__page-child-container'">
+	<div ref="container"
+		class="document__page-container"
+		:container-id="id"
+		:page-id="root ? id : null"
+		:class="root ? '' : 'document__page-child-container'">
+		
 		<el v-for="element in containerContents"
 			:key="element.id"
 			:context="context"
 			:element="element" />
+	
 	</div>
 </template>
 <script>
@@ -22,8 +28,17 @@ export default {
 	},
 	mounted() {
 		drake.containers.push(this.$refs.container)
-		// TODO: Remove from drake once it's unmounted
 		this.updateContainerContents()
+	},
+	beforeDestroy() {
+		
+		const index = drake.containers
+			.indexOf(this.$refs.container)
+		
+		if (index >= 0) {
+			drake.containers.splice(index, 1)
+		}
+
 	},
 	methods: {
 		updateContainerContents() {

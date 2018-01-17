@@ -6,6 +6,8 @@ export class Registry {
         this.menus = {}
         this.languages = []
         this.components = []
+        this.defaultStates = {}
+        this.defaultStyles = {}
     }
 
     use(component) {
@@ -36,6 +38,14 @@ export class Registry {
         }
     }
 
+    defaultState(elementId) {
+        return _.get(this.defaultStates, elementId, {})
+    }
+
+    defaultStyle(elementId) {
+        return _.get(this.defaultStyles, elementId, {})
+    }
+
     /**
      * Private Methods
      */
@@ -43,17 +53,37 @@ export class Registry {
     _registerComponent(component) {
 
         this.components.push(component)
-        
+        this._putDefaultState(component)
+        this._putDefaultStyle(component)
+        this._registerComponentMenu(component)
+        this._registerComponentRenderer(component)
+    }
+
+    _registerComponentRenderer(component) {
         Vue.component(
             component.id,
             component.renderer
         )
+    }
 
-        if ('menu' in component) {
+    _registerComponentMenu(component) {
+        if('menu' in component) {
             Vue.component(
                 component.id + '-menu',
                 component.menu
             )
         }
     }
+
+    _putDefaultState(component) {
+        if('defaultState' in component) {
+            this.defaultStates[component.id] = component.defaultState
+        }
+    }
+
+    _putDefaultStyle(component) {
+        if ('defaultStyle' in component) {
+            this.defaultStyles[component.id] = component.defaultStyle
+        }
+    }    
 }
