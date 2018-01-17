@@ -15279,8 +15279,6 @@ function compose() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop__ = __webpack_require__(98);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop__);
 //
 //
 //
@@ -15295,8 +15293,6 @@ function compose() {
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["a"] = ({
 	props: ['id', 'root', 'context'],
@@ -15312,11 +15308,11 @@ function compose() {
 		}
 	},
 	mounted() {
-		__WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop___default.a.add(this.$refs.container);
+		_swd.dragDrop.add(this.$refs.container);
 		this.updateContainerContents();
 	},
 	beforeDestroy() {
-		__WEBPACK_IMPORTED_MODULE_0__kernel_dragDrop___default.a.remove(this.$refs.container);
+		_swd.dragDrop.remove(this.$refs.container);
 	},
 	methods: {
 		updateContainerContents() {
@@ -15632,132 +15628,30 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 "use strict";
 
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.actions = exports.BaseElement = exports.SwiftDocs = undefined;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _main = __webpack_require__(189);
 
-var _vue = __webpack_require__(4);
+var _main2 = _interopRequireDefault(_main);
 
-var _vue2 = _interopRequireDefault(_vue);
+var _base = __webpack_require__(8);
 
-var _revue = __webpack_require__(48);
+var _base2 = _interopRequireDefault(_base);
 
-var _revue2 = _interopRequireDefault(_revue);
+var _actions = __webpack_require__(186);
 
-var _storage = __webpack_require__(51);
-
-var _storage2 = _interopRequireDefault(_storage);
-
-var _bootstrap = __webpack_require__(54);
-
-var _ = _interopRequireWildcard(_bootstrap);
-
-var _dragDrop = __webpack_require__(98);
-
-var _dragDrop2 = _interopRequireDefault(_dragDrop);
-
-var _registry = __webpack_require__(96);
-
-var _dataSource = __webpack_require__(97);
-
-var _storeFactory = __webpack_require__(108);
-
-var _storeFactory2 = _interopRequireDefault(_storeFactory);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var _actions2 = _interopRequireDefault(_actions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+window.SwiftDocs = _main2.default;
 
-var SwiftDocs = function () {
-    function SwiftDocs(el, documentId) {
-        var storageDriver = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'local';
-
-        _classCallCheck(this, SwiftDocs);
-
-        this.el = el;
-        this.documentId = documentId;
-        this.registry = new _registry.Registry();
-        this.dataSource = new _dataSource.DataSource();
-        this.storage = new _storage2.default[storageDriver]();
-
-        this._bootDocument = this._bootDocument.bind(this);
-        this._createVueApp = this._createVueApp.bind(this);
-        this._useDefaultDesignElements = this._useDefaultDesignElements.bind(this);
-
-        // Register default design components
-        this._useDefaultDesignElements();
-        // Make this instance globally accessible
-        window._swd = this;
-    }
-
-    /**
-     * Use this (only once) to initialize everything
-     * After you configure your instance
-     */
-
-
-    _createClass(SwiftDocs, [{
-        key: 'start',
-        value: function start() {
-            // TODO: Show document loading progress
-            this.storage.load(this.documentId).then(this._bootDocument).then(this._createVueApp);
-        }
-    }, {
-        key: 'save',
-        value: function save() {
-            var clonedState = _extends({}, window.store.state);
-            // Remove live session state from the persistent data
-            delete clonedState.session;
-
-            this.storage.persist(this.documentId, clonedState).then(function () {
-                notifySuccess('Saved!', 'All changes saved');
-            });
-        }
-
-        /**
-         * Receives null for new documents, object for existing ones
-         * Boots the redux store with the given object so the editor displays the latest state of things.
-         * @param {*} doc 
-         */
-
-    }, {
-        key: '_bootDocument',
-        value: function _bootDocument(doc) {
-            window.store = new _revue2.default(_vue2.default, (0, _storeFactory2.default)(doc));
-        }
-
-        /**
-         * Creates the Vue application which runs the editor.
-         */
-
-    }, {
-        key: '_createVueApp',
-        value: function _createVueApp() {
-            new _vue2.default({
-                el: this.el,
-                i18n: __webpack_require__(131),
-                created: function created() {
-                    _dragDrop2.default.activate();
-                }
-            });
-        }
-    }, {
-        key: '_useDefaultDesignElements',
-        value: function _useDefaultDesignElements() {
-            this.registry.use(__webpack_require__(133));
-            this.registry.use(__webpack_require__(148));
-            this.registry.use(__webpack_require__(154));
-            this.registry.use(__webpack_require__(157));
-            this.registry.use(__webpack_require__(162));
-        }
-    }]);
-
-    return SwiftDocs;
-}();
-
-window.SwiftDocs = SwiftDocs;
+var SwiftDocs = exports.SwiftDocs = _main2.default;
+var BaseElement = exports.BaseElement = _base2.default;
+var actions = exports.actions = _actions2.default;
 
 /***/ }),
 /* 47 */
@@ -50701,6 +50595,241 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-e95efe72", esExports)
   }
 }
+
+/***/ }),
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _title = __webpack_require__(184);
+
+var title = _interopRequireWildcard(_title);
+
+var _logic = __webpack_require__(17);
+
+var logic = _interopRequireWildcard(_logic);
+
+var _pages = __webpack_require__(5);
+
+var pages = _interopRequireWildcard(_pages);
+
+var _styles = __webpack_require__(146);
+
+var styles = _interopRequireWildcard(_styles);
+
+var _session = __webpack_require__(7);
+
+var session = _interopRequireWildcard(_session);
+
+var _contents = __webpack_require__(2);
+
+var contents = _interopRequireWildcard(_contents);
+
+var _defaults = __webpack_require__(65);
+
+var defaults = _interopRequireWildcard(_defaults);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function mergeActions(actions) {
+
+    var output = {};
+
+    actions.forEach(function (methods) {
+        for (var name in methods) {
+            if (name in output) {
+                throw new Error('Duplicate redux action: ' + name);
+            }
+            output[name] = methods[name];
+        }
+    });
+
+    return output;
+}
+
+exports.default = mergeActions([title, logic, pages, styles, session, contents, defaults]);
+
+/***/ }),
+/* 187 */,
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _actions = __webpack_require__(186);
+
+var _actions2 = _interopRequireDefault(_actions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Action = function Action() {
+    _classCallCheck(this, Action);
+
+    for (var action in _actions2.default) {
+        this[action] = _actions2.default[action];
+    }
+};
+
+exports.default = Action;
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _vue = __webpack_require__(4);
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _revue = __webpack_require__(48);
+
+var _revue2 = _interopRequireDefault(_revue);
+
+var _storage = __webpack_require__(51);
+
+var _storage2 = _interopRequireDefault(_storage);
+
+var _action = __webpack_require__(188);
+
+var _action2 = _interopRequireDefault(_action);
+
+var _bootstrap = __webpack_require__(54);
+
+var _ = _interopRequireWildcard(_bootstrap);
+
+var _dragDrop = __webpack_require__(98);
+
+var _dragDrop2 = _interopRequireDefault(_dragDrop);
+
+var _registry = __webpack_require__(96);
+
+var _dataSource = __webpack_require__(97);
+
+var _storeFactory = __webpack_require__(108);
+
+var _storeFactory2 = _interopRequireDefault(_storeFactory);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Main = function () {
+    function Main(el, documentId) {
+        var storageDriver = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'local';
+
+        _classCallCheck(this, Main);
+
+        this.el = el;
+
+        this.dragDrop = _dragDrop2.default;
+        this.documentId = documentId;
+
+        this.action = new _action2.default();
+        this.registry = new _registry.Registry();
+        this.dataSource = new _dataSource.DataSource();
+        this.storage = new _storage2.default[storageDriver]();
+
+        this._bootDocument = this._bootDocument.bind(this);
+        this._createVueApp = this._createVueApp.bind(this);
+        this._useDefaultDesignElements = this._useDefaultDesignElements.bind(this);
+
+        // Register default design components
+        this._useDefaultDesignElements();
+        // Make this instance globally accessible
+        window._swd = this;
+    }
+
+    /**
+     * Use this (only once) to initialize everything
+     * After you configure your instance
+     */
+
+
+    _createClass(Main, [{
+        key: 'start',
+        value: function start() {
+            // TODO: Show document loading progress
+            this.storage.load(this.documentId).then(this._bootDocument).then(this._createVueApp);
+        }
+    }, {
+        key: 'save',
+        value: function save() {
+            var clonedState = _extends({}, window.store.state);
+            // Remove live session state from the persistent data
+            delete clonedState.session;
+
+            this.storage.persist(this.documentId, clonedState).then(function () {
+                notifySuccess('Saved!', 'All changes saved');
+            });
+        }
+
+        /**
+         * Receives null for new documents, object for existing ones
+         * Boots the redux store with the given object so the editor displays the latest state of things.
+         * @param {*} doc 
+         */
+
+    }, {
+        key: '_bootDocument',
+        value: function _bootDocument(doc) {
+            window.store = new _revue2.default(_vue2.default, (0, _storeFactory2.default)(doc));
+        }
+
+        /**
+         * Creates the Vue application which runs the editor.
+         */
+
+    }, {
+        key: '_createVueApp',
+        value: function _createVueApp() {
+            new _vue2.default({
+                el: this.el,
+                i18n: __webpack_require__(131),
+                created: function created() {
+                    _dragDrop2.default.activate();
+                }
+            });
+        }
+    }, {
+        key: '_useDefaultDesignElements',
+        value: function _useDefaultDesignElements() {
+            this.registry.use(__webpack_require__(133));
+            this.registry.use(__webpack_require__(148));
+            this.registry.use(__webpack_require__(154));
+            this.registry.use(__webpack_require__(157));
+            this.registry.use(__webpack_require__(162));
+        }
+    }]);
+
+    return Main;
+}();
+
+exports.default = Main;
 
 /***/ })
 /******/ ]);
