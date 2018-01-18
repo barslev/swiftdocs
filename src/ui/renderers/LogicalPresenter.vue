@@ -10,6 +10,19 @@
 <script>
 import {getElementState} from '~/redux/actions/contents'
 
+function comparable(value) {
+    if(_.isArray(value)) {
+        return value.length
+    }
+    if(_.isNumber(value) || _.isString(value)) {
+        return parseFloat(value)
+    }
+    if(_.isObject(value)) {
+        return Object.keys(value)
+    }
+    return value
+}
+
 export default {
     props: [
         'items',
@@ -61,7 +74,7 @@ export default {
 
         displayRenderedItems(items) {
             items = this.applyLoops(items)
-            items = this.applyConditionals(items)
+            items = this.applyConditions(items)
             return items
         },
 
@@ -95,19 +108,43 @@ export default {
             return items
         },
 
-        applyConditionals(items) {        
+        applyConditions(items) {        
             return _.filter(items, (item) => {
-                let state = getElementState(item)
-                let conditional = _.get(state, 'logic.conditional')
+                let state = getElementState(item.id)
+                let condition = _.get(state, 'logic.condition')
                 
-                if (!conditional) {
+                if (!condition) {
                     return true
                 }
-                
-                // TODO: Evaluate condition
-                return true
+                return this.evaluateCondition(condition)
             })
         },
+
+        evaluateCondition(condition) {
+            try {
+                const address = _.get(
+                    this.fullContext,
+                    condition.address
+                )
+
+                switch (condition.comparator) {
+                    case 'exists':
+                        return address
+                    case 'equals':
+                        return address == condition.value
+                    case 'greater_than':
+                        return comparable(address) >= parseFloat(condition.value)
+                    case 'less_than':
+                        return comparable(address) <= parseFloat(condition.value)
+                    default:
+                        throw new Error('Unknown comparator: ' + condition.comparator)
+                }
+
+            } catch(e) {
+                console.error(e)
+                return false
+            }
+        }
     },
 }
 </script>
