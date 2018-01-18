@@ -1,24 +1,21 @@
 <template>
-    <div></div>
+    <div v-html="html" v-once></div>
 </template>
 <script>
+import Handlebars from 'handlebars/dist/handlebars'
+
 export default {
     props: ['template', 'context'],
+    data() {
+        return {
+            html: null
+        }
+    },
     created() {
-        
-        
-        const el = document.createElement('div')
+                
         try {
-            const vm = new Vue({
-                data: {..._swd.dataSource.data, ...this.context},
-                template: '<div>' + this.template + '</div>',
-                // add data that the element needs as well ...
-            })
-            vm.$mount(el)
-        
-            vm.$nextTick(() => {
-                this.$el.innerHTML = vm.$el.innerHTML
-            })
+
+
         } catch(e) {}
     }
 }

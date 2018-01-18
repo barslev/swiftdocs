@@ -8,7 +8,6 @@
 </template>
 <script>
 import { addPage } from '~/redux/actions/pages'
-import { addPageLoop, findLoopById } from '~/redux/actions/logic'
 
 export default {
 	data() {
@@ -49,7 +48,8 @@ export default {
 		renderPages() {
 			const pages = []
 			_.each(this.pages, (page) => {
-				let loop = findLoopById(page.id)
+				let loop
+				//let loop = findLoopById(page.id)
 				
 				if (!loop) {
 					pages.push(page)

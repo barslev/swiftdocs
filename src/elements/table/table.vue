@@ -1,10 +1,12 @@
 <template>
     <div>
         <table v-if="rows.length" class="bordered">
+            <container>
             <el v-for="(row, i) in displayRows"
                 :key="row.id + i"
                 :element="row"
                 :context="row.context" />
+            </container>
         </table>
         <div v-if="!rows.length">
             <div class="text-center text-sm text-grey p-4"><i>Empty Table</i></div>
@@ -13,7 +15,6 @@
 </template>
 <script>
 import base from '~/elements/base'
-import { findLoopById } from '~/redux/actions/logic'
 
 export default {
     extends: base,

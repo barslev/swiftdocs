@@ -4,12 +4,11 @@
 		:container-id="id"
 		:page-id="root ? id : null"
 		:class="root ? '' : 'document__page-child-container'">
-		
+
 		<el v-for="element in containerContents"
 			:key="element.id"
 			:context="context"
 			:element="element" />
-	
 	</div>
 </template>
 <script>

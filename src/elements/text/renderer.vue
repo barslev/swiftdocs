@@ -1,8 +1,9 @@
 <template>
   <p v-if="!inRenderMode" style="min-height:initial !important" @blur="update" v-html="state.text"></p>
-  <compile v-else :template="state.text" :context="context"></compile>
+  <div v-else v-html="html"></div>
 </template>
 <script>
+import Handlebars from 'handlebars/dist/handlebars'
 import 'medium-editor/dist/css/medium-editor.min.css'
 import 'medium-editor/dist/css/themes/default.css'
 
@@ -14,9 +15,17 @@ export default {
 
   extends: base,
 
+  data() {
+    return {
+      html: null
+    }
+  },
+
   watch: {
     inRenderMode(render) {
-      if (!render) {
+      if (render) {
+        this.render()
+      } else {
         Vue.nextTick(() => {
           this.activateEditor()
         })
@@ -25,7 +34,7 @@ export default {
   },
 
   mounted() {
-    if (!this.inRenderMode) {
+    if (this.inEditMode) {
       this.activateEditor()
     }
   },
@@ -44,6 +53,14 @@ export default {
         text: event.target.innerHTML
       })
     },
+    render() {
+        const data = {
+            ..._swd.dataSource.data,
+            ...this.context,
+        }
+        const state = getElementState(this.id)
+        this.html = Handlebars.compile(state.text)(data)
+    }
   }
 }
 </script>
