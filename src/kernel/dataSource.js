@@ -31,12 +31,17 @@ export class DataSource
 
     refresh()
     {
+        if (!this.axios) {
+            return Promise.reject('You are using a static data source.')
+        }        
         this.busy = true
         this.axios.get(this.url).then((response) => {
             this.busy = false
             this.data = response.data
-        }).catch(() => {
+        }).catch((error) => {
             this.busy = false
+            // Rethrow error for debugging
+            throw error
         })
     }
 }

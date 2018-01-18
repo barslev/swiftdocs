@@ -14,7 +14,18 @@
     <script>
     var swiftDocs = new SwiftDocs('#app', 'test')
     swiftDocs.dataSource.use({
-        var1: 'Hello World, this is a test.'
+        var1: 'Hello World, this is a test.',
+        num: 15291,
+        date: new Date(),
+        array: [
+            'Wow',
+            'Holy',
+            'Moly'
+        ],
+        book: {
+            title: 'Animal Farm',
+            author: 'George Orwell',
+        }
     })
     swiftDocs.start()
     </script>
