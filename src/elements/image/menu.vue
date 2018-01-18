@@ -1,11 +1,22 @@
 <template>
 <div>
-    <h5>Select Image</h5>
+    <h5>From My Computer</h5>
     <input ref="file" type="file" accepts="image/*" />
     <button class="btn-primary" @click="update()">Update</button>
     <button class="btn-default" @click="remove()">Remove</button>
+    <hr>
+
+
+    <h5>URL From Variable</h5>
+    <div>
+        <label>Variable Address</label>
+        <input type="text" v-model="variable" />
+    </div>
+    <button class="btn-primary" @click="loadFromVariable()">Set</button>
+    <button class="btn-default" @click="remove()">Remove</button>    
 
     <hr>
+
     <h5>Dimensions</h5>
     <div class="flex flex-wrap">
         <div class="md:w-1/2 pr-2 mb-2">
@@ -52,7 +63,13 @@ export default {
     },
     data() {
         return {
+            variable: null,
             state: getElementState(this.id)
+        }
+    },
+    created() {
+        if (this.state.src && this.state.src.type == 'variable') {
+            this.variable = this.state.src.content
         }
     },
     methods: {
@@ -60,7 +77,12 @@ export default {
             this.readBase64Image()
                 .then((src) => {
                     this.$refs.file.value = ''
-                    this.state = updateElementState(this.id, {src})
+                    this.state = updateElementState(this.id, {
+                        src: {
+                            type: 'base64',
+                            content: src
+                        }
+                    })
                 })
                 .catch((error) => {
                     notifyError('Image not selected', 'Select an image before pressing update')
@@ -81,7 +103,17 @@ export default {
             })
         },
 
+        loadFromVariable() {
+            this.state = updateElementState(this.id, {
+                src: {
+                    type: 'variable',
+                    content: this.variable
+                }
+            })
+        },
+
         remove() {
+            this.variable = ''
             this.state = updateElementState(this.id, {src: null})
         },
 

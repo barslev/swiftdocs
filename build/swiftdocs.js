@@ -16181,6 +16181,8 @@ function compose() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__placeholder___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__placeholder__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__redux_actions_contents__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__redux_actions_contents__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -16196,10 +16198,26 @@ function compose() {
 
 	computed: {
 		photoSrc() {
-			if (this.state.src) {
-				return this.state.src;
+			if (!this.state.src) {
+				return __WEBPACK_IMPORTED_MODULE_1__placeholder___default.a;
 			}
-			return __WEBPACK_IMPORTED_MODULE_1__placeholder___default.a;
+
+			switch (this.state.src.type) {
+				case 'base64':
+					return this.state.src.content;
+				case 'variable':
+					return this.getVariableValue(this.state.src.content);
+			}
+		}
+	},
+
+	methods: {
+		getVariableValue(address) {
+			if (!this.inRenderMode) {
+				return __WEBPACK_IMPORTED_MODULE_1__placeholder___default.a;
+			}
+			const context = _extends({}, _swd.dataSource.data, this.context);
+			return _.get(context, address);
 		}
 	}
 });
@@ -16211,6 +16229,17 @@ function compose() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -16265,14 +16294,25 @@ function compose() {
     },
     data() {
         return {
+            variable: null,
             state: Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["getElementState"])(this.id)
         };
+    },
+    created() {
+        if (this.state.src && this.state.src.type == 'variable') {
+            this.variable = this.state.src.content;
+        }
     },
     methods: {
         update() {
             this.readBase64Image().then(src => {
                 this.$refs.file.value = '';
-                this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, { src });
+                this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, {
+                    src: {
+                        type: 'base64',
+                        content: src
+                    }
+                });
             }).catch(error => {
                 notifyError('Image not selected', 'Select an image before pressing update');
             });
@@ -16292,7 +16332,17 @@ function compose() {
             });
         },
 
+        loadFromVariable() {
+            this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, {
+                src: {
+                    type: 'variable',
+                    content: this.variable
+                }
+            });
+        },
+
         remove() {
+            this.variable = '';
             this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, { src: null });
         },
 
@@ -55680,7 +55730,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h5", [_vm._v("Select Image")]),
+    _c("h5", [_vm._v("From My Computer")]),
     _vm._v(" "),
     _c("input", { ref: "file", attrs: { type: "file", accepts: "image/*" } }),
     _vm._v(" "),
@@ -55695,6 +55745,61 @@ var render = function() {
         }
       },
       [_vm._v("Update")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn-default",
+        on: {
+          click: function($event) {
+            _vm.remove()
+          }
+        }
+      },
+      [_vm._v("Remove")]
+    ),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("h5", [_vm._v("URL From Variable")]),
+    _vm._v(" "),
+    _c("div", [
+      _c("label", [_vm._v("Variable Address")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.variable,
+            expression: "variable"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.variable },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.variable = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn-primary",
+        on: {
+          click: function($event) {
+            _vm.loadFromVariable()
+          }
+        }
+      },
+      [_vm._v("Set")]
     ),
     _vm._v(" "),
     _c(

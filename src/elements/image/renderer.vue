@@ -13,10 +13,30 @@ export default {
 
   computed: {
 	  photoSrc() {
-		  if (this.state.src) {
-			  return this.state.src
+		  if (!this.state.src) {
+			return placeholder	  
 		  }
-		  return placeholder
+
+		  switch (this.state.src.type) {
+			  case 'base64':
+			  	return this.state.src.content
+			  case 'variable':
+			  	return this.getVariableValue(this.state.src.content)
+		  }
+		  
+	  }
+  },
+
+  methods: {
+	  getVariableValue(address) {
+		  if (!this.inRenderMode) {
+			  return placeholder
+		  }
+		  const context = {
+			  ..._swd.dataSource.data,
+			  ...this.context,
+		  }
+		  return _.get(context, address)
 	  }
   }
 }
