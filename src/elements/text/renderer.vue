@@ -34,7 +34,7 @@ export default {
   },
 
   mounted() {
-    if (this.inEditMode) {
+    if (!this.inRenderMode) {
       this.activateEditor()
     }
   },

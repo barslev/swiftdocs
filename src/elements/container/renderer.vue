@@ -4,16 +4,17 @@
 		:container-id="id"
 		:page-id="root ? id : null"
 		:class="root ? '' : 'document__page-child-container'">
-
-		<el v-for="element in containerContents"
-			:key="element.id"
-			:context="context"
-			:element="element" />
+		
+		<logical-presenter :items="containerContents" :context="context" />
 	</div>
 </template>
 <script>
 export default {
-	props: ['id', 'root', 'context'],
+	props: [
+		'id',
+		'root',
+		'context'
+	],
 	data() {
 		return {
 			containerContents: [],
