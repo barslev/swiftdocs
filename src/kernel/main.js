@@ -74,6 +74,11 @@ export default class Main {
      */
     _bootDocument(doc) {
         window.store = new Revue(Vue, storeFactory(doc))
+
+        if (this.translations) {
+            // Set active translation language
+            this.translation = this.translations[0]
+        }
     }
 
     /**

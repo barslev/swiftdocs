@@ -13,6 +13,12 @@
     <script src="/build/swiftdocs.js"></script>
     <script>
     var swiftDocs = new SwiftDocs('#app', 'test')
+
+    swiftDocs.translations = [
+        'en',
+        'tr'
+    ]
+
     swiftDocs.dataSource.use({
         var1: 'Hello World, this is a test.',
         num: 15291,

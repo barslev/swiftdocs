@@ -38,6 +38,7 @@ Vue.component('variable-displayer', require('~/ui/tools/VariableDisplayer.vue').
 Vue.component('custom-modal', require('~/ui/modals/Modal.vue').default)
 Vue.component('page-color', require('~/ui/modals/PageColor.vue').default)
 Vue.component('page-margins', require('~/ui/modals/PageMargins.vue').default)
+Vue.component('translations', require('~/ui/modals/Translations.vue').default)
 
 /**
  * Menus
@@ -65,6 +66,8 @@ Vue.mixin({
 Vue.mixin({
   data() {
     return {
+      hasTranslations: 'translations' in _swd,
+      translation: _swd.translations ? _swd.translation : null,
       inRenderMode: this.$select('session.mode as inRenderMode')
     }
   }

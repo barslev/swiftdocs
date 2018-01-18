@@ -7,7 +7,7 @@
                     <div class="flex items-center">
                         <i class="material-icons mr-1 text-blue">edit</i> {{ $t('top.edit_document') }}
                     </div>
-                </dropdown-option>                    
+                </dropdown-option>
                 </template>
                 <template v-if="!inRenderMode">
                 <dropdown-option @click.native="save()">
@@ -21,6 +21,11 @@
                     </div>
                 </dropdown-option>
                 </template>
+                <dropdown-option v-if="hasTranslations" @click.native="changeActiveTranslation()">
+                    <div class="flex items-center">
+                    <i class="material-icons mr-1 text-purple" style="margin-top:-3px">language</i> {{ $t('top.change_translation') }}
+                    </div>
+                </dropdown-option>                
             </dropdown-menu>
         </div>
 
@@ -30,7 +35,7 @@
         
         <div class="float-right">
             <dropdown-menu color="grey-dark" icon="language" :label="$t('languages.' + locale)" align="pin-r">
-                <dropdown-option v-for="language in languages" v-if="language != locale" @click.native="changeLocale(language)">
+                <dropdown-option v-for="language in languages" :key="language" v-if="language != locale" @click.native="changeLocale(language)">
                     {{ $t('languages.' + language) }}
                 </dropdown-option>
             </dropdown-menu>
@@ -65,6 +70,9 @@ export default {
         },
         changeLocale(locale) {
             _swd.setLanguage(locale)
+        },
+        changeActiveTranslation() {
+            this.$modal.show('translations')
         }
     }
 }

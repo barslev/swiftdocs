@@ -1,5 +1,4 @@
 <template>
-  <div>
       <modal :name="name" :height="this.height" width="450" @before-open="beforeOpen">
         <div>
             <div class="modal__header">
@@ -25,7 +24,6 @@
             </div>
         </div>
       </modal>
-  </div>
 </template>
 <script>
 export default

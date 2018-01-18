@@ -25,6 +25,7 @@ top:
   edit_document: "Edit Document"
   save: "Save"
   render: "Render Document"
+  change_translation: "Switch Translation"
   untitled_document: "Untitled Document"
   enter_title: "Enter a new title for this document"
 
@@ -103,6 +104,9 @@ modals:
     left: "Left"
     right: "Right"
     bottom: "Bottom"
+  translations:
+    title: "Translations"
+    switch: "Switch to Translation"
 
 scope:
   apply_to: "Apply To"

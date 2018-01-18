@@ -4,6 +4,7 @@
 		<!-- modals -->
 		<page-color></page-color>
 		<page-margins></page-margins>
+		<translations></translations>		
 
 		<top-menu></top-menu>
 		<left-menu></left-menu>
