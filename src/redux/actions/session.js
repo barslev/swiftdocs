@@ -38,3 +38,12 @@ export function getSelectedContent() {
     const id = store.state.session.selectedId
     return id ? _.find(store.state.contents, {id}) : null
 }
+
+export function setTranslation(language) {
+    store.dispatch({
+        type: 'SESSION_SET_TRANSLATION',
+        payload: {
+            language
+        }
+    })
+}

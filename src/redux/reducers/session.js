@@ -31,6 +31,11 @@ export default (state = initialState, action) => {
                     selectedId: null
                 }
             }
+        case 'SESSION_SET_TRANSLATION':
+            return {
+                ...state,
+                translation: action.payload.language
+            }
         default:
             return state
     }

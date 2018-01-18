@@ -14,7 +14,7 @@
     </div>
 </template>
 <script>
-import { updatePageMargin, updateAllPageMargins } from '~/redux/actions/pages'
+import { setTranslation } from '~/redux/actions/session'
 
 export default {
     data() {
@@ -25,10 +25,10 @@ export default {
     },
     methods: {
         load() {
-            this.language = _swd.translation
+            this.language = store.state.session.translation
         },
         apply() {
-            _swd.translation = this.language
+            setTranslation(this.language)
         }
     }
 }

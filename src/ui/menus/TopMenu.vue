@@ -42,8 +42,6 @@
         </div>
 
         <div class="clearfix"></div>
-
-        
     </div>
 </template>
 <script>

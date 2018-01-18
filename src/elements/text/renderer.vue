@@ -1,67 +1,45 @@
 <template>
-  <p v-if="!inRenderMode" style="min-height:initial !important" @blur="update" v-html="state.text"></p>
-  <div v-else v-html="html"></div>
+  <editor v-if="!inRenderMode" :id="id" :content="content"></editor>
+  <displayer v-else :template="content" :context="context"></displayer>
 </template>
 <script>
-import Handlebars from 'handlebars/dist/handlebars'
-import 'medium-editor/dist/css/medium-editor.min.css'
-import 'medium-editor/dist/css/themes/default.css'
-
 import base from '~/elements/base'
-import MediumEditor from 'medium-editor'
-import {getElementState, updateElementState} from '~/redux/actions/contents'
 
 export default {
 
   extends: base,
 
+  components: {
+    'editor': require('./editor.vue').default,
+    'displayer': require('./displayer.vue').default,
+  },
+
   data() {
     return {
-      html: null
+      translation: this.$select('session.translation as translation')
     }
   },
-
-  watch: {
-    inRenderMode(render) {
-      if (render) {
-        this.renderText()
-      } else {
-        Vue.nextTick(() => {
-          this.activateEditor()
-        })
+  
+  computed: {
+    content() {
+      let text = this.state.text
+      if (this.hasTranslations) {
+        return this.translatedContent(
+          text,
+          this.translation
+        )
       }
-    }
-  },
-
-  mounted() {
-    if (!this.inRenderMode) {
-      this.activateEditor()
-    } else {
-      this.renderText()
+      return text
     }
   },
 
   methods: {
-    activateEditor() {
-      this.editor = new MediumEditor(this.$el, {
-        toolbar: {
-          buttons: ['bold', 'italic', 'underline', 'list-extension']
-        }
-      })
-      this.editor.pasteHTML('test')
-    },
-    update(event) {
-      updateElementState(this.id, {
-        text: event.target.innerHTML
-      })
-    },
-    renderText() {
-        const data = {
-            ..._swd.dataSource.data,
-            ...this.context,
-        }
-        const state = getElementState(this.id)
-        this.html = Handlebars.compile(state.text)(data)
+    translatedContent(text, language) {
+      if (typeof text === 'string') {
+        // It's not possible to get translations from a string.
+        return text
+      }
+      return text[language]
     }
   }
 }

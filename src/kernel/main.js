@@ -77,7 +77,7 @@ export default class Main {
 
         if (this.translations) {
             // Set active translation language
-            this.translation = this.translations[0]
+            this.action.setTranslation(this.translations[0])
         }
     }
 
