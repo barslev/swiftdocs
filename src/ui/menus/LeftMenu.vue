@@ -22,6 +22,7 @@ import {getSelectedContent} from '~/redux/actions/session'
 
 import Data from './tabs/Data.vue'
 import Style from './tabs/Style.vue'
+import Logic from './tabs/Logic.vue'
 import Layout from './tabs/Layout.vue'
 import Elements from './tabs/Elements.vue'
 
@@ -45,6 +46,7 @@ function composeCustomTab(menu) {
 export default {
 	components: {
 		'tab-data': Data,
+		'tab-logic': Logic,
 		'tab-style': Style,
 		'tab-layout': Layout,
 		'tab-elements': Elements,
@@ -55,7 +57,8 @@ export default {
 				composeTab('tab-data', 'Data', 'settings_ethernet'),
 				composeTab('tab-layout', 'Page Layout', 'assignment'),
 				composeTab('tab-elements', 'Elements', 'layers'),
-				composeTab('tab-style', 'Style', 'format_paint', true),				
+				composeTab('tab-style', 'Style', 'format_paint', true),
+				composeTab('tab-logic', 'Logic', 'build', true),
 			],
 			active: null,
 			customTab: null,

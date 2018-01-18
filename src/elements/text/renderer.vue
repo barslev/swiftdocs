@@ -24,7 +24,7 @@ export default {
   watch: {
     inRenderMode(render) {
       if (render) {
-        this.render()
+        this.renderText()
       } else {
         Vue.nextTick(() => {
           this.activateEditor()
@@ -36,6 +36,8 @@ export default {
   mounted() {
     if (!this.inRenderMode) {
       this.activateEditor()
+    } else {
+      this.renderText()
     }
   },
 
@@ -53,7 +55,7 @@ export default {
         text: event.target.innerHTML
       })
     },
-    render() {
+    renderText() {
         const data = {
             ..._swd.dataSource.data,
             ...this.context,

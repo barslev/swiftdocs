@@ -13998,17 +13998,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         displayRenderedItems(items) {
             items = this.applyLoops(items);
             items = this.applyConditionals(items);
+            console.log(items);
             return items;
         },
 
         applyLoops(items) {
             let result = [];
             _.each(items, item => {
-                let state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["getElementState"])(item);
+                let state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["getElementState"])(item.id);
                 let loop = _.get(state, 'logic.loop');
                 if (loop) {
                     result = result.concat(this.getLoopedItems(item, loop));
                 } else {
+                    item.context = this.context;
                     result.push(item);
                 }
             });
@@ -14017,9 +14019,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
         getLoopedItems(item, loop) {
             let items = [];
-            _.each(_.get(this.fullContext, loop.in), foo => {
+            _.each(_.get(this.fullContext, loop.in), (foo, $index) => {
                 items.push(_extends({}, item, {
                     context: _extends({}, this.context, {
+                        $index,
                         [loop.as]: foo
                     })
                 }));
@@ -14531,8 +14534,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_session___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__redux_actions_session__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tabs_Data_vue__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tabs_Style_vue__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_Layout_vue__ = __webpack_require__(110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tabs_Elements_vue__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_Logic_vue__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tabs_Layout_vue__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tabs_Elements_vue__ = __webpack_require__(112);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -14562,6 +14566,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
+
 function composeTab(component, label, icon, requireSelection = false) {
 	return {
 		icon,
@@ -14581,13 +14586,14 @@ function composeCustomTab(menu) {
 /* harmony default export */ __webpack_exports__["a"] = ({
 	components: {
 		'tab-data': __WEBPACK_IMPORTED_MODULE_1__tabs_Data_vue__["a" /* default */],
+		'tab-logic': __WEBPACK_IMPORTED_MODULE_3__tabs_Logic_vue__["a" /* default */],
 		'tab-style': __WEBPACK_IMPORTED_MODULE_2__tabs_Style_vue__["a" /* default */],
-		'tab-layout': __WEBPACK_IMPORTED_MODULE_3__tabs_Layout_vue__["a" /* default */],
-		'tab-elements': __WEBPACK_IMPORTED_MODULE_4__tabs_Elements_vue__["a" /* default */]
+		'tab-layout': __WEBPACK_IMPORTED_MODULE_4__tabs_Layout_vue__["a" /* default */],
+		'tab-elements': __WEBPACK_IMPORTED_MODULE_5__tabs_Elements_vue__["a" /* default */]
 	},
 	data() {
 		return {
-			tabs: [composeTab('tab-data', 'Data', 'settings_ethernet'), composeTab('tab-layout', 'Page Layout', 'assignment'), composeTab('tab-elements', 'Elements', 'layers'), composeTab('tab-style', 'Style', 'format_paint', true)],
+			tabs: [composeTab('tab-data', 'Data', 'settings_ethernet'), composeTab('tab-layout', 'Page Layout', 'assignment'), composeTab('tab-elements', 'Elements', 'layers'), composeTab('tab-style', 'Style', 'format_paint', true), composeTab('tab-logic', 'Logic', 'build', true)],
 			active: null,
 			customTab: null,
 			selectedId: this.$select('session.selectedId as selectedId')
@@ -15484,7 +15490,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   watch: {
     inRenderMode(render) {
       if (render) {
-        this.render();
+        this.renderText();
       } else {
         Vue.nextTick(() => {
           this.activateEditor();
@@ -15496,6 +15502,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   mounted() {
     if (!this.inRenderMode) {
       this.activateEditor();
+    } else {
+      this.renderText();
     }
   },
 
@@ -15513,7 +15521,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         text: event.target.innerHTML
       });
     },
-    render() {
+    renderText() {
       const data = _extends({}, _swd.dataSource.data, this.context);
       const state = Object(__WEBPACK_IMPORTED_MODULE_5__redux_actions_contents__["getElementState"])(this.id);
       this.html = __WEBPACK_IMPORTED_MODULE_0_handlebars_dist_handlebars___default.a.compile(state.text)(data);
@@ -56069,6 +56077,242 @@ exports.push([module.i, "\ni {\n  margin-top: 2px;\n}\n", ""]);
 
 // exports
 
+
+/***/ }),
+/* 194 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Logic_vue__ = __webpack_require__(196);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5bb4cc8c_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Logic_vue__ = __webpack_require__(195);
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Logic_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5bb4cc8c_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Logic_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/ui/menus/tabs/Logic.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5bb4cc8c", Component.options)
+  } else {
+    hotAPI.reload("data-v-5bb4cc8c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 195 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("h5", [_vm._v("Loop")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "mb-3" }, [
+      _c("label", [_vm._v("Path")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.loop.in,
+            expression: "loop.in"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.loop.in },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.loop, "in", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", [
+      _c("label", [_vm._v("Repeat As")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.loop.as,
+            expression: "loop.as"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.loop.as },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.loop, "as", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn-primary",
+        on: {
+          click: function($event) {
+            _vm.setLoop()
+          }
+        }
+      },
+      [_vm._v("Set Loop")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn-default",
+        on: {
+          click: function($event) {
+            _vm.removeLoop()
+          }
+        }
+      },
+      [_vm._v("Remove Loop")]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5bb4cc8c", esExports)
+  }
+}
+
+/***/ }),
+/* 196 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    props: ['id'],
+
+    watch: {
+        id() {
+            this.loadState();
+        }
+    },
+
+    data() {
+        return {
+            state: null,
+            loop: null
+        };
+    },
+
+    created() {
+        this.loadState();
+    },
+
+    methods: {
+        loadState() {
+            this.state = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["getElementState"])(this.id);
+
+            if (this.state.logic && this.state.logic.loop) {
+                this.loop = this.state.logic.loop;
+            } else {
+                this.loop = {
+                    in: '',
+                    as: ''
+                };
+            }
+        },
+        getLogicParam(type, param) {
+            return _.get(this.state, 'logic.' + type + '.' + param);
+        },
+        setLoop() {
+            if (!this.loop.in || !this.loop.as) {
+                notifyError('Loop not set.', 'Fill both fields to set a loop.');
+                return;
+            }
+            Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, {
+                logic: {
+                    loop: this.loop
+                }
+            });
+            this.loadState();
+            notifySuccess('Loop set', 'Loop will be effective at render time.');
+        },
+        removeLoop() {
+            Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["updateElementState"])(this.id, {
+                logic: {}
+            });
+            this.loadState();
+            notifySuccess('Loop removed');
+        }
+    }
+});
 
 /***/ })
 /******/ ]);

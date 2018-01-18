@@ -64,17 +64,19 @@ export default {
         displayRenderedItems(items) {
             items = this.applyLoops(items)
             items = this.applyConditionals(items)
+            console.log(items)
             return items
         },
 
-        applyLoops(items) {        
+        applyLoops(items) {
             let result = []
             _.each(items, (item) => {
-                let state = getElementState(item)
+                let state = getElementState(item.id)
                 let loop = _.get(state, 'logic.loop')
                 if (loop) {
                     result = result.concat(this.getLoopedItems(item, loop))
                 } else {
+                    item.context = this.context
                     result.push(item)
                 }
             })
@@ -83,11 +85,12 @@ export default {
 
         getLoopedItems(item, loop) {
             let items = []
-            _.each(_.get(this.fullContext, loop.in), foo => {
+            _.each(_.get(this.fullContext, loop.in), (foo, $index) => {
                 items.push({
                     ...item,
                     context: {
                         ...this.context,
+                        $index,
                         [loop.as]: foo
                     }
                 })
