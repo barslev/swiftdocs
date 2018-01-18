@@ -23,7 +23,7 @@
 </template>
 <script>
 export default {
-	props: ['label'],
+	props: ['label', 'color'],
 	data() {
 		return {
 			isOpen: false

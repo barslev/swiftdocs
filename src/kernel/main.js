@@ -21,6 +21,11 @@ export default class Main {
         this.dataSource = new DataSource()
         this.storage = new storage[storageDriver]
 
+        this.languages = [
+            'en',
+            'tr'
+        ]
+
         this._bootDocument = this._bootDocument.bind(this)
         this._createVueApp = this._createVueApp.bind(this)
         this._useDefaultDesignElements = this._useDefaultDesignElements.bind(this)
@@ -57,6 +62,10 @@ export default class Main {
             )
         })
     }
+    
+    setLanguage(language) {
+        this.vue.$i18n.locale = language
+    }
 
     /**
      * Receives null for new documents, object for existing ones
@@ -71,7 +80,7 @@ export default class Main {
      * Creates the Vue application which runs the editor.
      */
     _createVueApp() {
-        new Vue({
+        this.vue = new Vue({
             el: this.el,
             i18n: require('~/localization'),
             created() {

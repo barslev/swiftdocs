@@ -29,8 +29,10 @@
         </div>
         
         <div class="float-right">
-            <dropdown-menu icon="settings" align="pin-r">
-                <dropdown-option @click.native="$modal.show('page-color')"></dropdown-option>
+            <dropdown-menu color="border-grey" icon="settings" :label="$t('languages.' + locale)" align="pin-r">
+                <dropdown-option v-for="language in languages" v-if="language != locale" @click.native="changeLocale(language)">
+                    {{ $t('languages.' + language) }}
+                </dropdown-option>
             </dropdown-menu>
         </div>
 
@@ -47,9 +49,22 @@ export default {
         this.beginEditMode = beginEditMode
         this.beginRenderMode = beginRenderMode
     },
+    data() {
+        return {
+            languages: _swd.languages
+        }
+    },
+    computed: {
+        locale() {
+            return this.$i18n.locale
+        }
+    },
     methods: {
         save() {
             _swd.save()
+        },
+        changeLocale(locale) {
+            _swd.setLanguage(locale)
         }
     }
 }
