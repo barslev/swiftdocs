@@ -17,6 +17,10 @@ export function beginRenderMode() {
     deselectContent()
 }
 
+export function getCurrentMode() {
+    return store.state.session.mode
+}
+
 export function selectContent(id) {
     store.dispatch({
         type: 'SESSION_CONTENT_SELECT',

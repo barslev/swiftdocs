@@ -3,6 +3,7 @@
  */
 
 const dragula = require('dragula')
+import { MODE_EDIT, getCurrentMode } from '~/redux/actions/session'
 import { insertContent, moveContent } from '~/redux/actions/contents'
 
 class dragDrop
@@ -37,6 +38,9 @@ class dragDrop
             copySortSource: false,
             accepts(el, target, source, sibling) {
                 return target.id !== 'toolbar_elements'
+            },
+            moves() {
+                return getCurrentMode() == MODE_EDIT
             }
         })
     }
