@@ -16196,8 +16196,32 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["a"] = ({
 	extends: __WEBPACK_IMPORTED_MODULE_0__elements_base___default.a,
 
-	computed: {
-		photoSrc() {
+	data() {
+		return {
+			imageSrc: null
+		};
+	},
+
+	watch: {
+		state() {
+			this.refreshImageSrc();
+		},
+		inRenderMode() {
+			this.refreshImageSrc();
+		}
+	},
+
+	created() {
+		this.refreshImageSrc();
+	},
+
+	methods: {
+
+		refreshImageSrc() {
+			this.imageSrc = this.findImageSrc();
+		},
+
+		findImageSrc() {
 			if (!this.state.src) {
 				return __WEBPACK_IMPORTED_MODULE_1__placeholder___default.a;
 			}
@@ -16208,10 +16232,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 				case 'variable':
 					return this.getVariableValue(this.state.src.content);
 			}
-		}
-	},
 
-	methods: {
+			return __WEBPACK_IMPORTED_MODULE_1__placeholder___default.a;
+		},
+
 		getVariableValue(address) {
 			if (!this.inRenderMode) {
 				return __WEBPACK_IMPORTED_MODULE_1__placeholder___default.a;
@@ -55649,7 +55673,7 @@ var render = function() {
   return _c("div", { class: "text-" + _vm.state.align }, [
     _c("img", {
       attrs: {
-        src: _vm.photoSrc,
+        src: _vm.imageSrc,
         width: _vm.state.width,
         height: _vm.state.height
       }

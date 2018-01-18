@@ -1,6 +1,6 @@
 <template>
 	<div :class="'text-' + state.align">
-		<img :src="photoSrc" :width="state.width" :height="state.height" />
+		<img :src="imageSrc" :width="state.width" :height="state.height" />
 	</div>
 </template>
 <script>
@@ -11,8 +11,32 @@ import {getElementState, updateElementState} from '~/redux/actions/contents'
 export default {
   extends: base,
 
-  computed: {
-	  photoSrc() {
+  data() {
+	  return {
+		  imageSrc: null
+	  }
+  },
+
+  watch: {
+	  state() {
+		  this.refreshImageSrc()
+	  },
+	  inRenderMode() {
+		  this.refreshImageSrc()
+	  }
+  }, 
+
+  created() {
+	  this.refreshImageSrc()
+  },
+
+  methods: {
+
+	  refreshImageSrc() {
+		  this.imageSrc = this.findImageSrc()
+	  },
+
+	  findImageSrc() {
 		  if (!this.state.src) {
 			return placeholder	  
 		  }
@@ -23,11 +47,10 @@ export default {
 			  case 'variable':
 			  	return this.getVariableValue(this.state.src.content)
 		  }
-		  
-	  }
-  },
 
-  methods: {
+		  return placeholder
+	  },
+	  
 	  getVariableValue(address) {
 		  if (!this.inRenderMode) {
 			  return placeholder
