@@ -325,6 +325,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.beginEditMode = beginEditMode;
 exports.beginRenderMode = beginRenderMode;
+exports.getCurrentMode = getCurrentMode;
 exports.selectContent = selectContent;
 exports.deselectContent = deselectContent;
 exports.getSelectedContent = getSelectedContent;
@@ -345,6 +346,10 @@ function beginRenderMode() {
     });
     // Deselect any content currently selected
     deselectContent();
+}
+
+function getCurrentMode() {
+    return store.state.session.mode;
 }
 
 function selectContent(id) {
@@ -13948,8 +13953,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
 
 
 
@@ -13998,7 +14001,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         displayRenderedItems(items) {
             items = this.applyLoops(items);
             items = this.applyConditionals(items);
-            console.log(items);
             return items;
         },
 
@@ -14918,6 +14920,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _session = __webpack_require__(3);
+
 var _contents = __webpack_require__(1);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -14965,6 +14969,9 @@ var dragDrop = function () {
                 copySortSource: false,
                 accepts: function accepts(el, target, source, sibling) {
                     return target.id !== 'toolbar_elements';
+                },
+                moves: function moves() {
+                    return (0, _session.getCurrentMode)() == _session.MODE_EDIT;
                 }
             });
         }
@@ -15790,11 +15797,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		}
 	},
 	mounted() {
-		_swd.dragDrop.add(this.$refs.container);
+		_swd.dragDrop.add(this.$el);
 		this.updateContainerContents();
 	},
 	beforeDestroy() {
-		_swd.dragDrop.remove(this.$refs.container);
+		_swd.dragDrop.remove(this.$el);
 	},
 	methods: {
 		updateContainerContents() {
@@ -36679,17 +36686,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      _vm._l(_vm.displayItems, function(item, index) {
-        return _c("el", {
-          key: "item-" + index,
-          attrs: { element: item, context: item.context }
-        })
+  return _c(
+    "div",
+    _vm._l(_vm.displayItems, function(item, index) {
+      return _c("el", {
+        key: "item-" + index,
+        attrs: { element: item, context: item.context }
       })
-    )
-  ])
+    })
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -55010,21 +55015,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      ref: "container",
-      staticClass: "document__page-container",
-      class: _vm.root ? "" : "document__page-child-container",
-      attrs: { "container-id": _vm.id, "page-id": _vm.root ? _vm.id : null }
-    },
-    [
-      _c("logical-presenter", {
-        attrs: { items: _vm.containerContents, context: _vm.context }
-      })
-    ],
-    1
-  )
+  return _c("logical-presenter", {
+    tag: "div",
+    staticClass: "document__page-container",
+    class: _vm.root ? "" : "document__page-child-container",
+    attrs: {
+      "container-id": _vm.id,
+      "page-id": _vm.root ? _vm.id : null,
+      items: _vm.containerContents,
+      context: _vm.context
+    }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true

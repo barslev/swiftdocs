@@ -1,12 +1,10 @@
 <template>
     <div>
-        <div>
         <el v-for="(item, index) in displayItems"
             :key="'item-' + index"
             :element="item"
             :context="item.context">
         </el>
-        </div>
     </div>
 </template>
 <script>
@@ -64,7 +62,6 @@ export default {
         displayRenderedItems(items) {
             items = this.applyLoops(items)
             items = this.applyConditionals(items)
-            console.log(items)
             return items
         },
 

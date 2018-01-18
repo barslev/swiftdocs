@@ -1,11 +1,11 @@
 <template>
-	<div ref="container"
+	<div
+		is="logical-presenter"
 		class="document__page-container"
 		:container-id="id"
 		:page-id="root ? id : null"
+		:items="containerContents" :context="context"
 		:class="root ? '' : 'document__page-child-container'">
-		
-		<logical-presenter :items="containerContents" :context="context" />
 	</div>
 </template>
 <script>
@@ -27,11 +27,11 @@ export default {
 		}
 	},
 	mounted() {
-		_swd.dragDrop.add(this.$refs.container)
+		_swd.dragDrop.add(this.$el)
 		this.updateContainerContents()
 	},
 	beforeDestroy() {
-		_swd.dragDrop.remove(this.$refs.container)
+		_swd.dragDrop.remove(this.$el)
 	},
 	methods: {
 		updateContainerContents() {
