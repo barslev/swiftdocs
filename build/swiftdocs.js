@@ -14243,22 +14243,25 @@ function comparable(value) {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['label', 'color'],
+	props: ['label', 'color', 'icon'],
 	data() {
 		return {
 			isOpen: false
 		};
+	},
+	computed: {
+		styles() {
+			let classes = ['border-blue', 'text-blue'];
+			if (this.color) {
+				classes = ['border-' + this.color, 'text-' + this.color];
+			}
+			if (this.isOpen) {
+				classes.push('bg-white');
+			}
+			return classes;
+		}
 	},
 	methods: {
 		close() {
@@ -37657,8 +37660,8 @@ var render = function() {
           }
         ],
         staticClass:
-          "p-2 pt-2 border border-blue hover:bg-white inline-block text-center text-xs font-bold uppercase text-blue",
-        class: _vm.isOpen ? "bg-white" : "",
+          "p-2 pt-2 border hover:bg-white inline-block text-center text-xs font-bold uppercase",
+        class: _vm.styles,
         attrs: { role: "button" },
         on: {
           click: function($event) {
@@ -37674,7 +37677,7 @@ var render = function() {
             staticClass: "material-icons float-right ml-1",
             staticStyle: { "margin-top": "-2px" }
           },
-          [_vm._v("keyboard_arrow_down")]
+          [_vm._v(_vm._s(_vm.icon ? _vm.icon : "keyboard_arrow_down"))]
         )
       ]
     ),
@@ -38822,8 +38825,8 @@ var render = function() {
             "dropdown-menu",
             {
               attrs: {
-                color: "border-grey",
-                icon: "settings",
+                color: "grey-dark",
+                icon: "language",
                 label: _vm.$t("languages." + _vm.locale),
                 align: "pin-r"
               }

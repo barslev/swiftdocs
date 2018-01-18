@@ -29,7 +29,7 @@
         </div>
         
         <div class="float-right">
-            <dropdown-menu color="border-grey" icon="settings" :label="$t('languages.' + locale)" align="pin-r">
+            <dropdown-menu color="grey-dark" icon="language" :label="$t('languages.' + locale)" align="pin-r">
                 <dropdown-option v-for="language in languages" v-if="language != locale" @click.native="changeLocale(language)">
                     {{ $t('languages.' + language) }}
                 </dropdown-option>
