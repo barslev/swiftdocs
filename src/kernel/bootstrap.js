@@ -57,6 +57,7 @@ Vue.mixin({
         }
     },
     mounted() {
+        window.$t = this.$t
         window.notifyError = this.notifyError.bind(this)
         window.notifySuccess = this.notifySuccess.bind(this)
     }

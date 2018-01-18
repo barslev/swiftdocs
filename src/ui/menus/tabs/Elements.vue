@@ -1,6 +1,6 @@
 <template>
     <div>
-		<h5>Elements</h5>
+		<h5>{{ $t('menus.elements.title') }}</h5>
 		<div id="toolbar_elements" ref="elements">
 			<toolbar-button
 				v-for="element in elements"

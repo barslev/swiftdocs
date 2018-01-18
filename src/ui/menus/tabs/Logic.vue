@@ -1,35 +1,35 @@
     <template>
     <div>
         <div class="p-2 bg-grey-lightest">
-            <h5>Loop</h5>
+            <h5>{{ $t('menus.logic.loop') }}</h5>
             <div class="mb-3">
-                <label>Path</label>
+                <label>{{ $t('menus.logic.path') }}</label>
                 <input type="text" v-model="loop.in" />
             </div>
             <div>
-                <label>Repeat As</label>
+                <label>{{ $t('menus.logic.repeat_as') }}</label>
                 <input type="text" v-model="loop.as" />
             </div>
-            <button class="btn-primary" @click="setLoop()">Set</button>
-            <button class="btn-default" @click="removeLoop()" v-show="state.logic && state.logic.loop">Remove</button>
+            <button class="btn-primary" @click="setLoop()">{{ $t('global.set') }}</button>
+            <button class="btn-default" @click="removeLoop()" v-show="state.logic && state.logic.loop">{{ $t('global.remove') }}</button>
         </div>
         <hr>
         <div class="p-2 bg-grey-lightest">
-            <h5>Display Condition</h5>
+            <h5>{{ $t('menus.logic.condition') }}</h5>
             <div class="mb-3">
-                <label>Display this when this address</label>
+                <label>{{ $t('menus.logic.condition_address') }}</label>
                 <input type="text" v-model="condition.address" />
             </div>
             <div class="mb-3">
                 <select class="form-control" v-model="condition.comparator">
-                    <option value="exists">Exists</option>
-                    <option value="equals">Equals to</option>
-                    <option value="greater_than">Greater Than</option>
-                    <option value="less_than">Less Than</option>
+                    <option value="exists">{{ $t('menus.logic.exists') }}</option>
+                    <option value="equals">{{ $t('menus.logic.equals') }}</option>
+                    <option value="greater_than">{{ $t('menus.logic.greater_than') }}</option>
+                    <option value="less_than">{{ $t('menus.logic.less_than') }}</option>
                 </select>
             </div>
             <div class="mb-3" v-if="condition.comparator != 'exists'">
-                <label>This Value</label>
+                <label>{{ $t('menus.logic.this_value') }}</label>
                 <input type="text" v-model="condition.value" />
             </div>        
             <button class="btn-primary" @click="setCondition()">Set</button>
@@ -92,7 +92,10 @@ export default {
         },
         setLoop() {
             if (!this.loop.in || !this.loop.as) {
-                notifyError('Loop not set.', 'Fill both fields to set a loop.')
+                notifyError(
+                    $t('menus.logic.loop_error_title'),
+                    $t('menus.logic.loop_error_text'),
+                )
                 return
             }
             updateElementState(this.id, {
@@ -102,18 +105,27 @@ export default {
                 }
             })
             this.loadState()
-            notifySuccess('Loop set', 'Loop will be effective at render time.')
+            notifySuccess(
+                $t('menus.logic.loop_success_title'),
+                $t('menus.logic.loop_success_text'),
+            )
         },
         removeLoop() {
             updateElementState(this.id, {
-                logic: {}
+                logic: {
+                    ...this.state.logic,
+                    loop: null
+                }
             })
             this.loadState()
-            notifySuccess('Loop removed')
+            notifySuccess($t('menus.logic.loop_remove_success_title'))
         },
         setCondition() {
             if (!this.condition.address || (this.condition.comparator != 'exists' && !this.condition.value)) {
-                notifyError('Condition not set', 'Please fill all the fields')
+                notifyError(
+                    $t('menus.logic.condition_error_title'),
+                    $t('menus.logic.condition_error_text')
+                )
                 return
             }
             updateElementState(this.id, {
@@ -123,10 +135,20 @@ export default {
                 }
             })
             this.loadState()
-            notifySuccess('Condition set', 'Condition will be effective at render time.')            
+            notifySuccess(
+                $t('menus.logic.condition_success_title'),
+                $t('menus.logic.condition_success_text')
+            )
         },
         removeCondition() {
-
+            updateElementState(this.id, {
+                logic: {
+                    ...this.state.logic,
+                    condition: null
+                }
+            })
+            this.loadState()
+            notifySuccess($t('menus.logic.condition_remove_success_title'))
         }
     }
 }

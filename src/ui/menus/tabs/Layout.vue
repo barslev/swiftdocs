@@ -1,11 +1,10 @@
 <template>
     <div>
-    <h5>Page Layout</h5>
-    <toolbar-button icon="settings_overscan" @onClick="$modal.show('page-margins')">Margins</toolbar-button>
-    <toolbar-button icon="tab_unselected" @onClick="$modal.show('page-size')">Page Size</toolbar-button>
-    <toolbar-button icon="color_lens" @onClick="$modal.show('page-color')">Color</toolbar-button>
+    <h5>{{ $t('menus.layout.title') }}</h5>
+    <toolbar-button icon="settings_overscan" @onClick="$modal.show('page-margins')">{{ $t('menus.layout.margins')}}</toolbar-button>
+    <toolbar-button icon="color_lens" @onClick="$modal.show('page-color')">{{ $t('menus.layout.page_color')}}</toolbar-button>
     <hr>
-    <toolbar-button icon="queue" @onClick="addPage()">Add New Page</toolbar-button>
+    <toolbar-button icon="queue" @onClick="addPage()">{{ $t('menus.layout.add_new')}}</toolbar-button>
     </div>
 </template>
 <script>

@@ -8,7 +8,7 @@
 			@click="openTab(tab)"
 			:class="active == tab ? 'active' : ''">
 			<i class="material-icons" style="font-size:24px">{{ tab.icon }}</i>
-			{{ tab.label }}
+			{{ $t(tab.label) }}
 		</a>
 	</div>
 
@@ -54,11 +54,11 @@ export default {
 	data() {
 		return {
 			tabs: [
-				composeTab('tab-data', 'Data', 'settings_ethernet'),
-				composeTab('tab-layout', 'Page Layout', 'assignment'),
-				composeTab('tab-elements', 'Elements', 'layers'),
-				composeTab('tab-style', 'Style', 'format_paint', true),
-				composeTab('tab-logic', 'Logic', 'build', true),
+				composeTab('tab-data', 'left.tabs.data', 'settings_ethernet'),
+				composeTab('tab-layout', 'left.tabs.layout', 'assignment'),
+				composeTab('tab-elements', 'left.tabs.elements', 'layers'),
+				composeTab('tab-style', 'left.tabs.style', 'format_paint', true),
+				composeTab('tab-logic', 'left.tabs.logic', 'build', true),
 			],
 			active: null,
 			customTab: null,

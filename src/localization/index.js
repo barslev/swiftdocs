@@ -4,6 +4,7 @@ const i18n = new VueI18n({
     locale: 'en',
     messages: {
         en: require('json-loader!./en.yaml'),
+        tr: require('json-loader!./tr.yaml'),
         // Add more languages...
     },
 })
