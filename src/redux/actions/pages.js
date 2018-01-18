@@ -11,7 +11,7 @@ export function addPage() {
             dimensions: store.state.defaults.dimensions,
         }
     })
-    window.notifySuccess('New page added')
+    window.notifySuccess($t('messages.page_added'))
 }
 
 export function removePage(id) {
@@ -19,7 +19,7 @@ export function removePage(id) {
         type: 'PAGE_REMOVE',
         payload: {id}
     })
-    window.notifySuccess('Page removed')
+    window.notifySuccess($t('messages.page_removed'))
 }
 
 export function updatePageMargin(newMargins, id) {

@@ -1,23 +1,23 @@
 <template>
     <div>
         <custom-modal name="page-margins" @before-open="getDefaults" @on-ok="apply()">
-            <div slot="title">Page Margins</div>
+            <div slot="title">{{ $t('modals.page_margins.title') }}</div>
             <div slot="content">
                 <div class="flex flex-wrap">
                     <div class="md:w-1/4 px-1 mb-4">
-                        <label class="label">Top</label>
+                        <label class="label">{{ $t('modals.page_margins.top') }}</label>
                         <input type="number" class="form-control" v-model="defaultMargins.top" />
                     </div>
                     <div class="md:w-1/4 px-1 mb-4">
-                        <label class="label">Bottom</label>
+                        <label class="label">{{ $t('modals.page_margins.bottom') }}</label>
                         <input type="number" class="form-control" v-model="defaultMargins.bottom" />
                     </div>
                     <div class="md:w-1/4 px-1 mb-4">
-                        <label class="label">Left</label>
+                        <label class="label">{{ $t('modals.page_margins.left') }}</label>
                         <input type="number" class="form-control" v-model="defaultMargins.left" />
                     </div>
                     <div class="md:w-1/4 px-1 mb-4">
-                        <label class="label">Right</label>
+                        <label class="label">{{ $t('modals.page_margins.right') }}</label>
                         <input type="number" class="form-control" v-model="defaultMargins.right" />
                     </div>
                 </div>

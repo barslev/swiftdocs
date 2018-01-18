@@ -8,15 +8,25 @@ languages:
   zh: "Chinese"
 
 global:
+  ok: "OK"
   set: "Set"
+  cancel: "Cancel"
   remove: "Remove"
   loading: "Loading"
+
+messages:
+  saved: "Saved!"
+  saved_more: "All changes were saved."
+  page_added: "Page Added"
+  page_removed: "Page Removed"
 
 top:
   file: "FILE"
   edit_document: "Edit Document"
   save: "Save"
   render: "Render Document"
+  untitled_document: "Untitled Document"
+  enter_title: "Enter a new title for this document"
 
 left:
   tabs:
@@ -83,8 +93,19 @@ menus:
     remove_element: "Remove Element"
     remove_this_element: "Remove This Element"
 
+modals:
+  page_color:
+    title: "Page Background Color"
+    color: "Color"
+  page_margins:
+    title: "Page Margins"
+    top: "Top"
+    left: "Left"
+    right: "Right"
+    bottom: "Bottom"
 
-
-
-
+scope:
+  apply_to: "Apply To"
+  all_pages: "All Pages"
+  only_to_page: "Only to Page {0}"
 

@@ -1,10 +1,10 @@
 <template>
     <div>
         <custom-modal name="page-color" @before-open="getDefaults" @on-ok="apply()">
-            <div slot="title">Page Background Color</div>
+            <div slot="title">{{ $t('modals.page_color.title') }}</div>
             <div slot="content">
                 <div class="mb-4">
-                    <label class="label">Color</label>
+                    <label class="label">{{ $t('modals.page_color.color') }}</label>
                     <color v-model="defaultBackground"></color>
                 </div>
                 <page-scope v-model="scope"></page-scope>

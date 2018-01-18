@@ -18,8 +18,8 @@
             <div class="modal__footer">
                 <slot name="footer">
                     <div class="float-right">
-                        <button class="btn-default" @click="cancel()">Cancel</button>
-                        <button class="btn-primary" @click="ok()">OK</button>
+                        <button class="btn-default" @click="cancel()">{{ $t('global.cancel') }}</button>
+                        <button class="btn-primary" @click="ok()">{{ $t('global.ok') }}</button>
                     </div>
                 </slot>
             </div>

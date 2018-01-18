@@ -36,7 +36,6 @@ Vue.component('variable-displayer', require('~/ui/tools/VariableDisplayer.vue').
  * Toolbar items
  */
 Vue.component('custom-modal', require('~/ui/modals/Modal.vue').default)
-Vue.component('page-size', require('~/ui/modals/PageSize.vue').default)
 Vue.component('page-color', require('~/ui/modals/PageColor.vue').default)
 Vue.component('page-margins', require('~/ui/modals/PageMargins.vue').default)
 

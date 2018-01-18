@@ -51,7 +51,10 @@ export default class Main {
             this.documentId,
             clonedState
         ).then(() => {
-            notifySuccess('Saved!', 'All changes saved')
+            notifySuccess(
+                $t('messages.saved'),
+                $t('messages.saved_more')
+            )
         })
     }
 
