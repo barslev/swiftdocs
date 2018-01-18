@@ -76,9 +76,9 @@ export default {
 			this.active = tab
 		},
 		
-		openTabByName(name) {
+		openTabById(id) {
 			this.openTab(_.find(this.tabs, {
-				label: name
+				component: id
 			}))
 		},
 		
@@ -103,21 +103,23 @@ export default {
 			// Remove any custom tabs previously shown
 			this.removeCustomTabs()
 			this.showContentSpecificTabs()
+
+			let tab
 			
-			if ( ! menu) {
-				// There is no custom menu for this content.
-				// Just show the styling menu instead
-				this.openTabByName('Style')
+			if (menu) {
+				tab = composeCustomTab(menu)
+				this.tabs.push(tab)
+			}
+
+			if (this.active && this.active.requireSelection) {
+				// New tab is added, however no need to switch to this tab
+				// As the user is apparently working on another aspect of the element
 				return
 			}
 
-			const tab = composeCustomTab(menu)
-			this.tabs.push(tab)
-
-			// Open custom tab if current tab is not element specific.
-			if (!this.active || !this.active.requireSelection) {
-				this.openTab(tab)
-			}
+			// No active tab or the active tab is not related to selected content
+			// Open the custom tab for the element if found, else default to the style tab.
+			tab ? this.openTab(tab) : this.openTabById('tab-style')
 		},
 
 		showContentSpecificTabs() {

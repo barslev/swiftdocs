@@ -14612,9 +14612,9 @@ function composeCustomTab(menu) {
 			this.active = tab;
 		},
 
-		openTabByName(name) {
+		openTabById(id) {
 			this.openTab(_.find(this.tabs, {
-				label: name
+				component: id
 			}));
 		},
 
@@ -14638,20 +14638,22 @@ function composeCustomTab(menu) {
 			this.removeCustomTabs();
 			this.showContentSpecificTabs();
 
-			if (!menu) {
-				// There is no custom menu for this content.
-				// Just show the styling menu instead
-				this.openTabByName('Style');
+			let tab;
+
+			if (menu) {
+				tab = composeCustomTab(menu);
+				this.tabs.push(tab);
+			}
+
+			if (this.active && this.active.requireSelection) {
+				// New tab is added, however no need to switch to this tab
+				// As the user is apparently working on another aspect of the element
 				return;
 			}
 
-			const tab = composeCustomTab(menu);
-			this.tabs.push(tab);
-
-			// Open custom tab if current tab is not element specific.
-			if (!this.active || !this.active.requireSelection) {
-				this.openTab(tab);
-			}
+			// No active tab or the active tab is not related to selected content
+			// Open the custom tab for the element if found, else default to the style tab.
+			tab ? this.openTab(tab) : this.openTabById('tab-style');
 		},
 
 		showContentSpecificTabs() {
