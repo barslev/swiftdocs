@@ -90,6 +90,19 @@ export default class Main {
             i18n: require('~/localization'),
             created() {
                 dragDrop.activate()
+            },
+            methods: {
+                notifyError(title, text) {
+                    this.$notify({ type: 'error', title, text })
+                },
+                notifySuccess(title, text) {
+                    this.$notify({ type: 'success', title, text })
+                }
+            },
+            mounted() {
+                window.$t = this.$t
+                window.notifyError = this.notifyError.bind(this)
+                window.notifySuccess = this.notifySuccess.bind(this)
             }
         })
     }

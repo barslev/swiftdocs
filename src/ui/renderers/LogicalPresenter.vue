@@ -133,9 +133,9 @@ export default {
                     case 'equals':
                         return address == condition.value
                     case 'greater_than':
-                        return comparable(address) >= parseFloat(condition.value)
+                        return comparable(address) > parseFloat(condition.value)
                     case 'less_than':
-                        return comparable(address) <= parseFloat(condition.value)
+                        return comparable(address) < parseFloat(condition.value)
                     default:
                         throw new Error('Unknown comparator: ' + condition.comparator)
                 }

@@ -25,7 +25,7 @@ export default {
 		  this.refreshImageSrc()
 	  }
   }, 
-
+	
   created() {
 	  this.refreshImageSrc()
   },

@@ -46,23 +46,6 @@ Vue.component('translations', require('~/ui/modals/Translations.vue').default)
 Vue.component('top-menu', require('~/ui/menus/TopMenu.vue').default)
 Vue.component('left-menu', require('~/ui/menus/LeftMenu.vue').default)
 
-// Mix-ins
-Vue.mixin({
-    methods: {
-        notifyError(title, text) {
-            this.$notify({ type: 'error', title, text })
-        },
-        notifySuccess(title, text) {
-            this.$notify({ type: 'success', title, text })
-        }
-    },
-    mounted() {
-        window.$t = this.$t
-        window.notifyError = this.notifyError.bind(this)
-        window.notifySuccess = this.notifySuccess.bind(this)
-    }
-})
-
 Vue.mixin({
   data() {
     return {
