@@ -11424,7 +11424,6 @@ function addPage() {
             dimensions: store.state.defaults.dimensions
         }
     });
-    window.notifySuccess($t('messages.page_added'));
 }
 
 function removePage(id) {
@@ -15440,11 +15439,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	methods: {
-		addPage() {
-			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_pages__["addPage"])();
-		}
-	}
+    methods: {
+        addPage() {
+            Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_pages__["addPage"])();
+            notifySuccess($t('messages.page_added'));
+        }
+    }
 });
 
 /***/ }),
@@ -17010,6 +17010,10 @@ var Main = function () {
                 el: this.el,
                 i18n: __webpack_require__(161),
                 created: function created() {
+                    window.$t = this.$t;
+                    window.notifyError = this.notifyError.bind(this);
+                    window.notifySuccess = this.notifySuccess.bind(this);
+
                     _dragDrop2.default.activate();
                 },
 
@@ -17020,11 +17024,6 @@ var Main = function () {
                     notifySuccess: function notifySuccess(title, text) {
                         this.$notify({ type: 'success', title: title, text: text });
                     }
-                },
-                mounted: function mounted() {
-                    window.$t = this.$t;
-                    window.notifyError = this.notifyError.bind(this);
-                    window.notifySuccess = this.notifySuccess.bind(this);
                 }
             });
         }
@@ -17541,10 +17540,7 @@ var Server = function () {
         key: 'load',
         value: function load(documentId) {
             return this.axios.get(this.baseUrl + '/' + documentId).then(function (response) {
-                if (response.data) {
-                    return response.data;
-                }
-                return {};
+                return response.data;
             });
         }
     }, {
@@ -41492,7 +41488,7 @@ var DataSource = exports.DataSource = function () {
                 return Promise.reject('You are using a static data source.');
             }
             this.busy = true;
-            this.axios.get(this.url).then(function (response) {
+            return this.axios.get(this.url).then(function (response) {
                 _this.busy = false;
                 _this.data = response.data;
             }).catch(function (error) {
@@ -41518,7 +41514,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (state) {
-	if (state === null) {
+	if (!state) {
 		state = undefined;
 	}
 	return (0, _redux.createStore)(_reducers2.default, state);

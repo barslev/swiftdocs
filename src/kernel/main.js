@@ -89,6 +89,10 @@ export default class Main {
             el: this.el,
             i18n: require('~/localization'),
             created() {
+                window.$t = this.$t
+                window.notifyError = this.notifyError.bind(this)
+                window.notifySuccess = this.notifySuccess.bind(this)                
+                
                 dragDrop.activate()
             },
             methods: {
@@ -98,11 +102,6 @@ export default class Main {
                 notifySuccess(title, text) {
                     this.$notify({ type: 'success', title, text })
                 }
-            },
-            mounted() {
-                window.$t = this.$t
-                window.notifyError = this.notifyError.bind(this)
-                window.notifySuccess = this.notifySuccess.bind(this)
             }
         })
     }

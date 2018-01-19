@@ -12,10 +12,7 @@ export default class Server
     load(documentId) {
         return this.axios.get(this.baseUrl + '/' + documentId)
             .then((response) => {
-                if (response.data) {
-                    return response.data
-                }
-                return {}
+                return response.data
             })
     }
 

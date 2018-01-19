@@ -11,7 +11,6 @@ export function addPage() {
             dimensions: store.state.defaults.dimensions,
         }
     })
-    window.notifySuccess($t('messages.page_added'))
 }
 
 export function removePage(id) {

@@ -35,7 +35,7 @@ export class DataSource
             return Promise.reject('You are using a static data source.')
         }        
         this.busy = true
-        this.axios.get(this.url).then((response) => {
+        return this.axios.get(this.url).then((response) => {
             this.busy = false
             this.data = response.data
         }).catch((error) => {

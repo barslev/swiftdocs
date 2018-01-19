@@ -14,6 +14,7 @@ export default {
     methods: {
 		addPage() {
 			addPage()
+            notifySuccess($t('messages.page_added'))
 		},        
     }    
 }
