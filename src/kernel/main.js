@@ -87,6 +87,7 @@ export default class Main {
     _createVueApp() {
         this.vue = new Vue({
             el: this.el,
+            template: '<designer></designer>',
             i18n: require('~/localization'),
             created() {
                 window.$t = this.$t

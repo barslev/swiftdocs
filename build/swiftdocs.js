@@ -17008,6 +17008,7 @@ var Main = function () {
         value: function _createVueApp() {
             this.vue = new _vue2.default({
                 el: this.el,
+                template: '<designer></designer>',
                 i18n: __webpack_require__(161),
                 created: function created() {
                     window.$t = this.$t;
