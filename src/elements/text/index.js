@@ -10,7 +10,7 @@ module.exports = {
     },
 
     defaultStyle: {
-        fontSize: '16pt',
+        fontSize: '12pt',
         color: '#000000',
         fontFamily: 'Helvetica',
         lineHeight: '1.25em',
