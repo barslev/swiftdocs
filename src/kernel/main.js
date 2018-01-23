@@ -28,6 +28,8 @@ export default class Main {
 
         this._bootDocument = this._bootDocument.bind(this)
         this._createVueApp = this._createVueApp.bind(this)
+        this._showBootError = this._showBootError.bind(this)
+        this._removeLoadingIndicator = this._removeLoadingIndicator.bind(this)
         this._useDefaultDesignElements = this._useDefaultDesignElements.bind(this)
 
         // Register default design components
@@ -42,9 +44,13 @@ export default class Main {
      */
     start() {
         // TODO: Show document loading progress
+        this._showLoadingIndicator()
+
         this.storage.load(this.documentId)
             .then(this._bootDocument)
+            .then(this._removeLoadingIndicator)
             .then(this._createVueApp)
+            .catch(this._showBootError)
     }
 
     save() {
@@ -113,5 +119,21 @@ export default class Main {
         this.registry.use(require('~/elements/container'))
         this.registry.use(require('~/elements/grid'))
         this.registry.use(require('~/elements/table'))
+    }
+
+    _showLoadingIndicator() {
+        const loading = document.createElement('div')
+        loading.innerHTML = 'loading'
+        loading.classList.add('loading')
+        document.querySelector(this.el).appendChild(loading)
+    }
+
+    _removeLoadingIndicator(doc) {
+        document.querySelector(this.el).innerHTML = ''
+        return doc
+    }
+
+    _showBootError(error) {
+        document.querySelector(this.el).innerHTML = '<div class="boot-error"><h3>Oh No! 😔</h3> ' + error + '</div>'
     }
 }
