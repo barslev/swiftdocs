@@ -3,6 +3,13 @@ Swiftdocs
 
 Work in progress. Details and documentation will be added in the future.
 
+## Usage
+
+### Shortcuts
+
+1. ctrl + **d**uplicate -> duplicate selected content
+2. ctrl + backspace -> remove selected content
+
 ## Initializing
 
 You'll need to reference swiftdocs.js file in your html and then bootstrap it like so:

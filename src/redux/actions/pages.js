@@ -21,18 +21,17 @@ export function removePage(id) {
     window.notifySuccess($t('messages.page_removed'))
 }
 
-export function updatePageMargin(newMargins, id) {
+export function updatePageMargin(newMargins) {
     store.dispatch({
         type: 'PAGE_UPDATE_MARGINS',
         payload: {
-            id,
             margins: newMargins
         }
     })
 }
 
 export function updateAllPageMargins(newMargins) {
-    updatePageMargin(newMargins, null)
+    updatePageMargin(newMargins)
     updateDefaults({margins: newMargins})
 }
 

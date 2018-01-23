@@ -5,6 +5,7 @@ import Action from '~/kernel/action'
 import * as _ from '~/kernel/bootstrap'
 import dragDrop from '~/kernel/dragDrop'
 import { Registry } from '~/kernel/registry'
+import registerCommands from '~/kernel/commands'
 import { DataSource } from '~/kernel/dataSource'
 import storeFactory from '~/redux/stores/storeFactory'
 
@@ -101,6 +102,9 @@ export default class Main {
                 window.notifySuccess = this.notifySuccess.bind(this)                
                 
                 dragDrop.activate()
+            },
+            mounted() {
+                registerCommands()
             },
             methods: {
                 notifyError(title, text) {

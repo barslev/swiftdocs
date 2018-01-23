@@ -21,18 +21,16 @@
                         <input type="number" class="form-control" v-model="defaultMargins.right" />
                     </div>
                 </div>
-                <page-scope v-model="scope"></page-scope>
             </div>
         </custom-modal>
     </div>
 </template>
 <script>
-import { updatePageMargin, updateAllPageMargins } from '~/redux/actions/pages'
+import { updateAllPageMargins } from '~/redux/actions/pages'
 
 export default {
     data() {
         return {
-            scope: null,
             defaultMargins: {}
         }
     },
@@ -41,10 +39,7 @@ export default {
             this.defaultMargins = Object.assign({}, this.$select('defaults.margins as defaultMargins'))
         },
         apply() {
-            if (!this.scope) {
-                return updateAllPageMargins(this.defaultMargins)
-            }
-            return updatePageMargin(this.defaultMargins, this.scope)
+            return updateAllPageMargins(this.defaultMargins)
         }
     }
 }

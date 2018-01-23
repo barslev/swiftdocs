@@ -92,7 +92,7 @@
 </template>
 <script>
 import {updateStyle} from '~/redux/actions/styles'
-import {removeContent} from '~/redux/actions/contents'
+import {removeContentById} from '~/redux/actions/contents'
 import {selectContent, deselectContent} from '~/redux/actions/session'
 
 export default {
@@ -137,7 +137,7 @@ export default {
             this.update(prop, event.target.checked)
         },
         remove() {
-            removeContent(this.id)
+            removeContentById(this.id)
         }
     }
 }

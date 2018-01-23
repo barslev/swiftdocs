@@ -2,9 +2,6 @@ const initialState = []
 
 function updateField(state, action, field) {
 	return state.map((page) => {
-		if(action.payload.id !== null && page.id !== action.payload.id) {
-			return page
-        }
 		page[field] = action.payload[field]
 		return page
 	})    

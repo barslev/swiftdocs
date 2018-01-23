@@ -1,5 +1,10 @@
 import cuid from 'cuid'
 
+function getContentIndex(id)
+{
+    return _.findIndex(store.state.contents, {id: id})
+}
+
 export function insertContent(element, page_id, container_id, beforeId = null) {
 
     const state = _swd.registry.defaultState(element)
@@ -13,7 +18,7 @@ export function insertContent(element, page_id, container_id, beforeId = null) {
     }
 
     const index = beforeId
-        ? _.findIndex(store.state.contents, {id: beforeId})
+        ? getContentIndex(beforeId)
         : store.state.contents.length
 
     store.dispatch({
@@ -59,7 +64,7 @@ function dispatchRemoval(id)
     })
 }
 
-export function removeContent(id)
+export function removeContentById(id)
 {
     store.state.contents
         .filter((content) => {
@@ -72,6 +77,10 @@ export function removeContent(id)
     dispatchRemoval(id)
 }
 
+export function removeContent(content)
+{
+    return removeContentById(content.id)
+}
 
 export function updateElementState(id, fragment) {
 
@@ -96,4 +105,26 @@ export function findContent(id) {
 
 export function getElementState(id, defaultState) {
     return _.get(findContent(id), 'state', defaultState)
+}
+
+export function duplicateContent(content) {
+
+    console.log(content)
+
+    if ( ! content) {
+        return
+    }
+
+    const clone = {...content}
+    clone.id = cuid()
+
+    const originalIndex = getContentIndex(content.id)
+    
+    store.dispatch({
+        type: 'CONTENT_INSERT',
+        payload: {
+            index: originalIndex + 1,
+            content: clone,
+        }
+    })    
 }

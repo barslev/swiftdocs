@@ -1,8 +1,7 @@
 @media print {
   @page {  
-      // TODO: These should be set dynamically.
       size:210mm 297mm;
-      margin: 15mm 15mm;
+      margin: 0;
   }
   body * {
     visibility: hidden;
@@ -12,13 +11,14 @@
       margin: 0 !important;
       padding: 0 !important;
   }
-  .document__page {
+  .document__page, .document__page > div {
       margin: 0 !important;
+      padding: 0 !important;
       border: 0 !important;
   }
-  
-  .document, .document * {
-    visibility: visible;
+
+  .document__page > div, .document__page > div * {
+      visibility: visible;
   }
 
   .document__page-element.hovering::before, .document__page-element.selected::before {
