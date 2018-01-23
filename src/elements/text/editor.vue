@@ -1,5 +1,5 @@
 <template>
-    <p style="min-height:initial !important" @blur="update" v-html="content"></p>
+    <p style="min-height:initial !important" @blur="update($event)"></p>
 </template>
 <script>
 import MediumEditor from 'medium-editor'
@@ -12,14 +12,22 @@ export default {
     props: ['id', 'content'],
 
     mounted() {
-      this.editor = new MediumEditor(this.$el, {
-        toolbar: {
-          buttons: ['bold', 'italic', 'underline', 'list-extension']
-        }
-      })
+        this.writeContent()
+        Vue.nextTick(() => {
+            this.activateEditor()
+        })
     },
 
     methods: {
+
+        activateEditor() {
+            
+            this.editor = new MediumEditor(this.$el, {
+                toolbar: {
+                    buttons: ['bold', 'italic', 'underline', 'list-extension']
+                }
+            })
+        },
         
         update(event) {
             if (this.hasTranslations) {
@@ -41,8 +49,10 @@ export default {
             if (typeof text === 'string') {
                 // Re-initialize text field as map
                 text = {}
+            } else if (typeof text === 'object') {
+                // Clone text, keep immutability
+                text = {...text}
             }
-            
             // Update the current translation
             text[activeLanguage] = content
 
@@ -56,11 +66,14 @@ export default {
                     text[language] = content
                 }
             })
-            
             // Finally update the element's state
             updateElementState(this.id, {
                 text
             })
+        },
+
+        writeContent() {
+            this.$el.innerHTML = this.content
         }
     }
 }

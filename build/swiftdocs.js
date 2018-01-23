@@ -16132,6 +16132,8 @@ function compose() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_medium_editor_dist_css_medium_editor_min_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_medium_editor_dist_css_medium_editor_min_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__redux_actions_contents__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__redux_actions_contents__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -16146,14 +16148,22 @@ function compose() {
     props: ['id', 'content'],
 
     mounted() {
-        this.editor = new __WEBPACK_IMPORTED_MODULE_0_medium_editor___default.a(this.$el, {
-            toolbar: {
-                buttons: ['bold', 'italic', 'underline', 'list-extension']
-            }
+        this.writeContent();
+        Vue.nextTick(() => {
+            this.activateEditor();
         });
     },
 
     methods: {
+
+        activateEditor() {
+
+            this.editor = new __WEBPACK_IMPORTED_MODULE_0_medium_editor___default.a(this.$el, {
+                toolbar: {
+                    buttons: ['bold', 'italic', 'underline', 'list-extension']
+                }
+            });
+        },
 
         update(event) {
             if (this.hasTranslations) {
@@ -16173,8 +16183,10 @@ function compose() {
             if (typeof text === 'string') {
                 // Re-initialize text field as map
                 text = {};
+            } else if (typeof text === 'object') {
+                // Clone text, keep immutability
+                text = _extends({}, text);
             }
-
             // Update the current translation
             text[activeLanguage] = content;
 
@@ -16188,11 +16200,14 @@ function compose() {
                     text[language] = content;
                 }
             });
-
             // Finally update the element's state
             Object(__WEBPACK_IMPORTED_MODULE_3__redux_actions_contents__["updateElementState"])(this.id, {
                 text
             });
+        },
+
+        writeContent() {
+            this.$el.innerHTML = this.content;
         }
     }
 });
@@ -50674,8 +50689,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("p", {
     staticStyle: { "min-height": "initial !important" },
-    domProps: { innerHTML: _vm._s(_vm.content) },
-    on: { blur: _vm.update }
+    on: {
+      blur: function($event) {
+        _vm.update($event)
+      }
+    }
   })
 }
 var staticRenderFns = []
