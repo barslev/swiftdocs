@@ -34,8 +34,12 @@ export function deselectContent() {
     })
 }
 
+export function getSelectedContentId() {
+    return store.state.session.selectedId
+}
+
 export function getSelectedContent() {
-    const id = store.state.session.selectedId
+    const id = getSelectedContentId()
     return id ? _.find(store.state.contents, {id}) : null
 }
 
