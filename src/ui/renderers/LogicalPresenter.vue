@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :is="htmlTag">
         <el v-for="(item, index) in displayItems"
             :key="'item-' + index"
             :element="item"
@@ -26,7 +26,8 @@ function comparable(value) {
 export default {
     props: [
         'items',
-        'context'
+        'context',
+        'htmlTag'
     ],
 
     data() {

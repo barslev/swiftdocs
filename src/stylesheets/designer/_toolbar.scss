@@ -108,12 +108,19 @@
     @apply .text-xl .text-grey;
 }
 
-.toolbar .checkbox .material-icons:hover {
+.toolbar .checkbox label {
+    display: inline-flex;
+    align-items:center;
     cursor: pointer;
 }
 
-.toolbar .checkbox input:checked ~ i,  .toolbar .checkbox .material-icons:hover {
-    @apply .text-grey-darkest;
+.toolbar .checkbox label:hover i, .toolbar .checkbox .material-icons:hover {
+    @apply .text-blue-light;
+    cursor: pointer;
+}
+
+.toolbar .checkbox input:checked ~ i {
+    @apply .text-blue;
 }
 
 .toolbar .checkbox input[type="checkbox"] {

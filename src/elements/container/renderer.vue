@@ -1,6 +1,7 @@
 <template>
 	<div
 		is="logical-presenter"
+		:html-tag="htmlTag"
 		class="document__page-container"
 		:container-id="id"
 		:page-id="root ? id : null"
@@ -10,11 +11,13 @@
 </template>
 <script>
 export default {
-	props: [
-		'id',
-		'root',
-		'context'
-	],
+	props: {
+		id: {},
+		root: {},
+		context: {},
+		htmlTag: {default: 'div'},
+		allowDrop: {default: true},
+	},
 	data() {
 		return {
 			containerContents: [],
@@ -27,11 +30,15 @@ export default {
 		}
 	},
 	mounted() {
-		_swd.dragDrop.add(this.$el)
+		if (this.allowDrop) {
+			_swd.dragDrop.add(this.$el)
+		}
 		this.updateContainerContents()
 	},
 	beforeDestroy() {
-		_swd.dragDrop.remove(this.$el)
+		if (this.allowDrop) {
+			_swd.dragDrop.remove(this.$el)
+		}
 	},
 	methods: {
 		updateContainerContents() {

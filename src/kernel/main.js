@@ -138,6 +138,7 @@ export default class Main {
     }
 
     _showBootError(error) {
+        console.error(error)
         document.querySelector(this.el).innerHTML = '<div class="boot-error"><h3>Oh No! 😔</h3> ' + error + '</div>'
     }
 }

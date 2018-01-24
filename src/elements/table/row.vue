@@ -1,8 +1,6 @@
 <template>
     <tr>
-        <td v-for="(cell, i) in cells" :key="i">
-            <el :element="cell" :context="context" />            
-        </td>
+        <el v-for="(cell, i) in cells" :key="i" :element="cell" />
     </tr>
 </template>
 <script>

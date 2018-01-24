@@ -1,6 +1,6 @@
 <template>
-    <div class="flex" ref="dropzone" :container-id="id" :page-id="pageId">
-		<el v-for="pane in panes" :key="pane.id" :element="pane" class="flex-1 mr-2" />
+    <div class="flex" ref="dropzone" :container-id="id">
+			<el v-for="pane in panes" :key="pane.id" :element="pane" class="flex-1 mr-2" />
     </div>
 </template>
 <script>

@@ -1,15 +1,17 @@
 <template>
     <div>
-        <div v-if="needsInit()">
+        <div v-if="needsInit">
             <h5>Table</h5>
             <div class="flex flex-wrap">
-                <div class="md:w-1/2 pr-2 mb-2">
-                    <label>Rows</label>
-                    <input type="number" v-model="rows"  min="1" />
-                </div>
-                <div class="md:w-1/2 pr-2 mb-2">
+                <div class="pr-2 mb-2">
                     <label>Columns</label>
                     <input type="number" v-model="columns" min="1" />
+                </div>
+                <div class="pr-2 mb-2">
+                    <div class="checkbox"><label><input type="checkbox" v-model="header"> <i class="material-icons mr-1">check_circle</i> Header</label></div>
+                </div>
+                <div class="pr-2 mb-2">
+                    <div class="checkbox"><label><input type="checkbox" v-model="footer"> <i class="material-icons mr-1">check_circle</i> Footer</label></div>
                 </div>
             </div>
 
@@ -18,30 +20,36 @@
     </div>
 </template>
 <script>
-import {findContent, insertContent} from '~/redux/actions/contents'
+import Generator from './generator'
+import {getElementState, updateElementState} from '~/redux/actions/contents'
 
 export default {
     props: ['id'],
     data() {
         return {
-            rows: 1,
             columns: 5,
+            header: true,
+            footer: false,
             contents: this.$select('contents')
+        }
+    },
+    computed: {
+        state() {
+            let state = _.get(_.find(this.contents, { id: this.id }), 'state')
+            return state
+        },
+        needsInit() {
+            return ! this.state.init
         }
     },
     methods: {
         generate() {
-            const content = findContent(this.id)
-
-            for (let i = 0; i < this.rows; i++) {
-                let rowId = insertContent('d-table-row', content.pageId, this.id)
-                for (let k = 0; k < this.columns; k++) {
-                    insertContent('d-text', content.pageId, rowId)
-                }
-            }
-        },
-        needsInit() {
-            return !_.filter(this.contents, {container_id: this.id}).length
+            Generator.fire(
+                this.id,
+                this.columns,
+                this.header,
+                this.footer
+            )
         }
     }
 }

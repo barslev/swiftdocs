@@ -50,6 +50,7 @@
                 <label>{{ $t('menus.style.radius') }}</label>
                 <input type="text" :value="styles.borderRadius" @input="updateValue('borderRadius', arguments[0])" />
             </div>
+            <br>
             <div class="md:w-1/2 mb-2">
                 <label>{{ $t('menus.style.sides') }}</label>
                 <br>
