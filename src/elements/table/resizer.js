@@ -1,7 +1,7 @@
-import { updateElementState } from '~/redux/actions/contents'
+import { getContentIndex, getElementState, updateElementState } from '~/redux/actions/contents'
 import { selectContent, getSelectedContentId } from '~/redux/actions/session'
 
-const minWidth = 30
+const minWidth = 50
 const resizingEdgeWidth = 10
 
 class Rectangle {
@@ -57,6 +57,7 @@ export default class Resizer
         if ( ! this._clickedOnResizingEdge(e)) {
             return
         }
+        this._detectSibling()
         // In this case
         this._startResize()
     }
@@ -71,6 +72,35 @@ export default class Resizer
         return false
     }
 
+    _detectSibling() {
+        this.sibling = null
+        
+        const elIndex = getContentIndex(this.id)
+        const sibling = _.get(store.state.contents, elIndex + 1) 
+
+        if (sibling && sibling.element == 'd-table-cell') {
+            this.sibling = sibling
+        }
+    }
+
+    _getSiblingWidth() {
+        if ( ! this.sibling) {
+            return null
+        }
+        
+        const width = getElementState(
+            this.sibling.id, {width: null}
+        ).width
+
+        if (width) {
+            return width
+        }
+
+        return document.querySelector('td[data-id="' + this.sibling.id + '"]')
+            .getBoundingClientRect()
+            .width
+    }
+
     _move(e) {
         const rect = this.$el.getBoundingClientRect()
         const newWidth = parseInt(e.clientX - rect.x)
@@ -78,7 +108,24 @@ export default class Resizer
         if (newWidth < minWidth) {
             return
         }
+
+        let siblingWidth = this._getSiblingWidth()
         
+        if (siblingWidth) {
+            let delta = newWidth - rect.width
+            let newSiblingWidth = siblingWidth - delta
+
+            if (newSiblingWidth < minWidth) {
+                // You're squeezing your sibling way too hard.
+                // Shame on you!
+                return
+            }
+
+            updateElementState(this.sibling.id, {
+                width: newSiblingWidth
+            })
+        }
+
         updateElementState(this.id, {
             width: newWidth
         })

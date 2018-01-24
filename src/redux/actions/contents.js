@@ -1,7 +1,7 @@
 import cuid from 'cuid'
 import {copyStylesToElement} from './styles'
 
-function getContentIndex(id)
+export function getContentIndex(id)
 {
     return _.findIndex(store.state.contents, {id: id})
 }

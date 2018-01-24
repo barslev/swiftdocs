@@ -185,6 +185,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+exports.getContentIndex = getContentIndex;
 exports.insertContent = insertContent;
 exports.moveContent = moveContent;
 exports.removeContentById = removeContentById;
@@ -57739,7 +57740,7 @@ var _session = __webpack_require__(2);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var minWidth = 30;
+var minWidth = 50;
 var resizingEdgeWidth = 10;
 
 var Rectangle = function () {
@@ -57805,6 +57806,7 @@ var Resizer = function () {
             if (!this._clickedOnResizingEdge(e)) {
                 return;
             }
+            this._detectSibling();
             // In this case
             this._startResize();
         }
@@ -57822,6 +57824,33 @@ var Resizer = function () {
             return false;
         }
     }, {
+        key: '_detectSibling',
+        value: function _detectSibling() {
+            this.sibling = null;
+
+            var elIndex = (0, _contents.getContentIndex)(this.id);
+            var sibling = _.get(store.state.contents, elIndex + 1);
+
+            if (sibling && sibling.element == 'd-table-cell') {
+                this.sibling = sibling;
+            }
+        }
+    }, {
+        key: '_getSiblingWidth',
+        value: function _getSiblingWidth() {
+            if (!this.sibling) {
+                return null;
+            }
+
+            var width = (0, _contents.getElementState)(this.sibling.id, { width: null }).width;
+
+            if (width) {
+                return width;
+            }
+
+            return document.querySelector('td[data-id="' + this.sibling.id + '"]').getBoundingClientRect().width;
+        }
+    }, {
         key: '_move',
         value: function _move(e) {
             var rect = this.$el.getBoundingClientRect();
@@ -57829,6 +57858,23 @@ var Resizer = function () {
 
             if (newWidth < minWidth) {
                 return;
+            }
+
+            var siblingWidth = this._getSiblingWidth();
+
+            if (siblingWidth) {
+                var delta = newWidth - rect.width;
+                var newSiblingWidth = siblingWidth - delta;
+
+                if (newSiblingWidth < minWidth) {
+                    // You're squeezing your sibling way too hard.
+                    // Shame on you!
+                    return;
+                }
+
+                (0, _contents.updateElementState)(this.sibling.id, {
+                    width: newSiblingWidth
+                });
             }
 
             (0, _contents.updateElementState)(this.id, {
