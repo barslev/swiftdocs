@@ -1,4 +1,5 @@
 import cuid from 'cuid'
+import {copyStylesToElement} from './styles'
 
 function getContentIndex(id)
 {
@@ -128,4 +129,6 @@ export function duplicateContent(content) {
             content: clone,
         }
     })
+
+    copyStylesToElement(content.id, clone.id)
 }

@@ -198,6 +198,8 @@ var _cuid = __webpack_require__(14);
 
 var _cuid2 = _interopRequireDefault(_cuid);
 
+var _styles = __webpack_require__(9);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function getContentIndex(id) {
@@ -317,6 +319,8 @@ function duplicateContent(content) {
             content: clone
         }
     });
+
+    (0, _styles.copyStylesToElement)(content.id, clone.id);
 }
 
 /***/ }),
@@ -11630,6 +11634,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.updateStyle = updateStyle;
+exports.copyStylesToElement = copyStylesToElement;
 function updateStyle(id, prop, value) {
     store.dispatch({
         type: 'STYLE_UPDATE',
@@ -11637,6 +11642,19 @@ function updateStyle(id, prop, value) {
             id: id,
             prop: prop,
             value: value
+        }
+    });
+}
+
+function copyStylesToElement(sourceId, targetId) {
+    if (!store.state.styles.hasOwnProperty(sourceId)) {
+        return;
+    }
+    store.dispatch({
+        type: 'STYLE_SET',
+        payload: {
+            id: targetId,
+            style: store.state.styles[sourceId]
         }
     });
 }
@@ -42428,6 +42446,9 @@ exports.default = function () {
             var change = _defineProperty({}, action.payload.prop, action.payload.value);
             var updatedStyle = _extends({}, state[action.payload.id], change);
             return _extends({}, state, _defineProperty({}, action.payload.id, updatedStyle));
+
+        case 'STYLE_SET':
+            return _extends({}, state, _defineProperty({}, action.payload.id, action.payload.style));
 
         default:
             return state;

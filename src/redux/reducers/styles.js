@@ -50,7 +50,10 @@ export default (state = initialState, action) => {
             const change = {[action.payload.prop]: action.payload.value}
             const updatedStyle = {...state[action.payload.id], ...change}
             return {...state, [action.payload.id]: updatedStyle}
-        
+
+        case 'STYLE_SET':
+            return {...state, [action.payload.id]: action.payload.style}
+
         default:
             return state
     }
