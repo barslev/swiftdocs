@@ -16246,6 +16246,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.renderText();
     },
 
+    watch: {
+        template() {
+            this.renderText();
+        }
+    },
+
     methods: {
         renderText() {
             const data = _extends({}, _swd.dataSource.data, this.context);

@@ -17,6 +17,12 @@ export default {
         this.renderText()
     },
 
+    watch: {
+        template() {
+            this.renderText()
+        }
+    },
+
     methods: {
         renderText() {
             const data = {
