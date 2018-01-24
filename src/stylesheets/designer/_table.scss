@@ -10,7 +10,7 @@
     height: 30px;
 }
 
-.editMode .d-table td.selected:before {
+.editMode .d-table td.selected.resizable:before {
     content: ' ';
     position: absolute;
     right:0;
@@ -18,7 +18,7 @@
     width:8px;
     height: 100%;
     z-index:100;
-    cursor: w-resize;
+    cursor: ew-resize;
 }
 
 .d-table td, .d-table th {

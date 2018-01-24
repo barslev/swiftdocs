@@ -28,7 +28,14 @@ export default class Resizer
         this.resizing = false
         // Bind context to internal methods
         this._up = this._up.bind(this)
+        this._down = this._down.bind(this)
         this._move = this._move.bind(this)
+
+        this.$el.addEventListener('mousedown', this._down)
+    }
+
+    destroy() {
+        this.$el.removeEventListener('mousedown', this._down)
     }
     
     _startResize() {
@@ -41,7 +48,7 @@ export default class Resizer
         document.removeEventListener('mousemove', this._move)
     }
 
-    down(e) {
+    _down(e) {
 
         if ( ! this._isSelected()) {
             return

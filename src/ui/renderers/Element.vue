@@ -6,6 +6,7 @@
         :data-id="element.id"
 		:context="context"
         :page-id="element.page_id"
+		:payload="payload"
         @click.native="click"
         @mouseover.native="mouseOver"
         @mouseout.native="mouseOut"
@@ -15,7 +16,7 @@
 import {selectContent} from '~/redux/actions/session'
 
 export default {
-    props: ['element', 'context'],
+    props: ['element', 'context', 'payload'],
     data() {
         return {
 			styles: this.$select('styles'),
