@@ -3,6 +3,8 @@
         :id="id"
         html-tag="td"
         :context="context"
+        :colspan="state.colspan ? state.colspan : null"
+        :rowspan="state.rowspan ? state.rowspan : null"
         :width="state.width ? state.width : null"
         :allow-drop="true"
         :class="isResizable() ? 'resizable' : null" />

@@ -8,19 +8,23 @@ export function getContentIndex(id)
 
 export function insertContent(element, page_id, container_id, beforeId = null) {
 
+    const index = beforeId
+        ? getContentIndex(beforeId)
+        : store.state.contents.length
+    
+    return insertContentAtIndex(element, container_id, index)
+}
+
+export function insertContentAtIndex(element, container_id, index) {
+
     const state = _swd.registry.defaultState(element)
 
     const content = {
         id: cuid(),
-        page_id,
         container_id,
         element,
         state,
-    }
-
-    const index = beforeId
-        ? getContentIndex(beforeId)
-        : store.state.contents.length
+    }    
 
     store.dispatch({
         type: 'CONTENT_INSERT',

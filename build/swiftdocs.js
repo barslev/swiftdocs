@@ -187,6 +187,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.getContentIndex = getContentIndex;
 exports.insertContent = insertContent;
+exports.insertContentAtIndex = insertContentAtIndex;
 exports.moveContent = moveContent;
 exports.removeContentById = removeContentById;
 exports.removeContent = removeContent;
@@ -211,17 +212,21 @@ function insertContent(element, page_id, container_id) {
     var beforeId = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
 
+    var index = beforeId ? getContentIndex(beforeId) : store.state.contents.length;
+
+    return insertContentAtIndex(element, container_id, index);
+}
+
+function insertContentAtIndex(element, container_id, index) {
+
     var state = _swd.registry.defaultState(element);
 
     var content = {
         id: (0, _cuid2.default)(),
-        page_id: page_id,
         container_id: container_id,
         element: element,
         state: state
     };
-
-    var index = beforeId ? getContentIndex(beforeId) : store.state.contents.length;
 
     store.dispatch({
         type: 'CONTENT_INSERT',
@@ -16853,10 +16858,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_session__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_session___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__redux_actions_session__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__generator__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__generator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__generator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__redux_actions_session__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__redux_actions_session___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__redux_actions_session__);
 //
 //
 //
@@ -16871,7 +16878,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
+
 
 
 
@@ -16880,11 +16887,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     props: ['id'],
     methods: {
         openTable() {
-            const content = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["findContent"])(this.id);
-            Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_session__["selectContent"])({
-                name: 'content',
-                params: { id: content.container_id }
-            });
+            const content = Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__["findContent"])(this.id);
+            const section = Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__["findContent"])(content.container_id);
+
+            Object(__WEBPACK_IMPORTED_MODULE_2__redux_actions_session__["selectContent"])(section.container_id);
+        },
+        addBefore() {
+            this.addRow(true);
+        },
+        addAfter() {
+            this.addRow(false);
+        },
+        addRow(before) {
+            __WEBPACK_IMPORTED_MODULE_0__generator___default.a.addRow(this.id, before);
         }
     }
 });
@@ -16919,6 +16934,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__elements_base___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__elements_base__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__resizer__ = __webpack_require__(217);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__resizer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__resizer__);
+//
+//
 //
 //
 //
@@ -56938,26 +56955,35 @@ var _contents = __webpack_require__(1);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Generator = function () {
-    function Generator(id, columns, header, footer) {
+    function Generator(id) {
         _classCallCheck(this, Generator);
 
         this.id = id;
-        this.header = header;
-        this.footer = footer;
-        this.columns = columns;
-        this.sections = [];
-
         this._populateSection = this._populateSection.bind(this);
     }
 
     _createClass(Generator, [{
-        key: 'generate',
-        value: function generate() {
+        key: 'generateEntireTable',
+        value: function generateEntireTable(columns, header, footer) {
+            this.header = header;
+            this.footer = footer;
+            this.columns = columns;
+            this.sections = [];
+
             this._createHeaderSection();
             this._createBodySection();
             this._createFooterSection();
             this._populateSections();
             this._changeTableInitState();
+        }
+    }, {
+        key: 'generateRow',
+        value: function generateRow(sectionId, columns, index) {
+            var rowId = (0, _contents.insertContentAtIndex)('d-table-row', sectionId, index);
+
+            for (var i = 0; i < columns; i++) {
+                (0, _contents.insertContent)('d-table-cell', null, rowId);
+            }
         }
     }, {
         key: '_changeTableInitState',
@@ -57012,8 +57038,22 @@ var Generator = function () {
     }], [{
         key: 'fire',
         value: function fire(id, columns, header, footer) {
-            var instance = new Generator(id, columns, header, footer);
-            instance.generate();
+            var instance = new Generator(id);
+            instance.generateEntireTable(columns, header, footer);
+        }
+    }, {
+        key: 'addRow',
+        value: function addRow(rowId) {
+            var before = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+            var row = (0, _contents.findContent)(rowId);
+            var rowIndex = (0, _contents.getContentIndex)(rowId);
+            var section = (0, _contents.findContent)(row.container_id);
+            var columns = _.filter(store.state.contents, { container_id: rowId }).length;
+            var targetIndex = before ? rowIndex - 1 : rowIndex + 1;
+
+            var instance = new Generator(section.container_id);
+            instance.generateRow(section.id, columns, targetIndex);
         }
     }]);
 
@@ -57338,16 +57378,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h5", [_vm._v("Add Row")]),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _vm._m(1),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
     _c(
       "button",
       {
@@ -57362,29 +57392,46 @@ var render = function() {
         _c("i", { staticClass: "material-icons" }, [_vm._v("grid_on")]),
         _vm._v("\n        Go to Table\n    ")
       ]
+    ),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("h5", [_vm._v("Add Row")]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn-default",
+        on: {
+          click: function($event) {
+            _vm.addBefore()
+          }
+        }
+      },
+      [
+        _c("i", { staticClass: "material-icons" }, [_vm._v("add")]),
+        _vm._v(" Before")
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn-default",
+        on: {
+          click: function($event) {
+            _vm.addAfter()
+          }
+        }
+      },
+      [
+        _c("i", { staticClass: "material-icons" }, [_vm._v("add")]),
+        _vm._v(" After")
+      ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn-default" }, [
-      _c("i", { staticClass: "material-icons" }, [_vm._v("add")]),
-      _vm._v(" Before")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn-default" }, [
-      _c("i", { staticClass: "material-icons" }, [_vm._v("add")]),
-      _vm._v(" After")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -57547,6 +57594,8 @@ var render = function() {
       id: _vm.id,
       "html-tag": "td",
       context: _vm.context,
+      colspan: _vm.state.colspan ? _vm.state.colspan : null,
+      rowspan: _vm.state.rowspan ? _vm.state.rowspan : null,
       width: _vm.state.width ? _vm.state.width : null,
       "allow-drop": true
     }
@@ -57621,10 +57670,22 @@ if (false) {(function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_session__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_session___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__redux_actions_session__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_session__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__redux_actions_session___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__redux_actions_session__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -57648,8 +57709,24 @@ if (false) {(function () {
     props: ['id'],
     methods: {
         openRow() {
-            const content = Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["findContent"])(this.id);
-            Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_session__["selectContent"])(content.container_id);
+            const content = Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__["findContent"])(this.id);
+            Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_session__["selectContent"])(content.container_id);
+        },
+        updateProp(prop, value) {
+            Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__["updateElementState"])(this.id, {
+                [prop]: value
+            });
+        }
+    },
+    data() {
+        return {
+            contents: this.$select('contents')
+        };
+    },
+    computed: {
+        state() {
+            let state = _.get(_.find(this.contents, { id: this.id }), 'state');
+            return state;
         }
     }
 });
@@ -57664,16 +57741,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h5", [_vm._v("Add Cell")]),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _vm._m(1),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
     _c(
       "button",
       {
@@ -57688,7 +57755,49 @@ var render = function() {
         _c("i", { staticClass: "material-icons" }, [_vm._v("grid_on")]),
         _vm._v("\n        Go to Row\n    ")
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("h5", [_vm._v("Add Cell")]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("h5", [_vm._v("Spans")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "flex flex-wrap" }, [
+      _c("div", { staticClass: "md:w-1/2 pr-4 mb-2" }, [
+        _c("label", [_vm._v("Colspan")]),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { type: "text" },
+          domProps: { value: _vm.state.colspan },
+          on: {
+            input: function($event) {
+              _vm.updateProp("colspan", arguments[0].target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "md:w-1/2 pr-4 mb-2" }, [
+        _c("label", [_vm._v("Rowspan")]),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { type: "text" },
+          domProps: { value: _vm.state.rowspan },
+          on: {
+            input: function($event) {
+              _vm.updateProp("rowspan", arguments[0].target.value)
+            }
+          }
+        })
+      ])
+    ])
   ])
 }
 var staticRenderFns = [

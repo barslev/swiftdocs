@@ -1,28 +1,49 @@
-import { insertContent, updateElementState } from '~/redux/actions/contents'
+import { insertContent, insertContentAtIndex, findContent, getContentIndex, updateElementState } from '~/redux/actions/contents'
 
 export default class Generator {
 
-    constructor(id, columns, header, footer) {
+    constructor(id) {
         this.id = id
-        this.header = header
-        this.footer = footer
-        this.columns = columns
-        this.sections = []
-
         this._populateSection = this._populateSection.bind(this)
     }
 
     static fire(id, columns, header, footer) {
-        const instance = new Generator(id, columns, header, footer)
-        instance.generate()
+        const instance = new Generator(id)
+        instance.generateEntireTable(
+            columns, header, footer            
+        )
     }
 
-    generate() {
+    static addRow(rowId, before = true) {
+        const row = findContent(rowId)
+        const rowIndex = getContentIndex(rowId)
+        const section = findContent(row.container_id)
+        const columns = _.filter(store.state.contents, {container_id: rowId}).length
+        const targetIndex = before ? rowIndex - 1 : rowIndex + 1
+
+        const instance = new Generator(section.container_id)
+        instance.generateRow(section.id, columns, targetIndex)
+    }
+
+    generateEntireTable(columns, header, footer) {
+        this.header = header
+        this.footer = footer
+        this.columns = columns
+        this.sections = []        
+        
         this._createHeaderSection()
         this._createBodySection()
         this._createFooterSection()
         this._populateSections()
         this._changeTableInitState()
+    }
+
+    generateRow(sectionId, columns, index) {
+        const rowId = insertContentAtIndex('d-table-row', sectionId, index)
+
+        for (let i = 0; i < columns; i++) {
+            insertContent('d-table-cell', null, rowId)
+        }        
     }
 
     _changeTableInitState() {
