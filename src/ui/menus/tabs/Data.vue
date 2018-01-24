@@ -9,7 +9,7 @@
         <hr>
         <h5>{{ $t('menus.data.explorer') }}</h5>
 
-        <div v-if="variables">
+        <div v-if="variables" style="height: calc(100vh - 165px);overflow-y:auto;">
             <variable-displayer v-for="(variable, i) in Object.keys(variables)"
                 :key="i"
                 :variable="variable"

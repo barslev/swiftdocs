@@ -14612,7 +14612,6 @@ function applyToTag (styleElement, obj) {
 //
 //
 //
-//
 
 
 function findObjectType(object) {
@@ -14637,6 +14636,9 @@ function findObjectType(object) {
     computed: {
 
         type() {
+            if (_.isNull(this.value)) {
+                return 'null';
+            }
             let type = typeof this.value;
             if (type === 'object') {
                 return findObjectType(this.value);
@@ -14646,8 +14648,9 @@ function findObjectType(object) {
 
         iconFormat() {
             return {
+                'null': { color: 'grey', icon: 'exposure_zero' },
                 'string': { color: 'purple', icon: 'title' },
-                'number': { color: 'orange', icon: 'attach_money' },
+                'number': { color: 'orange', icon: 'looks_5' },
                 'array': { color: 'green', icon: 'reorder' },
                 'object': { color: 'red', icon: 'label_outline' },
                 'date': { color: 'blue', icon: 'access_time' }
@@ -14655,12 +14658,29 @@ function findObjectType(object) {
         },
 
         cascading() {
-            return this.type === 'object' || this.type === 'array';
+            return this.type === 'array' || this.type === 'object';
+        },
+
+        notEmpty() {
+            switch (this.type) {
+                case 'array':
+                    return this.value.length;
+                case 'object':
+                    return Object.keys(this.value).length;
+                default:
+                    return !_.isEmpty(this.value);
+            }
         }
     },
 
     methods: {
         toggle() {
+            if (this.type === 'null') {
+                return;
+            }
+            if (this.cascading && !this.notEmpty) {
+                return;
+            }
             this.collapsed = !this.collapsed;
         }
     }
@@ -16145,7 +16165,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["a"] = ({
 
-    props: ['id', 'translation', 'content'],
+    props: ['id', 'language', 'content'],
 
     mounted() {
         this.writeContent();
@@ -16155,7 +16175,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     watch: {
-        translation() {
+        language() {
             this.writeContent();
         }
     },
@@ -38356,7 +38376,7 @@ var render = function() {
           [_vm._v(_vm._s(_vm.variable))]
         ),
         _vm._v(" "),
-        _vm.cascading
+        _vm.cascading && _vm.notEmpty
           ? _c("div", { staticClass: "float-right" }, [
               _c("i", { staticClass: "material-icons" }, [_vm._v("more_horiz")])
             ])
@@ -38372,7 +38392,7 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _vm.type == "object"
+          _vm.cascading && _vm.type == "object"
             ? _c("div", { staticClass: "flex" }, [
                 _c("div", { staticClass: "border-l ml-1 mr-2" }),
                 _vm._v(" "),
@@ -38391,7 +38411,7 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _vm.type == "array"
+          _vm.cascading && _vm.type == "array"
             ? _c("div", { staticClass: "flex" }, [
                 _c("div", { staticClass: "border-l ml-1 mr-2" }),
                 _vm._v(" "),
@@ -39477,6 +39497,9 @@ var render = function() {
     _vm.variables
       ? _c(
           "div",
+          {
+            staticStyle: { height: "calc(100vh - 165px)", "overflow-y": "auto" }
+          },
           _vm._l(Object.keys(_vm.variables), function(variable, i) {
             return _c("variable-displayer", {
               key: i,
@@ -55650,11 +55673,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return !_vm.inRenderMode
     ? _c("editor", {
-        attrs: {
-          id: _vm.id,
-          translation: _vm.translation,
-          content: _vm.content
-        }
+        attrs: { id: _vm.id, language: _vm.translation, content: _vm.content }
       })
     : _c("displayer", {
         attrs: { template: _vm.content, context: _vm.context }

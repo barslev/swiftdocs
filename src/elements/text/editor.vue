@@ -9,7 +9,11 @@ import {getElementState, updateElementState} from '~/redux/actions/contents'
 
 export default {
     
-    props: ['id', 'translation', 'content'],
+    props: [
+        'id',
+        'language',
+        'content'
+    ],
 
     mounted() {
         this.writeContent()
@@ -19,7 +23,7 @@ export default {
     },
 
     watch: {
-        translation() {
+        language() {
             this.writeContent()
         }
     },
