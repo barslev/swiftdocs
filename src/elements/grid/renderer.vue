@@ -1,6 +1,6 @@
 <template>
     <div class="flex" ref="dropzone" :container-id="id">
-			<el v-for="pane in panes" :key="pane.id" :element="pane" class="flex-1 mr-2" />
+		<el v-for="pane in panes" :key="pane.id" :element="pane" class="flex-1 mr-2" />
     </div>
 </template>
 <script>
@@ -23,9 +23,9 @@ export default {
 		this.updatePanes()
 		if (!this.panes.length) {
 			// Default grid elements... Add 3 by default
-			insertContent('container', this.pageId, this.id)
-			insertContent('container', this.pageId, this.id)
-			insertContent('container', this.pageId, this.id)
+			insertContent('d-grid-pane', null, this.id)
+			insertContent('d-grid-pane', null, this.id)
+			insertContent('d-grid-pane', null, this.id)
 		}
 	},
 	mounted() {

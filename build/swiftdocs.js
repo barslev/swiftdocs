@@ -16705,9 +16705,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		this.updatePanes();
 		if (!this.panes.length) {
 			// Default grid elements... Add 3 by default
-			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["insertContent"])('container', this.pageId, this.id);
-			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["insertContent"])('container', this.pageId, this.id);
-			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["insertContent"])('container', this.pageId, this.id);
+			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["insertContent"])('d-grid-pane', null, this.id);
+			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["insertContent"])('d-grid-pane', null, this.id);
+			Object(__WEBPACK_IMPORTED_MODULE_0__redux_actions_contents__["insertContent"])('d-grid-pane', null, this.id);
 		}
 	},
 	mounted() {
@@ -56102,7 +56102,7 @@ module.exports = {
 
     defaultState: {
         src: null,
-        align: 'left',
+        align: 'center',
         width: 120,
         height: 120
     }
@@ -56576,13 +56576,39 @@ if (false) {
 "use strict";
 
 
-module.exports = {
+module.exports = [{
     id: 'd-grid',
     icon: 'view_column',
     label: 'Grid',
-    renderer: __webpack_require__(196).default,
-    menu: __webpack_require__(198).default
-};
+    renderer: __webpack_require__(196).default
+}, {
+    id: 'd-grid-pane',
+    icon: 'view_column',
+    label: 'Grid Pane',
+    hidden: true,
+    renderer: __webpack_require__(218).default,
+    menu: __webpack_require__(198).default,
+    defaultStyle: {
+        borderWidth: 1,
+        borderTop: true,
+        borderLeft: true,
+        borderRight: true,
+        borderBottom: true,
+        borderColor: '#ebebeb',
+        backgroundColor: '#f4f4f4',
+        paddingTop: 5,
+        paddingLeft: 5,
+        paddingRight: 5,
+        paddingBottom: 5,
+        marginTop: 0,
+        marginBottom: 0,
+        marginRight: 5,
+        marginLeft: 5
+    },
+    defaultState: {
+        weight: 10
+    }
+}];
 
 /***/ }),
 /* 196 */
@@ -56675,11 +56701,14 @@ if (false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_466c5709_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_menu_vue__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_menu_vue__ = __webpack_require__(221);
+/* empty harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_466c5709_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_menu_vue__ = __webpack_require__(199);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = null
+
+
 /* template */
 
 /* template functional */
@@ -56691,8 +56720,8 @@ var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
-  __vue_script__,
-  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_466c5709_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_menu_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_menu_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_466c5709_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_menu_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -56728,16 +56757,61 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("h5", [_vm._v("Grid Pane")]),
+    _vm._v(" "),
+    _c("div", [
+      _c("label", [_vm._v("Pane Weight")]),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "text" },
+        domProps: { value: _vm.state.weight },
+        on: {
+          input: function($event) {
+            _vm.updateWeight(arguments[0].target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("h5", [_vm._v("Add Pane")]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn-default",
+        on: {
+          click: function($event) {
+            _vm.addBefore()
+          }
+        }
+      },
+      [
+        _c("i", { staticClass: "material-icons" }, [_vm._v("add")]),
+        _vm._v(" To Left")
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn-default",
+        on: {
+          click: function($event) {
+            _vm.addAfter()
+          }
+        }
+      },
+      [
+        _c("i", { staticClass: "material-icons" }, [_vm._v("add")]),
+        _vm._v(" To Right")
+      ]
+    )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h5", [_vm._v("Grid Menu")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -58028,6 +58102,157 @@ var Resizer = function () {
 }();
 
 exports.default = Resizer;
+
+/***/ }),
+/* 218 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_pane_vue__ = __webpack_require__(220);
+/* empty harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_acd50edc_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_pane_vue__ = __webpack_require__(219);
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_pane_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_acd50edc_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_pane_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/elements/grid/pane.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-acd50edc", Component.options)
+  } else {
+    hotAPI.reload("data-v-acd50edc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+/* 219 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("container", {
+    tag: "div",
+    style: { flex: _vm.state.weight },
+    attrs: { id: _vm.id, context: _vm.context, "allow-drop": true }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-acd50edc", esExports)
+  }
+}
+
+/***/ }),
+/* 220 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__elements_base__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__elements_base___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__elements_base__);
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    extends: __WEBPACK_IMPORTED_MODULE_0__elements_base___default.a
+});
+
+/***/ }),
+/* 221 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__elements_base__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__elements_base___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__elements_base__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_actions_contents___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    extends: __WEBPACK_IMPORTED_MODULE_0__elements_base___default.a,
+    methods: {
+        updateWeight(weight) {
+            Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__["updateElementState"])(this.id, {
+                weight
+            });
+        },
+        addBefore() {
+            this.addPane(true);
+        },
+        addAfter() {
+            this.addPane(false);
+        },
+        addPane(before) {
+
+            const content = Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__["findContent"])(this.id);
+            const index = Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__["getContentIndex"])(this.id);
+            const targetIndex = before ? index - 1 : index + 1;
+
+            Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__["insertContentAtIndex"])('d-grid-pane', content.container_id, targetIndex);
+        }
+    }
+});
 
 /***/ })
 /******/ ]);

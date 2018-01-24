@@ -7,7 +7,7 @@ module.exports = {
 
     defaultState: {
         src: null,
-        align: 'left',
+        align: 'center',
         width: 120,
         height: 120,
     },
