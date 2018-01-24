@@ -16145,13 +16145,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["a"] = ({
 
-    props: ['id', 'content'],
+    props: ['id', 'translation', 'content'],
 
     mounted() {
         this.writeContent();
         Vue.nextTick(() => {
             this.activateEditor();
         });
+    },
+
+    watch: {
+        translation() {
+            this.writeContent();
+        }
     },
 
     methods: {
@@ -55637,7 +55643,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return !_vm.inRenderMode
-    ? _c("editor", { attrs: { id: _vm.id, content: _vm.content } })
+    ? _c("editor", {
+        attrs: {
+          id: _vm.id,
+          translation: _vm.translation,
+          content: _vm.content
+        }
+      })
     : _c("displayer", {
         attrs: { template: _vm.content, context: _vm.context }
       })

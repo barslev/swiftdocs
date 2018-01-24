@@ -1,5 +1,5 @@
 <template>
-  <editor v-if="!inRenderMode" :id="id" :content="content"></editor>
+  <editor v-if="!inRenderMode" :id="id" :translation="translation" :content="content"></editor>
   <displayer v-else :template="content" :context="context"></displayer>
 </template>
 <script>

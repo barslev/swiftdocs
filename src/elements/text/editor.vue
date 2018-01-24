@@ -9,13 +9,19 @@ import {getElementState, updateElementState} from '~/redux/actions/contents'
 
 export default {
     
-    props: ['id', 'content'],
+    props: ['id', 'translation', 'content'],
 
     mounted() {
         this.writeContent()
         Vue.nextTick(() => {
             this.activateEditor()
         })
+    },
+
+    watch: {
+        translation() {
+            this.writeContent()
+        }
     },
 
     methods: {
