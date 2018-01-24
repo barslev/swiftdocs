@@ -2,6 +2,7 @@
     <div is="container"
         :id="id"
         :html-tag="state.tag"
+        :context="context"
         :allow-drop="false" />
 </template>
 <script>

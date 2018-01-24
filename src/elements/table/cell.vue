@@ -1,8 +1,8 @@
 <template>
     <div is="container"
-        width="25%"
         :id="id"
         html-tag="td"
+        :context="context"
         :allow-drop="true" />
 </template>
 <script>

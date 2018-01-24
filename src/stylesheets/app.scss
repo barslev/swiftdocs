@@ -66,17 +66,6 @@ html, body {
 	min-height: 100%;
 }
 
-.document__page-child-container {
-	position:relative;
-	min-height:50px;
-	background-color: rgba(0, 0, 0, 0.1);
-	margin-bottom:5px;
-}
-
-.document__page-child-container:after {
-	clear:both;
-}
-
 .document__page-element {
 	z-index: 5;
 	position:relative;

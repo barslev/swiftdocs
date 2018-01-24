@@ -26,6 +26,20 @@ module.exports = [
         hidden: true,
         icon: 'label_outline',
         label: 'Table Cell',
-        renderer: require('./cell.vue').default
-    }    
+        renderer: require('./cell.vue').default,
+        menu: require('./cell-menu.vue').default,
+        defaultStyle: {
+            borderWidth: 1,
+            borderTop: true,
+            borderLeft: true,
+            borderRight: true,
+            borderBottom: true,
+            borderColor: '#333333',
+            backgroundColor: null,
+            paddingTop: 5,
+            paddingLeft: 5,
+            paddingRight: 5,
+            paddingBottom: 5,
+        }        
+    }
 ]

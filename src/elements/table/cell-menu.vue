@@ -1,14 +1,14 @@
 <template>
     <div>
-        <h5>Add Row</h5>
+        <h5>Add Cell</h5>
         <button class="btn-default"><i class="material-icons">add</i> Before</button>
         <button class="btn-default"><i class="material-icons">add</i> After</button>
         <hr>
 
         <hr>
-        <button class="btn-default" @click="openTable()">
+        <button class="btn-default" @click="openRow()">
             <i class="material-icons">grid_on</i>
-            Go to Table
+            Go to Row
         </button>
 
     </div>
@@ -20,12 +20,9 @@ import {selectContent} from '~/redux/actions/session'
 export default {
     props: ['id'],
     methods: {
-        openTable() {
+        openRow() {
             const content = findContent(this.id)
-            selectContent({
-                name: 'content',
-                params: {id: content.container_id}
-            })
+            selectContent(content.container_id)
         }
     }
 }

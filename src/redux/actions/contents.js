@@ -66,6 +66,9 @@ function dispatchRemoval(id)
 
 export function removeContentById(id)
 {
+    if (!id) {
+        return
+    }
     store.state.contents
         .filter((content) => {
             content.container_id == id
@@ -109,8 +112,6 @@ export function getElementState(id, defaultState) {
 
 export function duplicateContent(content) {
 
-    console.log(content)
-
     if ( ! content) {
         return
     }
@@ -126,5 +127,5 @@ export function duplicateContent(content) {
             index: originalIndex + 1,
             content: clone,
         }
-    })    
+    })
 }

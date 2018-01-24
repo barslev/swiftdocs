@@ -4,10 +4,11 @@
         is="container"
         html-tag="table"
         :allow-drop="false"
-        style="table-layout: fixed;"
-        class="bordered" />
-    
-    <div v-else class="text-center text-sm text-grey p-4"><i>Empty Table</i></div>
+        :context="context"
+        class="d-table d-table-bordered" />
+        <div v-else class="text-center text-sm text-grey p-4">
+            <i>Empty Table</i>
+        </div>
 </template>
 <script>
 import base from '~/elements/base'

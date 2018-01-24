@@ -1,14 +1,10 @@
-table {
+.d-table {
     width: 100%;
     border-spacing: 0;
+    table-layout: fixed;
+    border-collapse: collapse;
 }
 
-table td {
-    margin: 0;
-    padding: 0;
-    width: auto !important;
-}
-
-.editMode table td {
-    border: 1px dashed #b4b4b4;
+.d-table td {
+    height: 30px;
 }

@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <el v-for="(cell, i) in cells" :key="i" :element="cell" />
+        <el v-for="(cell, i) in cells" :key="i" :element="cell" :context="context" />
     </tr>
 </template>
 <script>
