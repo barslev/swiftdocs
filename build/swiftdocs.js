@@ -17523,6 +17523,8 @@ var Main = function () {
 
         this.languages = ['en', 'tr'];
 
+        this.defaultLanguage = 'en';
+
         this._bootDocument = this._bootDocument.bind(this);
         this._createVueApp = this._createVueApp.bind(this);
         this._showBootError = this._showBootError.bind(this);
@@ -17556,7 +17558,10 @@ var Main = function () {
     }, {
         key: 'setLanguage',
         value: function setLanguage(language) {
-            this.vue.$i18n.locale = language;
+            this.defaultLanguage = language;
+            if (this.vue && this.vue.$i18n) {
+                this.vue.$i18n.locale = language;
+            }
         }
 
         /**
@@ -17586,6 +17591,9 @@ var Main = function () {
     }, {
         key: '_createVueApp',
         value: function _createVueApp() {
+
+            var defaultLanguage = this.defaultLanguage;
+
             this.vue = new _vue2.default({
                 el: this.el,
                 template: '<designer></designer>',
@@ -17596,6 +17604,8 @@ var Main = function () {
                     window.notifySuccess = this.notifySuccess.bind(this);
 
                     _dragDrop2.default.activate();
+
+                    this.$i18n.locale = defaultLanguage;
                 },
                 mounted: function mounted() {
                     (0, _commands2.default)();
@@ -58821,7 +58831,6 @@ if (false) {
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data() {

@@ -27,6 +27,8 @@ export default class Main {
             'tr'
         ]
 
+        this.defaultLanguage = 'en'
+
         this._bootDocument = this._bootDocument.bind(this)
         this._createVueApp = this._createVueApp.bind(this)
         this._showBootError = this._showBootError.bind(this)
@@ -58,7 +60,10 @@ export default class Main {
     }
     
     setLanguage(language) {
-        this.vue.$i18n.locale = language
+        this.defaultLanguage = language
+        if (this.vue && this.vue.$i18n) {
+            this.vue.$i18n.locale = language
+        }
     }
 
     /**
@@ -82,6 +87,9 @@ export default class Main {
      * Creates the Vue application which runs the editor.
      */
     _createVueApp() {
+
+        const defaultLanguage = this.defaultLanguage
+        
         this.vue = new Vue({
             el: this.el,
             template: '<designer></designer>',
@@ -92,6 +100,8 @@ export default class Main {
                 window.notifySuccess = this.notifySuccess.bind(this)                
                 
                 dragDrop.activate()
+
+                this.$i18n.locale = defaultLanguage
             },
             mounted() {
                 registerCommands()
