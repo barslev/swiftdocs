@@ -1,4 +1,4 @@
-import { getElementState } from '~/redux/actions/contents'
+import { getContentState } from '~/redux/actions/contents'
 
 export default {
     props: [

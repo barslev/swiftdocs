@@ -50,7 +50,6 @@ class dragDrop
             this.drake.cancel();
 
             const elementId = element.getAttribute('data-id')
-            const containerPageId = container.getAttribute('page-id')
             const containerId = container.getAttribute('container-id')
             const siblingId = sibling ? sibling.getAttribute('data-id') : null
 
@@ -58,7 +57,6 @@ class dragDrop
                 // An already existing element got relocated
                 return moveContent(
                     element.getAttribute('data-id'),
-                    containerPageId,
                     containerId,
                     siblingId
                 )
@@ -66,7 +64,6 @@ class dragDrop
 
             return insertContent(
                 element.getAttribute('data-name'),
-                containerPageId,
                 containerId,
                 siblingId
             )

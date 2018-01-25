@@ -60,3 +60,7 @@ export function updateAllPageDimensions(newDimensions) {
     })
     updateDefaults({dimensions: newDimensions})
 }
+
+export function findPage(id) {
+    return _.find(store.state.pages, { id })    
+}

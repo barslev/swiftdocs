@@ -38,7 +38,7 @@
     </div>
 </template>
 <script>
-import {getElementState, updateElementState} from '~/redux/actions/contents'
+import {getContentState, updateContentState} from '~/redux/actions/contents'
 
 export default {
     props: ['id'],
@@ -63,7 +63,7 @@ export default {
 
     methods: {
         loadState() {
-            this.state = getElementState(this.id)
+            this.state = getContentState(this.id)
             this.loadLogic()
             this.loadCondition()
         },
@@ -98,7 +98,7 @@ export default {
                 )
                 return
             }
-            updateElementState(this.id, {
+            updateContentState(this.id, {
                 logic: {
                     ...this.state.logic,
                     loop: this.loop
@@ -111,7 +111,7 @@ export default {
             )
         },
         removeLoop() {
-            updateElementState(this.id, {
+            updateContentState(this.id, {
                 logic: {
                     ...this.state.logic,
                     loop: null
@@ -128,7 +128,7 @@ export default {
                 )
                 return
             }
-            updateElementState(this.id, {
+            updateContentState(this.id, {
                 logic: {
                     ...this.state.logic,
                     condition: this.condition
@@ -141,7 +141,7 @@ export default {
             )
         },
         removeCondition() {
-            updateElementState(this.id, {
+            updateContentState(this.id, {
                 logic: {
                     ...this.state.logic,
                     condition: null

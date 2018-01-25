@@ -5,7 +5,7 @@
 import MediumEditor from 'medium-editor'
 import 'medium-editor/dist/css/themes/default.css'
 import 'medium-editor/dist/css/medium-editor.min.css'
-import {getElementState, updateElementState} from '~/redux/actions/contents'
+import {getContentState, updateContentState} from '~/redux/actions/contents'
 
 export default {
     
@@ -46,7 +46,7 @@ export default {
                 )
             }
             // Or just update the text field
-            updateElementState(this.id, {
+            updateContentState(this.id, {
                 text: event.target.innerHTML
             })
         },
@@ -54,7 +54,7 @@ export default {
         updateMultilingual(content) {
 
             let activeLanguage = store.state.session.translation
-            let text = _.get(getElementState(this.id), 'text', {})
+            let text = _.get(getContentState(this.id), 'text', {})
 
             if (typeof text === 'string') {
                 // Re-initialize text field as map
@@ -77,7 +77,7 @@ export default {
                 }
             })
             // Finally update the element's state
-            updateElementState(this.id, {
+            updateContentState(this.id, {
                 text
             })
         },

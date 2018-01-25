@@ -6,7 +6,7 @@
 <script>
 import base from '~/elements/base'
 import placeholder from './placeholder'
-import {getElementState, updateElementState} from '~/redux/actions/contents'
+import {getContentState, updateContentState} from '~/redux/actions/contents'
 
 export default {
   extends: base,

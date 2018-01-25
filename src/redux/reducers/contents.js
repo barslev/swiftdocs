@@ -6,11 +6,6 @@ export default (state = initialState, action) => {
     
     switch (action.type) {
         // When a page is removed, remove its contents
-        case 'PAGE_REMOVE':
-            var newState = state.filter((content) => {
-                return content.page_id !== action.payload.id
-            })
-            return newState
         case 'CONTENT_INSERT':
             copy = state.concat([])
             copy.splice(action.payload.index, 0, action.payload.content)

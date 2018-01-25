@@ -1,4 +1,4 @@
-import { insertContent, insertContentAtIndex, findContent, getContentIndex, updateElementState } from '~/redux/actions/contents'
+import { insertContent, insertContentAtIndex, findContent, getContentIndex, updateContentState } from '~/redux/actions/contents'
 
 export default class Generator {
 
@@ -42,12 +42,12 @@ export default class Generator {
         const rowId = insertContentAtIndex('d-table-row', sectionId, index)
 
         for (let i = 0; i < columns; i++) {
-            insertContent('d-table-cell', null, rowId)
+            insertContent('d-table-cell', rowId)
         }        
     }
 
     _changeTableInitState() {
-        updateElementState(this.id, {
+        updateContentState(this.id, {
             init: true
         })
     }
@@ -73,11 +73,10 @@ export default class Generator {
     _insertSection(tag) {
         const sectionId = insertContent(
             'd-table-section',
-            null,
             this.id
         )
         // Set section type
-        updateElementState(sectionId, { tag })
+        updateContentState(sectionId, { tag })
         this.sections.push(sectionId)
     }
 
@@ -86,10 +85,10 @@ export default class Generator {
     }
 
     _populateSection(sectionId) {
-        const rowId = insertContent('d-table-row', null, sectionId)
+        const rowId = insertContent('d-table-row', sectionId)
 
         for (let i = 0; i < this.columns; i++) {
-            insertContent('d-table-cell', null, rowId)
+            insertContent('d-table-cell', rowId)
         }
     }
 }

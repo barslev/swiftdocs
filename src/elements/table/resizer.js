@@ -1,4 +1,4 @@
-import { getContentIndex, getElementState, updateElementState } from '~/redux/actions/contents'
+import { getContentIndex, getContentState, updateContentState } from '~/redux/actions/contents'
 import { selectContent, getSelectedContentId } from '~/redux/actions/session'
 
 const minWidth = 50
@@ -88,7 +88,7 @@ export default class Resizer
             return null
         }
         
-        const width = getElementState(
+        const width = getContentState(
             this.sibling.id, {width: null}
         ).width
 
@@ -121,12 +121,12 @@ export default class Resizer
                 return
             }
 
-            updateElementState(this.sibling.id, {
+            updateContentState(this.sibling.id, {
                 width: newSiblingWidth
             })
         }
 
-        updateElementState(this.id, {
+        updateContentState(this.id, {
             width: newWidth
         })
     }

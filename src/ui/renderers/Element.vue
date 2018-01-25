@@ -5,7 +5,6 @@
         :id="element.id"
         :data-id="element.id"
 		:context="context"
-        :page-id="element.page_id"
 		:payload="payload"
         @click.native="click"
         @mouseover.native="mouseOver"

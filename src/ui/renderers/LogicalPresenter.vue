@@ -8,7 +8,7 @@
     </div>
 </template>
 <script>
-import {getElementState} from '~/redux/actions/contents'
+import {getContentState} from '~/redux/actions/contents'
 
 function comparable(value) {
     if(_.isArray(value)) {
@@ -82,7 +82,7 @@ export default {
         applyLoops(items) {
             let result = []
             _.each(items, (item) => {
-                let state = getElementState(item.id)
+                let state = getContentState(item.id)
                 let loop = _.get(state, 'logic.loop')
                 if (loop) {
                     result = result.concat(this.getLoopedItems(item, loop))
@@ -111,7 +111,7 @@ export default {
 
         applyConditions(items) {        
             return _.filter(items, (item) => {
-                let state = getElementState(item.id)
+                let state = getContentState(item.id)
                 let condition = _.get(state, 'logic.condition')
                 
                 if (!condition) {

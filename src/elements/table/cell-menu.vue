@@ -27,7 +27,7 @@
 </template>
 <script>
 import {selectContent} from '~/redux/actions/session'
-import {findContent, updateElementState} from '~/redux/actions/contents'
+import {findContent, updateContentState} from '~/redux/actions/contents'
 
 export default {
     props: ['id'],
@@ -37,7 +37,7 @@ export default {
             selectContent(content.container_id)
         },
         updateProp(prop, value) {
-            updateElementState(this.id, {
+            updateContentState(this.id, {
                 [prop]: value
             })
         }

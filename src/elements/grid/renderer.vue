@@ -7,7 +7,7 @@
 import {insertContent} from '~/redux/actions/contents'
 
 export default {
-  props: ['id', 'pageId'],
+  props: ['id'],
 	data() {
 		return {
 				panes: [],
@@ -23,9 +23,9 @@ export default {
 		this.updatePanes()
 		if (!this.panes.length) {
 			// Default grid elements... Add 3 by default
-			insertContent('d-grid-pane', null, this.id)
-			insertContent('d-grid-pane', null, this.id)
-			insertContent('d-grid-pane', null, this.id)
+			insertContent('d-grid-pane', this.id)
+			insertContent('d-grid-pane', this.id)
+			insertContent('d-grid-pane', this.id)
 		}
 	},
 	mounted() {

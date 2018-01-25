@@ -52,19 +52,19 @@
 </div>
 </template>
 <script>
-import {getElementState, updateElementState} from '~/redux/actions/contents'
+import {getContentState, updateContentState} from '~/redux/actions/contents'
 
 export default {
     props: ['id'],
     watch: {
         id() {
-            this.state = getElementState(this.id)
+            this.state = getContentState(this.id)
         }
     },
     data() {
         return {
             variable: null,
-            state: getElementState(this.id)
+            state: getContentState(this.id)
         }
     },
     created() {
@@ -77,7 +77,7 @@ export default {
             this.readBase64Image()
                 .then((src) => {
                     this.$refs.file.value = ''
-                    this.state = updateElementState(this.id, {
+                    this.state = updateContentState(this.id, {
                         src: {
                             type: 'base64',
                             content: src
@@ -104,7 +104,7 @@ export default {
         },
 
         loadFromVariable() {
-            this.state = updateElementState(this.id, {
+            this.state = updateContentState(this.id, {
                 src: {
                     type: 'variable',
                     content: this.variable
@@ -114,19 +114,19 @@ export default {
 
         remove() {
             this.variable = ''
-            this.state = updateElementState(this.id, {src: null})
+            this.state = updateContentState(this.id, {src: null})
         },
 
         updateAlignment(align) {
-            this.state = updateElementState(this.id, {align})
+            this.state = updateContentState(this.id, {align})
         },
 
         updateWidth(width) {
-            this.state = updateElementState(this.id, {width})
+            this.state = updateContentState(this.id, {width})
         },
 
         updateHeight(height) {
-            this.state = updateElementState(this.id, {height})
+            this.state = updateContentState(this.id, {height})
         },        
     }
 }

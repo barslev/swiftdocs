@@ -1,18 +1,19 @@
 import cuid from 'cuid'
-import {copyStylesToElement} from './styles'
+import { findPage } from './pages'
+import {copyStylesToContent} from './styles'
 
 export function getContentIndex(id)
 {
     return _.findIndex(store.state.contents, {id: id})
 }
 
-export function insertContent(element, page_id, container_id, beforeId = null) {
-
+export function insertContent(element, containerId, beforeId = null) {
+    
     const index = beforeId
         ? getContentIndex(beforeId)
         : store.state.contents.length
-    
-    return insertContentAtIndex(element, container_id, index)
+
+    return insertContentAtIndex(element, containerId, index)
 }
 
 export function insertContentAtIndex(element, container_id, index) {
@@ -37,7 +38,7 @@ export function insertContentAtIndex(element, container_id, index) {
     return content.id
 }
 
-export function moveContent(id, pageId, containerId, beforeId) {
+export function moveContent(id, containerId, beforeId) {
 
     const oldIndex = _.findIndex(store.state.contents, {id})
     const newIndex = beforeId
@@ -45,7 +46,6 @@ export function moveContent(id, pageId, containerId, beforeId) {
         : store.state.contents.length
 
     const content = Object.assign({}, store.state.contents[oldIndex], {
-        page_id: pageId,
         container_id: containerId
     })
 
@@ -69,20 +69,88 @@ function dispatchRemoval(id)
     })
 }
 
+/**
+ * Returns the children content by container id
+ */
+function childrenContent(id) {
+    return _.filter(
+        store.state.contents,
+        {container_id: id}
+    )
+}
+
+/**
+ * Checks if the content has a parent content or page
+ */
+function hasNoParent(content) {
+    return !findContent(content.container_id) && !findPage(content.container_id)
+}
+
+/**
+ * If a grid element exists without any panes,
+ * It's redundant and should be removed.
+ */
+function isEmptyGrid(content) {
+    if (content.element !== 'd-grid') {
+        return false
+    }
+    return ! childrenContent(content.id).length
+}
+
+/**
+ * Applies filters to contents array. Uses "OR" logic.
+ * One satisfying filter means the element will stay.
+ */
+function applyFilters(contents, filters) {
+    return contents.filter((content) => {
+        for (let i in filters) {
+            // If any of the filters apply, then keep this item
+            if (filters[i](content)) {
+                return true
+            }
+        }
+        return false
+    })
+}
+
+function getOrphanedContents() {
+    return applyFilters(store.state.contents, [
+        hasNoParent,
+        isEmptyGrid
+    ]);
+}
+
+function removeOrphanedContents() {
+    // Find orphans
+    const orphans = getOrphanedContents()
+    // If no orphans found, end iteration
+    if ( ! orphans.length) {
+        return
+    }
+    // Remove each orphan content
+    orphans.forEach((orphan) => {
+        dispatchRemoval(orphan.id)
+    })
+    // Go on to detect more orphans
+    return removeOrphanedContents()
+}
+
 export function removeContentById(id)
 {
     if (!id) {
         return
     }
+
     store.state.contents
         .filter((content) => {
-            content.container_id == id
+            return content.container_id == id
         })
         .forEach((content) => {
             dispatchRemoval(content.id)
         })
-
+    
     dispatchRemoval(id)
+    removeOrphanedContents()
 }
 
 export function removeContent(content)
@@ -90,9 +158,9 @@ export function removeContent(content)
     return removeContentById(content.id)
 }
 
-export function updateElementState(id, fragment) {
+export function updateContentState(id, fragment) {
 
-    const originalState = getElementState(id, {})
+    const originalState = getContentState(id, {})
     const modifiedState = {
         ...originalState,
         ...fragment
@@ -111,7 +179,7 @@ export function findContent(id) {
     return _.find(store.state.contents, {id})
 }
 
-export function getElementState(id, defaultState) {
+export function getContentState(id, defaultState) {
     return _.get(findContent(id), 'state', defaultState)
 }
 
@@ -134,5 +202,5 @@ export function duplicateContent(content) {
         }
     })
 
-    copyStylesToElement(content.id, clone.id)
+    copyStylesToContent(content.id, clone.id)
 }

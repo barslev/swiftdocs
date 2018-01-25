@@ -9,7 +9,7 @@ export function updateStyle(id, prop, value) {
     })
 }
 
-export function copyStylesToElement(sourceId, targetId) {
+export function copyStylesToContent(sourceId, targetId) {
     if( ! store.state.styles.hasOwnProperty(sourceId)) {
         return
     }

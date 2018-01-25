@@ -21,7 +21,6 @@
 </template>
 <script>
 import Generator from './generator'
-import {getElementState, updateElementState} from '~/redux/actions/contents'
 
 export default {
     props: ['id'],
