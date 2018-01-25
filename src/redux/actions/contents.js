@@ -2,10 +2,18 @@ import cuid from 'cuid'
 import { findPage } from './pages'
 import {copyStylesToContent} from './styles'
 
+/* ============ Content Basics ============ */
+
+export function findContent(id) {
+    return _.find(store.state.contents, { id })
+}
+
 export function getContentIndex(id)
 {
     return _.findIndex(store.state.contents, {id: id})
 }
+
+/* ============ Content Insert, Duplicate and Move ============ */
 
 export function insertContent(element, containerId, beforeId = null) {
     
@@ -59,8 +67,31 @@ export function moveContent(id, containerId, beforeId) {
     })
 }
 
-function dispatchRemoval(id)
-{
+export function duplicateContent(content) {
+
+    if ( ! content) {
+        return
+    }
+
+    const clone = {...content}
+    clone.id = cuid()
+
+    const originalIndex = getContentIndex(content.id)
+    
+    store.dispatch({
+        type: 'CONTENT_INSERT',
+        payload: {
+            index: originalIndex + 1,
+            content: clone,
+        }
+    })
+
+    copyStylesToContent(content.id, clone.id)
+}
+
+/* ============ Content Removal ============ */
+
+ function dispatchRemoval(id) {
     store.dispatch({
         type: 'CONTENT_REMOVE',
         payload: {
@@ -75,7 +106,7 @@ function dispatchRemoval(id)
 function childrenContent(id) {
     return _.filter(
         store.state.contents,
-        {container_id: id}
+        { container_id: id }
     )
 }
 
@@ -94,7 +125,7 @@ function isEmptyGrid(content) {
     if (content.element !== 'd-grid') {
         return false
     }
-    return ! childrenContent(content.id).length
+    return !childrenContent(content.id).length
 }
 
 /**
@@ -124,7 +155,7 @@ function removeOrphanedContents() {
     // Find orphans
     const orphans = getOrphanedContents()
     // If no orphans found, end iteration
-    if ( ! orphans.length) {
+    if (!orphans.length) {
         return
     }
     // Remove each orphan content
@@ -135,8 +166,7 @@ function removeOrphanedContents() {
     return removeOrphanedContents()
 }
 
-export function removeContentById(id)
-{
+export function removeContentById(id) {
     if (!id) {
         return
     }
@@ -148,14 +178,19 @@ export function removeContentById(id)
         .forEach((content) => {
             dispatchRemoval(content.id)
         })
-    
+
     dispatchRemoval(id)
     removeOrphanedContents()
 }
 
-export function removeContent(content)
-{
+export function removeContent(content) {
     return removeContentById(content.id)
+}
+
+/* ============ Content State Management ============ */
+
+export function getContentState(id, defaultState) {
+    return _.get(findContent(id), 'state', defaultState)
 }
 
 export function updateContentState(id, fragment) {
@@ -168,39 +203,9 @@ export function updateContentState(id, fragment) {
 
     store.dispatch({
         type: 'CONTENT_UPDATE_STATE',
-        payload: {id, state: modifiedState}
+        payload: { id, state: modifiedState }
     })
-    
+
     // Return the modified state
     return modifiedState
-}
-
-export function findContent(id) {
-    return _.find(store.state.contents, {id})
-}
-
-export function getContentState(id, defaultState) {
-    return _.get(findContent(id), 'state', defaultState)
-}
-
-export function duplicateContent(content) {
-
-    if ( ! content) {
-        return
-    }
-
-    const clone = {...content}
-    clone.id = cuid()
-
-    const originalIndex = getContentIndex(content.id)
-    
-    store.dispatch({
-        type: 'CONTENT_INSERT',
-        payload: {
-            index: originalIndex + 1,
-            content: clone,
-        }
-    })
-
-    copyStylesToContent(content.id, clone.id)
 }

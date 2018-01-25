@@ -185,16 +185,16 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+exports.findContent = findContent;
 exports.getContentIndex = getContentIndex;
 exports.insertContent = insertContent;
 exports.insertContentAtIndex = insertContentAtIndex;
 exports.moveContent = moveContent;
+exports.duplicateContent = duplicateContent;
 exports.removeContentById = removeContentById;
 exports.removeContent = removeContent;
-exports.updateContentState = updateContentState;
-exports.findContent = findContent;
 exports.getContentState = getContentState;
-exports.duplicateContent = duplicateContent;
+exports.updateContentState = updateContentState;
 
 var _cuid = __webpack_require__(14);
 
@@ -206,9 +206,17 @@ var _styles = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/* ============ Content Basics ============ */
+
+function findContent(id) {
+    return _.find(store.state.contents, { id: id });
+}
+
 function getContentIndex(id) {
     return _.findIndex(store.state.contents, { id: id });
 }
+
+/* ============ Content Insert, Duplicate and Move ============ */
 
 function insertContent(element, containerId) {
     var beforeId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
@@ -259,6 +267,30 @@ function moveContent(id, containerId, beforeId) {
         }
     });
 }
+
+function duplicateContent(content) {
+
+    if (!content) {
+        return;
+    }
+
+    var clone = _extends({}, content);
+    clone.id = (0, _cuid2.default)();
+
+    var originalIndex = getContentIndex(content.id);
+
+    store.dispatch({
+        type: 'CONTENT_INSERT',
+        payload: {
+            index: originalIndex + 1,
+            content: clone
+        }
+    });
+
+    (0, _styles.copyStylesToContent)(content.id, clone.id);
+}
+
+/* ============ Content Removal ============ */
 
 function dispatchRemoval(id) {
     store.dispatch({
@@ -348,6 +380,12 @@ function removeContent(content) {
     return removeContentById(content.id);
 }
 
+/* ============ Content State Management ============ */
+
+function getContentState(id, defaultState) {
+    return _.get(findContent(id), 'state', defaultState);
+}
+
 function updateContentState(id, fragment) {
 
     var originalState = getContentState(id, {});
@@ -360,36 +398,6 @@ function updateContentState(id, fragment) {
 
     // Return the modified state
     return modifiedState;
-}
-
-function findContent(id) {
-    return _.find(store.state.contents, { id: id });
-}
-
-function getContentState(id, defaultState) {
-    return _.get(findContent(id), 'state', defaultState);
-}
-
-function duplicateContent(content) {
-
-    if (!content) {
-        return;
-    }
-
-    var clone = _extends({}, content);
-    clone.id = (0, _cuid2.default)();
-
-    var originalIndex = getContentIndex(content.id);
-
-    store.dispatch({
-        type: 'CONTENT_INSERT',
-        payload: {
-            index: originalIndex + 1,
-            content: clone
-        }
-    });
-
-    (0, _styles.copyStylesToContent)(content.id, clone.id);
 }
 
 /***/ }),
