@@ -44,7 +44,6 @@ export default class Main {
      * After you configure your instance
      */
     start() {
-        // TODO: Show document loading progress
         this._showLoadingIndicator()
 
         this.storage.load(this.documentId)
