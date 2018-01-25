@@ -1,5 +1,5 @@
 <template>
-    <p style="min-height:initial !important" @blur="update($event)"></p>
+    <p style="min-height:initial !important" @focus="editing = true" @blur="update($event)"></p>
 </template>
 <script>
 import MediumEditor from 'medium-editor'
@@ -12,8 +12,14 @@ export default {
     props: [
         'id',
         'language',
-        'content'
+        'content',
     ],
+
+    data() {
+        return {
+            editing: false
+        }
+    },
 
     mounted() {
         this.writeContent()
@@ -25,21 +31,42 @@ export default {
     watch: {
         language() {
             this.writeContent()
+        },
+        editing() {
+            this.writeContent()
+        }
+    },
+
+    computed: {
+        output() {
+            if (this.editing) {
+                return this.html
+            }
+            return this.html ? this.html : 'Placeholder'
         }
     },
 
     methods: {
 
         activateEditor() {
-            
             this.editor = new MediumEditor(this.$el, {
                 toolbar: {
                     buttons: ['bold', 'italic', 'underline', 'list-extension']
-                }
+                },
+                placeholder: {text: ''}
             })
+        },
+
+        updateEditing() {
+            setTimeout(() => {
+                if (this.$el !== document.activeElement) {
+                    this.editing = false
+                }
+            }, 50)
         },
         
         update(event) {
+            this.updateEditing()
             if (this.hasTranslations) {
                 return this.updateMultilingual(
                     event.target.innerHTML
@@ -65,25 +92,18 @@ export default {
             }
             // Update the current translation
             text[activeLanguage] = content
-
-            _.each(_swd.translations, (language) => {
-                if (language == activeLanguage) {
-                    return
-                }
-                // When translation does not exist in other language,
-                // Update them too so it becomes easier to edit later on
-                if (!_.get(text, language)) {
-                    text[language] = content
-                }
-            })
-            // Finally update the element's state
+            // Update the element's state
             updateContentState(this.id, {
                 text
             })
         },
 
         writeContent() {
-            this.$el.innerHTML = this.content
+            let content = this.content
+            if ( ! this.editing && ! content) {
+                content = 'Type here...'
+            }
+            this.$el.innerHTML = content
         }
     }
 }

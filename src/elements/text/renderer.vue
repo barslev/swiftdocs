@@ -39,7 +39,17 @@ export default {
         // It's not possible to get translations from a string.
         return text
       }
-      return text[language]
+      // If translation exists, return it
+      if (text[language]) {
+        return text[language]
+      }
+      // If no translation is found, use another language
+      for(let otherLang in text) {
+        if (text[otherLang]) {
+          return text[otherLang]
+        }
+      }
+      return ''
     }
   }
 }

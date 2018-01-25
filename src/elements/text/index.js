@@ -6,7 +6,7 @@ module.exports = {
     menu: require('./menu.vue').default,
 
     defaultState: {
-        text: 'Text goes here...',
+        text: '',
     },
 
     defaultStyle: {
