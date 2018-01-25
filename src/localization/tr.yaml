@@ -26,6 +26,7 @@ top:
   edit_document: "Dokümanı Düzenle"
   save: "Kaydet"
   render: "Görüntüleme Modu"
+  change_language: "Arayüz Dili"
   untitled_document: "İsimsiz Doküman"
   enter_title: "Enter a new title for this document"
 
@@ -104,6 +105,9 @@ modals:
     left: "Left"
     right: "Right"
     bottom: "Bottom"
+  language:
+      title: "Arayüz Dili"
+      switch: "Dili Değiştir"
 
 scope:
   apply_to: "Apply To"

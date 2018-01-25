@@ -21,21 +21,25 @@
                     </div>
                 </dropdown-option>
                 </template>
-                <dropdown-option v-if="hasTranslations" @click.native="changeActiveTranslation()">
+                <dropdown-option v-if="hasTranslations" @click.native="changeUiLanguage()">
                     <div class="flex items-center">
-                    <i class="material-icons mr-1 text-purple" style="margin-top:-3px">language</i> {{ $t('top.change_translation') }}
+                    <i class="material-icons mr-1 text-purple" style="margin-top:-3px">language</i> {{ $t('top.change_language') }}
                     </div>
                 </dropdown-option>                
             </dropdown-menu>
         </div>
 
         <div class="float-left">
-            <document-title></document-title>
+            <document-title></document-title>            
+        </div>
+
+        <div class="float-left ml-4" style="margin-top:10px">
+            <document-status></document-status>
         </div>
         
         <div class="float-right">
-            <dropdown-menu color="grey-dark" icon="language" :label="$t('languages.' + locale)" align="pin-r">
-                <dropdown-option v-for="language in languages" :key="language" v-if="language != locale" @click.native="changeLocale(language)">
+            <dropdown-menu color="grey-dark" icon="language" :label="$t('languages.' + translation)" align="pin-r">
+                <dropdown-option v-for="language in translations" :key="language" v-if="language != translation" @click.native="changeTranslationLanguage(language)">
                     {{ $t('languages.' + language) }}
                 </dropdown-option>
             </dropdown-menu>
@@ -45,6 +49,7 @@
     </div>
 </template>
 <script>
+import { setTranslation } from '~/redux/actions/session'
 import {beginRenderMode, beginEditMode} from '~/redux/actions/session';
 
 export default {
@@ -54,23 +59,19 @@ export default {
     },
     data() {
         return {
-            languages: _swd.languages
-        }
-    },
-    computed: {
-        locale() {
-            return this.$i18n.locale
+            translation: this.$select('session.translation as translation'),
+            translations: _swd.translations,
         }
     },
     methods: {
         save() {
             _swd.save()
         },
-        changeLocale(locale) {
-            _swd.setLanguage(locale)
+        changeTranslationLanguage(locale) {
+            setTranslation(locale)
         },
-        changeActiveTranslation() {
-            this.$modal.show('translations')
+        changeUiLanguage() {
+            this.$modal.show('language')
         }
     }
 }

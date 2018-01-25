@@ -51,3 +51,42 @@ export function setTranslation(language) {
         }
     })
 }
+
+function showSaveSuccess() {
+    notifySuccess(
+        $t('messages.saved'),
+        $t('messages.saved_more')
+    )
+}
+
+export function saveCurrentSession() {
+
+    if (store.state.session.saving) {
+        // Save in progress. Don't try it again yet.
+        return
+    }
+
+    if ( ! store.state.session.changed) {
+        // Nothing changed, no need to save
+        return showSaveSuccess()
+    }
+
+    store.dispatch({
+        type: 'SESSION_BEGIN_SAVING'
+    })
+
+    // Remove redundant attachments
+    _swd.action.cleanUpAttachments()
+
+    // Create a copy of the state
+    const clonedState = { ...window.store.state }
+    // Remove live session state from the persistent data
+    delete clonedState.session
+
+    _swd.storage.persist(_swd.documentId, clonedState)
+        .then(() => {
+            _swd.action.markAttachmentsAsUploaded()
+            store.dispatch({ type: 'SESSION_SAVED' })
+            showSaveSuccess()
+        })
+}

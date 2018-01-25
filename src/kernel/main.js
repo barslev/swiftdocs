@@ -54,26 +54,7 @@ export default class Main {
     }
 
     save() {
-        // Remove redundant attachments
-        this.action.cleanUpAttachments()
-        
-        const clonedState = { ...window.store.state }
-        
-        // Remove live session state from the persistent data
-        delete clonedState.session
-
-        this.storage.persist(
-            this.documentId,
-            clonedState
-        ).then(() => {
-
-            this.action.markAttachmentsAsUploaded()
-
-            notifySuccess(
-                $t('messages.saved'),
-                $t('messages.saved_more')
-            )
-        })
+        return this.action.saveCurrentSession()
     }
     
     setLanguage(language) {
@@ -138,6 +119,7 @@ export default class Main {
         const loading = document.createElement('div')
         loading.innerHTML = 'loading'
         loading.classList.add('loading')
+        loading.classList.add('progress')
         document.querySelector(this.el).appendChild(loading)
     }
 

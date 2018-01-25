@@ -1,18 +1,24 @@
-.loading {
-	position: absolute;
-    top: 40%;
-    width: 100px;
-    border: 1px solid #333;
-    color: #333;
-    padding: 6px 5px;
-    font-size: 13px;
-    left: calc(50% - 53px);
-    text-align: center;	
+
+.progress {
+  color: #333;
+  font-size: 13px;
 }
 
-.loading:after {
+.progress:after {
   content: '.';
-  animation: dots 1s steps(5, end) infinite;}
+  animation: dots 1s steps(5, end) infinite;
+}
+
+.loading {
+	position: absolute;
+  top: 40%;
+  width: 100px;
+  border: 1px solid #333;
+  padding: 6px 5px;
+  left: calc(50% - 53px);
+  text-align: center;	
+}
+
 
 @keyframes dots {
   0%, 20% {

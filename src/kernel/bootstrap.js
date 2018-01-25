@@ -28,8 +28,9 @@ Vue.component('color', require('~/ui/tools/Color.vue').default)
 Vue.component('page-scope', require('~/ui/tools/PageScope.vue').default)
 Vue.component('toolbar-button', require('~/ui/tools/Button.vue').default)
 Vue.component('dropdown-menu', require('~/ui/tools/DropdownMenu.vue').default)
-Vue.component('dropdown-option', require('~/ui/tools/DropdownOption.vue').default)
 Vue.component('document-title', require('~/ui/tools/DocumentTitle.vue').default)
+Vue.component('dropdown-option', require('~/ui/tools/DropdownOption.vue').default)
+Vue.component('document-status', require('~/ui/tools/DocumentStatus.vue').default)
 Vue.component('variable-displayer', require('~/ui/tools/VariableDisplayer.vue').default)
 
 /**
@@ -38,7 +39,7 @@ Vue.component('variable-displayer', require('~/ui/tools/VariableDisplayer.vue').
 Vue.component('custom-modal', require('~/ui/modals/Modal.vue').default)
 Vue.component('page-color', require('~/ui/modals/PageColor.vue').default)
 Vue.component('page-margins', require('~/ui/modals/PageMargins.vue').default)
-Vue.component('translations', require('~/ui/modals/Translations.vue').default)
+Vue.component('language', require('~/ui/modals/Language.vue').default)
 
 /**
  * Menus
