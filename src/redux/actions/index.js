@@ -4,6 +4,7 @@ import * as styles from './styles'
 import * as session from './session'
 import * as contents from './contents'
 import * as defaults from './defaults'
+import * as attachments from './attachments'
 
 function mergeActions(actions) {
     
@@ -28,4 +29,5 @@ export default mergeActions([
     session,
     contents,
     defaults,
+    attachments,
 ])

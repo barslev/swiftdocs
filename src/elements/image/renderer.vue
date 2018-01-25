@@ -6,6 +6,7 @@
 <script>
 import base from '~/elements/base'
 import placeholder from './placeholder'
+import {attachmentData} from '~/redux/actions/attachments'
 import {getContentState, updateContentState} from '~/redux/actions/contents'
 
 export default {
@@ -42,8 +43,8 @@ export default {
 		  }
 
 		  switch (this.state.src.type) {
-			  case 'base64':
-			  	return this.state.src.content
+			  case 'attachment':
+			  	return attachmentData(this.state.src.content)
 			  case 'variable':
 			  	return this.getVariableValue(this.state.src.content)
 		  }

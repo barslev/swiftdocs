@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Revue from 'revue'
 import storage from '~/storage'
 import Action from '~/kernel/action'
-import * as _ from '~/kernel/bootstrap'
 import dragDrop from '~/kernel/dragDrop'
+import * as boot from '~/kernel/bootstrap'
 import { Registry } from '~/kernel/registry'
 import registerCommands from '~/kernel/commands'
 import { DataSource } from '~/kernel/dataSource'
@@ -56,6 +56,7 @@ export default class Main {
 
     save() {
         const clonedState = { ...window.store.state }
+        
         // Remove live session state from the persistent data
         delete clonedState.session
 
@@ -63,6 +64,9 @@ export default class Main {
             this.documentId,
             clonedState
         ).then(() => {
+
+            this.action.markAttachmentsAsUploaded()
+
             notifySuccess(
                 $t('messages.saved'),
                 $t('messages.saved_more')
@@ -86,6 +90,9 @@ export default class Main {
             // Set active translation language
             this.action.setTranslation(this.translations[0])
         }
+        
+        // Mark all received attachments as uploaded.
+        this.action.markAttachmentsAsUploaded()
     }
 
     /**

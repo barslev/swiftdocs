@@ -52,6 +52,7 @@
 </div>
 </template>
 <script>
+import {attachFileFromInput} from '~/redux/actions/attachments'
 import {getContentState, updateContentState} from '~/redux/actions/contents'
 
 export default {
@@ -74,33 +75,19 @@ export default {
     },
     methods: {
         update() {
-            this.readBase64Image()
-                .then((src) => {
+            attachFileFromInput(this.$refs.file.files[0])
+                .then((attachmentId) => {
                     this.$refs.file.value = ''
                     this.state = updateContentState(this.id, {
                         src: {
-                            type: 'base64',
-                            content: src
+                            type: 'attachment',
+                            content: attachmentId
                         }
                     })
                 })
                 .catch((error) => {
                     notifyError('Image not selected', 'Select an image before pressing update')
                 })
-        },
-
-        readBase64Image() {
-            return new Promise((resolve, reject) => {
-                const file = this.$refs.file.files[0]
-                if (!file) {
-                    reject('Not selected')
-                }
-                const reader = new FileReader()
-                reader.onloadend = function() {
-                    resolve(reader.result)
-                }
-                reader.readAsDataURL(file)
-            })
         },
 
         loadFromVariable() {

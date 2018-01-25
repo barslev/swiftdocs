@@ -17,6 +17,13 @@ export default class Server
     }
 
     persist(documentId, state) {
+        
+        // Only include not uploaded attachments
+        state.attachments = _.pickBy(
+            state.attachments,
+            value => !value.uploaded
+        )
+
         return this.axios.put(this.baseUrl + '/' + documentId, {
             state
         })
