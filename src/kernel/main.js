@@ -45,11 +45,14 @@ export default class Main {
      * Use this (only once) to initialize everything
      * After you configure your instance
      */
-    start() {
+    start(mode = null) {
         this._showLoadingIndicator()
 
         this.storage.load(this.documentId)
             .then(this._bootDocument)
+            .then(() => {
+                this.action.activateMode(mode)
+            })            
             .then(this._removeLoadingIndicator)
             .then(this._createVueApp)
             .catch(this._showBootError)

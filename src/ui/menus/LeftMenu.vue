@@ -1,5 +1,5 @@
 <template>
-<div class="toolbar toolbar-left" v-show="!inRenderMode">
+<div class="toolbar toolbar-left" v-show="!inRenderMode && alterable">
 
 	<div class="toolbar-tabs">
 		<a v-for="tab in tabs"
@@ -58,10 +58,11 @@ export default {
 				composeTab('tab-layout', 'left.tabs.layout', 'assignment'),
 				composeTab('tab-elements', 'left.tabs.elements', 'layers'),
 				composeTab('tab-style', 'left.tabs.style', 'format_paint', true),
-				composeTab('tab-logic', 'left.tabs.logic', 'build', true),
+				composeTab('tab-logic', 'left.tabs.logic', 'build', true),				
 			],
 			active: null,
 			customTab: null,
+			alterable: this.$select('session.alterable as alterable'),
 			selectedId: this.$select('session.selectedId as selectedId'),
 		}
 	},

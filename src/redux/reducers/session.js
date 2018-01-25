@@ -9,6 +9,10 @@ const initialState = {
     saving: false,
     // Was the document changed since last open?
     changed: false,
+    // Is this document editable, meaning: can anything at all be edited?
+    editable: true,
+    // Alterable, meaining: adding, removing, or moving contents.
+    alterable: true,
 }
 
 const ignoredIneffectiveActions = [
@@ -75,6 +79,16 @@ export default (state = initialState, action) => {
                 saving: false,
                 changed: false
             }
+        case 'SESSION_SET_EDITABLE':
+            return {
+                ...state,
+                editable: action.payload
+            }
+        case 'SESSION_SET_ALTERABLE':
+            return {
+                ...state,
+                alterable: action.payload
+            }            
         default:
             return state
     }

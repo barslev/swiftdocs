@@ -1,6 +1,38 @@
 export const MODE_EDIT = 0
 export const MODE_RENDER = 1
 
+const modes = {
+    'edit': MODE_EDIT,
+    'default': MODE_EDIT,
+    'render': MODE_RENDER,
+    'render_only': MODE_RENDER,
+    'translate': MODE_EDIT,
+}
+
+export function activateMode(mode) {
+    if (!mode) {
+        return // Do nothing
+    }
+    store.dispatch({
+        type: 'SESSION_MODE_SET',
+        payload: modes[mode]
+    })
+
+    if (mode === 'render_only') {
+        store.dispatch({
+            type: 'SESSION_SET_EDITABLE',
+            payload: false
+        })
+    }
+
+    if (mode === 'translate') {
+        store.dispatch({
+            type: 'SESSION_SET_ALTERABLE',
+            payload: false
+        })
+    }
+}
+
 export function beginEditMode() {
     store.dispatch({
         type: 'SESSION_MODE_SET',

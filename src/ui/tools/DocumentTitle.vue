@@ -12,6 +12,9 @@ export default {
     },
     methods: {
         change() {
+            if (this.inRenderMode) {
+                return
+            }
             const newTitle = prompt(
                 this.$t('top.enter_title'),
                 this.title ? this.title : ''
