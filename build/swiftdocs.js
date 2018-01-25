@@ -16433,6 +16433,9 @@ function compose() {
 
   methods: {
     translatedContent(text, language) {
+      if (!text) {
+        return '';
+      }
       if (typeof text === 'string') {
         // It's not possible to get translations from a string.
         return text;
