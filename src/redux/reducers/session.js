@@ -15,27 +15,33 @@ const initialState = {
     alterable: true,
 }
 
-const ignoredIneffectiveActions = [
+/**
+ * This array keeps ignored actions that have no side effects on the document.
+ * We test each action type against these regexes.
+ * If any of these tests pass, we assume that the action has no side effect.
+ */
+const nonModifyingActions = [
     /SESSION.*/,
     /@@.*/,
     /ATTACHMENTS_MARK_UPLOADED/,
+    // Add more ignored action.type regexes
 ]
 
-function inIgnoreList(action) {
-    for (let i in ignoredIneffectiveActions) {   
-        let regex = ignoredIneffectiveActions[i]
+function isActionModifying(action) {
+    for (let i in nonModifyingActions) {   
+        let regex = nonModifyingActions[i]
         if (regex.test(action)) {
-            return true
+            return false
         }
     }
-    return false
+    return true
 }
 
 export default (state = initialState, action) => {
     
     // Anything done on the document apart from the session
     // Should cause the changed flag to go up. Something must have changed.
-    if ( ! inIgnoreList(action.type)) {
+    if (isActionModifying(action.type)) {
         state = { ...state }
         state.changed = true
     }
