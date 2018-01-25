@@ -40,3 +40,25 @@ export function markAttachmentsAsUploaded() {
 export function attachmentData(id) {
     return _.get(store, 'state.attachments.' + id + '.data')
 }
+
+export function cleanUpAttachments() {
+
+    const imagesWithAttachments = store.state.contents
+        .filter(content => content.element === 'd-image')
+        .filter(image => image.state.src)
+        .filter(image => image.state.src.type === 'attachment')
+
+    const usedAttachmentIds = imagesWithAttachments.map((image) => {
+        return image.state.src.content
+    })
+
+    const allAttachmentIds = Object.keys(store.state.attachments)
+    const deletedIds = _.difference(allAttachmentIds, usedAttachmentIds)
+
+    deletedIds.forEach((id) => {
+        store.dispatch({
+            type: 'ATTACHMENT_REMOVE',
+            payload: {id},
+        })
+    })
+}

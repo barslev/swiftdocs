@@ -1,6 +1,9 @@
 const initialState = {}
 
 export default (state = initialState, action) => {
+
+    let copy
+    
     switch (action.type) {
         case 'ATTACHMENTS_ADD':
             return {
@@ -11,12 +14,17 @@ export default (state = initialState, action) => {
                 }
             }
         
+        case 'ATTACHMENT_REMOVE':
+            copy = {...state}
+            delete copy[action.payload.id]
+            return copy
+        
         case 'ATTACHMENTS_MARK_UPLOADED':
-            let clone = {...state}
-            for (let key in clone) {
-                clone[key].uploaded = true
+            copy = {...state}
+            for (let key in copy) {
+                copy[key].uploaded = true
             }
-            return clone
+            return copy
         
         default:
             return state

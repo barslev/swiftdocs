@@ -55,6 +55,9 @@ export default class Main {
     }
 
     save() {
+        // Remove redundant attachments
+        this.action.cleanUpAttachments()
+        
         const clonedState = { ...window.store.state }
         
         // Remove live session state from the persistent data

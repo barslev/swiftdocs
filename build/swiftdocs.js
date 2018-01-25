@@ -17442,6 +17442,9 @@ var Main = function () {
         value: function save() {
             var _this = this;
 
+            // Remove redundant attachments
+            this.action.cleanUpAttachments();
+
             var clonedState = _extends({}, window.store.state);
 
             // Remove live session state from the persistent data
@@ -18053,9 +18056,14 @@ var Server = function () {
         value: function persist(documentId, state) {
 
             // Only include not uploaded attachments
-            state.attachments = _.pickBy(state.attachments, function (value) {
-                return !value.uploaded;
-            });
+            for (var i in state.attachments) {
+                var attachment = attachments[i];
+                if (attachment.uploaded) {
+                    // If the attachment is marked as uploaded,
+                    // Then don't resend its data to the server
+                    attachment.data = null;
+                }
+            }
 
             return this.axios.put(this.baseUrl + '/' + documentId, {
                 state: state
@@ -58356,6 +58364,9 @@ exports.default = function () {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments[1];
 
+
+    var copy = void 0;
+
     switch (action.type) {
         case 'ATTACHMENTS_ADD':
             return _extends({}, state, _defineProperty({}, action.payload.id, {
@@ -58363,12 +58374,17 @@ exports.default = function () {
                 data: action.payload.data
             }));
 
+        case 'ATTACHMENT_REMOVE':
+            copy = _extends({}, state);
+            delete copy[action.payload.id];
+            return copy;
+
         case 'ATTACHMENTS_MARK_UPLOADED':
-            var clone = _extends({}, state);
-            for (var key in clone) {
-                clone[key].uploaded = true;
+            copy = _extends({}, state);
+            for (var key in copy) {
+                copy[key].uploaded = true;
             }
-            return clone;
+            return copy;
 
         default:
             return state;
@@ -58388,6 +58404,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.attachFileFromInput = attachFileFromInput;
 exports.markAttachmentsAsUploaded = markAttachmentsAsUploaded;
 exports.attachmentData = attachmentData;
+exports.cleanUpAttachments = cleanUpAttachments;
 
 var _blueimpMd = __webpack_require__(224);
 
@@ -58432,6 +58449,31 @@ function markAttachmentsAsUploaded() {
 
 function attachmentData(id) {
     return _.get(store, 'state.attachments.' + id + '.data');
+}
+
+function cleanUpAttachments() {
+
+    var imagesWithAttachments = store.state.contents.filter(function (content) {
+        return content.element === 'd-image';
+    }).filter(function (image) {
+        return image.state.src;
+    }).filter(function (image) {
+        return image.state.src.type === 'attachment';
+    });
+
+    var usedAttachmentIds = imagesWithAttachments.map(function (image) {
+        return image.state.src.content;
+    });
+
+    var allAttachmentIds = Object.keys(store.state.attachments);
+    var deletedIds = _.difference(allAttachmentIds, usedAttachmentIds);
+
+    deletedIds.forEach(function (id) {
+        store.dispatch({
+            type: 'ATTACHMENT_REMOVE',
+            payload: { id: id }
+        });
+    });
 }
 
 /***/ }),
