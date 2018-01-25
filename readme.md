@@ -55,3 +55,43 @@ And before you initialize with the `.start()` command, call the following comman
 The second parameter must point to your axios instance. You can have it configured the way you like (with necessary credentials and headers added in the form of interceptors)
 
 **Note:** Axios is not included by default. You'll have to include it in your project yourself.
+
+## Developing Custom Elements
+
+You can develop your own elements to be dragged on to the report.
+To do so, create a meta file that introduces your element's files to the registry.
+
+The file should look like this:
+
+	module.exports = {
+		// Any name you choose is fine, just make it unique
+		id: 'd-custom-element',
+		// Icon options are here: https://material.io/icons/
+		icon: 'text_fields',
+		// The name of this element
+		label: 'Text',
+
+		// The vue component that renders this item
+		renderer: require('./renderer.vue'),
+
+		// Optional menu Vue component.
+		// This will be displayed when your custom item is selected
+		menu: require('./menu.vue'),
+
+		defaultState: {
+			// Initial state of your element when added to the document
+			// Each instance of the element has its own isolated state.
+		},
+
+		defaultStyle: {
+			// This is optional
+			// You can pass a custom style for your element   
+		}
+	}
+
+You can also use one meta file to register multiple elements at once.
+To do that, pass an array of these objects.
+
+Then register your element like so:
+	
+	_swd.registry.use(require('./yourMetaFile.js'))
