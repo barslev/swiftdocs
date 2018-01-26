@@ -17092,7 +17092,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     extends: __WEBPACK_IMPORTED_MODULE_0__elements_base___default.a,
     methods: {
         updateWeight(weight) {
-            Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__["updateElementState"])(this.id, {
+            Object(__WEBPACK_IMPORTED_MODULE_1__redux_actions_contents__["updateContentState"])(this.id, {
                 weight
             });
         },

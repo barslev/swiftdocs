@@ -13,13 +13,13 @@
 </template>
 <script>
 import base from '~/elements/base'
-import {findContent, getContentIndex, updateElementState, insertContentAtIndex} from '~/redux/actions/contents'
+import {findContent, getContentIndex, updateContentState, insertContentAtIndex} from '~/redux/actions/contents'
 
 export default {
     extends: base,
     methods: {
         updateWeight(weight) {
-            updateElementState(this.id, {
+            updateContentState(this.id, {
                 weight
             })
         },
