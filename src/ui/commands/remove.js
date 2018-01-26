@@ -4,8 +4,9 @@ import { isDocumentAlterable, getSelectedContent } from '~/redux/actions/session
 export default {
     key: 8, // backspace
     invoke: () => {
-        removeContent(
-            getSelectedContent()
-        )
+        const selected = getSelectedContent()
+        if (selected) {
+            removeContent(selected)
+        }
     }
 }

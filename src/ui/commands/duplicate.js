@@ -4,8 +4,9 @@ import { getSelectedContent } from '~/redux/actions/session'
 export default {
     key: 68, // d key
     invoke: () => {
-        duplicateContent(
-            getSelectedContent()
-        )
+        const selected = getSelectedContent()
+        if (selected) {
+            duplicateContent(selected)
+        }
     }
 }

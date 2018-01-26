@@ -85,11 +85,7 @@ function cloneChildren(clone, children) {
 }
 
 export function duplicateContent(content) {
-
-    if ( ! content) {
-        return
-    }
-
+    
     if ( ! isDocumentAlterable()) {
         return
     }
@@ -189,10 +185,6 @@ function removeOrphanedContents() {
 }
 
 export function removeContentById(id) {
-
-    if (!id) {
-        return
-    }
 
     if (!isDocumentAlterable()) {
         return
