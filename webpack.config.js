@@ -33,7 +33,8 @@ module.exports = {
     entry: entryPoint,
     output: {
         path: exportPath,
-        filename: appName
+        filename: appName,
+        libraryTarget: 'umd'
     },
     module: {
         loaders: [

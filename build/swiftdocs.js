@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(typeof self !== 'undefined' ? self : this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -17549,11 +17559,6 @@ exports.default = Generator;
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.actions = exports.BaseElement = exports.SwiftDocs = undefined;
-
 var _main = __webpack_require__(69);
 
 var _main2 = _interopRequireDefault(_main);
@@ -17570,9 +17575,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 window.SwiftDocs = _main2.default;
 
-var SwiftDocs = exports.SwiftDocs = _main2.default;
-var BaseElement = exports.BaseElement = _base2.default;
-var actions = exports.actions = _actions2.default;
+module.exports = {
+    SwiftDocs: _main2.default,
+    BaseElement: _base2.default,
+    actions: _actions2.default
+};
 
 /***/ }),
 /* 69 */
@@ -59077,3 +59084,4 @@ if (false) {
 
 /***/ })
 /******/ ]);
+});

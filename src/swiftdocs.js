@@ -4,6 +4,8 @@ import Actions from '~/redux/actions'
 
 window.SwiftDocs = Main
 
-export const SwiftDocs = Main
-export const BaseElement = base
-export const actions = Actions
+module.exports = {
+    SwiftDocs: Main,
+    BaseElement: base,
+    actions: Actions
+}
