@@ -75,7 +75,7 @@ html, body {
   cursor:pointer;
 }
 
-.editMode .document__page-element.hovering:after, .editMode .document__page-element.selected:not(tr):after {
+.editMode .document__page-element.hovering:after, .editMode .document__page-element.selected:after {
   content: " ";
   position: absolute;
   display: block;
@@ -86,6 +86,10 @@ html, body {
   bottom: 0px;
   border: 1px dashed #65B1C9;
   background-color: transparent;
+}
+
+.editMode tr.document__page-element.selected:after {
+	content: none !important;
 }
 
 .editMode tr.document__page-element.selected > td:after {
