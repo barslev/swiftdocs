@@ -16675,6 +16675,11 @@ exports.default = {
             _this.activateEditor();
         });
     },
+    beforeDestroy: function beforeDestroy() {
+        if (this.editor) {
+            this.editor.destroy();
+        }
+    },
 
 
     watch: {

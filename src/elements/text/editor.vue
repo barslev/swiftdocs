@@ -28,6 +28,12 @@ export default {
         })
     },
 
+    beforeDestroy() {
+        if (this.editor) {
+            this.editor.destroy()
+        }
+    },
+
     watch: {
         language() {
             this.writeContent()
