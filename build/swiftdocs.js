@@ -18528,26 +18528,30 @@ var Server = function () {
     }, {
         key: '_nullifyUploadedAttachments',
         value: function _nullifyUploadedAttachments(state) {
-            var clone = _extends({}, state);
-            // Only include not uploaded attachments
-            for (var i in clone.attachments) {
-                var attachment = clone.attachments[i];
-                if (attachment.uploaded) {
+            var attachmentsMap = {};
+            var clone = _extends({}, state, { attachments: {}
+
+                // Only include not uploaded attachments
+            });for (var i in state.attachments) {
+                attachmentsMap[i] = _extends({}, state.attachments[i]);
+                if (attachmentsMap[i].uploaded) {
                     // If the attachment is marked as uploaded,
                     // Then don't resend its data to the server
-                    attachment.data = null;
+                    attachmentsMap[i].data = null;
                 }
             }
+
+            clone.attachments = attachmentsMap;
             return clone;
         }
     }, {
         key: 'persist',
         value: function persist(documentId, state) {
             // Clean up already uploaded attachments
-            state = this._nullifyUploadedAttachments(state);
+            var clone = this._nullifyUploadedAttachments(state);
             // Submit the state to the web service
             return this.axios.put(this.baseUrl + '/' + documentId, {
-                state: state
+                clone: clone
             });
         }
     }]);

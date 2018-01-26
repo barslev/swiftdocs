@@ -17,25 +17,29 @@ export default class Server
     }
 
     _nullifyUploadedAttachments(state) {
-        let clone = {...state}
+        const attachmentsMap = {}
+        let clone = { ...state, attachments: {} }
+
         // Only include not uploaded attachments
-        for (let i in clone.attachments) {
-            let attachment = clone.attachments[i]
-            if (attachment.uploaded) {
+        for (let i in state.attachments) {
+            attachmentsMap[i] = { ...state.attachments[i] }
+            if (attachmentsMap[i].uploaded) {
                 // If the attachment is marked as uploaded,
                 // Then don't resend its data to the server
-                attachment.data = null
+                attachmentsMap[i].data = null
             }
         }
+
+        clone.attachments = attachmentsMap
         return clone
     }
 
     persist(documentId, state) {
         // Clean up already uploaded attachments
-        state = this._nullifyUploadedAttachments(state)
+        const clone = this._nullifyUploadedAttachments(state)
         // Submit the state to the web service
         return this.axios.put(this.baseUrl + '/' + documentId, {
-            state
+            clone
         })
     }
 }
