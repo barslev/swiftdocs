@@ -18,7 +18,7 @@ export default class Server
 
     _nullifyUploadedAttachments(state) {
         const attachmentsMap = {}
-        let clone = { ...state, attachments: {} }
+        const clone = { ...state, attachments: {} }
 
         // Only include not uploaded attachments
         for (let i in state.attachments) {
@@ -39,7 +39,7 @@ export default class Server
         const clone = this._nullifyUploadedAttachments(state)
         // Submit the state to the web service
         return this.axios.put(this.baseUrl + '/' + documentId, {
-            clone
+            state: clone
         })
     }
 }
