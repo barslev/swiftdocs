@@ -37,6 +37,9 @@ class dragDrop
             },
             copySortSource: false,
             accepts(el, target, source, sibling) {
+                if (el.contains(target)) {
+                    return false
+                }
                 return target.id !== 'toolbar_elements'
             },
             moves() {
