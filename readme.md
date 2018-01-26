@@ -33,35 +33,50 @@ You'll need to reference swiftdocs.js file in your html and then bootstrap it li
 	</body>
 	</html>
 
+## Initializing In Different Modes
+
+By default, SwiftDocs will start in edit mode. In some cases, you might wish to start from render mode.
+Or you might want to prevent editing altogether or only allow translation work.
+
+You can set the initial mode by passing an argument to the .start() call.
+
+* **.start('render')**: Starts in render mode. User can switch back to edit mode.
+* **.start('render_only')**: Starts in render mode, but the user can't switch back to edit mode.
+* **.start('translate')**: Starts in edit mode, but user can't add, move or remove content.
+
+*However;*
+
+*Please note that the user can switch the mode via developer's console if they really want to.*
+*Always make sure you handle your security and authorization on the server-side.*
+
 ## Storing and Retrieving Documents
 
 Out of the box, Swiftdocs provides two storage providers.
 
 1. LocalStorage (local), which uses HTML5 LocalStorage
-2. Server (server), which talks to your server-side implementation to store and retrieve documents.
+2. Server-side (server), which talks to your server-side implementation to store and retrieve documents.
 
-LocalStorage is pretty much straightforward. It's selected by default. You don't need to do much else other than providing a unique document ID to work on. If that ID is found in the storage, corresponding document will be loaded.
+**NB!** LocalStorage is easy to use, it requires no extra implementation on your side, but it's only intended for testing purposes. Please make sure you are using the server driver in production environments
 
-#### Implementing an API for Server Storage
+#### Using the Server-side Storage
 
-You have to explicitly choose this driver when instantiating SwiftDocs like so:
+Pass the third parameter as `"server"` while instantiating SwiftDocs.
 
 	var swiftDocs = new SwiftDocs('#app', documentId, 'server')
 	
-And before you initialize with the `.start()` command, call the following command:
+And before you invoke the `.start()` command, configure it:
 
 	swiftDocs.storage.configure("http://yourserver.com/api/swiftdocs", axios)
 
-The second parameter must point to your axios instance. You can have it configured the way you like (with necessary credentials and headers added in the form of interceptors)
+The second parameter must point to an axios instance. This is a chance for you to pass a customized axios instance, that has necessary headers and tokens to talk to your server.
 
 **Note:** Axios is not included by default. You'll have to include it in your project yourself.
 
 ## Developing Custom Elements
 
-You can develop your own elements to be dragged on to the report.
-To do so, create a meta file that introduces your element's files to the registry.
+By default, SwiftDocs provides you with basic elements such as Text, Table and Image. It's possible to develop and integrate your own elements, too.
 
-The file should look like this:
+To do so, create a meta file that introduces your element's files to the registry. The file should look like this:
 
 	module.exports = {
 		// Any name you choose is fine, just make it unique
@@ -89,9 +104,10 @@ The file should look like this:
 		}
 	}
 
-You can also use one meta file to register multiple elements at once.
-To do that, pass an array of these objects.
+You can also use one meta file to register multiple elements at once by passing an array of these objects.
 
-Then register your element like so:
+Finally, you'll need to register your element like so:
 	
 	_swd.registry.use(require('./yourMetaFile.js'))
+	
+After these steps, your custom element should appear in the "Elements" tab on the left menu. You should be able to drag and drop your element on to the document and it will be rendered using the renderer Vue component you passed in.

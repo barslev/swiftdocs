@@ -48,7 +48,7 @@
             <input type="checkbox" :checked="state.align == 'right'" @change="updateAlignment('right')" />
             <i class="material-icons">format_align_right</i>
         </label>
-    </div>    
+    </div>
 </div>
 </template>
 <script>
