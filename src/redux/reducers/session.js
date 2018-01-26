@@ -74,10 +74,10 @@ export default (state = initialState, action) => {
                 ...state,
                 translation: action.payload.language
             }
-        case 'SESSION_BEGIN_SAVING':
+        case 'SESSION_SET_SAVING':
             return {
                 ...state,
-                saving: true
+                saving: action.payload
             }
         case 'SESSION_SAVED':
             return {

@@ -91,6 +91,20 @@ function showSaveSuccess() {
     )
 }
 
+function showSaveError(error) {
+    notifyError(
+        $t('messages.save_failed'),
+        error.toString()
+    )
+}
+
+function setSavingFlag(flag) {
+    store.dispatch({
+        type: 'SESSION_SET_SAVING',
+        payload: flag
+    })    
+}
+
 export function saveCurrentSession() {
 
     if (store.state.session.saving) {
@@ -103,9 +117,7 @@ export function saveCurrentSession() {
         return showSaveSuccess()
     }
 
-    store.dispatch({
-        type: 'SESSION_BEGIN_SAVING'
-    })
+    setSavingFlag(true)
 
     // Remove redundant attachments
     _swd.action.cleanUpAttachments()
@@ -120,5 +132,9 @@ export function saveCurrentSession() {
             _swd.action.markAttachmentsAsUploaded()
             store.dispatch({ type: 'SESSION_SAVED' })
             showSaveSuccess()
+        })
+        .catch((error) => {
+            setSavingFlag(false)
+            showSaveError(error)
         })
 }

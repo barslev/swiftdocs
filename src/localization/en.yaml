@@ -17,6 +17,7 @@ global:
 messages:
   saving: "Saving"
   saved: "Saved!"
+  save_failed: "Not Saved"
   saved_more: "All changes were saved."
   page_added: "Page Added"
   page_removed: "Page Removed"

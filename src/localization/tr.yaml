@@ -16,7 +16,8 @@ global:
   loading: "Loading"
 
 messages:
-  saved: "Saved!"
+  saved: "Kaydedildi!"
+  save_failed: "Kaydedilemedi"
   saved_more: "All changes were saved."
   page_added: "Page Added"
   page_removed: "Page Removed"
