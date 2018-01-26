@@ -1,7 +1,13 @@
 Swiftdocs
 ===========
 
-Work in progress. Details and documentation will be added in the future.
+#### Drag & Drop Dynamic Document Builder implemented \w Vue.
+
+Build document templates in the browser, plug in an API endpoint to retrieve data from, and generate documents based on that data.
+Useful for reports, invoices, tickets and any other dynamic documents that you want to build without writing any extra code.
+
+Try it now:
+[https://swiftmade.github.io/swiftdocs/](https://swiftmade.github.io/swiftdocs/)
 
 ## Usage
 
