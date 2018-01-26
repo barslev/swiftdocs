@@ -40,7 +40,10 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
+                include: [
+                    path.resolve(__dirname, 'src'),
+                    path.resolve(__dirname, 'node_modules/dot-prop'),
+                ],
                 loader: 'babel-loader',
                 query: {
                     presets: ['es2015']
