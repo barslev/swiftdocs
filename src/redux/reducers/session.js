@@ -69,6 +69,7 @@ export default (state = initialState, action) => {
                     selectedId: null
                 }
             }
+            return state
         case 'SESSION_SET_TRANSLATION':
             return {
                 ...state,

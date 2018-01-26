@@ -195,11 +195,11 @@ export function removeContentById(id) {
             return content.container_id == id
         })
         .forEach((content) => {
-            dispatchRemoval(content.id)
+            removeContentById(content.id)
         })
 
     dispatchRemoval(id)
-    removeOrphanedContents()
+    //removeOrphanedContents()
 }
 
 export function removeContent(content) {

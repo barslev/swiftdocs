@@ -399,11 +399,11 @@ function removeContentById(id) {
     store.state.contents.filter(function (content) {
         return content.container_id == id;
     }).forEach(function (content) {
-        dispatchRemoval(content.id);
+        removeContentById(content.id);
     });
 
     dispatchRemoval(id);
-    removeOrphanedContents();
+    //removeOrphanedContents()
 }
 
 function removeContent(content) {
@@ -43879,6 +43879,7 @@ exports.default = function () {
                     selectedId: null
                 });
             }
+            return state;
         case 'SESSION_SET_TRANSLATION':
             return _extends({}, state, {
                 translation: action.payload.language
