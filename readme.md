@@ -7,8 +7,9 @@ Work in progress. Details and documentation will be added in the future.
 
 ### Shortcuts
 
-1. ctrl + **d**uplicate -> duplicate selected content
-2. ctrl + backspace -> remove selected content
+1. control + **d**uplicate -> duplicate selected content
+2. control + backspace -> remove selected content
+3. control + **s**ave -> save the document
 
 ## Initializing
 

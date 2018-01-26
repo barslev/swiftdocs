@@ -42865,6 +42865,10 @@ exports.default = function () {
     };
 };
 
+var _save = __webpack_require__(228);
+
+var _save2 = _interopRequireDefault(_save);
+
 var _remove = __webpack_require__(150);
 
 var _remove2 = _interopRequireDefault(_remove);
@@ -42875,7 +42879,7 @@ var _duplicate2 = _interopRequireDefault(_duplicate);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var commands = [_remove2.default, _duplicate2.default];
+var commands = [_save2.default, _remove2.default, _duplicate2.default];
 
 /***/ }),
 /* 150 */
@@ -59357,6 +59361,26 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-6343472a", esExports)
   }
 }
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _session = __webpack_require__(2);
+
+exports.default = {
+    key: 83, // d key
+    invoke: function invoke() {
+        (0, _session.saveCurrentSession)();
+    }
+};
 
 /***/ })
 /******/ ]);
