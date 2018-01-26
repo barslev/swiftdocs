@@ -4,10 +4,10 @@ function defaultStyle(element) {
     const defaults = {
         position: 'relative',
         // Default properties for the element
-        marginTop: 10,
+        marginTop: 0,
         marginLeft: 0,
         marginRight: 0,
-        marginBottom: 10,
+        marginBottom: 5,
         //
         paddingTop: 0,
         paddingLeft: 0,
