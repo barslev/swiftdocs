@@ -412,7 +412,10 @@ function removeContent(content) {
 /* ============ Content State Management ============ */
 
 function getContentState(id, defaultState) {
-    return _.get(findContent(id), 'state', defaultState);
+    // Get the state
+    var state = _.get(findContent(id), 'state', defaultState);
+    // Return a copy of the state
+    return _extends({}, state);
 }
 
 function updateContentState(id, fragment) {
@@ -39457,7 +39460,7 @@ var render = function() {
     { tag: "div" },
     _vm._l(_vm.displayItems, function(item, index) {
       return _c("el", {
-        key: "item-" + index,
+        key: "item-" + index + "-" + item.id,
         attrs: { element: item, context: item.context }
       })
     })

@@ -208,7 +208,16 @@ export function removeContent(content) {
 /* ============ Content State Management ============ */
 
 export function getContentState(id, defaultState) {
-    return _.get(findContent(id), 'state', defaultState)
+    // Get the state
+    const state = _.get(
+        findContent(id),
+        'state',
+        defaultState
+    )
+    // Return a copy of the state
+    return {
+        ...state
+    }
 }
 
 export function updateContentState(id, fragment) {

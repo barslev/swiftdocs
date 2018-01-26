@@ -1,7 +1,7 @@
 <template>
     <div :is="htmlTag">
         <el v-for="(item, index) in displayItems"
-            :key="'item-' + index"
+            :key="'item-' + index + '-' + item.id"
             :element="item"
             :context="item.context">
         </el>
