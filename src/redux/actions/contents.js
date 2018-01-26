@@ -1,6 +1,7 @@
 import cuid from 'cuid'
 import { findPage } from './pages'
 import {copyStylesToContent} from './styles'
+import {isDocumentAlterable} from './session'
 
 /* ============ Content Basics ============ */
 
@@ -26,6 +27,10 @@ export function insertContent(element, containerId, beforeId = null) {
 
 export function insertContentAtIndex(element, container_id, index) {
 
+    if (!isDocumentAlterable()) {
+        return
+    }    
+    
     const state = _swd.registry.defaultState(element)
 
     const content = {
@@ -47,6 +52,10 @@ export function insertContentAtIndex(element, container_id, index) {
 }
 
 export function moveContent(id, containerId, beforeId) {
+
+    if (!isDocumentAlterable()) {
+        return
+    }    
 
     const oldIndex = _.findIndex(store.state.contents, {id})
     const newIndex = beforeId
@@ -70,6 +79,10 @@ export function moveContent(id, containerId, beforeId) {
 export function duplicateContent(content) {
 
     if ( ! content) {
+        return
+    }
+
+    if ( ! isDocumentAlterable()) {
         return
     }
 
@@ -167,7 +180,12 @@ function removeOrphanedContents() {
 }
 
 export function removeContentById(id) {
+
     if (!id) {
+        return
+    }
+
+    if (!isDocumentAlterable()) {
         return
     }
 

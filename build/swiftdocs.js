@@ -214,6 +214,8 @@ var _pages = __webpack_require__(6);
 
 var _styles = __webpack_require__(9);
 
+var _session = __webpack_require__(2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* ============ Content Basics ============ */
@@ -239,6 +241,10 @@ function insertContent(element, containerId) {
 
 function insertContentAtIndex(element, container_id, index) {
 
+    if (!(0, _session.isDocumentAlterable)()) {
+        return;
+    }
+
     var state = _swd.registry.defaultState(element);
 
     var content = {
@@ -261,6 +267,10 @@ function insertContentAtIndex(element, container_id, index) {
 
 function moveContent(id, containerId, beforeId) {
 
+    if (!(0, _session.isDocumentAlterable)()) {
+        return;
+    }
+
     var oldIndex = _.findIndex(store.state.contents, { id: id });
     var newIndex = beforeId ? _.findIndex(store.state.contents, { id: beforeId }) : store.state.contents.length;
 
@@ -281,6 +291,10 @@ function moveContent(id, containerId, beforeId) {
 function duplicateContent(content) {
 
     if (!content) {
+        return;
+    }
+
+    if (!(0, _session.isDocumentAlterable)()) {
         return;
     }
 
@@ -372,7 +386,12 @@ function removeOrphanedContents() {
 }
 
 function removeContentById(id) {
+
     if (!id) {
+        return;
+    }
+
+    if (!(0, _session.isDocumentAlterable)()) {
         return;
     }
 
@@ -427,6 +446,7 @@ exports.activateMode = activateMode;
 exports.beginEditMode = beginEditMode;
 exports.beginRenderMode = beginRenderMode;
 exports.getCurrentMode = getCurrentMode;
+exports.isDocumentAlterable = isDocumentAlterable;
 exports.selectContent = selectContent;
 exports.deselectContent = deselectContent;
 exports.getSelectedContentId = getSelectedContentId;
@@ -486,6 +506,10 @@ function beginRenderMode() {
 
 function getCurrentMode() {
     return store.state.session.mode;
+}
+
+function isDocumentAlterable() {
+    return getCurrentMode() === MODE_EDIT && store.state.session.alterable;
 }
 
 function selectContent(id) {
@@ -12601,7 +12625,7 @@ var dragDrop = function () {
                     return target.id !== 'toolbar_elements';
                 },
                 moves: function moves() {
-                    return (0, _session.getCurrentMode)() == _session.MODE_EDIT;
+                    return (0, _session.isDocumentAlterable)();
                 }
             });
         }

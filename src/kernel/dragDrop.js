@@ -3,7 +3,7 @@
  */
 
 const dragula = require('dragula')
-import { MODE_EDIT, getCurrentMode } from '~/redux/actions/session'
+import { isDocumentAlterable } from '~/redux/actions/session'
 import { insertContent, moveContent } from '~/redux/actions/contents'
 
 class dragDrop
@@ -40,7 +40,7 @@ class dragDrop
                 return target.id !== 'toolbar_elements'
             },
             moves() {
-                return getCurrentMode() == MODE_EDIT
+                return isDocumentAlterable()
             }
         })
     }
