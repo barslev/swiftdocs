@@ -288,6 +288,14 @@ function moveContent(id, containerId, beforeId) {
     });
 }
 
+function cloneChildren(clone, children) {
+    children.forEach(function (child) {
+        var copy = _extends({}, child);
+        copy.container_id = clone.id;
+        duplicateContent(copy);
+    });
+}
+
 function duplicateContent(content) {
 
     if (!content) {
@@ -312,6 +320,7 @@ function duplicateContent(content) {
     });
 
     (0, _styles.copyStylesToContent)(content.id, clone.id);
+    cloneChildren(clone, childrenContent(content.id));
 }
 
 /* ============ Content Removal ============ */

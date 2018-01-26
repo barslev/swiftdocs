@@ -76,6 +76,14 @@ export function moveContent(id, containerId, beforeId) {
     })
 }
 
+function cloneChildren(clone, children) {
+    children.forEach((child) => {
+        const copy = { ...child }
+        copy.container_id = clone.id
+        duplicateContent(copy)
+    })
+}
+
 export function duplicateContent(content) {
 
     if ( ! content) {
@@ -100,6 +108,7 @@ export function duplicateContent(content) {
     })
 
     copyStylesToContent(content.id, clone.id)
+    cloneChildren(clone, childrenContent(content.id))
 }
 
 /* ============ Content Removal ============ */
