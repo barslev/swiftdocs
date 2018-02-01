@@ -59065,6 +59065,8 @@ var Resizer = function () {
         this.id = id;
         this.$el = $el;
         this.resizing = false;
+        this.rowId = $el.parentElement.getAttribute('data-id');
+
         // Bind context to internal methods
         this._up = this._up.bind(this);
         this._down = this._down.bind(this);
@@ -59123,8 +59125,10 @@ var Resizer = function () {
         value: function _detectSibling() {
             this.sibling = null;
 
-            var elIndex = (0, _contents.getContentIndex)(this.id);
-            var sibling = _.get(store.state.contents, elIndex + 1);
+            var siblingCells = _.filter(store.state.contents, { container_id: this.rowId });
+
+            var elIndex = _.findIndex(siblingCells, { id: this.id });
+            var sibling = _.find(siblingCells, elIndex + 1);
 
             if (sibling && sibling.element == 'd-table-cell') {
                 this.sibling = sibling;

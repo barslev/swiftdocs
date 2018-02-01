@@ -26,6 +26,8 @@ export default class Resizer
         this.id = id
         this.$el = $el
         this.resizing = false
+        this.rowId = $el.parentElement.getAttribute('data-id');
+
         // Bind context to internal methods
         this._up = this._up.bind(this)
         this._down = this._down.bind(this)
@@ -74,9 +76,14 @@ export default class Resizer
 
     _detectSibling() {
         this.sibling = null
-        
-        const elIndex = getContentIndex(this.id)
-        const sibling = _.get(store.state.contents, elIndex + 1) 
+
+        const siblingCells = _.filter(
+            store.state.contents,
+            {container_id: this.rowId}
+        )
+
+        const elIndex = _.findIndex(siblingCells, {id: this.id})
+        const sibling = _.find(siblingCells, elIndex + 1)
 
         if (sibling && sibling.element == 'd-table-cell') {
             this.sibling = sibling
