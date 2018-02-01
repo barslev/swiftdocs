@@ -83,11 +83,13 @@ export default class Resizer
         )
 
         const elIndex = _.findIndex(siblingCells, {id: this.id})
-        const sibling = _.find(siblingCells, elIndex + 1)
+        const sibling = _.get(siblingCells, elIndex + 1)
 
         if (sibling && sibling.element == 'd-table-cell') {
             this.sibling = sibling
         }
+
+        console.log(this.sibling)
     }
 
     _getSiblingWidth() {

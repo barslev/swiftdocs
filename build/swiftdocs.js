@@ -59128,11 +59128,13 @@ var Resizer = function () {
             var siblingCells = _.filter(store.state.contents, { container_id: this.rowId });
 
             var elIndex = _.findIndex(siblingCells, { id: this.id });
-            var sibling = _.find(siblingCells, elIndex + 1);
+            var sibling = _.get(siblingCells, elIndex + 1);
 
             if (sibling && sibling.element == 'd-table-cell') {
                 this.sibling = sibling;
             }
+
+            console.log(this.sibling);
         }
     }, {
         key: '_getSiblingWidth',
