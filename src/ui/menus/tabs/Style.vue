@@ -83,10 +83,12 @@
         <label>{{ $t('menus.style.border_color') }}</label>
         <color :mini="true" :value="styles.borderColor" @input="updateColor('borderColor', arguments[0])" />
 
+        <br>
         <h5>{{ $t('menus.style.fill') }}</h5>
         <label>{{ $t('menus.style.background_color') }}</label>
         <color :mini="true" :value="styles.backgroundColor" @input="updateColor('backgroundColor', arguments[0])" />  
 
+        <br>
         <h5>{{ $t('menus.style.remove_element') }}</h5>
         <toolbar-button icon="delete" @onClick="remove()">{{ $t('menus.style.remove_this_element') }}</toolbar-button>	    
     </div>

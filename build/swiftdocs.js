@@ -14615,7 +14615,10 @@ exports.default = {
 
     methods: {
         updateColor: function updateColor(data) {
-            this.color = data.hex;
+            this.updateColorRaw(data.hex);
+        },
+        updateColorRaw: function updateColorRaw(color) {
+            this.color = color;
             this.$emit('input', this.color);
         },
         showPicker: function showPicker() {
@@ -15786,6 +15789,8 @@ exports.default = {
         }
     }
 }; //
+//
+//
 //
 //
 //
@@ -39772,6 +39777,9 @@ var render = function() {
         class: _vm.inputClass,
         domProps: { value: _vm.color },
         on: {
+          input: function($event) {
+            _vm.updateColorRaw(arguments[0].target.value)
+          },
           click: function($event) {
             _vm.showPicker()
           }
@@ -42073,6 +42081,8 @@ var render = function() {
         }
       }),
       _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
       _c("h5", [_vm._v(_vm._s(_vm.$t("menus.style.fill")))]),
       _vm._v(" "),
       _c("label", [_vm._v(_vm._s(_vm.$t("menus.style.background_color")))]),
@@ -42085,6 +42095,8 @@ var render = function() {
           }
         }
       }),
+      _vm._v(" "),
+      _c("br"),
       _vm._v(" "),
       _c("h5", [_vm._v(_vm._s(_vm.$t("menus.style.remove_element")))]),
       _vm._v(" "),
