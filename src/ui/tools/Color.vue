@@ -1,7 +1,7 @@
 <template>
   <div>
       <div class="relative">
-        <input :class="inputClass" :value="color" @click="showPicker()" />
+        <input :class="inputClass" :value="color" @input="updateColorRaw(arguments[0].target.value)" @click="showPicker()" />
         <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker">
             <div :class="cubeClass" :style="{backgroundColor: color}"></div>
         </div>
@@ -51,7 +51,10 @@ export default {
     },
     methods: {
         updateColor(data) {
-            this.color = data.hex
+            this.updateColorRaw(data.hex)
+        },
+        updateColorRaw(color) {
+            this.color = color
             this.$emit('input', this.color)
         },
         showPicker() {

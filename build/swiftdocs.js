@@ -14615,7 +14615,10 @@ exports.default = {
 
     methods: {
         updateColor: function updateColor(data) {
-            this.color = data.hex;
+            this.updateColorRaw(data.hex);
+        },
+        updateColorRaw: function updateColorRaw(color) {
+            this.color = color;
             this.$emit('input', this.color);
         },
         showPicker: function showPicker() {
@@ -15786,6 +15789,8 @@ exports.default = {
         }
     }
 }; //
+//
+//
 //
 //
 //
@@ -39772,6 +39777,9 @@ var render = function() {
         class: _vm.inputClass,
         domProps: { value: _vm.color },
         on: {
+          input: function($event) {
+            _vm.updateColorRaw(arguments[0].target.value)
+          },
           click: function($event) {
             _vm.showPicker()
           }
@@ -42073,6 +42081,8 @@ var render = function() {
         }
       }),
       _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
       _c("h5", [_vm._v(_vm._s(_vm.$t("menus.style.fill")))]),
       _vm._v(" "),
       _c("label", [_vm._v(_vm._s(_vm.$t("menus.style.background_color")))]),
@@ -42085,6 +42095,8 @@ var render = function() {
           }
         }
       }),
+      _vm._v(" "),
+      _c("br"),
       _vm._v(" "),
       _c("h5", [_vm._v(_vm._s(_vm.$t("menus.style.remove_element")))]),
       _vm._v(" "),
@@ -59065,6 +59077,8 @@ var Resizer = function () {
         this.id = id;
         this.$el = $el;
         this.resizing = false;
+        this.rowId = $el.parentElement.getAttribute('data-id');
+
         // Bind context to internal methods
         this._up = this._up.bind(this);
         this._down = this._down.bind(this);
@@ -59123,12 +59137,16 @@ var Resizer = function () {
         value: function _detectSibling() {
             this.sibling = null;
 
-            var elIndex = (0, _contents.getContentIndex)(this.id);
-            var sibling = _.get(store.state.contents, elIndex + 1);
+            var siblingCells = _.filter(store.state.contents, { container_id: this.rowId });
+
+            var elIndex = _.findIndex(siblingCells, { id: this.id });
+            var sibling = _.get(siblingCells, elIndex + 1);
 
             if (sibling && sibling.element == 'd-table-cell') {
                 this.sibling = sibling;
             }
+
+            console.log(this.sibling);
         }
     }, {
         key: '_getSiblingWidth',
