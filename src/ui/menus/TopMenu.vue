@@ -1,7 +1,7 @@
 <template>
     <div class="fixed pin-x pin-t bg-grey-lightest px-4 py-2 border-b border-grey-light" style="z-index:6">
         <div class="float-left">
-            <dropdown-menu :label="$t('top.file')" v-if="editable">
+            <dropdown-menu :label="$t('top.file')" v-if="state.editable">
                 <template v-if="inRenderMode">
                 <dropdown-option @click.native="beginEditMode()">
                     <div class="flex items-center">
@@ -38,7 +38,7 @@
         </div>
         
         <div class="float-right">
-            <dropdown-menu color="grey-dark" icon="language" :label="$t('languages.' + translation)" align="pin-r">
+            <dropdown-menu color="grey-dark" icon="language" :label="$t('languages.' + state.translation)" align="pin-r">
                 <dropdown-option v-for="language in translations" :key="language" v-if="language != translation" @click.native="changeTranslationLanguage(language)">
                     {{ $t('languages.' + language) }}
                 </dropdown-option>
@@ -49,18 +49,25 @@
     </div>
 </template>
 <script>
+import { connect } from '~/redux/connect'
 import { setTranslation } from '~/redux/actions/session'
-import {beginRenderMode, beginEditMode} from '~/redux/actions/session';
+import { beginRenderMode, beginEditMode } from '~/redux/actions/session';
 
 export default {
+    mixins: [
+        connect((state, scope) => {
+            return {
+                editable: state.session.editable,
+                translation: state.session.translation,
+            }
+        })
+    ],
     created() {
         this.beginEditMode = beginEditMode
         this.beginRenderMode = beginRenderMode
     },
     data() {
         return {
-            editable: this.$select('session.editable as editable'),
-            translation: this.$select('session.translation as translation'),
             translations: _swd.translations,
         }
     },

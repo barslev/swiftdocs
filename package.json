@@ -28,7 +28,6 @@
     "lodash": "^4.17.4",
     "medium-editor": "^5.23.3",
     "redux": "^3.7.2",
-    "revue": "^3.0.0",
     "tailwindcss": "^0.4.0",
     "vue": "^2.5.13",
     "vue-color": "^2.4.3",

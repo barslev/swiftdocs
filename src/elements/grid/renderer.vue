@@ -1,27 +1,25 @@
 <template>
     <div class="flex" ref="dropzone" :container-id="id">
-		<el v-for="pane in panes" :key="pane.id" :element="pane" class="flex-1 mr-2" />
+		<el v-for="pane in state.panes" :key="pane.id" :element="pane" class="flex-1 mr-2" />
     </div>
 </template>
 <script>
+import {connect} from '~/redux/connect'
 import {insertContent} from '~/redux/actions/contents'
 
 export default {
   props: ['id'],
-	data() {
-		return {
-				panes: [],
-				contents: this.$select('contents')
-		}
-	},
-	watch: {
-		contents() {
-			this.updatePanes()
-		}
-  },
+	mixins: [
+			connect((state, scope) => {
+					return {
+							panes: state.contents.filter((content) => {
+									return content.container_id === scope.id
+							})
+					}
+			})
+	],
 	created() {
-		this.updatePanes()
-		if (!this.panes.length) {
+		if (!this.state.panes.length) {
 			// Default grid elements... Add 3 by default
 			insertContent('d-grid-pane', this.id)
 			insertContent('d-grid-pane', this.id)
@@ -31,13 +29,6 @@ export default {
 	mounted() {
 		// dragDrop.add(this.$refs.dropzone)
 		// TODO: Remove from drake once it's unmounted
-	},
-	methods: {
-		updatePanes() {
-			this.panes = this.contents.filter((content) => {
-				return content.container_id === this.id
-			})
-		}
 	}
 }
 </script>

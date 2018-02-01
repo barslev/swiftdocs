@@ -5,12 +5,23 @@
 		class="document__page-container"
 		:container-id="id"
 		:page-id="root ? id : null"
-		:items="containerContents" :context="context"
+		:items="state.contents" :context="context"
 		:class="root ? '' : 'document__page-child-container'">
 	</div>
 </template>
 <script>
+import {connect} from '~/redux/connect'
+
 export default {
+	mixins: [
+		connect((state, scope) => {
+			return {
+				contents: state.contents.filter((content) => {
+					return content.container_id == scope.id
+				})
+			}
+		})
+	],
 	props: {
 		id: {},
 		root: {},
@@ -18,34 +29,15 @@ export default {
 		htmlTag: {default: 'div'},
 		allowDrop: {default: true},
 	},
-	data() {
-		return {
-			containerContents: [],
-			contents: this.$select('contents')
-		}
-	},
-	watch: {
-		contents() {
-			this.updateContainerContents()
-		}
-	},
 	mounted() {
 		if (this.allowDrop) {
 			_swd.dragDrop.add(this.$el)
 		}
-		this.updateContainerContents()
 	},
 	beforeDestroy() {
 		if (this.allowDrop) {
 			_swd.dragDrop.remove(this.$el)
 		}
 	},
-	methods: {
-		updateContainerContents() {
-			this.containerContents = this.contents.filter((content) => {
-				return content.container_id === this.id
-			})			
-		}		
-	}
 }
 </script>

@@ -1,9 +1,9 @@
 <template>
-<div class="toolbar toolbar-left" v-show="!inRenderMode && alterable">
+<div class="toolbar toolbar-left" v-show="!inRenderMode && state.alterable">
 
 	<div class="toolbar-tabs">
 		<a v-for="tab in tabs"
-			v-if="!tab.hidden && (tab.requireSelection ? selectedId : true)"
+			v-if="!tab.hidden && (tab.requireSelection ? state.selectedId : true)"
 			:key="'tab' + tab.component"
 			@click="openTab(tab)"
 			:class="active == tab ? 'active' : ''">
@@ -13,11 +13,12 @@
 	</div>
 
 	<div class="toolbar-content" v-if="active">
-		<div :is="active.component" :id="selectedId"></div>
+		<div :is="active.component" :id="state.selectedId"></div>
 	</div>
 </div>
 </template>
 <script>
+import { connect } from '~/redux/connect'
 import {getSelectedContent} from '~/redux/actions/session'
 
 import Data from './tabs/Data.vue'
@@ -44,6 +45,14 @@ function composeCustomTab(menu) {
 }
 
 export default {
+	mixins: [
+		connect((state, scope) => {
+			return {
+				alterable: state.session.alterable,
+				selectedId: state.session.selectedId,
+			}
+		})
+	],
 	components: {
 		'tab-data': Data,
 		'tab-logic': Logic,
@@ -62,8 +71,6 @@ export default {
 			],
 			active: null,
 			customTab: null,
-			alterable: this.$select('session.alterable as alterable'),
-			selectedId: this.$select('session.selectedId as selectedId'),
 		}
 	},
 	watch: {
@@ -84,7 +91,7 @@ export default {
 		},
 		
 		reactToContentSelection() {
-			if (!this.selectedId) {
+			if (!this.state.selectedId) {
 				return this.onContentDeselected()
 			}
 			return this.onContentSelected(

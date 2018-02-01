@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import Revue from 'revue'
 import storage from '~/storage'
 import Action from '~/kernel/action'
 import dragDrop from '~/kernel/dragDrop'
@@ -75,7 +74,7 @@ export default class Main {
      * @param {*} doc 
      */
     _bootDocument(doc) {
-        window.store = new Revue(Vue, storeFactory(doc))
+        window.store = storeFactory(doc)
 
         if (this.translations) {
             // Set active translation language

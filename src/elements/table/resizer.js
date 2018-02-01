@@ -59,9 +59,13 @@ export default class Resizer
         if ( ! this._clickedOnResizingEdge(e)) {
             return
         }
+
         this._detectSibling()
-        // In this case
-        this._startResize()
+
+        if (this.sibling) {
+            // In this case
+            this._startResize()
+        }
     }
 
     _up(e) {
@@ -78,7 +82,7 @@ export default class Resizer
         this.sibling = null
 
         const siblingCells = _.filter(
-            store.state.contents,
+            store.getState().contents,
             {container_id: this.rowId}
         )
 
@@ -88,8 +92,6 @@ export default class Resizer
         if (sibling && sibling.element == 'd-table-cell') {
             this.sibling = sibling
         }
-
-        console.log(this.sibling)
     }
 
     _getSiblingWidth() {

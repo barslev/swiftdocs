@@ -86,7 +86,7 @@ export default {
 
         updateMultilingual(content) {
 
-            let activeLanguage = store.state.session.translation
+            let activeLanguage = store.getState().session.translation
             let text = _.get(getContentState(this.id), 'text', {})
 
             if (typeof text === 'string') {

@@ -43,7 +43,7 @@ export function attachmentData(id) {
 
 export function cleanUpAttachments() {
 
-    const imagesWithAttachments = store.state.contents
+    const imagesWithAttachments = store.getState().contents
         .filter(content => content.element === 'd-image')
         .filter(image => image.state.src)
         .filter(image => image.state.src.type === 'attachment')
@@ -52,7 +52,7 @@ export function cleanUpAttachments() {
         return image.state.src.content
     })
 
-    const allAttachmentIds = Object.keys(store.state.attachments)
+    const allAttachmentIds = Object.keys(store.getState().attachments)
     const deletedIds = _.difference(allAttachmentIds, usedAttachmentIds)
 
     deletedIds.forEach((id) => {

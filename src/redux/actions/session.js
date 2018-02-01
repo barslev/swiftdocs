@@ -50,11 +50,11 @@ export function beginRenderMode() {
 }
 
 export function getCurrentMode() {
-    return store.state.session.mode
+    return store.getState().session.mode
 }
 
 export function isDocumentAlterable() {
-    return getCurrentMode() === MODE_EDIT && store.state.session.alterable
+    return getCurrentMode() === MODE_EDIT && store.getState().session.alterable
 }
 
 export function selectContent(id) {
@@ -71,12 +71,12 @@ export function deselectContent() {
 }
 
 export function getSelectedContentId() {
-    return store.state.session.selectedId
+    return store.getState().session.selectedId
 }
 
 export function getSelectedContent() {
     const id = getSelectedContentId()
-    return id ? _.find(store.state.contents, {id}) : null
+    return id ? _.find(store.getState().contents, {id}) : null
 }
 
 export function setTranslation(language) {
@@ -111,12 +111,14 @@ function setSavingFlag(flag) {
 
 export function saveCurrentSession() {
 
-    if (store.state.session.saving) {
+    const state = store.getState()
+
+    if (state.session.saving) {
         // Save in progress. Don't try it again yet.
         return
     }
 
-    if ( ! store.state.session.changed) {
+    if ( ! state.session.changed) {
         // Nothing changed, no need to save
         return showSaveSuccess()
     }
@@ -127,7 +129,7 @@ export function saveCurrentSession() {
     _swd.action.cleanUpAttachments()
 
     // Create a copy of the state
-    const clonedState = { ...window.store.state }
+    const clonedState = { ...state }
     // Remove live session state from the persistent data
     delete clonedState.session
 

@@ -1,37 +1,24 @@
 <template>
     <tr>
-        <el v-for="(cell, i) in cells" :key="i" :element="cell" :context="context" :payload="(i + 1) == cells.length" />
+        <el v-for="(cell, i) in state.cells" :key="i" :element="cell" :context="context" :payload="(i + 1) == state.cells.length" />
     </tr>
 </template>
 <script>
 import base from '~/elements/base'
+import {connect} from '~/redux/connect'
 
 export default {
+
     extends: base,
-
-    data() {
-        return {
-            cells: [],
-            contents: this.$select('contents'),
-        }
-    },
-
-    watch: {
-        contents() {
-            this.updateCells()
-        }
-    },
-
-    created() {
-        this.updateCells()
-    },
-
-    methods: {
-        updateCells() {
-			this.cells = this.contents.filter((content) => {
-				return content.container_id === this.id
-			})
-        }
-    }
+    
+    mixins: [
+        connect((state, scope) => {
+            return {
+                cells: state.contents.filter((content) => {
+                    return content.container_id === scope.id
+                })
+            }
+        })
+    ],
 }
 </script>

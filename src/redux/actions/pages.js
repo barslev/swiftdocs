@@ -2,13 +2,16 @@ import cuid from 'cuid'
 import {updateDefaults} from './defaults'
 
 export function addPage() {
+    
+    const state = store.getState()
+
     store.dispatch({
         type: 'PAGE_ADD',
         payload: {
             id: cuid(),
-            color: store.state.defaults.color,
-            margins: store.state.defaults.margins,
-            dimensions: store.state.defaults.dimensions,
+            color: state.defaults.color,
+            margins: state.defaults.margins,
+            dimensions: state.defaults.dimensions,
         }
     })
 }
@@ -62,5 +65,5 @@ export function updateAllPageDimensions(newDimensions) {
 }
 
 export function findPage(id) {
-    return _.find(store.state.pages, { id })    
+    return _.find(store.getState().pages, { id })    
 }
