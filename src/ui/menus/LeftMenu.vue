@@ -1,6 +1,5 @@
 <template>
 <div class="toolbar toolbar-left" v-show="!inRenderMode && state.alterable">
-
 	<div class="toolbar-tabs">
 		<a v-for="tab in tabs"
 			v-if="!tab.hidden && (tab.requireSelection ? state.selectedId : true)"
@@ -11,7 +10,6 @@
 			{{ $t(tab.label) }}
 		</a>
 	</div>
-
 	<div class="toolbar-content" v-if="active">
 		<div :is="active.component" :id="state.selectedId"></div>
 	</div>
@@ -74,7 +72,7 @@ export default {
 		}
 	},
 	watch: {
-		selectedId() {
+		'state.selectedId'() {
 			return this.reactToContentSelection()
 		}
 	},

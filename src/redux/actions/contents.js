@@ -201,6 +201,7 @@ export function removeContentById(id) {
         })
 
     dispatchRemoval(id)
+    // TODO: Uncomment this line if needed?
     //removeOrphanedContents()
 }
 

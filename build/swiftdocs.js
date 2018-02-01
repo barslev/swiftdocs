@@ -405,6 +405,7 @@ function removeContentById(id) {
     });
 
     dispatchRemoval(id);
+    // TODO: Uncomment this line if needed?
     //removeOrphanedContents()
 }
 
@@ -15794,23 +15795,18 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+var _connect = __webpack_require__(3);
 
 exports.default = {
+  mixins: [(0, _connect.connect)(function (state, scope) {
+    return {
+      pages: state.pages
+    };
+  })],
   data: function data() {
     return {
-      scope: null,
-      pages: this.$select('pages')
+      scope: null
     };
   },
   created: function created() {
@@ -15822,7 +15818,17 @@ exports.default = {
       this.$emit('input', this.scope);
     }
   }
-};
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 63 */
@@ -16438,50 +16444,50 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _connect = __webpack_require__(3);
+
 var _pages = __webpack_require__(9);
 
-exports.default = {
-    data: function data() {
-        return {
-            defaultMargins: {}
-        };
-    },
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
+exports.default = {
+    mixins: [(0, _connect.connect)(function (state, scope) {
+        return {
+            margins: state.defaults.margins
+        };
+    })],
     methods: {
-        getDefaults: function getDefaults() {
-            this.defaultMargins = Object.assign({}, this.$select('defaults.margins as defaultMargins'));
-        },
         apply: function apply() {
-            return (0, _pages.updateAllPageMargins)(this.defaultMargins);
+            return (0, _pages.updateAllPageMargins)(this.state.margins);
         }
     }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 72 */
@@ -16654,8 +16660,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
 
 var _connect = __webpack_require__(3);
 
@@ -16724,7 +16728,7 @@ exports.default = {
 	},
 
 	watch: {
-		selectedId: function selectedId() {
+		'state.selectedId': function stateSelectedId() {
 			return this.reactToContentSelection();
 		}
 	},
@@ -43045,7 +43049,7 @@ var render = function() {
           _vm._v(_vm._s(_vm.$t("scope.all_pages")))
         ]),
         _vm._v(" "),
-        _vm._l(_vm.pages, function(page, i) {
+        _vm._l(_vm.state.pages, function(page, i) {
           return _c("option", { key: page.id, domProps: { value: page.id } }, [
             _vm._v(_vm._s(_vm.$t("scope.only_to_page", [i + 1])))
           ])
@@ -44127,7 +44131,6 @@ var render = function() {
         {
           attrs: { name: "page-margins" },
           on: {
-            "before-open": _vm.getDefaults,
             "on-ok": function($event) {
               _vm.apply()
             }
@@ -44150,19 +44153,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.defaultMargins.top,
-                      expression: "defaultMargins.top"
+                      value: _vm.state.margins.top,
+                      expression: "state.margins.top"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "number" },
-                  domProps: { value: _vm.defaultMargins.top },
+                  domProps: { value: _vm.state.margins.top },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.defaultMargins, "top", $event.target.value)
+                      _vm.$set(_vm.state.margins, "top", $event.target.value)
                     }
                   }
                 })
@@ -44178,23 +44181,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.defaultMargins.bottom,
-                      expression: "defaultMargins.bottom"
+                      value: _vm.state.margins.bottom,
+                      expression: "state.margins.bottom"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "number" },
-                  domProps: { value: _vm.defaultMargins.bottom },
+                  domProps: { value: _vm.state.margins.bottom },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(
-                        _vm.defaultMargins,
-                        "bottom",
-                        $event.target.value
-                      )
+                      _vm.$set(_vm.state.margins, "bottom", $event.target.value)
                     }
                   }
                 })
@@ -44210,19 +44209,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.defaultMargins.left,
-                      expression: "defaultMargins.left"
+                      value: _vm.state.margins.left,
+                      expression: "state.margins.left"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "number" },
-                  domProps: { value: _vm.defaultMargins.left },
+                  domProps: { value: _vm.state.margins.left },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.defaultMargins, "left", $event.target.value)
+                      _vm.$set(_vm.state.margins, "left", $event.target.value)
                     }
                   }
                 })
@@ -44238,19 +44237,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.defaultMargins.right,
-                      expression: "defaultMargins.right"
+                      value: _vm.state.margins.right,
+                      expression: "state.margins.right"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "number" },
-                  domProps: { value: _vm.defaultMargins.right },
+                  domProps: { value: _vm.state.margins.right },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.defaultMargins, "right", $event.target.value)
+                      _vm.$set(_vm.state.margins, "right", $event.target.value)
                     }
                   }
                 })
@@ -60584,7 +60583,7 @@ var render = function() {
       _c("h5", [_vm._v("Text Color")]),
       _vm._v(" "),
       _c("color", {
-        attrs: { mini: true, value: _vm.state.state.styles.color },
+        attrs: { mini: true, value: _vm.state.styles.color },
         on: {
           input: function($event) {
             _vm.updateStyle("color", arguments[0])

@@ -56,7 +56,7 @@
     </div>
     <hr>
     <h5>Text Color</h5>
-    <color :mini="true" :value="state.state.styles.color" @input="updateStyle('color', arguments[0])" />      
+    <color :mini="true" :value="state.styles.color" @input="updateStyle('color', arguments[0])" />      
 
   </div>
 </template>
