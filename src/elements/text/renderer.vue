@@ -1,23 +1,22 @@
 <template>
-  <editor v-if="!inRenderMode" :id="id" :language="translation" :content="content"></editor>
+  <editor v-if="!inRenderMode" :id="id" :language="state.translation" :content="content"></editor>
   <displayer v-else :template="content" :context="context"></displayer>
 </template>
 <script>
 import base from '~/elements/base'
+import {getContentState} from '~/redux/actions/contents'
 
 export default {
 
-  extends: base,
+  extends: base((state, scope) => {
+    return {
+      translation: state.session.translation,
+    }
+  }),
 
   components: {
     'editor': require('./editor.vue').default,
     'displayer': require('./displayer.vue').default,
-  },
-
-  data() {
-    return {
-      translation: this.$select('session.translation as translation')
-    }
   },
   
   computed: {
@@ -26,7 +25,7 @@ export default {
       if (this.hasTranslations) {
         return this.translatedContent(
           text,
-          this.translation
+          this.state.translation
         )
       }
       return text

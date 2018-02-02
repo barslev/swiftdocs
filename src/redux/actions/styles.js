@@ -10,14 +10,14 @@ export function updateStyle(id, prop, value) {
 }
 
 export function copyStylesToContent(sourceId, targetId) {
-    if( ! store.state.styles.hasOwnProperty(sourceId)) {
+    if( ! store.getState().styles.hasOwnProperty(sourceId)) {
         return
     }
     store.dispatch({
         type: 'STYLE_SET',
         payload: {
             id: targetId,
-            style: store.state.styles[sourceId]
+            style: store.getState().styles[sourceId]
         }
     })
 }

@@ -1,11 +1,11 @@
 <template>
     <div>
-        <custom-modal name="page-color" @before-open="getDefaults" @on-ok="apply()">
+        <custom-modal name="page-color" @on-ok="apply()">
             <div slot="title">{{ $t('modals.page_color.title') }}</div>
             <div slot="content">
                 <div class="mb-4">
                     <label class="label">{{ $t('modals.page_color.color') }}</label>
-                    <color v-model="defaultBackground"></color>
+                    <color v-model="state.color"></color>
                 </div>
                 <page-scope v-model="scope"></page-scope>
             </div>
@@ -13,19 +13,23 @@
     </div>
 </template>
 <script>
+import { connect } from '~/redux/connect'
 import { updatePageColor, updateAllPageColors } from '~/redux/actions/pages'
 
 export default {
+    mixins: [
+        connect((state, props) => {
+            return {
+                color: state.defaults.color,
+            }
+        })
+    ],
     data() {
         return {
             scope: null,
-            defaultBackground: ''
         }
     },
     methods: {
-        getDefaults() {
-            this.defaultBackground = this.$select('defaults.color as defaultBackground')
-        },
         apply() {
             if (!this.scope) {
                 return updateAllPageColors(this.defaultBackground)

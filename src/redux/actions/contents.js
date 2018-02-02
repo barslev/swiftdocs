@@ -6,12 +6,12 @@ import {isDocumentAlterable} from './session'
 /* ============ Content Basics ============ */
 
 export function findContent(id) {
-    return _.find(store.state.contents, { id })
+    return _.find(store.getState().contents, { id })
 }
 
 export function getContentIndex(id)
 {
-    return _.findIndex(store.state.contents, {id: id})
+    return _.findIndex(store.getState().contents, {id: id})
 }
 
 /* ============ Content Insert, Duplicate and Move ============ */
@@ -20,7 +20,7 @@ export function insertContent(element, containerId, beforeId = null) {
     
     const index = beforeId
         ? getContentIndex(beforeId)
-        : store.state.contents.length
+        : store.getState().contents.length
 
     return insertContentAtIndex(element, containerId, index)
 }
@@ -55,14 +55,16 @@ export function moveContent(id, containerId, beforeId) {
 
     if (!isDocumentAlterable()) {
         return
-    }    
+    }
 
-    const oldIndex = _.findIndex(store.state.contents, {id})
+    const state = store.getState()
+
+    const oldIndex = _.findIndex(state.contents, {id})
     const newIndex = beforeId
-        ? _.findIndex(store.state.contents, {id: beforeId})
-        : store.state.contents.length
+        ? _.findIndex(state.contents, {id: beforeId})
+        : state.contents.length
 
-    const content = Object.assign({}, store.state.contents[oldIndex], {
+    const content = Object.assign({}, state.contents[oldIndex], {
         container_id: containerId
     })
 
@@ -123,7 +125,7 @@ export function duplicateContent(content) {
  */
 function childrenContent(id) {
     return _.filter(
-        store.state.contents,
+        store.getState().contents,
         { container_id: id }
     )
 }
@@ -163,7 +165,7 @@ function applyFilters(contents, filters) {
 }
 
 function getOrphanedContents() {
-    return applyFilters(store.state.contents, [
+    return applyFilters(store.getState().contents, [
         hasNoParent,
         isEmptyGrid
     ]);
@@ -190,7 +192,7 @@ export function removeContentById(id) {
         return
     }
 
-    store.state.contents
+    store.getState().contents
         .filter((content) => {
             return content.container_id == id
         })
@@ -199,6 +201,7 @@ export function removeContentById(id) {
         })
 
     dispatchRemoval(id)
+    // TODO: Uncomment this line if needed?
     //removeOrphanedContents()
 }
 

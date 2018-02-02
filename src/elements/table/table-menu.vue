@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="needsInit">
+        <div v-if="!state.init">
             <h5>Table</h5>
             <div class="flex flex-wrap">
                 <div class="pr-2 mb-2">
@@ -21,24 +21,23 @@
 </template>
 <script>
 import Generator from './generator'
+import {connect} from '~/redux/connect'
+import {getContentState} from '~/redux/actions/contents'
 
 export default {
     props: ['id'],
+    mixins: [
+        connect((state, scope) => {
+            return {
+                init: getContentState(scope.id).init
+            }
+        })
+    ],    
     data() {
         return {
             columns: 5,
             header: true,
             footer: false,
-            contents: this.$select('contents')
-        }
-    },
-    computed: {
-        state() {
-            let state = _.get(_.find(this.contents, { id: this.id }), 'state')
-            return state
-        },
-        needsInit() {
-            return ! this.state.init
         }
     },
     methods: {

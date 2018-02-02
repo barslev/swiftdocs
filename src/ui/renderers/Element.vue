@@ -1,7 +1,7 @@
 <template>
     <div :is="element.element"
         class="document__page-element"
-        :class="[element.id == selectedId ? 'selected' : '', 'element__' + element.element]"
+        :class="[state.selected ? 'selected' : '', 'element__' + element.element]"
         :id="element.id"
         :data-id="element.id"
 		:context="context"
@@ -9,19 +9,26 @@
         @click.native="click"
         @mouseover.native="mouseOver"
         @mouseout.native="mouseOut"
-        :style="format(styles[element.id])" />
+        :style="format(state.styles)" />
 </template>
 <script>
+import {connect} from '~/redux/connect'
 import {selectContent} from '~/redux/actions/session'
 
 export default {
-    props: ['element', 'context', 'payload'],
-    data() {
-        return {
-			styles: this.$select('styles'),
-			selectedId: this.$select('session.selectedId as selectedId'),
-        }
-    },
+	mixins: [
+		connect((state, scope) => {
+			return {
+				styles: state.styles[scope.element.id],
+				selected: state.session.selectedId === scope.element.id,
+			}
+		})
+	],
+    props: [
+		'element',
+		'context',
+		'payload',
+	],
     methods: {
 		click($event) {
 			selectContent(this.element.id)

@@ -26,11 +26,27 @@
     </div>
 </template>
 <script>
+import {connect} from '~/redux/connect'
 import {selectContent} from '~/redux/actions/session'
-import {findContent, updateContentState} from '~/redux/actions/contents'
+import {findContent, getContentState, updateContentState} from '~/redux/actions/contents'
 
 export default {
-    props: ['id'],
+    props: [
+        'id'
+    ],
+
+    mixins: [
+        connect((state, scope) => {
+            const contentState = getContentState(
+                scope.id
+            )
+            return {
+                colspan: contentState.colspan,
+                rowspan: contentState.rowspan,
+            }
+        })
+    ],
+
     methods: {
         openRow() {
             const content = findContent(this.id)
@@ -41,17 +57,6 @@ export default {
                 [prop]: value
             })
         }
-    },
-    data() {
-        return {
-            contents: this.$select('contents')
-        }
-    },
-    computed: {
-        state() {
-            let state = _.get(_.find(this.contents, { id: this.id }), 'state')
-            return state
-        }
-    }    
+    }
 }
 </script>

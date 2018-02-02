@@ -18,7 +18,7 @@ export default class Generator {
         const row = findContent(rowId)
         const rowIndex = getContentIndex(rowId)
         const section = findContent(row.container_id)
-        const columns = _.filter(store.state.contents, {container_id: rowId}).length
+        const columns = _.filter(store.getState().contents, {container_id: rowId}).length
         const targetIndex = before ? rowIndex - 1 : rowIndex + 1
 
         const instance = new Generator(section.container_id)

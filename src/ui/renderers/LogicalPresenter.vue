@@ -8,6 +8,7 @@
     </div>
 </template>
 <script>
+import {connect} from '~/redux/connect'
 import {getContentState} from '~/redux/actions/contents'
 
 function comparable(value) {
@@ -30,6 +31,14 @@ export default {
         'htmlTag'
     ],
 
+    mixins: [
+        connect((state, scope) => {
+            return {
+                inRenderMode: state.session.mode
+            }
+        })
+    ],
+
     data() {
         return {
             displayItems: [],
@@ -41,7 +50,7 @@ export default {
         items() {
             this.refresh()
         },
-        inRenderMode() {
+        'state.inRenderMode'() {
             this.refresh()
         }
     },
@@ -52,7 +61,7 @@ export default {
 
     methods: {
         refresh() {
-            if (this.inRenderMode) {
+            if (this.state.inRenderMode) {
                 // Refresh context
                 this.buildContext()
                 // Display a rendered version of items

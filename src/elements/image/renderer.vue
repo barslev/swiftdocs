@@ -6,11 +6,13 @@
 <script>
 import base from '~/elements/base'
 import placeholder from './placeholder'
+import {connect} from '~/redux/connect'
 import {attachmentData} from '~/redux/actions/attachments'
 import {getContentState, updateContentState} from '~/redux/actions/contents'
 
 export default {
-  extends: base,
+
+  extends: base(),
 
   data() {
 	  return {
@@ -19,7 +21,7 @@ export default {
   },
 
   watch: {
-	  state() {
+	  'state.src'() {
 		  this.refreshImageSrc()
 	  },
 	  inRenderMode() {

@@ -1,21 +1,28 @@
 <template>
 	<div class="document">
-		<page v-for="(page, index) in pages"
+		<page v-for="(page, index) in state.pages"
 			:key="index"
 			:number="index + 1"
 			:page="page" />
 	</div>
 </template>
 <script>
+import { connect } from '~/redux/connect'
 import { addPage } from '~/redux/actions/pages'
 
 export default {
+	mixins: [
+		connect((state, scope) => {
+			return {
+				title: state.title,
+				pages: state.pages,
+				defaults: state.defaults,
+			}
+		})
+	],
 	data() {
 		return {
 			styleEl: null,
-			title: this.$select('title'),
-			pages: this.$select('pages'),
-			defaults: this.$select('defaults'),
 		}
 	},
 	watch: {
@@ -24,7 +31,7 @@ export default {
 		}
 	},
 	mounted() {
-		if ( ! this.pages.length ) {
+		if ( ! this.state.pages.length ) {
 			addPage()
 		}
 		this.styleEl = document.createElement('style')
@@ -34,7 +41,7 @@ export default {
 	methods: {
 		updatePrintCss() {
 			// t r b l
-			const margins = _.map(this.defaults.margins, (margin, key) => {
+			const margins = _.map(this.state.defaults.margins, (margin, key) => {
 					return 'margin-' + key + ': ' + margin + 'mm'
 				})
 				.join(';')
