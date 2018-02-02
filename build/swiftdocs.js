@@ -205,7 +205,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var connect = exports.connect = function connect(selector, props) {
-    var state = undefined;
     return {
         data: function data() {
             return { state: {} };
@@ -213,21 +212,39 @@ var connect = exports.connect = function connect(selector, props) {
         created: function created() {
             var _this = this;
 
-            state = selector(store.getState(), this);
-            this.state = Object.keys(state).reduce(function (prev, key, index) {
-                return _extends({}, prev, _defineProperty({}, key, (0, _cloneDeep2.default)(state[key])));
+            this.onStateDidUpdate = this.onStateDidUpdate;
+
+            this._cache = selector(store.getState(), this);
+            this.state = Object.keys(this._cache).reduce(function (prev, key, index) {
+                return _extends({}, prev, _defineProperty({}, key, (0, _cloneDeep2.default)(_this._cache[key])));
             }, {});
 
-            this.unsubscribe = store.subscribe(function () {
-                var next = selector(store.getState(), _this);
-                Object.keys(state).forEach(function (key) {
-                    _this.$set(_this.state, key, (0, _cloneDeep2.default)(next[key]));
-                });
-                state = next;
-            });
+            if (this.id) {
+                this.idWatcher = this.$watch('id', this.onStateDidUpdate);
+            }
+
+            this.unsubscribe = store.subscribe(this.onStateDidUpdate);
         },
         beforeDestroy: function beforeDestroy() {
             this.unsubscribe();
+
+            if (this.idWatcher) {
+                this.idWatcher();
+            }
+        },
+
+        methods: {
+            onStateDidUpdate: function onStateDidUpdate() {
+                var _this2 = this;
+
+                var next = selector(store.getState(), this);
+                Object.keys(this._cache).forEach(function (key) {
+                    if (_this2._cache[key] !== next[key]) {
+                        _this2.$set(_this2.state, key, (0, _cloneDeep2.default)(next[key]));
+                    }
+                });
+                this._cache = next;
+            }
         }
     };
 };
@@ -46956,7 +46973,7 @@ var initialState = {
     // Mode of the designer: edit or render
     mode: _session.MODE_EDIT,
     // Currently selected element id
-    selectedId: null,
+    selectedId: '',
     // Is the document currently being saved?
     saving: false,
     // Was the document changed since last open?
@@ -47006,12 +47023,12 @@ exports.default = function () {
             });
         case 'SESSION_CONTENT_DESELECT':
             return _extends({}, state, {
-                selectedId: null
+                selectedId: ''
             });
         case 'CONTENT_REMOVE':
             if (state.selectedId === action.payload.id) {
                 return _extends({}, state, {
-                    selectedId: null
+                    selectedId: ''
                 });
             }
             return state;
