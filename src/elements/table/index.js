@@ -5,6 +5,9 @@ module.exports = [
         label: 'Table',
         renderer: require('./table.vue').default,
         menu: require('./table-menu.vue').default,
+        defaultState: {
+            init: false
+        },
     },
     {
         id: 'd-table-row',

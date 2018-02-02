@@ -61471,7 +61471,10 @@ module.exports = [{
     icon: 'grid_on',
     label: 'Table',
     renderer: __webpack_require__(323).default,
-    menu: __webpack_require__(325).default
+    menu: __webpack_require__(325).default,
+    defaultState: {
+        init: false
+    }
 }, {
     id: 'd-table-row',
     hidden: true,
