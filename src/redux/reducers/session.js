@@ -4,7 +4,7 @@ const initialState = {
     // Mode of the designer: edit or render
     mode: MODE_EDIT,
     // Currently selected element id
-    selectedId: null, 
+    selectedId: '', 
     // Is the document currently being saved?
     saving: false,
     // Was the document changed since last open?
@@ -60,13 +60,13 @@ export default (state = initialState, action) => {
         case 'SESSION_CONTENT_DESELECT':
             return {
                 ...state,
-                selectedId: null
+                selectedId: ''
             }
         case 'CONTENT_REMOVE':
             if (state.selectedId === action.payload.id) {
                 return {
                     ...state,
-                    selectedId: null
+                    selectedId: ''
                 }
             }
             return state
