@@ -1,7 +1,7 @@
 <template>
     <div :is="element.element"
         class="document__page-element"
-        :class="[element.id == state.selectedId ? 'selected' : '', 'element__' + element.element]"
+        :class="[state.selected ? 'selected' : '', 'element__' + element.element]"
         :id="element.id"
         :data-id="element.id"
 		:context="context"
@@ -20,7 +20,7 @@ export default {
 		connect((state, scope) => {
 			return {
 				styles: state.styles[scope.element.id],
-				selectedId: state.session.selectedId
+				selected: state.session.selectedId === scope.element.id,
 			}
 		})
 	],

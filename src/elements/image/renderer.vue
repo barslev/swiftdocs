@@ -21,7 +21,7 @@ export default {
   },
 
   watch: {
-	  state() {
+	  'state.src'() {
 		  this.refreshImageSrc()
 	  },
 	  inRenderMode() {

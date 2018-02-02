@@ -25,10 +25,6 @@ export default {
 			insertContent('d-grid-pane', this.id)
 			insertContent('d-grid-pane', this.id)
 		}
-	},
-	mounted() {
-		// dragDrop.add(this.$refs.dropzone)
-		// TODO: Remove from drake once it's unmounted
 	}
 }
 </script>

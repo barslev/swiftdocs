@@ -52,7 +52,17 @@ Vue.mixin({
     return {
       hasTranslations: 'translations' in _swd,
       translation: _swd.translations ? _swd.translation : null,
+      inRenderMode: false,
     }
+  },
+  created() {
+    this.inRenderMode = store.getState().session.mode
+    this.mixinUnsubscribe = store.subscribe(() => {
+      this.inRenderMode = store.getState().session.mode
+    });
+  },
+  beforeDestroy() {
+    this.mixinUnsubscribe();
   }
 })
 

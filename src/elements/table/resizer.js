@@ -46,6 +46,15 @@ export default class Resizer
     }
 
     _stopResize() {
+
+        updateContentState(this.id, {
+            width: this.$el.getAttribute('width')
+        })
+
+        updateContentState(this.$sibling.getAttribute('data-id'), {
+            width: this.$sibling.getAttribute('width')
+        })
+
         document.removeEventListener('mouseup', this._up)
         document.removeEventListener('mousemove', this._move)
     }
@@ -62,7 +71,7 @@ export default class Resizer
 
         this._detectSibling()
 
-        if (this.sibling) {
+        if (this.$sibling) {
             // In this case
             this._startResize()
         }
@@ -79,7 +88,7 @@ export default class Resizer
     }
 
     _detectSibling() {
-        this.sibling = null
+        this.$sibling = null
 
         const siblingCells = _.filter(
             store.getState().contents,
@@ -90,24 +99,22 @@ export default class Resizer
         const sibling = _.get(siblingCells, elIndex + 1)
 
         if (sibling && sibling.element == 'd-table-cell') {
-            this.sibling = sibling
+            this.$sibling = document.querySelector('td[data-id="' + sibling.id + '"]')
         }
     }
 
     _getSiblingWidth() {
-        if ( ! this.sibling) {
+        if ( ! this.$sibling) {
             return null
         }
-        
-        const width = getContentState(
-            this.sibling.id, {width: null}
-        ).width
+
+        const width = this.$sibling.getAttribute('width') 
 
         if (width) {
             return width
         }
 
-        return document.querySelector('td[data-id="' + this.sibling.id + '"]')
+        return this.$sibling
             .getBoundingClientRect()
             .width
     }
@@ -132,14 +139,10 @@ export default class Resizer
                 return
             }
 
-            updateContentState(this.sibling.id, {
-                width: newSiblingWidth
-            })
+            this.$sibling.setAttribute('width', newSiblingWidth)
         }
-
-        updateContentState(this.id, {
-            width: newWidth
-        })
+        
+        this.$el.setAttribute('width', newWidth)
     }
 
     _isSelected() {

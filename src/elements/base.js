@@ -6,7 +6,7 @@ export default (selector) => {
     if (!selector) {
         selector = () => {}
     }
-    
+
     return {
         props: [
             'id', // Element ID.

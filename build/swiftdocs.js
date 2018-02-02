@@ -471,12 +471,11 @@ var connect = exports.connect = function connect(selector, props) {
             this.state = Object.keys(state).reduce(function (prev, key, index) {
                 return _extends({}, prev, _defineProperty({}, key, (0, _cloneDeep2.default)(state[key])));
             }, {});
+
             this.unsubscribe = store.subscribe(function () {
                 var next = selector(store.getState(), _this);
                 Object.keys(state).forEach(function (key) {
-                    if (state[key] !== next[key]) {
-                        _this.$set(_this.state, key, (0, _cloneDeep2.default)(next[key]));
-                    }
+                    _this.$set(_this.state, key, (0, _cloneDeep2.default)(next[key]));
                 });
                 state = next;
             });
@@ -12270,7 +12269,7 @@ function markAttachmentsAsUploaded() {
 }
 
 function attachmentData(id) {
-    return _.get(store, 'state.attachments.' + id + '.data');
+    return _.get(store.getState(), 'attachments.' + id + '.data');
 }
 
 function cleanUpAttachments() {
@@ -15501,7 +15500,7 @@ exports.default = {
 	mixins: [(0, _connect.connect)(function (state, scope) {
 		return {
 			styles: state.styles[scope.element.id],
-			selectedId: state.session.selectedId
+			selected: state.session.selectedId === scope.element.id
 		};
 	})],
 	props: ['element', 'context', 'payload'],
@@ -17024,7 +17023,6 @@ exports.default = {
         },
         remove: function remove() {
             (0, _contents.removeContentById)(this.state.id);
-            (0, _session.deselectContent)(this.state.id);
         }
     }
 };
@@ -18085,7 +18083,7 @@ exports.default = {
 
 
 	watch: {
-		state: function state() {
+		'state.src': function stateSrc() {
 			this.refreshImageSrc();
 		},
 		inRenderMode: function inRenderMode() {
@@ -18341,10 +18339,6 @@ exports.default = {
 						(0, _contents.insertContent)('d-grid-pane', this.id);
 						(0, _contents.insertContent)('d-grid-pane', this.id);
 				}
-		},
-		mounted: function mounted() {
-				// dragDrop.add(this.$refs.dropzone)
-				// TODO: Remove from drake once it's unmounted
 		}
 };
 
@@ -20809,8 +20803,20 @@ _vue2.default.mixin({
   data: function data() {
     return {
       hasTranslations: 'translations' in _swd,
-      translation: _swd.translations ? _swd.translation : null
+      translation: _swd.translations ? _swd.translation : null,
+      inRenderMode: false
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.inRenderMode = store.getState().session.mode;
+    this.mixinUnsubscribe = store.subscribe(function () {
+      _this.inRenderMode = store.getState().session.mode;
+    });
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.mixinUnsubscribe();
   }
 });
 
@@ -42696,7 +42702,7 @@ var render = function() {
     tag: "div",
     staticClass: "document__page-element",
     class: [
-      _vm.element.id == _vm.state.selectedId ? "selected" : "",
+      _vm.state.selected ? "selected" : "",
       "element__" + _vm.element.element
     ],
     style: _vm.format(_vm.state.styles),
@@ -62219,6 +62225,15 @@ var Resizer = function () {
     }, {
         key: '_stopResize',
         value: function _stopResize() {
+
+            (0, _contents.updateContentState)(this.id, {
+                width: this.$el.getAttribute('width')
+            });
+
+            (0, _contents.updateContentState)(this.$sibling.getAttribute('data-id'), {
+                width: this.$sibling.getAttribute('width')
+            });
+
             document.removeEventListener('mouseup', this._up);
             document.removeEventListener('mousemove', this._move);
         }
@@ -62236,7 +62251,7 @@ var Resizer = function () {
 
             this._detectSibling();
 
-            if (this.sibling) {
+            if (this.$sibling) {
                 // In this case
                 this._startResize();
             }
@@ -62257,7 +62272,7 @@ var Resizer = function () {
     }, {
         key: '_detectSibling',
         value: function _detectSibling() {
-            this.sibling = null;
+            this.$sibling = null;
 
             var siblingCells = _.filter(store.getState().contents, { container_id: this.rowId });
 
@@ -62265,23 +62280,23 @@ var Resizer = function () {
             var sibling = _.get(siblingCells, elIndex + 1);
 
             if (sibling && sibling.element == 'd-table-cell') {
-                this.sibling = sibling;
+                this.$sibling = document.querySelector('td[data-id="' + sibling.id + '"]');
             }
         }
     }, {
         key: '_getSiblingWidth',
         value: function _getSiblingWidth() {
-            if (!this.sibling) {
+            if (!this.$sibling) {
                 return null;
             }
 
-            var width = (0, _contents.getContentState)(this.sibling.id, { width: null }).width;
+            var width = this.$sibling.getAttribute('width');
 
             if (width) {
                 return width;
             }
 
-            return document.querySelector('td[data-id="' + this.sibling.id + '"]').getBoundingClientRect().width;
+            return this.$sibling.getBoundingClientRect().width;
         }
     }, {
         key: '_move',
@@ -62305,14 +62320,10 @@ var Resizer = function () {
                     return;
                 }
 
-                (0, _contents.updateContentState)(this.sibling.id, {
-                    width: newSiblingWidth
-                });
+                this.$sibling.setAttribute('width', newSiblingWidth);
             }
 
-            (0, _contents.updateContentState)(this.id, {
-                width: newWidth
-            });
+            this.$el.setAttribute('width', newWidth);
         }
     }, {
         key: '_isSelected',

@@ -123,7 +123,6 @@ export default {
         },
         remove() {
             removeContentById(this.state.id)
-            deselectContent(this.state.id)
         }
     }
 }

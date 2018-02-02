@@ -38,7 +38,7 @@ export function markAttachmentsAsUploaded() {
 }
 
 export function attachmentData(id) {
-    return _.get(store, 'state.attachments.' + id + '.data')
+    return _.get(store.getState(), 'attachments.' + id + '.data')
 }
 
 export function cleanUpAttachments() {
