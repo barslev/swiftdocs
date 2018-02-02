@@ -9,6 +9,6 @@
 import base from '~/elements/base'
 
 export default {
-    extends: base
+    extends: base()
 }
 </script>

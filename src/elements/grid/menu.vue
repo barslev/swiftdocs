@@ -16,7 +16,8 @@ import base from '~/elements/base'
 import {findContent, getContentIndex, updateContentState, insertContentAtIndex} from '~/redux/actions/contents'
 
 export default {
-    extends: base,
+    extends: base(),
+    
     methods: {
         updateWeight(weight) {
             updateContentState(this.id, {

@@ -17,7 +17,7 @@ export default {
     props: [
         'payload'
     ],
-    extends: base,
+    extends: base(),
     data() {
         return {
             resizer: null

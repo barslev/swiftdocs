@@ -4,12 +4,14 @@
     </tr>
 </template>
 <script>
-import base from '~/elements/base'
 import {connect} from '~/redux/connect'
 
 export default {
 
-    extends: base,
+    props: [
+        'id',
+        'context'
+    ],
     
     mixins: [
         connect((state, scope) => {

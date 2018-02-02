@@ -4,21 +4,15 @@
 </template>
 <script>
 import base from '~/elements/base'
-import { connect } from '~/redux/connect'
 import {getContentState} from '~/redux/actions/contents'
 
 export default {
 
-  extends: base,
-
-  mixins: [
-    connect((state, scope) => {
-      return {
-        text: getContentState(scope.id).text,
-        translation: state.session.translation,
-      }
-    })
-  ],
+  extends: base((state, scope) => {
+    return {
+      translation: state.session.translation,
+    }
+  }),
 
   components: {
     'editor': require('./editor.vue').default,

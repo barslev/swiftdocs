@@ -214,7 +214,7 @@ var _pages = __webpack_require__(9);
 
 var _styles = __webpack_require__(14);
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -446,6 +446,57 @@ function updateContentState(id, fragment) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.connect = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _cloneDeep = __webpack_require__(132);
+
+var _cloneDeep2 = _interopRequireDefault(_cloneDeep);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var connect = exports.connect = function connect(selector, props) {
+    var state = undefined;
+    return {
+        data: function data() {
+            return { state: {} };
+        },
+        created: function created() {
+            var _this = this;
+
+            state = selector(store.getState(), this);
+            this.state = Object.keys(state).reduce(function (prev, key, index) {
+                return _extends({}, prev, _defineProperty({}, key, (0, _cloneDeep2.default)(state[key])));
+            }, {});
+            this.unsubscribe = store.subscribe(function () {
+                var next = selector(store.getState(), _this);
+                Object.keys(state).forEach(function (key) {
+                    if (state[key] !== next[key]) {
+                        _this.$set(_this.state, key, (0, _cloneDeep2.default)(next[key]));
+                    }
+                });
+                state = next;
+            });
+        },
+        beforeDestroy: function beforeDestroy() {
+            this.unsubscribe();
+        }
+    };
+};
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -600,57 +651,6 @@ function saveCurrentSession() {
 }
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.connect = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _cloneDeep = __webpack_require__(132);
-
-var _cloneDeep2 = _interopRequireDefault(_cloneDeep);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var connect = exports.connect = function connect(selector, props) {
-    var state = undefined;
-    return {
-        data: function data() {
-            return { state: {} };
-        },
-        created: function created() {
-            var _this = this;
-
-            state = selector(store.getState(), this);
-            this.state = Object.keys(state).reduce(function (prev, key, index) {
-                return _extends({}, prev, _defineProperty({}, key, (0, _cloneDeep2.default)(state[key])));
-            }, {});
-            this.unsubscribe = store.subscribe(function () {
-                var next = selector(store.getState(), _this);
-                Object.keys(state).forEach(function (key) {
-                    if (state[key] !== next[key]) {
-                        _this.$set(_this.state, key, (0, _cloneDeep2.default)(next[key]));
-                    }
-                });
-                state = next;
-            });
-        },
-        beforeDestroy: function beforeDestroy() {
-            this.unsubscribe();
-        }
-    };
-};
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
@@ -703,16 +703,25 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _connect = __webpack_require__(3);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _connect = __webpack_require__(2);
 
 var _contents = __webpack_require__(1);
 
-exports.default = {
-    mixins: [(0, _connect.connect)(function (state, scope) {
-        return (0, _contents.getContentState)(scope.id, {});
-    })],
-    props: ['id', // Element ID.
-    'context']
+exports.default = function (selector) {
+
+    if (!selector) {
+        selector = function selector() {};
+    }
+
+    return {
+        props: ['id', // Element ID.
+        'context'],
+        mixins: [(0, _connect.connect)(function (state, scope) {
+            return _extends({}, (0, _contents.getContentState)(scope.id, {}), selector(state, scope));
+        })]
+    };
 };
 
 /***/ }),
@@ -12960,7 +12969,7 @@ var _styles = __webpack_require__(14);
 
 var styles = _interopRequireWildcard(_styles);
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 var session = _interopRequireWildcard(_session);
 
@@ -13131,7 +13140,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 var _contents = __webpack_require__(1);
 
@@ -14775,7 +14784,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 exports.default = {
 	props: ['page', 'number'],
@@ -14817,7 +14826,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
 var _pages = __webpack_require__(9);
 
@@ -15484,9 +15493,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 exports.default = {
 	mixins: [(0, _connect.connect)(function (state, scope) {
@@ -15557,6 +15566,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 
+var _connect = __webpack_require__(2);
+
 var _contents = __webpack_require__(1);
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -15577,6 +15588,12 @@ function comparable(value) {
 exports.default = {
     props: ['items', 'context', 'htmlTag'],
 
+    mixins: [(0, _connect.connect)(function (state, scope) {
+        return {
+            inRenderMode: state.session.mode
+        };
+    })],
+
     data: function data() {
         return {
             displayItems: [],
@@ -15589,7 +15606,7 @@ exports.default = {
         items: function items() {
             this.refresh();
         },
-        inRenderMode: function inRenderMode() {
+        'state.inRenderMode': function stateInRenderMode() {
             this.refresh();
         }
     },
@@ -15601,7 +15618,7 @@ exports.default = {
 
     methods: {
         refresh: function refresh() {
-            if (this.inRenderMode) {
+            if (this.state.inRenderMode) {
                 // Refresh context
                 this.buildContext();
                 // Display a rendered version of items
@@ -15796,7 +15813,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
 exports.default = {
   mixins: [(0, _connect.connect)(function (state, scope) {
@@ -15921,7 +15938,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
 var _title = __webpack_require__(33);
 
@@ -15957,7 +15974,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
 exports.default = {
     mixins: [(0, _connect.connect)(function (state, scope) {
@@ -16392,7 +16409,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
 var _pages = __webpack_require__(9);
 
@@ -16444,7 +16461,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
 var _pages = __webpack_require__(9);
 
@@ -16549,9 +16566,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 exports.default = {
     mixins: [(0, _connect.connect)(function (state, scope) {
@@ -16661,9 +16678,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 var _Data = __webpack_require__(246);
 
@@ -16881,13 +16898,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
 var _styles = __webpack_require__(14);
 
 var _contents = __webpack_require__(1);
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 //
 //
@@ -17699,22 +17716,22 @@ var _base = __webpack_require__(6);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _connect = __webpack_require__(3);
-
 var _contents = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+
 exports.default = {
 
-  extends: _base2.default,
-
-  mixins: [(0, _connect.connect)(function (state, scope) {
+  extends: (0, _base2.default)(function (state, scope) {
     return {
-      text: (0, _contents.getContentState)(scope.id).text,
       translation: state.session.translation
     };
-  })],
+  }),
 
   components: {
     'editor': __webpack_require__(293).default,
@@ -17753,10 +17770,7 @@ exports.default = {
       return '';
     }
   }
-}; //
-//
-//
-//
+};
 
 /***/ }),
 /* 87 */
@@ -17945,7 +17959,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
 var _styles = __webpack_require__(14);
 
@@ -18051,6 +18065,8 @@ var _placeholder = __webpack_require__(308);
 
 var _placeholder2 = _interopRequireDefault(_placeholder);
 
+var _connect = __webpack_require__(2);
+
 var _attachments = __webpack_require__(21);
 
 var _contents = __webpack_require__(1);
@@ -18058,7 +18074,8 @@ var _contents = __webpack_require__(1);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-	extends: _base2.default,
+
+	extends: (0, _base2.default)(),
 
 	data: function data() {
 		return {
@@ -18248,7 +18265,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
 exports.default = {
 	mixins: [(0, _connect.connect)(function (state, scope) {
@@ -18298,7 +18315,7 @@ Object.defineProperty(exports, "__esModule", {
 		value: true
 });
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
 var _contents = __webpack_require__(1);
 
@@ -18349,7 +18366,7 @@ var _base2 = _interopRequireDefault(_base);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    extends: _base2.default
+    extends: (0, _base2.default)()
 }; //
 //
 //
@@ -18392,7 +18409,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 
 exports.default = {
-    extends: _base2.default,
+    extends: (0, _base2.default)(),
+
     methods: {
         updateWeight: function updateWeight(weight) {
             (0, _contents.updateContentState)(this.id, {
@@ -18434,7 +18452,7 @@ var _base2 = _interopRequireDefault(_base);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    extends: _base2.default
+    extends: (0, _base2.default)()
 }; //
 //
 //
@@ -18465,7 +18483,7 @@ var _generator = __webpack_require__(98);
 
 var _generator2 = _interopRequireDefault(_generator);
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
 var _contents = __webpack_require__(1);
 
@@ -18649,23 +18667,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _base = __webpack_require__(6);
-
-var _base2 = _interopRequireDefault(_base);
-
-var _connect = __webpack_require__(3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
+var _connect = __webpack_require__(2);
 
 exports.default = {
 
-    extends: _base2.default,
+    props: ['id', 'context'],
 
     mixins: [(0, _connect.connect)(function (state, scope) {
         return {
@@ -18674,7 +18680,11 @@ exports.default = {
             })
         };
     })]
-};
+}; //
+//
+//
+//
+//
 
 /***/ }),
 /* 100 */
@@ -18693,7 +18703,7 @@ var _generator2 = _interopRequireDefault(_generator);
 
 var _contents = __webpack_require__(1);
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18749,7 +18759,7 @@ var _base2 = _interopRequireDefault(_base);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    extends: _base2.default
+    extends: (0, _base2.default)()
 }; //
 //
 //
@@ -18793,7 +18803,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
     props: ['payload'],
-    extends: _base2.default,
+    extends: (0, _base2.default)(),
     data: function data() {
         return {
             resizer: null
@@ -18828,9 +18838,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _connect = __webpack_require__(3);
+var _connect = __webpack_require__(2);
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 var _contents = __webpack_require__(1);
 
@@ -20799,10 +20809,7 @@ _vue2.default.mixin({
   data: function data() {
     return {
       hasTranslations: 'translations' in _swd,
-      translation: _swd.translations ? _swd.translation : null,
-      inRenderMode: false
-      //TODO: change this
-      //inRenderMode: this.$select('session.mode as inRenderMode')
+      translation: _swd.translations ? _swd.translation : null
     };
   }
 });
@@ -46022,7 +46029,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 exports.default = {
     key: 83, // d key
@@ -46044,7 +46051,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _contents = __webpack_require__(1);
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 exports.default = {
     key: 8, // backspace
@@ -46069,7 +46076,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _contents = __webpack_require__(1);
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 exports.default = {
     key: 68, // d key
@@ -46934,7 +46941,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 var initialState = {
     // Mode of the designer: edit or render
@@ -62154,7 +62161,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _contents = __webpack_require__(1);
 
-var _session = __webpack_require__(2);
+var _session = __webpack_require__(3);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 

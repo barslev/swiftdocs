@@ -52,9 +52,6 @@ Vue.mixin({
     return {
       hasTranslations: 'translations' in _swd,
       translation: _swd.translations ? _swd.translation : null,
-      inRenderMode: false,
-      //TODO: change this
-      //inRenderMode: this.$select('session.mode as inRenderMode')
     }
   }
 })
