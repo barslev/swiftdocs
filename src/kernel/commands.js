@@ -1,9 +1,11 @@
 import save from '~/ui/commands/save'
+import parent from '~/ui/commands/parent'
 import remove from '~/ui/commands/remove'
 import duplicate from '~/ui/commands/duplicate'
 
 const commands = [
     save,
+    parent,
     remove,
     duplicate,
     // Register more commands...

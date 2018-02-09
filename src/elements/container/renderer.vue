@@ -4,7 +4,6 @@
 		:html-tag="htmlTag"
 		class="document__page-container"
 		:container-id="id"
-		:page-id="root ? id : null"
 		:items="state.contents" :context="context"
 		:class="root ? '' : 'document__page-child-container'">
 	</div>
@@ -12,22 +11,34 @@
 <script>
 import {connect} from '~/redux/connect'
 
+const childFilter = (scope) => {
+	return (content) => {
+		return content.container_id === scope.id
+	}
+}
+
+const rootFilter = () => {
+	return (content) => {
+		return content.container_id === null
+	}
+}
+
 export default {
 	mixins: [
 		connect((state, scope) => {
 			return {
-				contents: state.contents.filter((content) => {
-					return content.container_id == scope.id
-				})
+				contents: state.contents.filter(
+					scope.root ? rootFilter() : childFilter(scope)
+				)
 			}
 		})
 	],
 	props: {
 		id: {},
-		root: {},
 		context: {},
 		htmlTag: {default: 'div'},
 		allowDrop: {default: true},
+		root: {type: Boolean, default: false},
 	},
 	mounted() {
 		if (this.allowDrop) {

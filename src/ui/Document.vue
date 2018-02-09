@@ -1,14 +1,11 @@
 <template>
 	<div class="document">
-		<page v-for="(page, index) in state.pages"
-			:key="index"
-			:number="index + 1"
-			:page="page" />
+		<container :root="true" :allowDrop="false"></container>
 	</div>
 </template>
 <script>
 import { connect } from '~/redux/connect'
-import { addPage } from '~/redux/actions/pages'
+import { addInitialPage } from '~/redux/actions/pages'
 
 export default {
 	mixins: [
@@ -31,9 +28,7 @@ export default {
 		}
 	},
 	mounted() {
-		if ( ! this.state.pages.length ) {
-			addPage()
-		}
+		addInitialPage()
 		this.styleEl = document.createElement('style')
 		this.$el.appendChild(this.styleEl)
 		this.updatePrintCss()

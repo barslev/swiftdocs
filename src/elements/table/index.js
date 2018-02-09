@@ -31,6 +31,10 @@ module.exports = [
         label: 'Table Cell',
         renderer: require('./cell.vue').default,
         menu: require('./cell-menu.vue').default,
+        defaultState: {
+            rowspan: 0,
+            colspan: 0,
+        },
         defaultStyle: {
             borderWidth: 1,
             borderTop: true,
