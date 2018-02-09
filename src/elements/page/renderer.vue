@@ -24,7 +24,7 @@ export default {
 	computed: {
 		marginCss() {
 			return {
-				'background': this.state.color,
+				'background-color': this.state.color,
 				'padding-top': this.state.margins.top + 'mm',
 				'padding-left': this.state.margins.left + 'mm',
 				'padding-right': this.state.margins.right + 'mm',

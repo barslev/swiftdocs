@@ -23,7 +23,7 @@ export default {
 		}
 	},
 	watch: {
-		defaults() {
+		'state.defaults'() {
 			this.updatePrintCss()
 		}
 	},
