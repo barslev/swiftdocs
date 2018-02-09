@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div v-if="state.element.element !== 'page'">
         <h5>{{ $t('menus.style.margins') }}</h5>
         <div class="flex flex-wrap">
             <div class="md:w-1/4 pr-2 mb-2">
@@ -81,22 +82,23 @@
             </div>
         </div>
         <label>{{ $t('menus.style.border_color') }}</label>
-        <color :mini="true" :value="state.styles.borderColor" @input="updateColor('borderColor', arguments[0])" />
+        <color :mini="true" :value="state.styles.borderColor" @input="updateColor('borderColor', arguments[0])"></color>
 
         <br>
         <h5>{{ $t('menus.style.fill') }}</h5>
         <label>{{ $t('menus.style.background_color') }}</label>
-        <color :mini="true" :value="state.styles.backgroundColor" @input="updateColor('backgroundColor', arguments[0])" />  
+        <color :mini="true" :value="state.styles.backgroundColor" @input="updateColor('backgroundColor', arguments[0])"></color>  
+        </div>
 
         <br>
         <h5>{{ $t('menus.style.remove_element') }}</h5>
-        <toolbar-button icon="delete" @onClick="remove()">{{ $t('menus.style.remove_this_element') }}</toolbar-button>	    
+        <toolbar-button icon="delete" @onClick="remove()">{{ $t('menus.style.remove_this_element') }}</toolbar-button>
     </div>
 </template>
 <script>
 import {connect} from '~/redux/connect'
 import {updateStyle} from '~/redux/actions/styles'
-import {removeContentById} from '~/redux/actions/contents'
+import {findContent, removeContentById} from '~/redux/actions/contents'
 import {selectContent, deselectContent} from '~/redux/actions/session'
 
 export default {
@@ -104,6 +106,7 @@ export default {
         connect((state, scope) => {
             return {
                 id: state.session.selectedId,
+                element: findContent(state.session.selectedId),
                 styles: state.styles[state.session.selectedId],
             }
         })

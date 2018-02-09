@@ -65,6 +65,9 @@ export default {
 			)
 		},
 		format(styles) {
+			if (this.element.element === 'page') {
+				return {}
+			}
 			return {
 				...styles,
 				position: styles.position,

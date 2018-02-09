@@ -125,6 +125,7 @@ export default class Main {
         this.registry.use(require('~/elements/container'))
         this.registry.use(require('~/elements/grid'))
         this.registry.use(require('~/elements/table'))
+        this.registry.use(require('~/elements/page'))
     }
 
     _showLoadingIndicator() {

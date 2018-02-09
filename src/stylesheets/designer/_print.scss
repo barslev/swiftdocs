@@ -3,6 +3,9 @@
       size:210mm 297mm;
       margin: 0;
   }
+  body {
+      background-color: #fff;
+  }
   body * {
     visibility: hidden;
   }
@@ -11,13 +14,22 @@
       margin: 0 !important;
       padding: 0 !important;
   }
+
+  .document__page-container {
+      background-color: #fff;
+  }
+
+  .document__page {
+      page-break-before: always;
+  }
+  
   .document__page, .document__page > div {
       margin: 0 !important;
       padding: 0 !important;
       border: 0 !important;
   }
 
-  .document__page > div, .document__page > div * {
+  .document__page, .document__page * {
       visibility: visible;
   }
 
