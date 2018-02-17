@@ -121,6 +121,7 @@ export default class Main {
 
     _useDefaultDesignElements() {
         this.registry.use(require('~/elements/text'))
+        this.registry.use(require('~/elements/variable'))
         this.registry.use(require('~/elements/image'))
         this.registry.use(require('~/elements/container'))
         this.registry.use(require('~/elements/grid'))
