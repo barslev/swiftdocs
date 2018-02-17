@@ -46149,7 +46149,7 @@ var _contents = __webpack_require__(1);
 var _session = __webpack_require__(3);
 
 exports.default = {
-    key: 80, // d key
+    key: 80, // p key
     invoke: function invoke() {
         var selected = (0, _session.getSelectedContent)();
         if (selected && selected.container_id) {
