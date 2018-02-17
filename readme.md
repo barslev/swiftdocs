@@ -16,6 +16,7 @@ Try it now:
 1. control + **d**uplicate -> duplicate selected content
 2. control + backspace -> remove selected content
 3. control + **s**ave -> save the document
+4. control + **p**arent -> selects the parent of the currently selected content
 
 ## Initializing
 
