@@ -1,6 +1,6 @@
 {
   "name": "swiftdocs",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Drag & drop interface to build smart documents",
   "main": "build/swiftdocs.min.js",
   "scripts": {

@@ -123,7 +123,7 @@ export function duplicateContent(content) {
 /**
  * Returns the children content by container id
  */
-function childrenContent(id) {
+export function childrenContent(id) {
     return _.filter(
         store.getState().contents,
         { container_id: id }

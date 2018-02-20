@@ -88,14 +88,26 @@ export default {
       }
     })
   ],
-  data() {
-      const state = getContentState(this.id)
-      return {
-          variable: state.variable,
-          placeholder: state.placeholder,
+  watch: {
+      id() {
+          this.loadState()
       }
   },
+  data() {
+      return {
+          variable: null,
+          placeholder: null,
+      }
+  },
+  mounted() {
+      this.loadState()
+  },
   methods: {
+    loadState() {
+        const state = getContentState(this.id)
+        this.variable = state.variable
+        this.placeholder = state.placeholder
+    },
     updateStyle(prop, value) {
       updateStyle(this.id, prop, value)
     },

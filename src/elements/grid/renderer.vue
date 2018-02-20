@@ -1,25 +1,16 @@
 <template>
-    <div class="flex" ref="dropzone" :container-id="id">
-		<el v-for="pane in state.panes" :key="pane.id" :element="pane" class="flex-1 mr-2" />
-    </div>
+    <div class="flex" is="container" :id="id" :context="context"></div>
 </template>
 <script>
-import {connect} from '~/redux/connect'
-import {insertContent} from '~/redux/actions/contents'
+import base from '~/elements/base'
+import {insertContent, childrenContent} from '~/redux/actions/contents'
 
 export default {
-  props: ['id'],
-	mixins: [
-			connect((state, scope) => {
-					return {
-							panes: state.contents.filter((content) => {
-									return content.container_id === scope.id
-							})
-					}
-			})
-	],
+	extends: base(),
+
 	created() {
-		if (!this.state.panes.length) {
+		const children = childrenContent(this.id)
+		if (!children.length) {
 			// Default grid elements... Add 3 by default
 			insertContent('d-grid-pane', this.id)
 			insertContent('d-grid-pane', this.id)

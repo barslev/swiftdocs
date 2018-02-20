@@ -201,6 +201,7 @@ exports.insertContent = insertContent;
 exports.insertContentAtIndex = insertContentAtIndex;
 exports.moveContent = moveContent;
 exports.duplicateContent = duplicateContent;
+exports.childrenContent = childrenContent;
 exports.removeContentById = removeContentById;
 exports.removeContent = removeContent;
 exports.getContentState = getContentState;
@@ -18047,15 +18048,27 @@ exports.default = {
             styles: state.styles[scope.id]
         };
     })],
+    watch: {
+        id: function id() {
+            this.loadState();
+        }
+    },
     data: function data() {
-        var state = (0, _contents.getContentState)(this.id);
         return {
-            variable: state.variable,
-            placeholder: state.placeholder
+            variable: null,
+            placeholder: null
         };
+    },
+    mounted: function mounted() {
+        this.loadState();
     },
 
     methods: {
+        loadState: function loadState() {
+            var state = (0, _contents.getContentState)(this.id);
+            this.variable = state.variable;
+            this.placeholder = state.placeholder;
+        },
         updateStyle: function updateStyle(prop, value) {
             (0, _styles.updateStyle)(this.id, prop, value);
         },
@@ -18428,36 +18441,33 @@ exports.default = {
 
 
 Object.defineProperty(exports, "__esModule", {
-		value: true
+	value: true
 });
 
-var _connect = __webpack_require__(2);
+var _base = __webpack_require__(6);
+
+var _base2 = _interopRequireDefault(_base);
 
 var _contents = __webpack_require__(1);
 
-//
-//
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 //
 //
 //
 
 exports.default = {
-		props: ['id'],
-		mixins: [(0, _connect.connect)(function (state, scope) {
-				return {
-						panes: state.contents.filter(function (content) {
-								return content.container_id === scope.id;
-						})
-				};
-		})],
-		created: function created() {
-				if (!this.state.panes.length) {
-						// Default grid elements... Add 3 by default
-						(0, _contents.insertContent)('d-grid-pane', this.id);
-						(0, _contents.insertContent)('d-grid-pane', this.id);
-						(0, _contents.insertContent)('d-grid-pane', this.id);
-				}
+	extends: (0, _base2.default)(),
+
+	created: function created() {
+		var children = (0, _contents.childrenContent)(this.id);
+		if (!children.length) {
+			// Default grid elements... Add 3 by default
+			(0, _contents.insertContent)('d-grid-pane', this.id);
+			(0, _contents.insertContent)('d-grid-pane', this.id);
+			(0, _contents.insertContent)('d-grid-pane', this.id);
 		}
+	}
 };
 
 /***/ }),
@@ -61737,17 +61747,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { ref: "dropzone", staticClass: "flex", attrs: { "container-id": _vm.id } },
-    _vm._l(_vm.state.panes, function(pane) {
-      return _c("el", {
-        key: pane.id,
-        staticClass: "flex-1 mr-2",
-        attrs: { element: pane }
-      })
-    })
-  )
+  return _c("container", {
+    tag: "div",
+    staticClass: "flex",
+    attrs: { id: _vm.id, context: _vm.context }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
