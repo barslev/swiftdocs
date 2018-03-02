@@ -14,11 +14,9 @@ export function addInitialPage() {
     }
 }
 
-
 export function updateAllPageMargins(newMargins) {
     updateDefaults({margins: newMargins})
 }
-
 
 export function updateAllPageColors(newColor) {
     updateDefaults({color: newColor})
