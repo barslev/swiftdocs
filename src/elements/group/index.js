@@ -1,14 +1,14 @@
 module.exports = {
-    id: 'page',
-    icon: 'queue',
-    label: 'Page',
+    id: 'group',
+    icon: 'folder',
+    label: 'Group',
     hidden: true,
-    menu: require('./menu.vue').default,    
     renderer: require('./renderer.vue').default,
 
     defaultStyle: {
     },
 
     defaultState: {
+        name: 'Unnamed Group',
     },
 }
