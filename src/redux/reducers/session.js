@@ -95,7 +95,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 alterable: action.payload
-            }            
+            }
         default:
             return state
     }

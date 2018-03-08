@@ -13,6 +13,7 @@ export function activateMode(mode) {
     if (!mode) {
         return // Do nothing
     }
+
     store.dispatch({
         type: 'SESSION_MODE_SET',
         payload: modes[mode]
