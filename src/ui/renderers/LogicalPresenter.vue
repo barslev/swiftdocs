@@ -1,15 +1,13 @@
 <template>
     <div :is="htmlTag">
-        <el v-if="!inRenderMode" v-for="(item, index) in items"
+        <el v-for="(item, index) in displayItems"
             :key="'item-' + index + '-' + item.id"
             :element="item"
             :context="item.context">
         </el>
-        <div v-if="inRenderMode" ref="renderArea"></div>
     </div>
 </template>
 <script>
-import El from './Element.vue';
 import {connect} from '~/redux/connect'
 import {getContentState} from '~/redux/actions/contents'
 
@@ -25,8 +23,6 @@ function comparable(value) {
     }
     return value
 }
-
-const VueEl = Vue.extend(El);
 
 export default {
     props: [
@@ -51,13 +47,12 @@ export default {
     },
 
     watch: {
+        items() {
+            this.refresh()
+        },
         'state.inRenderMode'() {
             this.refresh()
         }
-    },
-
-    created() {
-        this.refresh()
     },
 
     methods: {
@@ -65,15 +60,11 @@ export default {
             if (this.state.inRenderMode) {
                 // Refresh context
                 this.buildContext()
-
-                setTimeout(() => {
-                    // Display a rendered version of items
-                    this.renderItems(
-                        // Pass a clone of the current items
-                        this.items.concat([])
-                    )
-                })
-                
+                // Display a rendered version of items
+                this.displayItems = this.displayRenderedItems(
+                    // Pass a clone of the current items
+                    this.items.concat([])
+                )
                 return
             }
             // Display them as is
@@ -87,25 +78,10 @@ export default {
             }
         },
 
-        renderItems(items) {
+        displayRenderedItems(items) {
             items = this.applyLoops(items)
             items = this.applyConditions(items)
-
-            this.$refs.renderArea.innerHTML = ''
-            this.paintItems(items)
-        },
-
-        paintItems(items) {
-            items.forEach((item) => {
-                const component = new VueEl({
-                    propsData: {
-                        element: item,
-                        context: item.context
-                    }
-                }).$mount()
-
-                this.$refs.renderArea.appendChild(component.$el)
-            })
+            return items
         },
 
         applyLoops(items) {
@@ -171,6 +147,7 @@ export default {
                 }
 
             } catch(e) {
+                console.error(e)
                 return false
             }
         }
