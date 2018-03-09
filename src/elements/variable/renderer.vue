@@ -13,11 +13,7 @@ export default {
   
   methods: {
       renderOutput() {
-        const data = {
-            ..._swd.dataSource.data,
-            ...this.context,
-        }
-        return _.get(data, this.state.variable)
+        return _.get(this.context, this.state.variable)
       }
   },
 

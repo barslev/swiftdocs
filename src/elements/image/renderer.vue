@@ -58,10 +58,6 @@ export default {
 		  if (!this.inRenderMode) {
 			  return placeholder
 		  }
-		  const context = {
-			  ..._swd.dataSource.data,
-			  ...this.context,
-		  }
 		  return _.get(context, address)
 	  }
   }

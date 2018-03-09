@@ -58,8 +58,6 @@ export default {
     methods: {
         refresh() {
             if (this.state.inRenderMode) {
-                // Refresh context
-                this.buildContext()
                 // Display a rendered version of items
                 this.displayItems = this.displayRenderedItems(
                     // Pass a clone of the current items
@@ -69,13 +67,6 @@ export default {
             }
             // Display them as is
             this.displayItems = this.items
-        },
-
-        buildContext() {
-            this.fullContext = {
-                ..._swd.dataSource.data,
-                ...this.context,
-            }
         },
 
         displayRenderedItems(items) {
@@ -101,7 +92,8 @@ export default {
 
         getLoopedItems(item, loop) {
             let items = []
-            _.each(_.get(this.fullContext, loop.in), (foo, $index) => {
+            console.log(this.context)
+            _.each(_.get(this.context, loop.in), (foo, $index) => {
                 items.push({
                     ...item,
                     context: {

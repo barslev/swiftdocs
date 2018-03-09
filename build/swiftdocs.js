@@ -14952,6 +14952,7 @@ exports.default = {
 	})],
 	data: function data() {
 		return {
+			context: _swd.dataSource.data,
 			styleEl: null
 		};
 	},
@@ -15766,8 +15767,6 @@ exports.default = {
     methods: {
         refresh: function refresh() {
             if (this.state.inRenderMode) {
-                // Refresh context
-                this.buildContext();
                 // Display a rendered version of items
                 this.displayItems = this.displayRenderedItems(
                 // Pass a clone of the current items
@@ -15776,9 +15775,6 @@ exports.default = {
             }
             // Display them as is
             this.displayItems = this.items;
-        },
-        buildContext: function buildContext() {
-            this.fullContext = _extends({}, _swd.dataSource.data, this.context);
         },
         displayRenderedItems: function displayRenderedItems(items) {
             items = this.applyLoops(items);
@@ -15805,7 +15801,8 @@ exports.default = {
             var _this2 = this;
 
             var items = [];
-            _.each(_.get(this.fullContext, loop.in), function (foo, $index) {
+            console.log(this.context);
+            _.each(_.get(this.context, loop.in), function (foo, $index) {
                 items.push(_extends({}, item, {
                     context: _extends({}, _this2.context, _defineProperty({
                         $index: $index
@@ -17860,10 +17857,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //
-//
-//
-
 var _handlebars = __webpack_require__(309);
 
 var _handlebars2 = _interopRequireDefault(_handlebars);
@@ -17891,11 +17884,12 @@ exports.default = {
 
     methods: {
         renderText: function renderText() {
-            var data = _extends({}, _swd.dataSource.data, this.context);
-            this.html = _handlebars2.default.compile(this.template)(data);
+            this.html = _handlebars2.default.compile(this.template)(this.context);
         }
     }
-};
+}; //
+//
+//
 
 /***/ }),
 /* 89 */
@@ -18000,12 +17994,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //
-//
-//
-//
-//
-
 var _base = __webpack_require__(4);
 
 var _base2 = _interopRequireDefault(_base);
@@ -18014,14 +18002,19 @@ var _contents = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+
 exports.default = {
 
     extends: (0, _base2.default)(),
 
     methods: {
         renderOutput: function renderOutput() {
-            var data = _extends({}, _swd.dataSource.data, this.context);
-            return _.get(data, this.state.variable);
+            return _.get(this.context, this.state.variable);
         }
     },
 
@@ -18182,12 +18175,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //
-//
-//
-//
-//
-
 var _base = __webpack_require__(4);
 
 var _base2 = _interopRequireDefault(_base);
@@ -18251,11 +18238,14 @@ exports.default = {
 			if (!this.inRenderMode) {
 				return _placeholder2.default;
 			}
-			var context = _extends({}, _swd.dataSource.data, this.context);
 			return _.get(context, address);
 		}
 	}
-};
+}; //
+//
+//
+//
+//
 
 /***/ }),
 /* 93 */
@@ -42714,7 +42704,9 @@ var render = function() {
     "div",
     { staticClass: "document" },
     [
-      _c("container", { attrs: { root: true, allowDrop: false } }),
+      _c("container", {
+        attrs: { root: true, allowDrop: false, context: _vm.context }
+      }),
       _vm._v(" "),
       _c("css")
     ],
