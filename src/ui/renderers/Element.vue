@@ -5,10 +5,7 @@
         :id="element.id"
         :data-id="element.id"
 		:context="context"
-		:payload="payload"
-        @click.native="click"
-        @mouseover.native="mouseOver"
-        @mouseout.native="mouseOut" />
+		:payload="payload" />
 </template>
 <script>
 import {connect} from '~/redux/connect'
@@ -27,7 +24,35 @@ export default {
 		'context',
 		'payload',
 	],
+	created() {
+		this.click = this.click.bind(this)
+		this.mouseOut = this.mouseOut.bind(this)
+		this.mouseOver = this.mouseOver.bind(this)
+	},
+	watch: {
+		inRenderMode() {
+			Vue.nextTick(() => {
+				this.updateMouseListeners()
+			})
+		}
+	},
     methods: {
+		updateMouseListeners() {
+			if (this.inRenderMode) {
+				return this.removeListeners()
+			}
+			return this.addListeners()
+		},
+		addListeners() {
+			this.$el.addEventListener('click', this.click)
+			this.$el.addEventListener('mouseout', this.mouseOut)
+			this.$el.addEventListener('mouseover', this.mouseOver)
+		},
+		removeListeners() {
+			this.$el.removeEventListener('click', this.click)
+			this.$el.removeEventListener('mouseout', this.mouseOut)
+			this.$el.removeEventListener('mouseover', this.mouseOver)
+		},
 		click($event) {
 			selectContent(this.element.id)
 			// Stop the event bubbling up the chain

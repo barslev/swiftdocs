@@ -33165,9 +33165,6 @@ var _session = __webpack_require__(3);
 //
 //
 //
-//
-//
-//
 
 exports.default = {
 	mixins: [(0, _connect.connect)(function (state, scope) {
@@ -33176,7 +33173,38 @@ exports.default = {
 		};
 	})],
 	props: ['element', 'context', 'payload'],
+	created: function created() {
+		this.click = this.click.bind(this);
+		this.mouseOut = this.mouseOut.bind(this);
+		this.mouseOver = this.mouseOver.bind(this);
+	},
+
+	watch: {
+		inRenderMode: function inRenderMode() {
+			var _this = this;
+
+			Vue.nextTick(function () {
+				_this.updateMouseListeners();
+			});
+		}
+	},
 	methods: {
+		updateMouseListeners: function updateMouseListeners() {
+			if (this.inRenderMode) {
+				return this.removeListeners();
+			}
+			return this.addListeners();
+		},
+		addListeners: function addListeners() {
+			this.$el.addEventListener('click', this.click);
+			this.$el.addEventListener('mouseout', this.mouseOut);
+			this.$el.addEventListener('mouseover', this.mouseOver);
+		},
+		removeListeners: function removeListeners() {
+			this.$el.removeEventListener('click', this.click);
+			this.$el.removeEventListener('mouseout', this.mouseOut);
+			this.$el.removeEventListener('mouseover', this.mouseOver);
+		},
 		click: function click($event) {
 			(0, _session.selectContent)(this.element.id);
 			// Stop the event bubbling up the chain
@@ -43599,17 +43627,6 @@ var render = function() {
       "data-id": _vm.element.id,
       context: _vm.context,
       payload: _vm.payload
-    },
-    nativeOn: {
-      click: function($event) {
-        _vm.click($event)
-      },
-      mouseover: function($event) {
-        _vm.mouseOver($event)
-      },
-      mouseout: function($event) {
-        _vm.mouseOut($event)
-      }
     }
   })
 }
