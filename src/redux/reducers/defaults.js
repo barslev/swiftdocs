@@ -1,7 +1,7 @@
 const initialState = {
 	// this is automatically resolved by webpack
 	// and the value comes from package.json version
-	version: 'SWD_VERSION',
+	version: SWD_VERSION,
 	margins: {
 		top: 25,
 		left: 25,

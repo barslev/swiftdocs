@@ -48070,7 +48070,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var initialState = {
 	// this is automatically resolved by webpack
 	// and the value comes from package.json version
-	version: 'SWD_VERSION',
+	version: "0.2.4",
 	margins: {
 		top: 25,
 		left: 25,
