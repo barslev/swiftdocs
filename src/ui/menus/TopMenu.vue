@@ -63,8 +63,13 @@ export default {
         })
     ],
     created() {
-        this.beginEditMode = beginEditMode
-        this.beginRenderMode = beginRenderMode
+        this.beginEditMode = () => {
+            setTimeout(beginEditMode)
+        }
+
+        this.beginRenderMode = () => {
+            setTimeout(beginRenderMode)
+        }
     },
     data() {
         return {

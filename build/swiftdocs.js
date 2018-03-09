@@ -16504,8 +16504,13 @@ exports.default = {
         };
     })],
     created: function created() {
-        this.beginEditMode = _session.beginEditMode;
-        this.beginRenderMode = _session.beginRenderMode;
+        this.beginEditMode = function () {
+            setTimeout(_session.beginEditMode);
+        };
+
+        this.beginRenderMode = function () {
+            setTimeout(_session.beginRenderMode);
+        };
     },
     data: function data() {
         return {
