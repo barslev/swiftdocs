@@ -1,6 +1,3 @@
-<template>
-    <div></div>
-</template>
 <script>
 import _ from 'lodash'
 import {connect} from '~/redux/connect'
@@ -14,25 +11,25 @@ export default {
 			}
 		})
     ],
+    render() {
+        return null
+    },
     created() {
         const body = document.getElementsByTagName('body')[0]
-        body.appendChild(
-            this.styleEl = document.createElement('style')
-        )
+        this.styleEl = document.createElement('style')
+        body.appendChild(this.styleEl)
         this.styleEl.id = 'swd-styles'
     },
     watch: {
         'state.styles'() {
-            this.styleEl.innerHTML = this.updateCss().join("\n")
+            this.styleEl.innerHTML = this.generateCss().join("\n")
         }
     },
     methods: {
-        updateCss() {
-            return Object.keys(this.state.styles).map(id => {
-                return '.css-' + id + ' { ' + toStyle(
-                    this.objectToCss(this.state.styles[id])
-                ) + '}'
-            })
+        generateCss() {
+            return Object.keys(this.state.styles).map(
+                id => this.toCss(id, this.state.styles[id])
+            )
         },
 		pixelArray(top, right, bottom, left) {
 			return [
@@ -50,8 +47,9 @@ export default {
 				styles.borderLeft ? styles.borderWidth : null
 			)
 		},        
-        objectToCss(styles) {
-			return {
+        toCss(id, styles) {
+            // First make some transformations
+			styles = {
 				...styles,
 				position: styles.position,
 				backgroundColor: styles.backgroundColor,
@@ -61,7 +59,10 @@ export default {
 				borderWidth: this.borderWidths(styles),
 				margin: this.pixelArray(styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft),
 				padding: this.pixelArray(styles.paddingTop, styles.paddingRight, styles.paddingBottom, styles.paddingLeft),
-			}
+            }
+            // Name of the css rule
+            const cssName = '.css-' + id
+            return cssName + '{' + toStyle(styles) + '}'
         }
     }
 }
