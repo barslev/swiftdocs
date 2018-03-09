@@ -17,6 +17,7 @@ Vue.use(Notifications)
  */
 Vue.component('document', require('~/ui/Document.vue').default)
 Vue.component('designer', require('~/ui/Designer.vue').default)
+Vue.component('css', require('~/ui/renderers/Css.vue').default)
 Vue.component('el', require('~/ui/renderers/Element.vue').default)
 Vue.component('logical-presenter', require('~/ui/renderers/LogicalPresenter.vue').default)
 

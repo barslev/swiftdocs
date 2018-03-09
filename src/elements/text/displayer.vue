@@ -25,11 +25,7 @@ export default {
 
     methods: {
         renderText() {
-            const data = {
-                ..._swd.dataSource.data,
-                ...this.context,
-            }
-            this.html = Handlebars.compile(this.template)(data)
+            this.html = Handlebars.compile(this.template)(this.context)
         }
     }
 }

@@ -4,6 +4,7 @@ import Action from '~/kernel/action'
 import dragDrop from '~/kernel/dragDrop'
 import * as boot from '~/kernel/bootstrap'
 import { Registry } from '~/kernel/registry'
+import migrateDocument from '~/kernel/migrate'
 import registerCommands from '~/kernel/commands'
 import { DataSource } from '~/kernel/dataSource'
 import storeFactory from '~/redux/stores/storeFactory'
@@ -48,6 +49,7 @@ export default class Main {
         this._showLoadingIndicator()
 
         this.storage.load(this.documentId)
+            .then(migrateDocument)
             .then(this._bootDocument)
             .then(() => {
                 this.action.activateMode(mode)

@@ -1,6 +1,7 @@
 <template>
 	<div class="document">
-		<container :root="true" :allowDrop="false"></container>
+		<container :root="true" :allowDrop="false" :context="context"></container>
+		<css />
 	</div>
 </template>
 <script>
@@ -19,6 +20,7 @@ export default {
 	],
 	data() {
 		return {
+			context: _swd.dataSource.data,
 			styleEl: null,
 		}
 	},

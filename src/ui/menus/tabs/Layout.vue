@@ -22,6 +22,9 @@ export default {
         }, 
         addGroup() {
             var name = prompt('Name this group');
+            if (!name) {
+                return;
+            }
             const groupId = insertContent('group', null)
             updateContentState(groupId, {
                 name: name ? name : 'Unnamed Group'

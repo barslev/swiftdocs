@@ -27,5 +27,5 @@ export function updateAllPageDimensions(newDimensions) {
 }
 
 export function findPage(id) {
-    return _.find(store.getState().pages, { id })    
+    return _.find(store.getState().contents, { id, element: 'page' })    
 }
