@@ -15577,25 +15577,68 @@ module.exports = arrayReduce;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+				value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //
+//
+//
+
+var _lodash = __webpack_require__(133);
+
+var _lodash2 = _interopRequireDefault(_lodash);
 
 var _connect = __webpack_require__(2);
 
+var _toStyle = __webpack_require__(369);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
-	mixins: [(0, _connect.connect)(function (state, scope) {
-		return {
-			styles: state.styles
-		};
-	})],
-	watch: {
-		'state.styles': function stateStyles() {
-			//console.log(this.state.styles)
-		}
-	}
-}; //
-//
-//
+				mixins: [(0, _connect.connect)(function (state, scope) {
+								return {
+												styles: state.styles
+								};
+				})],
+				created: function created() {
+								var body = document.getElementsByTagName('body')[0];
+								body.appendChild(this.styleEl = document.createElement('style'));
+								this.styleEl.id = 'swd-styles';
+				},
+
+				watch: {
+								'state.styles': function stateStyles() {
+												this.styleEl.innerHTML = this.updateCss().join("\n");
+								}
+				},
+				methods: {
+								updateCss: function updateCss() {
+												var _this = this;
+
+												return Object.keys(this.state.styles).map(function (id) {
+																return '.css-' + id + ' { ' + (0, _toStyle.string)(_this.objectToCss(_this.state.styles[id])) + '}';
+												});
+								},
+								pixelArray: function pixelArray(top, right, bottom, left) {
+												return [top ? top + 'px ' : '0 ', right ? right + 'px ' : '0 ', bottom ? bottom + 'px ' : '0 ', left ? left + 'px ' : '0'].join('');
+								},
+								borderWidths: function borderWidths(styles) {
+												return this.pixelArray(styles.borderTop ? styles.borderWidth : null, styles.borderRight ? styles.borderWidth : null, styles.borderBottom ? styles.borderWidth : null, styles.borderLeft ? styles.borderWidth : null);
+								},
+								objectToCss: function objectToCss(styles) {
+												return _extends({}, styles, {
+																position: styles.position,
+																backgroundColor: styles.backgroundColor,
+																borderColor: styles.borderColor,
+																borderStyle: 'solid',
+																borderRadius: styles.borderRadius + 'px',
+																borderWidth: this.borderWidths(styles),
+																margin: this.pixelArray(styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft),
+																padding: this.pixelArray(styles.paddingTop, styles.paddingRight, styles.paddingBottom, styles.paddingLeft)
+												});
+								}
+				}
+};
 
 /***/ }),
 /* 60 */
@@ -15608,28 +15651,26 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 var _connect = __webpack_require__(2);
 
 var _session = __webpack_require__(3);
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 exports.default = {
 	mixins: [(0, _connect.connect)(function (state, scope) {
 		return {
-			styles: state.styles[scope.element.id],
 			selected: state.session.selectedId === scope.element.id
 		};
 	})],
@@ -15652,30 +15693,6 @@ exports.default = {
 			}
 			target.classList.add('hovering');
 			$event.stopPropagation();
-		},
-		pixelArray: function pixelArray(top, right, bottom, left) {
-			return [top ? top + 'px ' : '0 ', right ? right + 'px ' : '0 ', bottom ? bottom + 'px ' : '0 ', left ? left + 'px ' : '0'].join('');
-		},
-		borderWidths: function borderWidths(styles) {
-			return this.pixelArray(styles.borderTop ? styles.borderWidth : null, styles.borderRight ? styles.borderWidth : null, styles.borderBottom ? styles.borderWidth : null, styles.borderLeft ? styles.borderWidth : null);
-		},
-		format: function format(styles) {
-			if (this.element.element === 'page') {
-				return {};
-			}
-			if (!styles) {
-				return {};
-			}
-			return _extends({}, styles, {
-				position: styles.position,
-				backgroundColor: styles.backgroundColor,
-				borderColor: styles.borderColor,
-				borderStyle: 'solid',
-				borderRadius: styles.borderRadius + 'px',
-				borderWidth: this.borderWidths(styles),
-				margin: this.pixelArray(styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft),
-				padding: this.pixelArray(styles.paddingTop, styles.paddingRight, styles.paddingBottom, styles.paddingLeft)
-			});
 		}
 	}
 };
@@ -42944,10 +42961,10 @@ var render = function() {
     tag: "div",
     staticClass: "document__page-element",
     class: [
+      "css-" + _vm.element.id,
       _vm.state.selected ? "selected" : "",
       "element__" + _vm.element.element
     ],
-    style: _vm.format(_vm.state.styles),
     attrs: {
       id: _vm.element.id,
       "data-id": _vm.element.id,
@@ -63714,6 +63731,623 @@ if (false) {
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7abe7322", esExports)
   }
+}
+
+/***/ }),
+/* 361 */
+/***/ (function(module, exports) {
+
+module.exports = {
+    'border-radius'              : 1,
+    'border-top-left-radius'     : 1,
+    'border-top-right-radius'    : 1,
+    'border-bottom-left-radius'  : 1,
+    'border-bottom-right-radius' : 1,
+    'box-shadow'                 : 1,
+    'order'                      : 1,
+    'flex'                       : function(name, prefix){
+        return [prefix + 'box-flex']
+    },
+    'box-flex'                   : 1,
+    'box-align'                  : 1,
+    'animation'                  : 1,
+    'animation-duration'         : 1,
+    'animation-name'             : 1,
+    'transition'                 : 1,
+    'transition-duration'        : 1,
+    'transform'                  : 1,
+    'transform-style'            : 1,
+    'transform-origin'           : 1,
+    'backface-visibility'        : 1,
+    'perspective'                : 1,
+    'box-pack'                   : 1
+}
+
+/***/ }),
+/* 362 */
+/***/ (function(module, exports) {
+
+'use exports'
+
+//make sure properties are in hyphenated form
+
+module.exports = {
+    'animation'    : 1,
+    'column-count' : 1,
+    'columns'      : 1,
+    'font-weight'  : 1,
+    'opacity'      : 1,
+    'order  '      : 1,
+    'z-index'      : 1,
+    'zoom'         : 1,
+    'flex'         : 1,
+    'box-flex'     : 1,
+    'transform'    : 1,
+    'perspective'  : 1,
+    'box-pack'     : 1,
+    'box-align'    : 1,
+    'colspan'      : 1,
+    'rowspan'      : 1
+}
+
+/***/ }),
+/* 363 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var prefixInfo  = __webpack_require__(364)
+var cssPrefixFn = __webpack_require__(370)
+
+var HYPHENATE   = __webpack_require__(367)
+var CAMELIZE   = __webpack_require__(366)
+var HAS_OWN     = __webpack_require__(368)
+var IS_OBJECT   = __webpack_require__(375)
+var IS_FUNCTION = __webpack_require__(376)
+
+var applyPrefix = function(target, property, value, normalizeFn){
+    cssPrefixFn(property).forEach(function(p){
+        target[normalizeFn? normalizeFn(p): p] = value
+    })
+}
+
+var toObject = function(str){
+    str = (str || '').split(';')
+
+    var result = {}
+
+    str.forEach(function(item){
+        var split = item.split(':')
+
+        if (split.length == 2){
+            result[split[0].trim()] = split[1].trim()
+        }
+    })
+
+    return result
+}
+
+var CONFIG = {
+    cssUnitless: __webpack_require__(362)
+}
+
+/**
+ * @ignore
+ * @method toStyleObject
+ *
+ * @param  {Object} styles The object to convert to a style object.
+ * @param  {Object} [config]
+ * @param  {Boolean} [config.addUnits=true] True if you want to add units when numerical values are encountered.
+ * @param  {Object}  config.cssUnitless An object whose keys represent css numerical property names that will not be appended with units.
+ * @param  {Object}  config.prefixProperties An object whose keys represent css property names that should be prefixed
+ * @param  {String}  config.cssUnit='px' The css unit to append to numerical values. Defaults to 'px'
+ * @param  {String}  config.normalizeName A function that normalizes a name to a valid css property name
+ * @param  {String}  config.scope
+ *
+ * @return {Object} The object, normalized with css style names
+ */
+var TO_STYLE_OBJECT = function(styles, config, prepend, result){
+
+    if (typeof styles == 'string'){
+        styles = toObject(styles)
+    }
+
+    config = config || CONFIG
+
+    config.cssUnitless = config.cssUnitless || CONFIG.cssUnitless
+
+    result = result || {}
+
+    var scope    = config.scope || {},
+
+        //configs
+        addUnits = config.addUnits != null?
+                            config.addUnits:
+                            scope && scope.addUnits != null?
+                                scope.addUnits:
+                                true,
+
+        cssUnitless      = (config.cssUnitless != null?
+                                config.cssUnitless:
+                                scope?
+                                    scope.cssUnitless:
+                                    null) || {},
+        cssUnit          = (config.cssUnit || scope? scope.cssUnit: null) || 'px',
+        prefixProperties = (config.prefixProperties || (scope? scope.prefixProperties: null)) || {},
+
+        camelize    = config.camelize,
+        normalizeFn = camelize? CAMELIZE: HYPHENATE
+
+    // Object.keys(cssUnitless).forEach(function(key){
+    //     cssUnitless[normalizeFn(key)] = 1
+    // })
+
+    var processed,
+        styleName,
+
+        propName,
+        propValue,
+        propCssUnit,
+        propType,
+        propIsNumber,
+
+        fnPropValue,
+        prefix
+
+    for (propName in styles) if (HAS_OWN(styles, propName)) {
+
+        propValue = styles[ propName ]
+
+        //the hyphenated style name (css property name)
+        styleName = HYPHENATE(prepend? prepend + propName: propName)
+
+        processed = false
+        prefix    = false
+
+        if (IS_FUNCTION(propValue)) {
+
+            //a function can either return a css value
+            //or an object with { value, prefix, name }
+            fnPropValue = propValue.call(scope || styles, propValue, propName, styleName, styles)
+
+            if (IS_OBJECT(fnPropValue) && fnPropValue.value != null){
+
+                propValue = fnPropValue.value
+                prefix    = fnPropValue.prefix
+                styleName = fnPropValue.name?
+                                HYPHENATE(fnPropValue.name):
+                                styleName
+
+            } else {
+                propValue = fnPropValue
+            }
+        }
+
+        propType     = typeof propValue
+        propIsNumber = propType == 'number' || (propType == 'string' && propValue != '' && propValue * 1 == propValue)
+
+        if (propValue == null || styleName == null || styleName === ''){
+            continue
+        }
+
+        if (propIsNumber || propType == 'string'){
+           processed = true
+        }
+
+        if (!processed && propValue.value != null && propValue.prefix){
+           processed = true
+           prefix    = propValue.prefix
+           propValue = propValue.value
+        }
+
+        // hyphenStyleName = camelize? HYPHENATE(styleName): styleName
+
+        if (processed){
+
+            prefix = prefix || !!prefixProperties[styleName]
+
+            if (propIsNumber){
+                propValue = addUnits && !(styleName in cssUnitless) ?
+                                propValue + cssUnit:
+                                propValue + ''//change it to a string, so that jquery does not append px or other units
+            }
+
+            //special border treatment
+            if (
+                    (
+                     styleName == 'border' ||
+                    (!styleName.indexOf('border')
+                        &&
+                        !~styleName.indexOf('radius')
+                        &&
+                        !~styleName.indexOf('width'))
+                    ) &&
+                    propIsNumber
+                ){
+
+                styleName = styleName + '-width'
+            }
+
+            //special border radius treatment
+            if (!styleName.indexOf('border-radius-')){
+                styleName.replace(/border(-radius)(-(.*))/, function(str, radius, theRest){
+                    var positions = {
+                        '-top'    : ['-top-left',      '-top-right' ],
+                        '-left'   : ['-top-left',    '-bottom-left' ],
+                        '-right'  : ['-top-right',   '-bottom-right'],
+                        '-bottom' : ['-bottom-left', '-bottom-right']
+                    }
+
+                    if (theRest in positions){
+                        styleName = []
+
+                        positions[theRest].forEach(function(pos){
+                            styleName.push('border' + pos + radius)
+                        })
+                    } else {
+                        styleName = 'border'+ theRest + radius
+                    }
+
+                })
+
+                if (Array.isArray(styleName)){
+                    styleName.forEach(function(styleName){
+                        if (prefix){
+                            applyPrefix(result, styleName, propValue, normalizeFn)
+                        } else {
+                            result[normalizeFn(styleName)] = propValue
+                        }
+                    })
+
+                    continue
+                }
+            }
+
+            if (prefix){
+                applyPrefix(result, styleName, propValue, normalizeFn)
+            } else {
+                result[normalizeFn(styleName)] = propValue
+            }
+
+        } else {
+            //the propValue must be an object, so go down the hierarchy
+            TO_STYLE_OBJECT(propValue, config, styleName + '-', result)
+        }
+    }
+
+    return result
+}
+
+module.exports = TO_STYLE_OBJECT
+
+/***/ }),
+/* 364 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var toUpperFirst = __webpack_require__(365)
+
+var re         = /^(Moz|Webkit|Khtml|O|ms|Icab)(?=[A-Z])/
+
+var docStyle   = typeof document == 'undefined'?
+                    {}:
+                    document.documentElement.style
+
+var prefixInfo = (function(){
+
+    var prefix = (function(){
+
+            for (var prop in docStyle) {
+                if( re.test(prop) ) {
+                    // test is faster than match, so it's better to perform
+                    // that on the lot and match only when necessary
+                    return  prop.match(re)[0]
+                }
+            }
+
+            // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+            // However (prop in style) returns the correct value, so we'll have to test for
+            // the precence of a specific property
+            if ('WebkitOpacity' in docStyle){
+                return 'Webkit'
+            }
+
+            if ('KhtmlOpacity' in docStyle) {
+                return 'Khtml'
+            }
+
+            return ''
+        })(),
+
+    lower = prefix.toLowerCase()
+
+    return {
+        style       : prefix,
+        css       : '-' + lower + '-',
+        dom       : ({
+            Webkit: 'WebKit',
+            ms    : 'MS',
+            o     : 'WebKit'
+        })[prefix] || toUpperFirst(prefix)
+    }
+
+})()
+
+module.exports = prefixInfo
+
+/***/ }),
+/* 365 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function(value){
+    return value.length?
+                value.charAt(0).toUpperCase() + value.substring(1):
+                value
+}
+
+/***/ }),
+/* 366 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var toCamelFn = function(str, letter){
+       return letter ? letter.toUpperCase(): ''
+   }
+
+var hyphenRe = __webpack_require__(372)
+
+module.exports = function(str){
+   return str?
+          str.replace(hyphenRe, toCamelFn):
+          ''
+}
+
+/***/ }),
+/* 367 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var separate = __webpack_require__(373)
+
+module.exports = function(name){
+   return separate(name).toLowerCase()
+}
+
+/***/ }),
+/* 368 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var objectHasOwn = Object.prototype.hasOwnProperty
+
+module.exports = function(object, propertyName){
+    return objectHasOwn.call(object, propertyName)
+}
+
+/***/ }),
+/* 369 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+   prefixProperties: __webpack_require__(361) ,
+   cssUnitless: __webpack_require__(362) ,
+   object: __webpack_require__(363),
+   string: __webpack_require__(377)
+}
+
+/***/ }),
+/* 370 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(371)()
+
+/***/ }),
+/* 371 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var camelize     = __webpack_require__(366)
+var hyphenate    = __webpack_require__(367)
+var toLowerFirst = __webpack_require__(374)
+var toUpperFirst = __webpack_require__(365)
+
+var prefixInfo = __webpack_require__(364)
+var prefixProperties = __webpack_require__(361)
+
+var docStyle = typeof document == 'undefined'?
+                {}:
+                document.documentElement.style
+
+module.exports = function(asStylePrefix){
+
+    return function(name, config){
+        config = config || {}
+
+        var styleName = toLowerFirst(camelize(name)),
+            cssName   = hyphenate(name),
+
+            theName   = asStylePrefix?
+                            styleName:
+                            cssName,
+
+            thePrefix = prefixInfo.style?
+                            asStylePrefix?
+                                prefixInfo.style:
+                                prefixInfo.css
+                            :
+                            ''
+
+        if ( styleName in docStyle ) {
+            return config.asString?
+                              theName :
+                            [ theName ]
+        }
+
+        //not a valid style name, so we'll return the value with a prefix
+
+        var upperCased     = theName,
+            prefixProperty = prefixProperties[cssName],
+            result         = []
+
+        if (asStylePrefix){
+            upperCased = toUpperFirst(theName)
+        }
+
+        if (typeof prefixProperty == 'function'){
+            var prefixedCss = prefixProperty(theName, thePrefix) || []
+            if (prefixedCss && !Array.isArray(prefixedCss)){
+                prefixedCss = [prefixedCss]
+            }
+
+            if (prefixedCss.length){
+                prefixedCss = prefixedCss.map(function(property){
+                    return asStylePrefix?
+                                toLowerFirst(camelize(property)):
+                                hyphenate(property)
+
+                })
+            }
+
+            result = result.concat(prefixedCss)
+        }
+
+        if (thePrefix){
+            result.push(thePrefix + upperCased)
+        }
+
+        result.push(theName)
+
+        if (config.asString || result.length == 1){
+            return result[0]
+        }
+
+        return result
+    }
+}
+
+/***/ }),
+/* 372 */
+/***/ (function(module, exports) {
+
+module.exports = /[-\s]+(.)?/g
+
+/***/ }),
+/* 373 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var doubleColonRe      = /::/g
+var upperToLowerRe     = /([A-Z]+)([A-Z][a-z])/g
+var lowerToUpperRe     = /([a-z\d])([A-Z])/g
+var underscoreToDashRe = /_/g
+
+module.exports = function(name, separator){
+
+   return name?
+           name.replace(doubleColonRe, '/')
+                .replace(upperToLowerRe, '$1_$2')
+                .replace(lowerToUpperRe, '$1_$2')
+                .replace(underscoreToDashRe, separator || '-')
+            :
+            ''
+}
+
+/***/ }),
+/* 374 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function(value){
+    return value.length?
+                value.charAt(0).toLowerCase() + value.substring(1):
+                value
+}
+
+/***/ }),
+/* 375 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var objectToString = Object.prototype.toString
+
+module.exports = function(v){
+    return !!v && objectToString.call(v) === '[object Object]'
+}
+
+
+
+/***/ }),
+/* 376 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var objectToString = Object.prototype.toString
+
+module.exports = function(v) {
+    return objectToString.apply(v) === '[object Function]'
+}
+
+
+/***/ }),
+/* 377 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var toStyleObject = __webpack_require__(363)
+var hasOwn        = __webpack_require__(368)
+
+/**
+ * @ignore
+ * @method toStyleString
+ *
+ * @param  {Object} styles The object to convert to a style string.
+ * @param  {Object} config
+ * @param  {Boolean} config.addUnits=true True if you want to add units when numerical values are encountered. Defaults to true
+ * @param  {Object}  config.cssUnitless An object whose keys represent css numerical property names that will not be appended with units.
+ * @param  {Object}  config.prefixProperties An object whose keys represent css property names that should be prefixed
+ * @param  {String}  config.cssUnit='px' The css unit to append to numerical values. Defaults to 'px'
+ * @param  {String}  config.scope
+ *
+ * @return {Object} The object, normalized with css style names
+ */
+module.exports = function(styles, config){
+    styles = toStyleObject(styles, config)
+
+    var result = []
+    var prop
+
+    for(prop in styles) if (hasOwn(styles, prop)){
+        result.push(prop + ': ' + styles[prop])
+    }
+
+    return result.join('; ')
 }
 
 /***/ })
