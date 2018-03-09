@@ -1,6 +1,7 @@
 <template>
 	<div class="document">
 		<container :root="true" :allowDrop="false"></container>
+		<css />
 	</div>
 </template>
 <script>

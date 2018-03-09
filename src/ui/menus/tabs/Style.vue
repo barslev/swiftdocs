@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="state.element.element !== 'page'">
+        <div v-if="state.element.element !== 'page' && state.element.element !== 'group'">
         <h5>{{ $t('menus.style.margins') }}</h5>
         <div class="flex flex-wrap">
             <div class="md:w-1/4 pr-2 mb-2">

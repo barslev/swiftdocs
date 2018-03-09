@@ -68,6 +68,9 @@ export default {
 			if (this.element.element === 'page') {
 				return {}
 			}
+			if (!styles) {
+				return {}
+			}
 			return {
 				...styles,
 				position: styles.position,
@@ -79,7 +82,7 @@ export default {
 				margin: this.pixelArray(styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft),
 				padding: this.pixelArray(styles.paddingTop, styles.paddingRight, styles.paddingBottom, styles.paddingLeft),
 			}
-		}        
+		}
     }
 }
 </script>

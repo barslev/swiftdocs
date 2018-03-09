@@ -1,5 +1,13 @@
 const initialState = {}
 
+// Some elements needn't any styling.
+// These are abstract, logical elements. Add them here..
+const noStyleElements = [
+    'page',
+    'group',
+    // ....
+]
+
 function defaultStyle(element) {
     const defaults = {
         position: 'relative',
@@ -33,6 +41,12 @@ export default (state = initialState, action) => {
     switch (action.type) {
         
         case 'CONTENT_INSERT':
+            
+            if (noStyleElements.indexOf(action.payload.content.element) >= 0) {
+                // Don't add any styling rules for this content
+                return state
+            }
+
             return {
                 ...state,
                 // Inject the new content's style
