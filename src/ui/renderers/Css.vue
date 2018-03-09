@@ -14,7 +14,7 @@ export default {
 	],
     watch: {
         'state.styles'() {
-            console.log(this.state.styles)
+            //console.log(this.state.styles)
         }
     }
 }

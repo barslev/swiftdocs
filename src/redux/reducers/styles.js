@@ -3,8 +3,8 @@ const initialState = {}
 // Some elements needn't any styling.
 // These are abstract, logical elements. Add them here..
 const noStyleElements = [
-    'page',
-    'group',
+    // 'page',
+    // 'group',
     // ....
 ]
 

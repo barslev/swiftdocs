@@ -130,62 +130,6 @@ export function childrenContent(id) {
     )
 }
 
-/**
- * Checks if the content has a parent content or page
- */
-function hasNoParent(content) {
-    return !findContent(content.container_id) && !findPage(content.container_id)
-}
-
-/**
- * If a grid element exists without any panes,
- * It's redundant and should be removed.
- */
-function isEmptyGrid(content) {
-    if (content.element !== 'd-grid') {
-        return false
-    }
-    return !childrenContent(content.id).length
-}
-
-/**
- * Applies filters to contents array. Uses "OR" logic.
- * One satisfying filter means the element will stay.
- */
-function applyFilters(contents, filters) {
-    return contents.filter((content) => {
-        for (let i in filters) {
-            // If any of the filters apply, then keep this item
-            if (filters[i](content)) {
-                return true
-            }
-        }
-        return false
-    })
-}
-
-function getOrphanedContents() {
-    return applyFilters(store.getState().contents, [
-        hasNoParent,
-        isEmptyGrid
-    ]);
-}
-
-function removeOrphanedContents() {
-    // Find orphans
-    const orphans = getOrphanedContents()
-    // If no orphans found, end iteration
-    if (!orphans.length) {
-        return
-    }
-    // Remove each orphan content
-    orphans.forEach((orphan) => {
-        dispatchRemoval(orphan.id)
-    })
-    // Go on to detect more orphans
-    return removeOrphanedContents()
-}
-
 export function removeContentById(id) {
 
     if (!isDocumentAlterable()) {
@@ -201,8 +145,6 @@ export function removeContentById(id) {
         })
 
     dispatchRemoval(id)
-    // TODO: Uncomment this line if needed?
-    //removeOrphanedContents()
 }
 
 export function removeContent(content) {

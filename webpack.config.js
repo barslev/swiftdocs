@@ -8,7 +8,12 @@ var entryPoint = './src/swiftdocs.js';
 var exportPath = path.resolve(__dirname, './build');
 
 // Enviroment flag
-var plugins = [];
+var plugins = [
+    new webpack.DefinePlugin({
+        SWD_VERSION: JSON.stringify(require(path.resolve(__dirname, "package.json")).version)
+    })
+];
+
 var env = process.env.WEBPACK_ENV;
 
 // Differ settings based on production flag
