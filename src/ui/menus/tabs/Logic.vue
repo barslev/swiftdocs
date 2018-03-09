@@ -22,18 +22,17 @@
             </div>
             <div class="mb-3">
                 <select class="form-control" v-model="condition.comparator">
-                    <option value="exists">{{ $t('menus.logic.exists') }}</option>
-                    <option value="equals">{{ $t('menus.logic.equals') }}</option>
-                    <option value="greater_than">{{ $t('menus.logic.greater_than') }}</option>
-                    <option value="less_than">{{ $t('menus.logic.less_than') }}</option>
+                    <option :value="null">Choose a condition</option>
+                    <option :value="option" v-for="option in options" :key="option.key">
+                        {{ $t('menus.logic.' + option.key) }}
+                    </option>
                 </select>
             </div>
-            <div class="mb-3" v-if="condition.comparator != 'exists'">
+            <div class="mb-3" v-if="condition.comparator && condition.comparator.hasValue">
                 <label>{{ $t('menus.logic.this_value') }}</label>
                 <input type="text" v-model="condition.value" />
-            </div>        
-            <button class="btn-primary" @click="setCondition()">Set</button>
-            <button class="btn-default" @click="removeCondition()" v-show="state.logic && state.logic.condition">Remove</button> 
+            </div>
+            <button class="btn-primary" @click="addCondition()">Add Rule</button>
         </div>
     </div>
 </template>
@@ -53,7 +52,18 @@ export default {
         return {
             state: null,
             loop: null,
-            condition: null,
+            condition: {
+                address: '',
+                comparator: null
+            },
+            options: [
+                {key: 'exists', hasValue: false},
+                {key: 'truthy', hasValue: false},
+                {key: 'falsy', hasValue: false},
+                {key: 'equals', hasValue: true},
+                {key: 'greater_than', hasValue: true},
+                {key: 'less_than', hasValue: true},
+            ]
         }
     },
 
@@ -79,11 +89,15 @@ export default {
         },
         loadCondition() {
             if (this.state.logic && this.state.logic.condition) {
-                this.condition = {...this.state.logic.condition}
+                this.condition = {
+                    ...this.state.logic.condition,
+                    comparator: this.options.filter(o => o.key === this.state.logic.condition.comparator)[0]
+                }
+                console.log(this.condition)
             } else {
                 this.condition = {
                     address: '',
-                    comparator: 'exists',
+                    comparator: null
                 }
             }
         },
@@ -120,21 +134,43 @@ export default {
             this.loadState()
             notifySuccess($t('menus.logic.loop_remove_success_title'))
         },
-        setCondition() {
-            if (!this.condition.address || (this.condition.comparator != 'exists' && !this.condition.value)) {
-                notifyError(
-                    $t('menus.logic.condition_error_title'),
-                    $t('menus.logic.condition_error_text')
-                )
-                return
+        validateCondition() {
+            if (!this.condition.address) {
+                throw new Error($t('menus.logic.condition_error_address'))
             }
+            if (!this.condition.comparator) {
+                throw new Error($t('menus.logic.condition_error_comparator'))
+            }
+            if (this.condition.hasValue && !this.condition.value) {
+                throw new Error($t('menus.logic.condition_error_value'))
+            } 
+        },
+        addCondition() {
+
+            try {
+                this.validateCondition()
+            } catch(error) {
+                return notifyError(
+                    $t('menus.logic.condition_error_title'),
+                    error.toString()
+                )
+            }
+
+            // Extract comparator key
+            const condition = {
+                ...this.condition,
+                comparator: this.condition.comparator.key
+            }
+
             updateContentState(this.id, {
                 logic: {
                     ...this.state.logic,
-                    condition: this.condition
+                    condition,
                 }
             })
+            
             this.loadState()
+            
             notifySuccess(
                 $t('menus.logic.condition_success_title'),
                 $t('menus.logic.condition_success_text')

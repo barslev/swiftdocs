@@ -33249,8 +33249,7 @@ exports.default = {
 
     data: function data() {
         return {
-            displayItems: [],
-            fullContext: {}
+            displayItems: []
         };
     },
 
@@ -33301,7 +33300,6 @@ exports.default = {
             var _this2 = this;
 
             var items = [];
-            console.log(this.context);
             _.each(_.get(this.context, loop.in), function (foo, $index) {
                 items.push(_extends({}, item, {
                     context: _extends({}, _this2.context, _defineProperty({
@@ -33326,11 +33324,15 @@ exports.default = {
         },
         evaluateCondition: function evaluateCondition(condition) {
             try {
-                var address = _.get(this.fullContext, condition.address);
+                var address = _.get(this.context, condition.address);
 
                 switch (condition.comparator) {
                     case 'exists':
+                        return typeof address !== 'undefined';
+                    case 'truthy':
                         return address;
+                    case 'falsy':
+                        return !address;
                     case 'equals':
                         return address == condition.value;
                     case 'greater_than':
@@ -34508,7 +34510,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 var _contents = __webpack_require__(1);
 
@@ -34525,7 +34526,11 @@ exports.default = {
         return {
             state: null,
             loop: null,
-            condition: null
+            condition: {
+                address: '',
+                comparator: null
+            },
+            options: [{ key: 'exists', hasValue: false }, { key: 'truthy', hasValue: false }, { key: 'falsy', hasValue: false }, { key: 'equals', hasValue: true }, { key: 'greater_than', hasValue: true }, { key: 'less_than', hasValue: true }]
         };
     },
     created: function created() {
@@ -34550,12 +34555,19 @@ exports.default = {
             }
         },
         loadCondition: function loadCondition() {
+            var _this = this;
+
             if (this.state.logic && this.state.logic.condition) {
-                this.condition = _extends({}, this.state.logic.condition);
+                this.condition = _extends({}, this.state.logic.condition, {
+                    comparator: this.options.filter(function (o) {
+                        return o.key === _this.state.logic.condition.comparator;
+                    })[0]
+                });
+                console.log(this.condition);
             } else {
                 this.condition = {
                     address: '',
-                    comparator: 'exists'
+                    comparator: null
                 };
             }
         },
@@ -34584,17 +34596,38 @@ exports.default = {
             this.loadState();
             notifySuccess($t('menus.logic.loop_remove_success_title'));
         },
-        setCondition: function setCondition() {
-            if (!this.condition.address || this.condition.comparator != 'exists' && !this.condition.value) {
-                notifyError($t('menus.logic.condition_error_title'), $t('menus.logic.condition_error_text'));
-                return;
+        validateCondition: function validateCondition() {
+            if (!this.condition.address) {
+                throw new Error($t('menus.logic.condition_error_address'));
             }
+            if (!this.condition.comparator) {
+                throw new Error($t('menus.logic.condition_error_comparator'));
+            }
+            if (this.condition.hasValue && !this.condition.value) {
+                throw new Error($t('menus.logic.condition_error_value'));
+            }
+        },
+        addCondition: function addCondition() {
+
+            try {
+                this.validateCondition();
+            } catch (error) {
+                return notifyError($t('menus.logic.condition_error_title'), error.toString());
+            }
+
+            // Extract comparator key
+            var condition = _extends({}, this.condition, {
+                comparator: this.condition.comparator.key
+            });
+
             (0, _contents.updateContentState)(this.id, {
                 logic: _extends({}, this.state.logic, {
-                    condition: this.condition
+                    condition: condition
                 })
             });
+
             this.loadState();
+
             notifySuccess($t('menus.logic.condition_success_title'), $t('menus.logic.condition_success_text'));
         },
         removeCondition: function removeCondition() {
@@ -46328,26 +46361,29 @@ var render = function() {
             }
           },
           [
-            _c("option", { attrs: { value: "exists" } }, [
-              _vm._v(_vm._s(_vm.$t("menus.logic.exists")))
+            _c("option", { domProps: { value: null } }, [
+              _vm._v("Choose a condition")
             ]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "equals" } }, [
-              _vm._v(_vm._s(_vm.$t("menus.logic.equals")))
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "greater_than" } }, [
-              _vm._v(_vm._s(_vm.$t("menus.logic.greater_than")))
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "less_than" } }, [
-              _vm._v(_vm._s(_vm.$t("menus.logic.less_than")))
-            ])
-          ]
+            _vm._l(_vm.options, function(option) {
+              return _c(
+                "option",
+                { key: option.key, domProps: { value: option } },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.$t("menus.logic." + option.key)) +
+                      "\n                "
+                  )
+                ]
+              )
+            })
+          ],
+          2
         )
       ]),
       _vm._v(" "),
-      _vm.condition.comparator != "exists"
+      _vm.condition.comparator && _vm.condition.comparator.hasValue
         ? _c("div", { staticClass: "mb-3" }, [
             _c("label", [_vm._v(_vm._s(_vm.$t("menus.logic.this_value")))]),
             _vm._v(" "),
@@ -46380,32 +46416,11 @@ var render = function() {
           staticClass: "btn-primary",
           on: {
             click: function($event) {
-              _vm.setCondition()
+              _vm.addCondition()
             }
           }
         },
-        [_vm._v("Set")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.state.logic && _vm.state.logic.condition,
-              expression: "state.logic && state.logic.condition"
-            }
-          ],
-          staticClass: "btn-default",
-          on: {
-            click: function($event) {
-              _vm.removeCondition()
-            }
-          }
-        },
-        [_vm._v("Remove")]
+        [_vm._v("Add Rule")]
       )
     ])
   ])
@@ -47833,11 +47848,7 @@ var initialState = {};
 
 // Some elements needn't any styling.
 // These are abstract, logical elements. Add them here..
-var noStyleElements = [
-    // 'page',
-    // 'group',
-    // ....
-];
+var noStyleElements = ['page', 'group'];
 
 function defaultStyle(element) {
     var defaults = {
@@ -48176,7 +48187,7 @@ module.exports = i18n;
 /* 311 */
 /***/ (function(module, exports) {
 
-module.exports = {"languages":{"de":"German","en":"English","fr":"French","it":"Italian","lo":"Lao","tr":"Turkish","zh":"Chinese"},"global":{"ok":"OK","set":"Set","cancel":"Cancel","remove":"Remove","loading":"Loading"},"messages":{"saving":"Saving","saved":"Saved!","save_failed":"Not Saved","saved_more":"All changes were saved.","page_added":"Page Added","page_removed":"Page Removed"},"top":{"file":"FILE","edit_document":"Edit Document","save":"Save","render":"Render Document","change_language":"Interface Language","untitled_document":"Untitled Document","enter_title":"Enter a new title for this document"},"left":{"tabs":{"data":"Data","layout":"Page Layout","elements":"Elements","style":"Style","logic":"Logic"}},"menus":{"data":{"loading":"Loading Data","refresh":"Refresh Data","explorer":"Data Explorer","msg_success_title":"Data Refreshed","msg_success_text":"Data has been reloaded","msg_error_title":"Data could not be loaded!"},"elements":{"title":"Elements"},"layout":{"title":"Page Layout","margins":"Margins","page_color":"Page Color","add_new":"Add New Page"},"logic":{"loop":"Loop","path":"Path","repeat_as":"Repeat As","condition":"Display Condition","condition_address":"Display this when this address","exists":"Exists","equals":"Equals to","greater_than":"Greater Than","less_than":"Less Than","this_value":"This Value","loop_error_title":"Loop not set","loop_error_text":"Fill both fields to set a loop.","loop_success_title":"Loop set","loop_success_text":"Loop will be effective at render time.","loop_remove_success_title":"Loop removed","condition_error_title":"Condition not set","condition_error_text":"Fill all fields to set a condition.","condition_success_title":"Condition set","condition_success_text":"Condition will be effective at render time.","condition_remove_success_title":"Condition removed"},"style":{"top":"Top","left":"Left","right":"Right","bottom":"Bottom","margins":"Margins","paddings":"Paddings","borders":"Borders","width":"Width","radius":"Radius","sides":"Sides","border_color":"Border Color","fill":"Fill","background_color":"Background Color","remove_element":"Remove Element","remove_this_element":"Remove This Element"}},"modals":{"page_color":{"title":"Page Background Color","color":"Color"},"page_margins":{"title":"Page Margins","top":"Top","left":"Left","right":"Right","bottom":"Bottom"},"language":{"title":"Interface Language","switch":"Change Language"}},"scope":{"apply_to":"Apply To","all_pages":"All Pages","only_to_page":"Only to Page {0}"}}
+module.exports = {"languages":{"de":"German","en":"English","fr":"French","it":"Italian","lo":"Lao","tr":"Turkish","zh":"Chinese"},"global":{"ok":"OK","set":"Set","cancel":"Cancel","remove":"Remove","loading":"Loading"},"messages":{"saving":"Saving","saved":"Saved!","save_failed":"Not Saved","saved_more":"All changes were saved.","page_added":"Page Added","page_removed":"Page Removed"},"top":{"file":"FILE","edit_document":"Edit Document","save":"Save","render":"Render Document","change_language":"Interface Language","untitled_document":"Untitled Document","enter_title":"Enter a new title for this document"},"left":{"tabs":{"data":"Data","layout":"Page Layout","elements":"Elements","style":"Style","logic":"Logic"}},"menus":{"data":{"loading":"Loading Data","refresh":"Refresh Data","explorer":"Data Explorer","msg_success_title":"Data Refreshed","msg_success_text":"Data has been reloaded","msg_error_title":"Data could not be loaded!"},"elements":{"title":"Elements"},"layout":{"title":"Page Layout","margins":"Margins","page_color":"Page Color","add_new":"Add New Page"},"logic":{"loop":"Loop","path":"Path","repeat_as":"Repeat As","condition":"Display Condition","condition_address":"Display this when this address","exists":"Exists","truthy":"Evaluates to True","falsy":"Evaluates to False","equals":"Equals to","greater_than":"Greater Than","less_than":"Less Than","this_value":"This Value","loop_error_title":"Loop not set","loop_error_text":"Fill both fields to set a loop.","loop_success_title":"Loop set","loop_success_text":"Loop will be effective at render time.","loop_remove_success_title":"Loop removed","condition_error_title":"Condition not set","condition_error_address":"Please indicate an address for this condition","condition_error_comparator":"Select the type of condition first","condition_error_value":"Please indicate an address for this condition","condition_success_title":"Condition set","condition_success_text":"Condition will be effective at render time.","condition_remove_success_title":"Condition removed"},"style":{"top":"Top","left":"Left","right":"Right","bottom":"Bottom","margins":"Margins","paddings":"Paddings","borders":"Borders","width":"Width","radius":"Radius","sides":"Sides","border_color":"Border Color","fill":"Fill","background_color":"Background Color","remove_element":"Remove Element","remove_this_element":"Remove This Element"}},"modals":{"page_color":{"title":"Page Background Color","color":"Color"},"page_margins":{"title":"Page Margins","top":"Top","left":"Left","right":"Right","bottom":"Bottom"},"language":{"title":"Interface Language","switch":"Change Language"}},"scope":{"apply_to":"Apply To","all_pages":"All Pages","only_to_page":"Only to Page {0}"}}
 
 /***/ }),
 /* 312 */

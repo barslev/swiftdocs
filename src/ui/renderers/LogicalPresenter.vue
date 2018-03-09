@@ -42,7 +42,6 @@ export default {
     data() {
         return {
             displayItems: [],
-            fullContext: {}
         }
     },
 
@@ -92,7 +91,6 @@ export default {
 
         getLoopedItems(item, loop) {
             let items = []
-            console.log(this.context)
             _.each(_.get(this.context, loop.in), (foo, $index) => {
                 items.push({
                     ...item,
@@ -121,13 +119,17 @@ export default {
         evaluateCondition(condition) {
             try {
                 const address = _.get(
-                    this.fullContext,
+                    this.context,
                     condition.address
                 )
 
                 switch (condition.comparator) {
                     case 'exists':
+                        return typeof address !== 'undefined'
+                    case 'truthy':
                         return address
+                    case 'falsy':
+                        return !address
                     case 'equals':
                         return address == condition.value
                     case 'greater_than':
