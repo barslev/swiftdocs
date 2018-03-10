@@ -4,12 +4,14 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import VModal from 'vue-js-modal'
 import Notifications from 'vue-notification'
+import NonReactive from 'vue-nonreactive'
 
 window.Vue = Vue
 window._ = require('lodash')
 
 Vue.use(VModal)
 Vue.use(VueI18n)
+Vue.use(NonReactive)
 Vue.use(Notifications)
 
 /**

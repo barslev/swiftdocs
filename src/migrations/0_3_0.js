@@ -1,4 +1,4 @@
-// As of v0.2.4, no css rules are needed for group and page elements.
+// As of v0.3.0, no css rules are needed for group and page elements.
 // This method cleans these up.
 function deletePageAndGroupStyles(state) {
 
@@ -15,7 +15,7 @@ function deletePageAndGroupStyles(state) {
 
 module.exports = {
     
-    before: '0.2.4',
+    before: '0.3.0',
     
     up: function(state) {
     

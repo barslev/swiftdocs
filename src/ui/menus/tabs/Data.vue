@@ -9,11 +9,11 @@
         <hr>
         <h5>{{ $t('menus.data.explorer') }}</h5>
 
-        <div v-if="variables" style="height: calc(100vh - 165px);overflow-y:auto;">
-            <variable-displayer v-for="(variable, i) in Object.keys(variables)"
+        <div v-if="!state.loading" style="height: calc(100vh - 165px);overflow-y:auto;">
+            <variable-displayer v-for="(variable, i) in Object.keys(state.data)"
                 :key="i"
                 :variable="variable"
-                :value="variables[variable]"></variable-displayer>
+                :value="state.data[variable]"></variable-displayer>
         </div>
         <div v-else class="text-center text-sm text-grey">{{ $t('global.loading') }}</div>
   
@@ -21,30 +21,36 @@
     </div>
 </template>
 <script>
+import {connect} from '~/redux/connect'
+
 export default {
+
+    mixins: [
+        connect((state, scope) => {
+            return {
+                data: state.data.data,
+                loading: state.data.loading,
+            }
+        })
+    ],    
+
     data() {
         return {
-            variables: null,
             busy: _swd.dataSource.busy,
         }
-    },
-
-    created() {
-        this.variables = _swd.dataSource.data
     },
 
     methods: {
         refresh() {
             _swd.dataSource.refresh()
                 .then(() => {
-                    this.variables = _swd.dataSource.data
                     notifySuccess(
                         $t('menus.data.msg_success_title'),
                         $t('menus.data.msg_success_text')
                     )
                 })
                 .catch((error) => {
-                    notifyError($('menus.data.msg_error_title'), error.toString())
+                    notifyError($t('menus.data.msg_error_title'), error.toString())
                 })
         }
     }

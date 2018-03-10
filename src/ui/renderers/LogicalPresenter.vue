@@ -71,7 +71,7 @@ export default {
         displayRenderedItems(items) {
             items = this.applyLoops(items)
             items = this.applyConditions(items)
-            return items
+            return Vue.nonreactive(items)
         },
 
         applyLoops(items) {
@@ -82,7 +82,7 @@ export default {
                 if (loop) {
                     result = result.concat(this.getLoopedItems(item, loop))
                 } else {
-                    item.context = this.context
+                    item.context = Vue.nonreactive(this.context)
                     result.push(item)
                 }
             })
@@ -94,11 +94,11 @@ export default {
             _.each(_.get(this.context, loop.in), (foo, $index) => {
                 items.push({
                     ...item,
-                    context: {
+                    context: Vue.nonreactive({
                         ...this.context,
                         $index,
                         [loop.as]: foo
-                    }
+                    })
                 })
             })
             return items

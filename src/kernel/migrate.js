@@ -11,7 +11,7 @@ function isNewer(version, otherVersion) {
 
 export default function(document) {
 
-    if (document === null) {
+    if (!document || !document.defaults) {
         return null
     }
 

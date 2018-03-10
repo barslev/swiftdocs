@@ -1,3 +1,4 @@
+import * as data from "./data";
 import * as title from './title'
 import * as pages from './pages'
 import * as styles from './styles'
@@ -23,6 +24,7 @@ function mergeActions(actions) {
 }
 
 export default mergeActions([
+    data,
     title,
     pages,
     styles,

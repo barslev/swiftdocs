@@ -133,6 +133,7 @@ export function saveCurrentSession() {
     const clonedState = { ...state }
     // Remove live session state from the persistent data
     delete clonedState.session
+    delete clonedState.data
 
     _swd.storage.persist(_swd.documentId, clonedState)
         .then(() => {

@@ -1,3 +1,5 @@
+import {dataReceived, dataStartedLoading, dataOnFail} from '~/redux/actions/data'
+
 export class DataSource
 {
     constructor()
@@ -26,20 +28,23 @@ export class DataSource
 
     _useRawSource(data) {
         this.busy = false
-        this.data = data
+        setTimeout(() => {
+            dataReceived(data);
+        })
     }
 
     refresh()
     {
         if (!this.axios) {
             return Promise.reject('You are using a static data source.')
-        }        
+        }
         this.busy = true
         return this.axios.get(this.url).then((response) => {
             this.busy = false
-            this.data = response.data
+            setTimeout(() => dataReceived(response.data), 1000)
         }).catch((error) => {
             this.busy = false
+            setTimeout(() => dataOnFail(error))
             // Rethrow error for debugging
             throw error
         })

@@ -1,6 +1,6 @@
 <template>
 	<div class="document">
-		<container :root="true" :allowDrop="false" :context="context"></container>
+		<container v-if="!inRenderMode || !state.dataLoading" :root="true" :allowDrop="false" :context="state.data"></container>
 		<css />
 	</div>
 </template>
@@ -14,6 +14,8 @@ export default {
 			return {
 				title: state.title,
 				pages: state.pages,
+				data: state.data.data ? Vue.nonreactive({...state.data.data}) : null,
+				dataLoading: state.data.loading,
 				defaults: state.defaults,
 			}
 		})
