@@ -36736,6 +36736,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
 	extends: (0, _base2.default)(function (state) {
@@ -36748,10 +36760,10 @@ exports.default = {
 		marginCss: function marginCss() {
 			return {
 				'background-color': this.state.color,
-				'padding-top': this.state.margins.top + 'mm',
+				//'padding-top': this.state.margins.top + 'mm',
 				'padding-left': this.state.margins.left + 'mm',
-				'padding-right': this.state.margins.right + 'mm',
-				'padding-bottom': this.state.margins.bottom + 'mm'
+				'padding-right': this.state.margins.right + 'mm'
+				//'padding-bottom': this.state.margins.bottom + 'mm',
 			};
 		}
 	},
@@ -64487,18 +64499,40 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("container", {
-    tag: "div",
-    staticClass: "document__page",
-    staticStyle: { width: "210mm", "min-height": "297mm" },
-    style: _vm.marginCss,
-    attrs: { id: _vm.id, context: _vm.context, allowDrop: true },
-    nativeOn: {
-      click: function($event) {
-        _vm.selectPage()
-      }
-    }
-  })
+  return _c(
+    "div",
+    {
+      staticClass: "document__page flex flex-col",
+      staticStyle: { width: "210mm", "min-height": "297mm" },
+      style: _vm.marginCss
+    },
+    [
+      _c("container", {
+        tag: "div",
+        staticStyle: { width: "100%", overflow: "hidden", padding: "2mm 0mm" },
+        style: { height: this.state.margins.top + "mm" },
+        attrs: { id: "header", context: _vm.context, allowDrop: true }
+      }),
+      _vm._v(" "),
+      _c("container", {
+        tag: "div",
+        staticClass: "flex-1",
+        attrs: { id: _vm.id, context: _vm.context, allowDrop: true },
+        nativeOn: {
+          click: function($event) {
+            _vm.selectPage()
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("container", {
+        tag: "div",
+        staticStyle: { width: "100%" },
+        style: { height: this.state.margins.bottom + "mm" },
+        attrs: { id: "footer", context: _vm.context, allowDrop: true }
+      })
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
