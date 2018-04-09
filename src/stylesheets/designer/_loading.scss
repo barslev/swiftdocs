@@ -1,7 +1,6 @@
 
 .progress {
-  color: #333;
-  font-size: 13px;
+  @apply .text-grey .text-xs;
 }
 
 .progress:after {

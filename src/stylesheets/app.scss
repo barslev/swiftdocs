@@ -6,6 +6,7 @@ html, body {
 
 @import './designer/tailwind';
 
+@import './vendor/vtooltip';
 @import './vendor/dragula/dragula';
 @import './vendor/vue-notification/vue-notification';
 
@@ -118,4 +119,8 @@ html, body {
 }
 .element__photo {
 	text-align: center;
+}
+
+button:active, button:focus {
+	outline: none;
 }

@@ -3,6 +3,7 @@ import '~/stylesheets/app.scss'
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import VModal from 'vue-js-modal'
+import { VTooltip } from 'v-tooltip'
 import Notifications from 'vue-notification'
 import NonReactive from 'vue-nonreactive'
 
@@ -13,6 +14,8 @@ Vue.use(VModal)
 Vue.use(VueI18n)
 Vue.use(NonReactive)
 Vue.use(Notifications)
+
+Vue.directive('tooltip', VTooltip)
 
 /**
  * Main Components
@@ -28,6 +31,7 @@ Vue.component('logical-presenter', require('~/ui/renderers/LogicalPresenter.vue'
  */
 Vue.component('color', require('~/ui/tools/Color.vue').default)
 Vue.component('page-scope', require('~/ui/tools/PageScope.vue').default)
+Vue.component("top-button", require("~/ui/tools/TopButton.vue").default)
 Vue.component('toolbar-button', require('~/ui/tools/Button.vue').default)
 Vue.component('dropdown-menu', require('~/ui/tools/DropdownMenu.vue').default)
 Vue.component('document-title', require('~/ui/tools/DocumentTitle.vue').default)

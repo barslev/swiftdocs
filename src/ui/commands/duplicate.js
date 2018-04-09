@@ -1,12 +1,6 @@
-import { duplicateContent } from '~/redux/actions/contents'
-import { getSelectedContent } from '~/redux/actions/session'
+import { duplicateSelectedContent } from '~/redux/actions/commands'
 
 export default {
     key: 68, // d key
-    invoke: () => {
-        const selected = getSelectedContent()
-        if (selected) {
-            duplicateContent(selected)
-        }
-    }
+    invoke: duplicateSelectedContent
 }

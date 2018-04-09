@@ -1,5 +1,5 @@
 <template>
-    <h4 class="mt-2" @click="change()">{{ state.title ? state.title : $t('top.untitled_document') }}</h4>
+    <h4 class="inline-block" @click="change()">{{ state.title ? state.title : $t('top.untitled_document') }}</h4>
 </template>
 <script>
 import {connect} from '~/redux/connect'

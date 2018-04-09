@@ -1,7 +1,9 @@
 <template>
-    <div class="progress" v-if="state.saving">{{ $t('messages.saving') }}</div>
-    <div v-else="state.saving" class="text-xs text-grey">
-        {{ state.changed ? 'Modified' : ''}}
+    <div style="margin-top:2px">
+        <div class="progress" v-if="state.saving">{{ $t('messages.saving') }}</div>
+        <div v-else class="text-xs text-grey">
+            {{ state.changed ? 'Modified' : 'Saved'}}
+        </div>
     </div>
 </template>
 <script>

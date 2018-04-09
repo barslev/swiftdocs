@@ -33730,6 +33730,8 @@ exports.default = {
 //
 //
 //
+//
+//
 
 /***/ }),
 /* 78 */
@@ -34080,11 +34082,74 @@ var _connect = __webpack_require__(2);
 
 var _session = __webpack_require__(3);
 
+var _commands = __webpack_require__(385);
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 exports.default = {
     mixins: [(0, _connect.connect)(function (state, scope) {
         return {
             editable: state.session.editable,
-            translation: state.session.translation
+            translation: state.session.translation,
+            selection: state.session.selectedId != ''
         };
     })],
     created: function created() {
@@ -34111,58 +34176,14 @@ exports.default = {
         },
         changeUiLanguage: function changeUiLanguage() {
             this.$modal.show('language');
-        }
+        },
+
+        // Top Button Handlers
+        selectParent: _commands.selectParent,
+        deleteContent: _commands.removeSelectedContent,
+        duplicateContent: _commands.duplicateSelectedContent
     }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 84 */
@@ -38650,6 +38671,8 @@ var _vueJsModal = __webpack_require__(141);
 
 var _vueJsModal2 = _interopRequireDefault(_vueJsModal);
 
+var _vTooltip = __webpack_require__(384);
+
 var _vueNotification = __webpack_require__(142);
 
 var _vueNotification2 = _interopRequireDefault(_vueNotification);
@@ -38668,6 +38691,8 @@ _vue2.default.use(_vueI18n2.default);
 _vue2.default.use(_vueNonreactive2.default);
 _vue2.default.use(_vueNotification2.default);
 
+_vue2.default.directive('tooltip', _vTooltip.VTooltip);
+
 /**
  * Main Components
  */
@@ -38682,6 +38707,7 @@ _vue2.default.component('logical-presenter', __webpack_require__(236).default);
  */
 _vue2.default.component('color', __webpack_require__(238).default);
 _vue2.default.component('page-scope', __webpack_require__(241).default);
+_vue2.default.component("top-button", __webpack_require__(382).default);
 _vue2.default.component('toolbar-button', __webpack_require__(243).default);
 _vue2.default.component('dropdown-menu', __webpack_require__(245).default);
 _vue2.default.component('document-title', __webpack_require__(247).default);
@@ -38780,7 +38806,7 @@ exports = module.exports = __webpack_require__(10)(false);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/icon?family=Material+Icons);", ""]);
 
 // module
-exports.push([module.i, "html,\nbody {\n  background-color: #f8fafc;\n}\n\n/**\n * This injects Tailwind's base styles, which is a combination of\n * Normalize.css and some additional base styles.\n *\n * You can see the styles here:\n * https://github.com/tailwindcss/tailwindcss/blob/master/css/preflight.css\n */\n\n/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */\n\n/* Document\n   ========================================================================== */\n\n/**\n * 1. Correct the line height in all browsers.\n * 2. Prevent adjustments of font size after orientation changes in\n *    IE on Windows Phone and in iOS.\n */\n\nhtml {\n  line-height: 1.15; /* 1 */\n      -ms-text-size-adjust: 100%; /* 2 */\n  -webkit-text-size-adjust: 100%; /* 2 */\n}\n\n/* Sections\n   ========================================================================== */\n\n/**\n * Remove the margin in all browsers (opinionated).\n */\n\nbody {\n  margin: 0;\n}\n\n/**\n * Add the correct display in IE 9-.\n */\n\narticle,\naside,\nfooter,\nheader,\nnav,\nsection {\n  display: block;\n}\n\n/**\n * Correct the font size and margin on `h1` elements within `section` and\n * `article` contexts in Chrome, Firefox, and Safari.\n */\n\nh1 {\n  font-size: 2em;\n  margin: .67em 0;\n}\n\n/* Grouping content\n   ========================================================================== */\n\n/**\n * Add the correct display in IE 9-.\n * 1. Add the correct display in IE.\n */\n\nfigcaption,\nfigure,\nmain {\n  /* 1 */\n  display: block;\n}\n\n/**\n * Add the correct margin in IE 8.\n */\n\nfigure {\n  margin: 1em 40px;\n}\n\n/**\n * 1. Add the correct box sizing in Firefox.\n * 2. Show the overflow in Edge and IE.\n */\n\nhr {\n  box-sizing: content-box; /* 1 */\n  height: 0; /* 1 */\n  overflow: visible; /* 2 */\n}\n\n/**\n * 1. Correct the inheritance and scaling of font size in all browsers.\n * 2. Correct the odd `em` font sizing in all browsers.\n */\n\npre {\n  font-family: monospace, monospace; /* 1 */\n  font-size: 1em; /* 2 */\n}\n\n/* Text-level semantics\n   ========================================================================== */\n\n/**\n * 1. Remove the gray background on active links in IE 10.\n * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.\n */\n\na {\n  background-color: transparent; /* 1 */\n  -webkit-text-decoration-skip: objects; /* 2 */\n}\n\n/**\n * 1. Remove the bottom border in Chrome 57- and Firefox 39-.\n * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.\n */\n\nabbr[title] {\n  border-bottom: none; /* 1 */\n  text-decoration: underline; /* 2 */\n  text-decoration: underline dotted; /* 2 */\n}\n\n/**\n * Prevent the duplicate application of `bolder` by the next rule in Safari 6.\n */\n\nb,\nstrong {\n  font-weight: inherit;\n}\n\n/**\n * Add the correct font weight in Chrome, Edge, and Safari.\n */\n\nb,\nstrong {\n  font-weight: bolder;\n}\n\n/**\n * 1. Correct the inheritance and scaling of font size in all browsers.\n * 2. Correct the odd `em` font sizing in all browsers.\n */\n\ncode,\nkbd,\nsamp {\n  font-family: monospace, monospace; /* 1 */\n  font-size: 1em; /* 2 */\n}\n\n/**\n * Add the correct font style in Android 4.3-.\n */\n\ndfn {\n  font-style: italic;\n}\n\n/**\n * Add the correct background and color in IE 9-.\n */\n\nmark {\n  background-color: #ff0;\n  color: #000;\n}\n\n/**\n * Add the correct font size in all browsers.\n */\n\nsmall {\n  font-size: 80%;\n}\n\n/**\n * Prevent `sub` and `sup` elements from affecting the line height in\n * all browsers.\n */\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\nsup {\n  top: -0.5em;\n}\n\n/* Embedded content\n   ========================================================================== */\n\n/**\n * Add the correct display in IE 9-.\n */\n\naudio,\nvideo {\n  display: inline-block;\n}\n\n/**\n * Add the correct display in iOS 4-7.\n */\n\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n\n/**\n * Remove the border on images inside links in IE 10-.\n */\n\nimg {\n  border-style: none;\n}\n\n/**\n * Hide the overflow in IE.\n */\n\nsvg:not(:root) {\n  overflow: hidden;\n}\n\n/* Forms\n   ========================================================================== */\n\n/**\n * 1. Change the font styles in all browsers (opinionated).\n * 2. Remove the margin in Firefox and Safari.\n */\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: sans-serif; /* 1 */\n  font-size: 100%; /* 1 */\n  line-height: 1.15; /* 1 */\n  margin: 0; /* 2 */\n}\n\n/**\n * Show the overflow in IE.\n * 1. Show the overflow in Edge.\n */\n\nbutton,\ninput {\n  /* 1 */\n  overflow: visible;\n}\n\n/**\n * Remove the inheritance of text transform in Edge, Firefox, and IE.\n * 1. Remove the inheritance of text transform in Firefox.\n */\n\nbutton,\nselect {\n  /* 1 */\n  text-transform: none;\n}\n\n/**\n * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`\n *    controls in Android 4.\n * 2. Correct the inability to style clickable types in iOS and Safari.\n */\n\nbutton,\nhtml [type=\"button\"],\n/* 1 */\n[type=\"reset\"],\n[type=\"submit\"] {\n  -webkit-appearance: button; /* 2 */\n}\n\n/**\n * Remove the inner border and padding in Firefox.\n */\n\nbutton::-moz-focus-inner,\n[type=\"button\"]::-moz-focus-inner,\n[type=\"reset\"]::-moz-focus-inner,\n[type=\"submit\"]::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\n\n/**\n * Restore the focus styles unset by the previous rule.\n */\n\nbutton:-moz-focusring,\n[type=\"button\"]:-moz-focusring,\n[type=\"reset\"]:-moz-focusring,\n[type=\"submit\"]:-moz-focusring {\n  outline: 1px dotted ButtonText;\n}\n\n/**\n * Correct the padding in Firefox.\n */\n\nfieldset {\n  padding: .35em .75em .625em;\n}\n\n/**\n * 1. Correct the text wrapping in Edge and IE.\n * 2. Correct the color inheritance from `fieldset` elements in IE.\n * 3. Remove the padding so developers are not caught out when they zero out\n *    `fieldset` elements in all browsers.\n */\n\nlegend {\n  box-sizing: border-box; /* 1 */\n  color: inherit; /* 2 */\n  display: table; /* 1 */\n  max-width: 100%; /* 1 */\n  padding: 0; /* 3 */\n  white-space: normal; /* 1 */\n}\n\n/**\n * 1. Add the correct display in IE 9-.\n * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.\n */\n\nprogress {\n  display: inline-block; /* 1 */\n  vertical-align: baseline; /* 2 */\n}\n\n/**\n * Remove the default vertical scrollbar in IE.\n */\n\ntextarea {\n  overflow: auto;\n}\n\n/**\n * 1. Add the correct box sizing in IE 10-.\n * 2. Remove the padding in IE 10-.\n */\n\n[type=\"checkbox\"],\n[type=\"radio\"] {\n  box-sizing: border-box; /* 1 */\n  padding: 0; /* 2 */\n}\n\n/**\n * Correct the cursor style of increment and decrement buttons in Chrome.\n */\n\n[type=\"number\"]::-webkit-inner-spin-button,\n[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/**\n * 1. Correct the odd appearance in Chrome and Safari.\n * 2. Correct the outline style in Safari.\n */\n\n[type=\"search\"] {\n  -webkit-appearance: textfield; /* 1 */\n  outline-offset: -2px; /* 2 */\n}\n\n/**\n * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.\n */\n\n[type=\"search\"]::-webkit-search-cancel-button,\n[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/**\n * 1. Correct the inability to style clickable types in iOS and Safari.\n * 2. Change font properties to `inherit` in Safari.\n */\n\n::-webkit-file-upload-button {\n  -webkit-appearance: button; /* 1 */\n  font: inherit; /* 2 */\n}\n\n/* Interactive\n   ========================================================================== */\n\n/*\n * Add the correct display in IE 9-.\n * 1. Add the correct display in Edge, IE, and Firefox.\n */\n\ndetails,\n/* 1 */\nmenu {\n  display: block;\n}\n\n/*\n * Add the correct display in all browsers.\n */\n\nsummary {\n  display: list-item;\n}\n\n/* Scripting\n   ========================================================================== */\n\n/**\n * Add the correct display in IE 9-.\n */\n\ncanvas {\n  display: inline-block;\n}\n\n/**\n * Add the correct display in IE.\n */\n\ntemplate {\n  display: none;\n}\n\n/* Hidden\n   ========================================================================== */\n\n/**\n * Add the correct display in IE 10-.\n */\n\n[hidden] {\n  display: none;\n}\n\n/**\n * Manually forked from SUIT CSS Base: https://github.com/suitcss/base\n * A thin layer on top of normalize.css that provides a starting point more\n * suitable for web applications.\n */\n\n/**\n * 1. Prevent padding and border from affecting element width\n * https://goo.gl/pYtbK7\n * 2. Change the default font family in all browsers (opinionated)\n */\n\nhtml {\n  box-sizing: border-box; /* 1 */\n  font-family: sans-serif; /* 2 */\n}\n\n*,\n*::before,\n*::after {\n  box-sizing: inherit;\n}\n\n/**\n * Removes the default spacing and border for appropriate elements.\n */\n\nblockquote,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nfigure,\np,\npre {\n  margin: 0;\n}\n\nbutton {\n  background: transparent;\n  padding: 0;\n}\n\n/**\n * Work around a Firefox/IE bug where the transparent `button` background\n * results in a loss of the default `button` focus styles.\n */\n\nbutton:focus {\n  outline: 1px dotted;\n  outline: 5px auto -webkit-focus-ring-color;\n}\n\nfieldset {\n  margin: 0;\n  padding: 0;\n}\n\nol,\nul {\n  margin: 0;\n}\n\n/**\n * Suppress the focus outline on elements that cannot be accessed via keyboard.\n * This prevents an unwanted focus outline from appearing around elements that\n * might still respond to pointer events.\n */\n\n[tabindex=\"-1\"]:focus {\n  outline: none !important;\n}\n\n/**\n * Tailwind custom reset styles\n */\n\n/**\n * Allow adding a border to an element by just adding a border-width.\n *\n * By default, the way the browser specifies that an element should have no\n * border is by setting it's border-style to `none` in the user-agent\n * stylesheet.\n *\n * In order to easily add borders to elements by just setting the `border-width`\n * property, we change the default border-style for all elements to `solid`, and\n * use border-width to hide them instead. This way our `border` utilities only\n * need to set the `border-width` property instead of the entire `border`\n * shorthand, making our border utilities much more straightforward to compose.\n *\n * https://github.com/tailwindcss/tailwindcss/pull/116\n */\n\n*,\n*::before,\n*::after {\n  border-width: 0;\n  border-style: solid;\n  border-color: #dae1e7;\n}\n\n/**\n * Undo the `border-style: none` reset that Normalize applies to images so that\n * our `border-{width}` utilities have the expected effect.\n *\n * The Normalize reset is unnecessary for us since we default the border-width\n * to 0 on all elements.\n *\n * https://github.com/tailwindcss/tailwindcss/issues/362\n */\n\nimg {\n  border-style: solid;\n}\n\n/**\n * Temporary reset for a change introduced in Chrome 62 but now reverted.\n *\n * We can remove this when the reversion is in a normal Chrome release.\n */\n\nbutton,\n[type=\"button\"],\n[type=\"reset\"],\n[type=\"submit\"] {\n  border-radius: 0;\n}\n\ntextarea {\n  resize: vertical;\n}\n\nimg {\n  max-width: 100%;\n}\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: inherit;\n}\n\ninput::-webkit-input-placeholder,\ntextarea::-webkit-input-placeholder {\n  color: inherit;\n  opacity: .5;\n}\n\ninput:-ms-input-placeholder,\ntextarea:-ms-input-placeholder {\n  color: inherit;\n  opacity: .5;\n}\n\ninput::placeholder,\ntextarea::placeholder {\n  color: inherit;\n  opacity: .5;\n}\n\nbutton,\n[role=button] {\n  cursor: pointer;\n}\n\n/**\n  * Here you would add any of your custom component classes; stuff that you'd\n  * want loaded *before* the utilities so that the utilities could still\n  * override them.\n  *\n  * Example:\n  * \n  * .btn { ... }\n  * .form-input { ... }\n  *\n  * Or if using a preprocessor:\n  * \n  * @import \"components/buttons\";\n  * @import \"components/forms\";\n  */\n\n/**\n  * This injects all of Tailwind's utility classes, generated based on your\n  * config file.\n  */\n\n.list-reset {\n  list-style: none;\n  padding: 0;\n}\n\n.appearance-none {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n}\n\n.bg-fixed {\n  background-attachment: fixed;\n}\n\n.bg-local {\n  background-attachment: local;\n}\n\n.bg-scroll {\n  background-attachment: scroll;\n}\n\n.bg-transparent {\n  background-color: transparent;\n}\n\n.bg-black {\n  background-color: #22292f;\n}\n\n.bg-grey-darkest {\n  background-color: #3d4852;\n}\n\n.bg-grey-darker {\n  background-color: #606f7b;\n}\n\n.bg-grey-dark {\n  background-color: #8795a1;\n}\n\n.bg-grey {\n  background-color: #b8c2cc;\n}\n\n.bg-grey-light {\n  background-color: #dae1e7;\n}\n\n.bg-grey-lighter {\n  background-color: #f1f5f8;\n}\n\n.bg-grey-lightest {\n  background-color: #f8fafc;\n}\n\n.bg-white {\n  background-color: #fff;\n}\n\n.bg-red-darkest {\n  background-color: #3b0d0c;\n}\n\n.bg-red-darker {\n  background-color: #621b18;\n}\n\n.bg-red-dark {\n  background-color: #cc1f1a;\n}\n\n.bg-red {\n  background-color: #e3342f;\n}\n\n.bg-red-light {\n  background-color: #ef5753;\n}\n\n.bg-red-lighter {\n  background-color: #f9acaa;\n}\n\n.bg-red-lightest {\n  background-color: #fcebea;\n}\n\n.bg-orange-darkest {\n  background-color: #462a16;\n}\n\n.bg-orange-darker {\n  background-color: #613b1f;\n}\n\n.bg-orange-dark {\n  background-color: #de751f;\n}\n\n.bg-orange {\n  background-color: #f6993f;\n}\n\n.bg-orange-light {\n  background-color: #faad63;\n}\n\n.bg-orange-lighter {\n  background-color: #fcd9b6;\n}\n\n.bg-orange-lightest {\n  background-color: #fff5eb;\n}\n\n.bg-yellow-darkest {\n  background-color: #453411;\n}\n\n.bg-yellow-darker {\n  background-color: #684f1d;\n}\n\n.bg-yellow-dark {\n  background-color: #f2d024;\n}\n\n.bg-yellow {\n  background-color: #ffed4a;\n}\n\n.bg-yellow-light {\n  background-color: #fff382;\n}\n\n.bg-yellow-lighter {\n  background-color: #fff9c2;\n}\n\n.bg-yellow-lightest {\n  background-color: #fcfbeb;\n}\n\n.bg-green-darkest {\n  background-color: #0f2f21;\n}\n\n.bg-green-darker {\n  background-color: #1a4731;\n}\n\n.bg-green-dark {\n  background-color: #1f9d55;\n}\n\n.bg-green {\n  background-color: #38c172;\n}\n\n.bg-green-light {\n  background-color: #51d88a;\n}\n\n.bg-green-lighter {\n  background-color: #a2f5bf;\n}\n\n.bg-green-lightest {\n  background-color: #e3fcec;\n}\n\n.bg-teal-darkest {\n  background-color: #0d3331;\n}\n\n.bg-teal-darker {\n  background-color: #20504f;\n}\n\n.bg-teal-dark {\n  background-color: #38a89d;\n}\n\n.bg-teal {\n  background-color: #4dc0b5;\n}\n\n.bg-teal-light {\n  background-color: #64d5ca;\n}\n\n.bg-teal-lighter {\n  background-color: #a0f0ed;\n}\n\n.bg-teal-lightest {\n  background-color: #e8fffe;\n}\n\n.bg-blue-darkest {\n  background-color: #12283a;\n}\n\n.bg-blue-darker {\n  background-color: #1c3d5a;\n}\n\n.bg-blue-dark {\n  background-color: #2779bd;\n}\n\n.bg-blue {\n  background-color: #3490dc;\n}\n\n.bg-blue-light {\n  background-color: #6cb2eb;\n}\n\n.bg-blue-lighter {\n  background-color: #bcdefa;\n}\n\n.bg-blue-lightest {\n  background-color: #eff8ff;\n}\n\n.bg-indigo-darkest {\n  background-color: #191e38;\n}\n\n.bg-indigo-darker {\n  background-color: #2f365f;\n}\n\n.bg-indigo-dark {\n  background-color: #5661b3;\n}\n\n.bg-indigo {\n  background-color: #6574cd;\n}\n\n.bg-indigo-light {\n  background-color: #7886d7;\n}\n\n.bg-indigo-lighter {\n  background-color: #b2b7ff;\n}\n\n.bg-indigo-lightest {\n  background-color: #e6e8ff;\n}\n\n.bg-purple-darkest {\n  background-color: #21183c;\n}\n\n.bg-purple-darker {\n  background-color: #382b5f;\n}\n\n.bg-purple-dark {\n  background-color: #794acf;\n}\n\n.bg-purple {\n  background-color: #9561e2;\n}\n\n.bg-purple-light {\n  background-color: #a779e9;\n}\n\n.bg-purple-lighter {\n  background-color: #d6bbfc;\n}\n\n.bg-purple-lightest {\n  background-color: #f3ebff;\n}\n\n.bg-pink-darkest {\n  background-color: #451225;\n}\n\n.bg-pink-darker {\n  background-color: #6f213f;\n}\n\n.bg-pink-dark {\n  background-color: #eb5286;\n}\n\n.bg-pink {\n  background-color: #f66d9b;\n}\n\n.bg-pink-light {\n  background-color: #fa7ea8;\n}\n\n.bg-pink-lighter {\n  background-color: #ffbbca;\n}\n\n.bg-pink-lightest {\n  background-color: #ffebef;\n}\n\n.hover\\:bg-transparent:hover {\n  background-color: transparent;\n}\n\n.hover\\:bg-black:hover {\n  background-color: #22292f;\n}\n\n.hover\\:bg-grey-darkest:hover {\n  background-color: #3d4852;\n}\n\n.hover\\:bg-grey-darker:hover {\n  background-color: #606f7b;\n}\n\n.hover\\:bg-grey-dark:hover {\n  background-color: #8795a1;\n}\n\n.hover\\:bg-grey:hover {\n  background-color: #b8c2cc;\n}\n\n.hover\\:bg-grey-light:hover {\n  background-color: #dae1e7;\n}\n\n.hover\\:bg-grey-lighter:hover {\n  background-color: #f1f5f8;\n}\n\n.hover\\:bg-grey-lightest:hover {\n  background-color: #f8fafc;\n}\n\n.hover\\:bg-white:hover {\n  background-color: #fff;\n}\n\n.hover\\:bg-red-darkest:hover {\n  background-color: #3b0d0c;\n}\n\n.hover\\:bg-red-darker:hover {\n  background-color: #621b18;\n}\n\n.hover\\:bg-red-dark:hover {\n  background-color: #cc1f1a;\n}\n\n.hover\\:bg-red:hover {\n  background-color: #e3342f;\n}\n\n.hover\\:bg-red-light:hover {\n  background-color: #ef5753;\n}\n\n.hover\\:bg-red-lighter:hover {\n  background-color: #f9acaa;\n}\n\n.hover\\:bg-red-lightest:hover {\n  background-color: #fcebea;\n}\n\n.hover\\:bg-orange-darkest:hover {\n  background-color: #462a16;\n}\n\n.hover\\:bg-orange-darker:hover {\n  background-color: #613b1f;\n}\n\n.hover\\:bg-orange-dark:hover {\n  background-color: #de751f;\n}\n\n.hover\\:bg-orange:hover {\n  background-color: #f6993f;\n}\n\n.hover\\:bg-orange-light:hover {\n  background-color: #faad63;\n}\n\n.hover\\:bg-orange-lighter:hover {\n  background-color: #fcd9b6;\n}\n\n.hover\\:bg-orange-lightest:hover {\n  background-color: #fff5eb;\n}\n\n.hover\\:bg-yellow-darkest:hover {\n  background-color: #453411;\n}\n\n.hover\\:bg-yellow-darker:hover {\n  background-color: #684f1d;\n}\n\n.hover\\:bg-yellow-dark:hover {\n  background-color: #f2d024;\n}\n\n.hover\\:bg-yellow:hover {\n  background-color: #ffed4a;\n}\n\n.hover\\:bg-yellow-light:hover {\n  background-color: #fff382;\n}\n\n.hover\\:bg-yellow-lighter:hover {\n  background-color: #fff9c2;\n}\n\n.hover\\:bg-yellow-lightest:hover {\n  background-color: #fcfbeb;\n}\n\n.hover\\:bg-green-darkest:hover {\n  background-color: #0f2f21;\n}\n\n.hover\\:bg-green-darker:hover {\n  background-color: #1a4731;\n}\n\n.hover\\:bg-green-dark:hover {\n  background-color: #1f9d55;\n}\n\n.hover\\:bg-green:hover {\n  background-color: #38c172;\n}\n\n.hover\\:bg-green-light:hover {\n  background-color: #51d88a;\n}\n\n.hover\\:bg-green-lighter:hover {\n  background-color: #a2f5bf;\n}\n\n.hover\\:bg-green-lightest:hover {\n  background-color: #e3fcec;\n}\n\n.hover\\:bg-teal-darkest:hover {\n  background-color: #0d3331;\n}\n\n.hover\\:bg-teal-darker:hover {\n  background-color: #20504f;\n}\n\n.hover\\:bg-teal-dark:hover {\n  background-color: #38a89d;\n}\n\n.hover\\:bg-teal:hover {\n  background-color: #4dc0b5;\n}\n\n.hover\\:bg-teal-light:hover {\n  background-color: #64d5ca;\n}\n\n.hover\\:bg-teal-lighter:hover {\n  background-color: #a0f0ed;\n}\n\n.hover\\:bg-teal-lightest:hover {\n  background-color: #e8fffe;\n}\n\n.hover\\:bg-blue-darkest:hover {\n  background-color: #12283a;\n}\n\n.hover\\:bg-blue-darker:hover {\n  background-color: #1c3d5a;\n}\n\n.hover\\:bg-blue-dark:hover {\n  background-color: #2779bd;\n}\n\n.hover\\:bg-blue:hover {\n  background-color: #3490dc;\n}\n\n.hover\\:bg-blue-light:hover {\n  background-color: #6cb2eb;\n}\n\n.hover\\:bg-blue-lighter:hover {\n  background-color: #bcdefa;\n}\n\n.hover\\:bg-blue-lightest:hover {\n  background-color: #eff8ff;\n}\n\n.hover\\:bg-indigo-darkest:hover {\n  background-color: #191e38;\n}\n\n.hover\\:bg-indigo-darker:hover {\n  background-color: #2f365f;\n}\n\n.hover\\:bg-indigo-dark:hover {\n  background-color: #5661b3;\n}\n\n.hover\\:bg-indigo:hover {\n  background-color: #6574cd;\n}\n\n.hover\\:bg-indigo-light:hover {\n  background-color: #7886d7;\n}\n\n.hover\\:bg-indigo-lighter:hover {\n  background-color: #b2b7ff;\n}\n\n.hover\\:bg-indigo-lightest:hover {\n  background-color: #e6e8ff;\n}\n\n.hover\\:bg-purple-darkest:hover {\n  background-color: #21183c;\n}\n\n.hover\\:bg-purple-darker:hover {\n  background-color: #382b5f;\n}\n\n.hover\\:bg-purple-dark:hover {\n  background-color: #794acf;\n}\n\n.hover\\:bg-purple:hover {\n  background-color: #9561e2;\n}\n\n.hover\\:bg-purple-light:hover {\n  background-color: #a779e9;\n}\n\n.hover\\:bg-purple-lighter:hover {\n  background-color: #d6bbfc;\n}\n\n.hover\\:bg-purple-lightest:hover {\n  background-color: #f3ebff;\n}\n\n.hover\\:bg-pink-darkest:hover {\n  background-color: #451225;\n}\n\n.hover\\:bg-pink-darker:hover {\n  background-color: #6f213f;\n}\n\n.hover\\:bg-pink-dark:hover {\n  background-color: #eb5286;\n}\n\n.hover\\:bg-pink:hover {\n  background-color: #f66d9b;\n}\n\n.hover\\:bg-pink-light:hover {\n  background-color: #fa7ea8;\n}\n\n.hover\\:bg-pink-lighter:hover {\n  background-color: #ffbbca;\n}\n\n.hover\\:bg-pink-lightest:hover {\n  background-color: #ffebef;\n}\n\n.bg-bottom {\n  background-position: bottom;\n}\n\n.bg-center {\n  background-position: center;\n}\n\n.bg-left {\n  background-position: left;\n}\n\n.bg-left-bottom {\n  background-position: left bottom;\n}\n\n.bg-left-top {\n  background-position: left top;\n}\n\n.bg-right {\n  background-position: right;\n}\n\n.bg-right-bottom {\n  background-position: right bottom;\n}\n\n.bg-right-top {\n  background-position: right top;\n}\n\n.bg-top {\n  background-position: top;\n}\n\n.bg-repeat {\n  background-repeat: repeat;\n}\n\n.bg-no-repeat {\n  background-repeat: no-repeat;\n}\n\n.bg-repeat-x {\n  background-repeat: repeat-x;\n}\n\n.bg-repeat-y {\n  background-repeat: repeat-y;\n}\n\n.bg-auto {\n  background-size: auto;\n}\n\n.bg-cover {\n  background-size: cover;\n}\n\n.bg-contain {\n  background-size: contain;\n}\n\n.border-transparent {\n  border-color: transparent;\n}\n\n.border-black {\n  border-color: #22292f;\n}\n\n.border-grey-darkest {\n  border-color: #3d4852;\n}\n\n.border-grey-darker {\n  border-color: #606f7b;\n}\n\n.border-grey-dark {\n  border-color: #8795a1;\n}\n\n.border-grey {\n  border-color: #b8c2cc;\n}\n\n.border-grey-light {\n  border-color: #dae1e7;\n}\n\n.border-grey-lighter {\n  border-color: #f1f5f8;\n}\n\n.border-grey-lightest {\n  border-color: #f8fafc;\n}\n\n.border-white {\n  border-color: #fff;\n}\n\n.border-red-darkest {\n  border-color: #3b0d0c;\n}\n\n.border-red-darker {\n  border-color: #621b18;\n}\n\n.border-red-dark {\n  border-color: #cc1f1a;\n}\n\n.border-red {\n  border-color: #e3342f;\n}\n\n.border-red-light {\n  border-color: #ef5753;\n}\n\n.border-red-lighter {\n  border-color: #f9acaa;\n}\n\n.border-red-lightest {\n  border-color: #fcebea;\n}\n\n.border-orange-darkest {\n  border-color: #462a16;\n}\n\n.border-orange-darker {\n  border-color: #613b1f;\n}\n\n.border-orange-dark {\n  border-color: #de751f;\n}\n\n.border-orange {\n  border-color: #f6993f;\n}\n\n.border-orange-light {\n  border-color: #faad63;\n}\n\n.border-orange-lighter {\n  border-color: #fcd9b6;\n}\n\n.border-orange-lightest {\n  border-color: #fff5eb;\n}\n\n.border-yellow-darkest {\n  border-color: #453411;\n}\n\n.border-yellow-darker {\n  border-color: #684f1d;\n}\n\n.border-yellow-dark {\n  border-color: #f2d024;\n}\n\n.border-yellow {\n  border-color: #ffed4a;\n}\n\n.border-yellow-light {\n  border-color: #fff382;\n}\n\n.border-yellow-lighter {\n  border-color: #fff9c2;\n}\n\n.border-yellow-lightest {\n  border-color: #fcfbeb;\n}\n\n.border-green-darkest {\n  border-color: #0f2f21;\n}\n\n.border-green-darker {\n  border-color: #1a4731;\n}\n\n.border-green-dark {\n  border-color: #1f9d55;\n}\n\n.border-green {\n  border-color: #38c172;\n}\n\n.border-green-light {\n  border-color: #51d88a;\n}\n\n.border-green-lighter {\n  border-color: #a2f5bf;\n}\n\n.border-green-lightest {\n  border-color: #e3fcec;\n}\n\n.border-teal-darkest {\n  border-color: #0d3331;\n}\n\n.border-teal-darker {\n  border-color: #20504f;\n}\n\n.border-teal-dark {\n  border-color: #38a89d;\n}\n\n.border-teal {\n  border-color: #4dc0b5;\n}\n\n.border-teal-light {\n  border-color: #64d5ca;\n}\n\n.border-teal-lighter {\n  border-color: #a0f0ed;\n}\n\n.border-teal-lightest {\n  border-color: #e8fffe;\n}\n\n.border-blue-darkest {\n  border-color: #12283a;\n}\n\n.border-blue-darker {\n  border-color: #1c3d5a;\n}\n\n.border-blue-dark {\n  border-color: #2779bd;\n}\n\n.border-blue {\n  border-color: #3490dc;\n}\n\n.border-blue-light {\n  border-color: #6cb2eb;\n}\n\n.border-blue-lighter {\n  border-color: #bcdefa;\n}\n\n.border-blue-lightest {\n  border-color: #eff8ff;\n}\n\n.border-indigo-darkest {\n  border-color: #191e38;\n}\n\n.border-indigo-darker {\n  border-color: #2f365f;\n}\n\n.border-indigo-dark {\n  border-color: #5661b3;\n}\n\n.border-indigo {\n  border-color: #6574cd;\n}\n\n.border-indigo-light {\n  border-color: #7886d7;\n}\n\n.border-indigo-lighter {\n  border-color: #b2b7ff;\n}\n\n.border-indigo-lightest {\n  border-color: #e6e8ff;\n}\n\n.border-purple-darkest {\n  border-color: #21183c;\n}\n\n.border-purple-darker {\n  border-color: #382b5f;\n}\n\n.border-purple-dark {\n  border-color: #794acf;\n}\n\n.border-purple {\n  border-color: #9561e2;\n}\n\n.border-purple-light {\n  border-color: #a779e9;\n}\n\n.border-purple-lighter {\n  border-color: #d6bbfc;\n}\n\n.border-purple-lightest {\n  border-color: #f3ebff;\n}\n\n.border-pink-darkest {\n  border-color: #451225;\n}\n\n.border-pink-darker {\n  border-color: #6f213f;\n}\n\n.border-pink-dark {\n  border-color: #eb5286;\n}\n\n.border-pink {\n  border-color: #f66d9b;\n}\n\n.border-pink-light {\n  border-color: #fa7ea8;\n}\n\n.border-pink-lighter {\n  border-color: #ffbbca;\n}\n\n.border-pink-lightest {\n  border-color: #ffebef;\n}\n\n.hover\\:border-transparent:hover {\n  border-color: transparent;\n}\n\n.hover\\:border-black:hover {\n  border-color: #22292f;\n}\n\n.hover\\:border-grey-darkest:hover {\n  border-color: #3d4852;\n}\n\n.hover\\:border-grey-darker:hover {\n  border-color: #606f7b;\n}\n\n.hover\\:border-grey-dark:hover {\n  border-color: #8795a1;\n}\n\n.hover\\:border-grey:hover {\n  border-color: #b8c2cc;\n}\n\n.hover\\:border-grey-light:hover {\n  border-color: #dae1e7;\n}\n\n.hover\\:border-grey-lighter:hover {\n  border-color: #f1f5f8;\n}\n\n.hover\\:border-grey-lightest:hover {\n  border-color: #f8fafc;\n}\n\n.hover\\:border-white:hover {\n  border-color: #fff;\n}\n\n.hover\\:border-red-darkest:hover {\n  border-color: #3b0d0c;\n}\n\n.hover\\:border-red-darker:hover {\n  border-color: #621b18;\n}\n\n.hover\\:border-red-dark:hover {\n  border-color: #cc1f1a;\n}\n\n.hover\\:border-red:hover {\n  border-color: #e3342f;\n}\n\n.hover\\:border-red-light:hover {\n  border-color: #ef5753;\n}\n\n.hover\\:border-red-lighter:hover {\n  border-color: #f9acaa;\n}\n\n.hover\\:border-red-lightest:hover {\n  border-color: #fcebea;\n}\n\n.hover\\:border-orange-darkest:hover {\n  border-color: #462a16;\n}\n\n.hover\\:border-orange-darker:hover {\n  border-color: #613b1f;\n}\n\n.hover\\:border-orange-dark:hover {\n  border-color: #de751f;\n}\n\n.hover\\:border-orange:hover {\n  border-color: #f6993f;\n}\n\n.hover\\:border-orange-light:hover {\n  border-color: #faad63;\n}\n\n.hover\\:border-orange-lighter:hover {\n  border-color: #fcd9b6;\n}\n\n.hover\\:border-orange-lightest:hover {\n  border-color: #fff5eb;\n}\n\n.hover\\:border-yellow-darkest:hover {\n  border-color: #453411;\n}\n\n.hover\\:border-yellow-darker:hover {\n  border-color: #684f1d;\n}\n\n.hover\\:border-yellow-dark:hover {\n  border-color: #f2d024;\n}\n\n.hover\\:border-yellow:hover {\n  border-color: #ffed4a;\n}\n\n.hover\\:border-yellow-light:hover {\n  border-color: #fff382;\n}\n\n.hover\\:border-yellow-lighter:hover {\n  border-color: #fff9c2;\n}\n\n.hover\\:border-yellow-lightest:hover {\n  border-color: #fcfbeb;\n}\n\n.hover\\:border-green-darkest:hover {\n  border-color: #0f2f21;\n}\n\n.hover\\:border-green-darker:hover {\n  border-color: #1a4731;\n}\n\n.hover\\:border-green-dark:hover {\n  border-color: #1f9d55;\n}\n\n.hover\\:border-green:hover {\n  border-color: #38c172;\n}\n\n.hover\\:border-green-light:hover {\n  border-color: #51d88a;\n}\n\n.hover\\:border-green-lighter:hover {\n  border-color: #a2f5bf;\n}\n\n.hover\\:border-green-lightest:hover {\n  border-color: #e3fcec;\n}\n\n.hover\\:border-teal-darkest:hover {\n  border-color: #0d3331;\n}\n\n.hover\\:border-teal-darker:hover {\n  border-color: #20504f;\n}\n\n.hover\\:border-teal-dark:hover {\n  border-color: #38a89d;\n}\n\n.hover\\:border-teal:hover {\n  border-color: #4dc0b5;\n}\n\n.hover\\:border-teal-light:hover {\n  border-color: #64d5ca;\n}\n\n.hover\\:border-teal-lighter:hover {\n  border-color: #a0f0ed;\n}\n\n.hover\\:border-teal-lightest:hover {\n  border-color: #e8fffe;\n}\n\n.hover\\:border-blue-darkest:hover {\n  border-color: #12283a;\n}\n\n.hover\\:border-blue-darker:hover {\n  border-color: #1c3d5a;\n}\n\n.hover\\:border-blue-dark:hover {\n  border-color: #2779bd;\n}\n\n.hover\\:border-blue:hover {\n  border-color: #3490dc;\n}\n\n.hover\\:border-blue-light:hover {\n  border-color: #6cb2eb;\n}\n\n.hover\\:border-blue-lighter:hover {\n  border-color: #bcdefa;\n}\n\n.hover\\:border-blue-lightest:hover {\n  border-color: #eff8ff;\n}\n\n.hover\\:border-indigo-darkest:hover {\n  border-color: #191e38;\n}\n\n.hover\\:border-indigo-darker:hover {\n  border-color: #2f365f;\n}\n\n.hover\\:border-indigo-dark:hover {\n  border-color: #5661b3;\n}\n\n.hover\\:border-indigo:hover {\n  border-color: #6574cd;\n}\n\n.hover\\:border-indigo-light:hover {\n  border-color: #7886d7;\n}\n\n.hover\\:border-indigo-lighter:hover {\n  border-color: #b2b7ff;\n}\n\n.hover\\:border-indigo-lightest:hover {\n  border-color: #e6e8ff;\n}\n\n.hover\\:border-purple-darkest:hover {\n  border-color: #21183c;\n}\n\n.hover\\:border-purple-darker:hover {\n  border-color: #382b5f;\n}\n\n.hover\\:border-purple-dark:hover {\n  border-color: #794acf;\n}\n\n.hover\\:border-purple:hover {\n  border-color: #9561e2;\n}\n\n.hover\\:border-purple-light:hover {\n  border-color: #a779e9;\n}\n\n.hover\\:border-purple-lighter:hover {\n  border-color: #d6bbfc;\n}\n\n.hover\\:border-purple-lightest:hover {\n  border-color: #f3ebff;\n}\n\n.hover\\:border-pink-darkest:hover {\n  border-color: #451225;\n}\n\n.hover\\:border-pink-darker:hover {\n  border-color: #6f213f;\n}\n\n.hover\\:border-pink-dark:hover {\n  border-color: #eb5286;\n}\n\n.hover\\:border-pink:hover {\n  border-color: #f66d9b;\n}\n\n.hover\\:border-pink-light:hover {\n  border-color: #fa7ea8;\n}\n\n.hover\\:border-pink-lighter:hover {\n  border-color: #ffbbca;\n}\n\n.hover\\:border-pink-lightest:hover {\n  border-color: #ffebef;\n}\n\n.rounded-none {\n  border-radius: 0;\n}\n\n.rounded-sm {\n  border-radius: .125rem;\n}\n\n.rounded {\n  border-radius: .25rem;\n}\n\n.rounded-lg {\n  border-radius: .5rem;\n}\n\n.rounded-full {\n  border-radius: 9999px;\n}\n\n.rounded-t-none {\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}\n\n.rounded-r-none {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0;\n}\n\n.rounded-b-none {\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n}\n\n.rounded-l-none {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n\n.rounded-t-sm {\n  border-top-left-radius: .125rem;\n  border-top-right-radius: .125rem;\n}\n\n.rounded-r-sm {\n  border-top-right-radius: .125rem;\n  border-bottom-right-radius: .125rem;\n}\n\n.rounded-b-sm {\n  border-bottom-right-radius: .125rem;\n  border-bottom-left-radius: .125rem;\n}\n\n.rounded-l-sm {\n  border-top-left-radius: .125rem;\n  border-bottom-left-radius: .125rem;\n}\n\n.rounded-t {\n  border-top-left-radius: .25rem;\n  border-top-right-radius: .25rem;\n}\n\n.rounded-r {\n  border-top-right-radius: .25rem;\n  border-bottom-right-radius: .25rem;\n}\n\n.rounded-b {\n  border-bottom-right-radius: .25rem;\n  border-bottom-left-radius: .25rem;\n}\n\n.rounded-l {\n  border-top-left-radius: .25rem;\n  border-bottom-left-radius: .25rem;\n}\n\n.rounded-t-lg {\n  border-top-left-radius: .5rem;\n  border-top-right-radius: .5rem;\n}\n\n.rounded-r-lg {\n  border-top-right-radius: .5rem;\n  border-bottom-right-radius: .5rem;\n}\n\n.rounded-b-lg {\n  border-bottom-right-radius: .5rem;\n  border-bottom-left-radius: .5rem;\n}\n\n.rounded-l-lg {\n  border-top-left-radius: .5rem;\n  border-bottom-left-radius: .5rem;\n}\n\n.rounded-t-full {\n  border-top-left-radius: 9999px;\n  border-top-right-radius: 9999px;\n}\n\n.rounded-r-full {\n  border-top-right-radius: 9999px;\n  border-bottom-right-radius: 9999px;\n}\n\n.rounded-b-full {\n  border-bottom-right-radius: 9999px;\n  border-bottom-left-radius: 9999px;\n}\n\n.rounded-l-full {\n  border-top-left-radius: 9999px;\n  border-bottom-left-radius: 9999px;\n}\n\n.rounded-tl-none {\n  border-top-left-radius: 0;\n}\n\n.rounded-tr-none {\n  border-top-right-radius: 0;\n}\n\n.rounded-br-none {\n  border-bottom-right-radius: 0;\n}\n\n.rounded-bl-none {\n  border-bottom-left-radius: 0;\n}\n\n.rounded-tl-sm {\n  border-top-left-radius: .125rem;\n}\n\n.rounded-tr-sm {\n  border-top-right-radius: .125rem;\n}\n\n.rounded-br-sm {\n  border-bottom-right-radius: .125rem;\n}\n\n.rounded-bl-sm {\n  border-bottom-left-radius: .125rem;\n}\n\n.rounded-tl {\n  border-top-left-radius: .25rem;\n}\n\n.rounded-tr {\n  border-top-right-radius: .25rem;\n}\n\n.rounded-br {\n  border-bottom-right-radius: .25rem;\n}\n\n.rounded-bl {\n  border-bottom-left-radius: .25rem;\n}\n\n.rounded-tl-lg {\n  border-top-left-radius: .5rem;\n}\n\n.rounded-tr-lg {\n  border-top-right-radius: .5rem;\n}\n\n.rounded-br-lg {\n  border-bottom-right-radius: .5rem;\n}\n\n.rounded-bl-lg {\n  border-bottom-left-radius: .5rem;\n}\n\n.rounded-tl-full {\n  border-top-left-radius: 9999px;\n}\n\n.rounded-tr-full {\n  border-top-right-radius: 9999px;\n}\n\n.rounded-br-full {\n  border-bottom-right-radius: 9999px;\n}\n\n.rounded-bl-full {\n  border-bottom-left-radius: 9999px;\n}\n\n.border-solid {\n  border-style: solid;\n}\n\n.border-dashed {\n  border-style: dashed;\n}\n\n.border-dotted {\n  border-style: dotted;\n}\n\n.border-none {\n  border-style: none;\n}\n\n.border-0 {\n  border-width: 0;\n}\n\n.border-2 {\n  border-width: 2px;\n}\n\n.border-4 {\n  border-width: 4px;\n}\n\n.border-8 {\n  border-width: 8px;\n}\n\n.border {\n  border-width: 1px;\n}\n\n.border-t-0 {\n  border-top-width: 0;\n}\n\n.border-r-0 {\n  border-right-width: 0;\n}\n\n.border-b-0 {\n  border-bottom-width: 0;\n}\n\n.border-l-0 {\n  border-left-width: 0;\n}\n\n.border-t-2 {\n  border-top-width: 2px;\n}\n\n.border-r-2 {\n  border-right-width: 2px;\n}\n\n.border-b-2 {\n  border-bottom-width: 2px;\n}\n\n.border-l-2 {\n  border-left-width: 2px;\n}\n\n.border-t-4 {\n  border-top-width: 4px;\n}\n\n.border-r-4 {\n  border-right-width: 4px;\n}\n\n.border-b-4 {\n  border-bottom-width: 4px;\n}\n\n.border-l-4 {\n  border-left-width: 4px;\n}\n\n.border-t-8 {\n  border-top-width: 8px;\n}\n\n.border-r-8 {\n  border-right-width: 8px;\n}\n\n.border-b-8 {\n  border-bottom-width: 8px;\n}\n\n.border-l-8 {\n  border-left-width: 8px;\n}\n\n.border-t {\n  border-top-width: 1px;\n}\n\n.border-r {\n  border-right-width: 1px;\n}\n\n.border-b {\n  border-bottom-width: 1px;\n}\n\n.border-l {\n  border-left-width: 1px;\n}\n\n.cursor-auto {\n  cursor: auto;\n}\n\n.cursor-default {\n  cursor: default;\n}\n\n.cursor-pointer {\n  cursor: pointer;\n}\n\n.cursor-wait {\n  cursor: wait;\n}\n\n.cursor-move {\n  cursor: move;\n}\n\n.cursor-not-allowed {\n  cursor: not-allowed;\n}\n\n.block {\n  display: block;\n}\n\n.inline-block {\n  display: inline-block;\n}\n\n.inline {\n  display: inline;\n}\n\n.table {\n  display: table;\n}\n\n.table-row {\n  display: table-row;\n}\n\n.table-cell {\n  display: table-cell;\n}\n\n.hidden {\n  display: none;\n}\n\n.flex {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\n.inline-flex {\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n}\n\n.flex-row {\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n}\n\n.flex-row-reverse {\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: reverse;\n      -ms-flex-direction: row-reverse;\n          flex-direction: row-reverse;\n}\n\n.flex-col {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n\n.flex-col-reverse {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: reverse;\n      -ms-flex-direction: column-reverse;\n          flex-direction: column-reverse;\n}\n\n.flex-wrap {\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n\n.flex-wrap-reverse {\n  -ms-flex-wrap: wrap-reverse;\n      flex-wrap: wrap-reverse;\n}\n\n.flex-no-wrap {\n  -ms-flex-wrap: nowrap;\n      flex-wrap: nowrap;\n}\n\n.items-start {\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n}\n\n.items-end {\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n}\n\n.items-center {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.items-baseline {\n  -webkit-box-align: baseline;\n      -ms-flex-align: baseline;\n          align-items: baseline;\n}\n\n.items-stretch {\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n}\n\n.self-auto {\n  -ms-flex-item-align: auto;\n      -ms-grid-row-align: auto;\n      align-self: auto;\n}\n\n.self-start {\n  -ms-flex-item-align: start;\n      align-self: flex-start;\n}\n\n.self-end {\n  -ms-flex-item-align: end;\n      align-self: flex-end;\n}\n\n.self-center {\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center;\n}\n\n.self-stretch {\n  -ms-flex-item-align: stretch;\n      -ms-grid-row-align: stretch;\n      align-self: stretch;\n}\n\n.justify-start {\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n\n.justify-end {\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n}\n\n.justify-center {\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.justify-between {\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.justify-around {\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.content-center {\n  -ms-flex-line-pack: center;\n      align-content: center;\n}\n\n.content-start {\n  -ms-flex-line-pack: start;\n      align-content: flex-start;\n}\n\n.content-end {\n  -ms-flex-line-pack: end;\n      align-content: flex-end;\n}\n\n.content-between {\n  -ms-flex-line-pack: justify;\n      align-content: space-between;\n}\n\n.content-around {\n  -ms-flex-line-pack: distribute;\n      align-content: space-around;\n}\n\n.flex-1 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n}\n\n.flex-auto {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n}\n\n.flex-initial {\n  -webkit-box-flex: initial;\n      -ms-flex: initial;\n          flex: initial;\n}\n\n.flex-none {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n}\n\n.flex-grow {\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n\n.flex-shrink {\n  -ms-flex-negative: 1;\n      flex-shrink: 1;\n}\n\n.flex-no-grow {\n  -webkit-box-flex: 0;\n      -ms-flex-positive: 0;\n          flex-grow: 0;\n}\n\n.flex-no-shrink {\n  -ms-flex-negative: 0;\n      flex-shrink: 0;\n}\n\n.float-right {\n  float: right;\n}\n\n.float-left {\n  float: left;\n}\n\n.float-none {\n  float: none;\n}\n\n.clearfix:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.font-sans {\n  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;\n}\n\n.font-serif {\n  font-family: Constantia, Lucida Bright, Lucidabright, Lucida Serif, Lucida, DejaVu Serif, Bitstream Vera Serif, Liberation Serif, Georgia, serif;\n}\n\n.font-mono {\n  font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;\n}\n\n.font-hairline {\n  font-weight: 100;\n}\n\n.font-thin {\n  font-weight: 200;\n}\n\n.font-light {\n  font-weight: 300;\n}\n\n.font-normal {\n  font-weight: 400;\n}\n\n.font-medium {\n  font-weight: 500;\n}\n\n.font-semibold {\n  font-weight: 600;\n}\n\n.font-bold {\n  font-weight: 700;\n}\n\n.font-extrabold {\n  font-weight: 800;\n}\n\n.font-black {\n  font-weight: 900;\n}\n\n.hover\\:font-hairline:hover {\n  font-weight: 100;\n}\n\n.hover\\:font-thin:hover {\n  font-weight: 200;\n}\n\n.hover\\:font-light:hover {\n  font-weight: 300;\n}\n\n.hover\\:font-normal:hover {\n  font-weight: 400;\n}\n\n.hover\\:font-medium:hover {\n  font-weight: 500;\n}\n\n.hover\\:font-semibold:hover {\n  font-weight: 600;\n}\n\n.hover\\:font-bold:hover {\n  font-weight: 700;\n}\n\n.hover\\:font-extrabold:hover {\n  font-weight: 800;\n}\n\n.hover\\:font-black:hover {\n  font-weight: 900;\n}\n\n.h-1 {\n  height: .25rem;\n}\n\n.h-2 {\n  height: .5rem;\n}\n\n.h-3 {\n  height: .75rem;\n}\n\n.h-4 {\n  height: 1rem;\n}\n\n.h-6 {\n  height: 1.5rem;\n}\n\n.h-8 {\n  height: 2rem;\n}\n\n.h-10 {\n  height: 2.5rem;\n}\n\n.h-12 {\n  height: 3rem;\n}\n\n.h-16 {\n  height: 4rem;\n}\n\n.h-24 {\n  height: 6rem;\n}\n\n.h-32 {\n  height: 8rem;\n}\n\n.h-48 {\n  height: 12rem;\n}\n\n.h-64 {\n  height: 16rem;\n}\n\n.h-auto {\n  height: auto;\n}\n\n.h-px {\n  height: 1px;\n}\n\n.h-full {\n  height: 100%;\n}\n\n.h-screen {\n  height: 100vh;\n}\n\n.leading-none {\n  line-height: 1;\n}\n\n.leading-tight {\n  line-height: 1.25;\n}\n\n.leading-normal {\n  line-height: 1.5;\n}\n\n.leading-loose {\n  line-height: 2;\n}\n\n.m-0 {\n  margin: 0;\n}\n\n.m-1 {\n  margin: .25rem;\n}\n\n.m-2 {\n  margin: .5rem;\n}\n\n.m-3 {\n  margin: .75rem;\n}\n\n.m-4 {\n  margin: 1rem;\n}\n\n.m-6 {\n  margin: 1.5rem;\n}\n\n.m-8 {\n  margin: 2rem;\n}\n\n.m-auto {\n  margin: auto;\n}\n\n.m-px {\n  margin: 1px;\n}\n\n.my-0 {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.mx-0 {\n  margin-left: 0;\n  margin-right: 0;\n}\n\n.my-1 {\n  margin-top: .25rem;\n  margin-bottom: .25rem;\n}\n\n.mx-1 {\n  margin-left: .25rem;\n  margin-right: .25rem;\n}\n\n.my-2 {\n  margin-top: .5rem;\n  margin-bottom: .5rem;\n}\n\n.mx-2 {\n  margin-left: .5rem;\n  margin-right: .5rem;\n}\n\n.my-3 {\n  margin-top: .75rem;\n  margin-bottom: .75rem;\n}\n\n.mx-3 {\n  margin-left: .75rem;\n  margin-right: .75rem;\n}\n\n.my-4 {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.mx-4 {\n  margin-left: 1rem;\n  margin-right: 1rem;\n}\n\n.my-6 {\n  margin-top: 1.5rem;\n  margin-bottom: 1.5rem;\n}\n\n.mx-6 {\n  margin-left: 1.5rem;\n  margin-right: 1.5rem;\n}\n\n.my-8 {\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.mx-8 {\n  margin-left: 2rem;\n  margin-right: 2rem;\n}\n\n.my-auto {\n  margin-top: auto;\n  margin-bottom: auto;\n}\n\n.mx-auto {\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.my-px {\n  margin-top: 1px;\n  margin-bottom: 1px;\n}\n\n.mx-px {\n  margin-left: 1px;\n  margin-right: 1px;\n}\n\n.mt-0 {\n  margin-top: 0;\n}\n\n.mr-0 {\n  margin-right: 0;\n}\n\n.mb-0 {\n  margin-bottom: 0;\n}\n\n.ml-0 {\n  margin-left: 0;\n}\n\n.mt-1 {\n  margin-top: .25rem;\n}\n\n.mr-1 {\n  margin-right: .25rem;\n}\n\n.mb-1 {\n  margin-bottom: .25rem;\n}\n\n.ml-1 {\n  margin-left: .25rem;\n}\n\n.mt-2 {\n  margin-top: .5rem;\n}\n\n.mr-2 {\n  margin-right: .5rem;\n}\n\n.mb-2 {\n  margin-bottom: .5rem;\n}\n\n.ml-2 {\n  margin-left: .5rem;\n}\n\n.mt-3 {\n  margin-top: .75rem;\n}\n\n.mr-3 {\n  margin-right: .75rem;\n}\n\n.mb-3 {\n  margin-bottom: .75rem;\n}\n\n.ml-3 {\n  margin-left: .75rem;\n}\n\n.mt-4 {\n  margin-top: 1rem;\n}\n\n.mr-4 {\n  margin-right: 1rem;\n}\n\n.mb-4 {\n  margin-bottom: 1rem;\n}\n\n.ml-4 {\n  margin-left: 1rem;\n}\n\n.mt-6 {\n  margin-top: 1.5rem;\n}\n\n.mr-6 {\n  margin-right: 1.5rem;\n}\n\n.mb-6 {\n  margin-bottom: 1.5rem;\n}\n\n.ml-6 {\n  margin-left: 1.5rem;\n}\n\n.mt-8 {\n  margin-top: 2rem;\n}\n\n.mr-8 {\n  margin-right: 2rem;\n}\n\n.mb-8 {\n  margin-bottom: 2rem;\n}\n\n.ml-8 {\n  margin-left: 2rem;\n}\n\n.mt-auto {\n  margin-top: auto;\n}\n\n.mr-auto {\n  margin-right: auto;\n}\n\n.mb-auto {\n  margin-bottom: auto;\n}\n\n.ml-auto {\n  margin-left: auto;\n}\n\n.mt-px {\n  margin-top: 1px;\n}\n\n.mr-px {\n  margin-right: 1px;\n}\n\n.mb-px {\n  margin-bottom: 1px;\n}\n\n.ml-px {\n  margin-left: 1px;\n}\n\n.max-h-full {\n  max-height: 100%;\n}\n\n.max-h-screen {\n  max-height: 100vh;\n}\n\n.max-w-xs {\n  max-width: 20rem;\n}\n\n.max-w-sm {\n  max-width: 30rem;\n}\n\n.max-w-md {\n  max-width: 40rem;\n}\n\n.max-w-lg {\n  max-width: 50rem;\n}\n\n.max-w-xl {\n  max-width: 60rem;\n}\n\n.max-w-2xl {\n  max-width: 70rem;\n}\n\n.max-w-3xl {\n  max-width: 80rem;\n}\n\n.max-w-4xl {\n  max-width: 90rem;\n}\n\n.max-w-5xl {\n  max-width: 100rem;\n}\n\n.max-w-full {\n  max-width: 100%;\n}\n\n.min-h-0 {\n  min-height: 0;\n}\n\n.min-h-full {\n  min-height: 100%;\n}\n\n.min-h-screen {\n  min-height: 100vh;\n}\n\n.min-w-0 {\n  min-width: 0;\n}\n\n.min-w-full {\n  min-width: 100%;\n}\n\n.-m-0 {\n  margin: 0;\n}\n\n.-m-1 {\n  margin: -0.25rem;\n}\n\n.-m-2 {\n  margin: -0.5rem;\n}\n\n.-m-3 {\n  margin: -0.75rem;\n}\n\n.-m-4 {\n  margin: -1rem;\n}\n\n.-m-6 {\n  margin: -1.5rem;\n}\n\n.-m-8 {\n  margin: -2rem;\n}\n\n.-m-px {\n  margin: -1px;\n}\n\n.-my-0 {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.-mx-0 {\n  margin-left: 0;\n  margin-right: 0;\n}\n\n.-my-1 {\n  margin-top: -0.25rem;\n  margin-bottom: -0.25rem;\n}\n\n.-mx-1 {\n  margin-left: -0.25rem;\n  margin-right: -0.25rem;\n}\n\n.-my-2 {\n  margin-top: -0.5rem;\n  margin-bottom: -0.5rem;\n}\n\n.-mx-2 {\n  margin-left: -0.5rem;\n  margin-right: -0.5rem;\n}\n\n.-my-3 {\n  margin-top: -0.75rem;\n  margin-bottom: -0.75rem;\n}\n\n.-mx-3 {\n  margin-left: -0.75rem;\n  margin-right: -0.75rem;\n}\n\n.-my-4 {\n  margin-top: -1rem;\n  margin-bottom: -1rem;\n}\n\n.-mx-4 {\n  margin-left: -1rem;\n  margin-right: -1rem;\n}\n\n.-my-6 {\n  margin-top: -1.5rem;\n  margin-bottom: -1.5rem;\n}\n\n.-mx-6 {\n  margin-left: -1.5rem;\n  margin-right: -1.5rem;\n}\n\n.-my-8 {\n  margin-top: -2rem;\n  margin-bottom: -2rem;\n}\n\n.-mx-8 {\n  margin-left: -2rem;\n  margin-right: -2rem;\n}\n\n.-my-px {\n  margin-top: -1px;\n  margin-bottom: -1px;\n}\n\n.-mx-px {\n  margin-left: -1px;\n  margin-right: -1px;\n}\n\n.-mt-0 {\n  margin-top: 0;\n}\n\n.-mr-0 {\n  margin-right: 0;\n}\n\n.-mb-0 {\n  margin-bottom: 0;\n}\n\n.-ml-0 {\n  margin-left: 0;\n}\n\n.-mt-1 {\n  margin-top: -0.25rem;\n}\n\n.-mr-1 {\n  margin-right: -0.25rem;\n}\n\n.-mb-1 {\n  margin-bottom: -0.25rem;\n}\n\n.-ml-1 {\n  margin-left: -0.25rem;\n}\n\n.-mt-2 {\n  margin-top: -0.5rem;\n}\n\n.-mr-2 {\n  margin-right: -0.5rem;\n}\n\n.-mb-2 {\n  margin-bottom: -0.5rem;\n}\n\n.-ml-2 {\n  margin-left: -0.5rem;\n}\n\n.-mt-3 {\n  margin-top: -0.75rem;\n}\n\n.-mr-3 {\n  margin-right: -0.75rem;\n}\n\n.-mb-3 {\n  margin-bottom: -0.75rem;\n}\n\n.-ml-3 {\n  margin-left: -0.75rem;\n}\n\n.-mt-4 {\n  margin-top: -1rem;\n}\n\n.-mr-4 {\n  margin-right: -1rem;\n}\n\n.-mb-4 {\n  margin-bottom: -1rem;\n}\n\n.-ml-4 {\n  margin-left: -1rem;\n}\n\n.-mt-6 {\n  margin-top: -1.5rem;\n}\n\n.-mr-6 {\n  margin-right: -1.5rem;\n}\n\n.-mb-6 {\n  margin-bottom: -1.5rem;\n}\n\n.-ml-6 {\n  margin-left: -1.5rem;\n}\n\n.-mt-8 {\n  margin-top: -2rem;\n}\n\n.-mr-8 {\n  margin-right: -2rem;\n}\n\n.-mb-8 {\n  margin-bottom: -2rem;\n}\n\n.-ml-8 {\n  margin-left: -2rem;\n}\n\n.-mt-px {\n  margin-top: -1px;\n}\n\n.-mr-px {\n  margin-right: -1px;\n}\n\n.-mb-px {\n  margin-bottom: -1px;\n}\n\n.-ml-px {\n  margin-left: -1px;\n}\n\n.opacity-0 {\n  opacity: 0;\n}\n\n.opacity-25 {\n  opacity: .25;\n}\n\n.opacity-50 {\n  opacity: .5;\n}\n\n.opacity-75 {\n  opacity: .75;\n}\n\n.opacity-100 {\n  opacity: 1;\n}\n\n.overflow-auto {\n  overflow: auto;\n}\n\n.overflow-hidden {\n  overflow: hidden;\n}\n\n.overflow-visible {\n  overflow: visible;\n}\n\n.overflow-scroll {\n  overflow: scroll;\n}\n\n.overflow-x-auto {\n  overflow-x: auto;\n}\n\n.overflow-y-auto {\n  overflow-y: auto;\n}\n\n.overflow-x-scroll {\n  overflow-x: scroll;\n}\n\n.overflow-y-scroll {\n  overflow-y: scroll;\n}\n\n.scrolling-touch {\n  -webkit-overflow-scrolling: touch;\n}\n\n.scrolling-auto {\n  -webkit-overflow-scrolling: auto;\n}\n\n.p-0 {\n  padding: 0;\n}\n\n.p-1 {\n  padding: .25rem;\n}\n\n.p-2 {\n  padding: .5rem;\n}\n\n.p-3 {\n  padding: .75rem;\n}\n\n.p-4 {\n  padding: 1rem;\n}\n\n.p-6 {\n  padding: 1.5rem;\n}\n\n.p-8 {\n  padding: 2rem;\n}\n\n.p-px {\n  padding: 1px;\n}\n\n.py-0 {\n  padding-top: 0;\n  padding-bottom: 0;\n}\n\n.px-0 {\n  padding-left: 0;\n  padding-right: 0;\n}\n\n.py-1 {\n  padding-top: .25rem;\n  padding-bottom: .25rem;\n}\n\n.px-1 {\n  padding-left: .25rem;\n  padding-right: .25rem;\n}\n\n.py-2 {\n  padding-top: .5rem;\n  padding-bottom: .5rem;\n}\n\n.px-2 {\n  padding-left: .5rem;\n  padding-right: .5rem;\n}\n\n.py-3 {\n  padding-top: .75rem;\n  padding-bottom: .75rem;\n}\n\n.px-3 {\n  padding-left: .75rem;\n  padding-right: .75rem;\n}\n\n.py-4 {\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n\n.px-4 {\n  padding-left: 1rem;\n  padding-right: 1rem;\n}\n\n.py-6 {\n  padding-top: 1.5rem;\n  padding-bottom: 1.5rem;\n}\n\n.px-6 {\n  padding-left: 1.5rem;\n  padding-right: 1.5rem;\n}\n\n.py-8 {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n\n.px-8 {\n  padding-left: 2rem;\n  padding-right: 2rem;\n}\n\n.py-px {\n  padding-top: 1px;\n  padding-bottom: 1px;\n}\n\n.px-px {\n  padding-left: 1px;\n  padding-right: 1px;\n}\n\n.pt-0 {\n  padding-top: 0;\n}\n\n.pr-0 {\n  padding-right: 0;\n}\n\n.pb-0 {\n  padding-bottom: 0;\n}\n\n.pl-0 {\n  padding-left: 0;\n}\n\n.pt-1 {\n  padding-top: .25rem;\n}\n\n.pr-1 {\n  padding-right: .25rem;\n}\n\n.pb-1 {\n  padding-bottom: .25rem;\n}\n\n.pl-1 {\n  padding-left: .25rem;\n}\n\n.pt-2 {\n  padding-top: .5rem;\n}\n\n.pr-2 {\n  padding-right: .5rem;\n}\n\n.pb-2 {\n  padding-bottom: .5rem;\n}\n\n.pl-2 {\n  padding-left: .5rem;\n}\n\n.pt-3 {\n  padding-top: .75rem;\n}\n\n.pr-3 {\n  padding-right: .75rem;\n}\n\n.pb-3 {\n  padding-bottom: .75rem;\n}\n\n.pl-3 {\n  padding-left: .75rem;\n}\n\n.pt-4 {\n  padding-top: 1rem;\n}\n\n.pr-4 {\n  padding-right: 1rem;\n}\n\n.pb-4 {\n  padding-bottom: 1rem;\n}\n\n.pl-4 {\n  padding-left: 1rem;\n}\n\n.pt-6 {\n  padding-top: 1.5rem;\n}\n\n.pr-6 {\n  padding-right: 1.5rem;\n}\n\n.pb-6 {\n  padding-bottom: 1.5rem;\n}\n\n.pl-6 {\n  padding-left: 1.5rem;\n}\n\n.pt-8 {\n  padding-top: 2rem;\n}\n\n.pr-8 {\n  padding-right: 2rem;\n}\n\n.pb-8 {\n  padding-bottom: 2rem;\n}\n\n.pl-8 {\n  padding-left: 2rem;\n}\n\n.pt-px {\n  padding-top: 1px;\n}\n\n.pr-px {\n  padding-right: 1px;\n}\n\n.pb-px {\n  padding-bottom: 1px;\n}\n\n.pl-px {\n  padding-left: 1px;\n}\n\n.pointer-events-none {\n  pointer-events: none;\n}\n\n.pointer-events-auto {\n  pointer-events: auto;\n}\n\n.static {\n  position: static;\n}\n\n.fixed {\n  position: fixed;\n}\n\n.absolute {\n  position: absolute;\n}\n\n.relative {\n  position: relative;\n}\n\n.sticky {\n  position: -webkit-sticky;\n  position: sticky;\n}\n\n.pin-none {\n  top: auto;\n  right: auto;\n  bottom: auto;\n  left: auto;\n}\n\n.pin {\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n\n.pin-y {\n  top: 0;\n  bottom: 0;\n}\n\n.pin-x {\n  right: 0;\n  left: 0;\n}\n\n.pin-t {\n  top: 0;\n}\n\n.pin-r {\n  right: 0;\n}\n\n.pin-b {\n  bottom: 0;\n}\n\n.pin-l {\n  left: 0;\n}\n\n.resize-none {\n  resize: none;\n}\n\n.resize-y {\n  resize: vertical;\n}\n\n.resize-x {\n  resize: horizontal;\n}\n\n.resize {\n  resize: both;\n}\n\n.shadow {\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);\n}\n\n.shadow-md {\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);\n}\n\n.shadow-lg {\n  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);\n}\n\n.shadow-inner {\n  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);\n}\n\n.shadow-none {\n  box-shadow: none;\n}\n\n.fill-current {\n  fill: currentColor;\n}\n\n.stroke-current {\n  stroke: currentColor;\n}\n\n.text-left {\n  text-align: left;\n}\n\n.text-center {\n  text-align: center;\n}\n\n.text-right {\n  text-align: right;\n}\n\n.text-justify {\n  text-align: justify;\n}\n\n.text-transparent {\n  color: transparent;\n}\n\n.text-black {\n  color: #22292f;\n}\n\n.text-grey-darkest {\n  color: #3d4852;\n}\n\n.text-grey-darker {\n  color: #606f7b;\n}\n\n.text-grey-dark {\n  color: #8795a1;\n}\n\n.text-grey {\n  color: #b8c2cc;\n}\n\n.text-grey-light {\n  color: #dae1e7;\n}\n\n.text-grey-lighter {\n  color: #f1f5f8;\n}\n\n.text-grey-lightest {\n  color: #f8fafc;\n}\n\n.text-white {\n  color: #fff;\n}\n\n.text-red-darkest {\n  color: #3b0d0c;\n}\n\n.text-red-darker {\n  color: #621b18;\n}\n\n.text-red-dark {\n  color: #cc1f1a;\n}\n\n.text-red {\n  color: #e3342f;\n}\n\n.text-red-light {\n  color: #ef5753;\n}\n\n.text-red-lighter {\n  color: #f9acaa;\n}\n\n.text-red-lightest {\n  color: #fcebea;\n}\n\n.text-orange-darkest {\n  color: #462a16;\n}\n\n.text-orange-darker {\n  color: #613b1f;\n}\n\n.text-orange-dark {\n  color: #de751f;\n}\n\n.text-orange {\n  color: #f6993f;\n}\n\n.text-orange-light {\n  color: #faad63;\n}\n\n.text-orange-lighter {\n  color: #fcd9b6;\n}\n\n.text-orange-lightest {\n  color: #fff5eb;\n}\n\n.text-yellow-darkest {\n  color: #453411;\n}\n\n.text-yellow-darker {\n  color: #684f1d;\n}\n\n.text-yellow-dark {\n  color: #f2d024;\n}\n\n.text-yellow {\n  color: #ffed4a;\n}\n\n.text-yellow-light {\n  color: #fff382;\n}\n\n.text-yellow-lighter {\n  color: #fff9c2;\n}\n\n.text-yellow-lightest {\n  color: #fcfbeb;\n}\n\n.text-green-darkest {\n  color: #0f2f21;\n}\n\n.text-green-darker {\n  color: #1a4731;\n}\n\n.text-green-dark {\n  color: #1f9d55;\n}\n\n.text-green {\n  color: #38c172;\n}\n\n.text-green-light {\n  color: #51d88a;\n}\n\n.text-green-lighter {\n  color: #a2f5bf;\n}\n\n.text-green-lightest {\n  color: #e3fcec;\n}\n\n.text-teal-darkest {\n  color: #0d3331;\n}\n\n.text-teal-darker {\n  color: #20504f;\n}\n\n.text-teal-dark {\n  color: #38a89d;\n}\n\n.text-teal {\n  color: #4dc0b5;\n}\n\n.text-teal-light {\n  color: #64d5ca;\n}\n\n.text-teal-lighter {\n  color: #a0f0ed;\n}\n\n.text-teal-lightest {\n  color: #e8fffe;\n}\n\n.text-blue-darkest {\n  color: #12283a;\n}\n\n.text-blue-darker {\n  color: #1c3d5a;\n}\n\n.text-blue-dark {\n  color: #2779bd;\n}\n\n.text-blue {\n  color: #3490dc;\n}\n\n.text-blue-light {\n  color: #6cb2eb;\n}\n\n.text-blue-lighter {\n  color: #bcdefa;\n}\n\n.text-blue-lightest {\n  color: #eff8ff;\n}\n\n.text-indigo-darkest {\n  color: #191e38;\n}\n\n.text-indigo-darker {\n  color: #2f365f;\n}\n\n.text-indigo-dark {\n  color: #5661b3;\n}\n\n.text-indigo {\n  color: #6574cd;\n}\n\n.text-indigo-light {\n  color: #7886d7;\n}\n\n.text-indigo-lighter {\n  color: #b2b7ff;\n}\n\n.text-indigo-lightest {\n  color: #e6e8ff;\n}\n\n.text-purple-darkest {\n  color: #21183c;\n}\n\n.text-purple-darker {\n  color: #382b5f;\n}\n\n.text-purple-dark {\n  color: #794acf;\n}\n\n.text-purple {\n  color: #9561e2;\n}\n\n.text-purple-light {\n  color: #a779e9;\n}\n\n.text-purple-lighter {\n  color: #d6bbfc;\n}\n\n.text-purple-lightest {\n  color: #f3ebff;\n}\n\n.text-pink-darkest {\n  color: #451225;\n}\n\n.text-pink-darker {\n  color: #6f213f;\n}\n\n.text-pink-dark {\n  color: #eb5286;\n}\n\n.text-pink {\n  color: #f66d9b;\n}\n\n.text-pink-light {\n  color: #fa7ea8;\n}\n\n.text-pink-lighter {\n  color: #ffbbca;\n}\n\n.text-pink-lightest {\n  color: #ffebef;\n}\n\n.hover\\:text-transparent:hover {\n  color: transparent;\n}\n\n.hover\\:text-black:hover {\n  color: #22292f;\n}\n\n.hover\\:text-grey-darkest:hover {\n  color: #3d4852;\n}\n\n.hover\\:text-grey-darker:hover {\n  color: #606f7b;\n}\n\n.hover\\:text-grey-dark:hover {\n  color: #8795a1;\n}\n\n.hover\\:text-grey:hover {\n  color: #b8c2cc;\n}\n\n.hover\\:text-grey-light:hover {\n  color: #dae1e7;\n}\n\n.hover\\:text-grey-lighter:hover {\n  color: #f1f5f8;\n}\n\n.hover\\:text-grey-lightest:hover {\n  color: #f8fafc;\n}\n\n.hover\\:text-white:hover {\n  color: #fff;\n}\n\n.hover\\:text-red-darkest:hover {\n  color: #3b0d0c;\n}\n\n.hover\\:text-red-darker:hover {\n  color: #621b18;\n}\n\n.hover\\:text-red-dark:hover {\n  color: #cc1f1a;\n}\n\n.hover\\:text-red:hover {\n  color: #e3342f;\n}\n\n.hover\\:text-red-light:hover {\n  color: #ef5753;\n}\n\n.hover\\:text-red-lighter:hover {\n  color: #f9acaa;\n}\n\n.hover\\:text-red-lightest:hover {\n  color: #fcebea;\n}\n\n.hover\\:text-orange-darkest:hover {\n  color: #462a16;\n}\n\n.hover\\:text-orange-darker:hover {\n  color: #613b1f;\n}\n\n.hover\\:text-orange-dark:hover {\n  color: #de751f;\n}\n\n.hover\\:text-orange:hover {\n  color: #f6993f;\n}\n\n.hover\\:text-orange-light:hover {\n  color: #faad63;\n}\n\n.hover\\:text-orange-lighter:hover {\n  color: #fcd9b6;\n}\n\n.hover\\:text-orange-lightest:hover {\n  color: #fff5eb;\n}\n\n.hover\\:text-yellow-darkest:hover {\n  color: #453411;\n}\n\n.hover\\:text-yellow-darker:hover {\n  color: #684f1d;\n}\n\n.hover\\:text-yellow-dark:hover {\n  color: #f2d024;\n}\n\n.hover\\:text-yellow:hover {\n  color: #ffed4a;\n}\n\n.hover\\:text-yellow-light:hover {\n  color: #fff382;\n}\n\n.hover\\:text-yellow-lighter:hover {\n  color: #fff9c2;\n}\n\n.hover\\:text-yellow-lightest:hover {\n  color: #fcfbeb;\n}\n\n.hover\\:text-green-darkest:hover {\n  color: #0f2f21;\n}\n\n.hover\\:text-green-darker:hover {\n  color: #1a4731;\n}\n\n.hover\\:text-green-dark:hover {\n  color: #1f9d55;\n}\n\n.hover\\:text-green:hover {\n  color: #38c172;\n}\n\n.hover\\:text-green-light:hover {\n  color: #51d88a;\n}\n\n.hover\\:text-green-lighter:hover {\n  color: #a2f5bf;\n}\n\n.hover\\:text-green-lightest:hover {\n  color: #e3fcec;\n}\n\n.hover\\:text-teal-darkest:hover {\n  color: #0d3331;\n}\n\n.hover\\:text-teal-darker:hover {\n  color: #20504f;\n}\n\n.hover\\:text-teal-dark:hover {\n  color: #38a89d;\n}\n\n.hover\\:text-teal:hover {\n  color: #4dc0b5;\n}\n\n.hover\\:text-teal-light:hover {\n  color: #64d5ca;\n}\n\n.hover\\:text-teal-lighter:hover {\n  color: #a0f0ed;\n}\n\n.hover\\:text-teal-lightest:hover {\n  color: #e8fffe;\n}\n\n.hover\\:text-blue-darkest:hover {\n  color: #12283a;\n}\n\n.hover\\:text-blue-darker:hover {\n  color: #1c3d5a;\n}\n\n.hover\\:text-blue-dark:hover {\n  color: #2779bd;\n}\n\n.hover\\:text-blue:hover {\n  color: #3490dc;\n}\n\n.hover\\:text-blue-light:hover {\n  color: #6cb2eb;\n}\n\n.hover\\:text-blue-lighter:hover {\n  color: #bcdefa;\n}\n\n.hover\\:text-blue-lightest:hover {\n  color: #eff8ff;\n}\n\n.hover\\:text-indigo-darkest:hover {\n  color: #191e38;\n}\n\n.hover\\:text-indigo-darker:hover {\n  color: #2f365f;\n}\n\n.hover\\:text-indigo-dark:hover {\n  color: #5661b3;\n}\n\n.hover\\:text-indigo:hover {\n  color: #6574cd;\n}\n\n.hover\\:text-indigo-light:hover {\n  color: #7886d7;\n}\n\n.hover\\:text-indigo-lighter:hover {\n  color: #b2b7ff;\n}\n\n.hover\\:text-indigo-lightest:hover {\n  color: #e6e8ff;\n}\n\n.hover\\:text-purple-darkest:hover {\n  color: #21183c;\n}\n\n.hover\\:text-purple-darker:hover {\n  color: #382b5f;\n}\n\n.hover\\:text-purple-dark:hover {\n  color: #794acf;\n}\n\n.hover\\:text-purple:hover {\n  color: #9561e2;\n}\n\n.hover\\:text-purple-light:hover {\n  color: #a779e9;\n}\n\n.hover\\:text-purple-lighter:hover {\n  color: #d6bbfc;\n}\n\n.hover\\:text-purple-lightest:hover {\n  color: #f3ebff;\n}\n\n.hover\\:text-pink-darkest:hover {\n  color: #451225;\n}\n\n.hover\\:text-pink-darker:hover {\n  color: #6f213f;\n}\n\n.hover\\:text-pink-dark:hover {\n  color: #eb5286;\n}\n\n.hover\\:text-pink:hover {\n  color: #f66d9b;\n}\n\n.hover\\:text-pink-light:hover {\n  color: #fa7ea8;\n}\n\n.hover\\:text-pink-lighter:hover {\n  color: #ffbbca;\n}\n\n.hover\\:text-pink-lightest:hover {\n  color: #ffebef;\n}\n\n.text-xs {\n  font-size: .75rem;\n}\n\n.text-sm {\n  font-size: .875rem;\n}\n\n.text-base {\n  font-size: 1rem;\n}\n\n.text-lg {\n  font-size: 1.125rem;\n}\n\n.text-xl {\n  font-size: 1.25rem;\n}\n\n.text-2xl {\n  font-size: 1.5rem;\n}\n\n.text-3xl {\n  font-size: 1.875rem;\n}\n\n.text-4xl {\n  font-size: 2.25rem;\n}\n\n.text-5xl {\n  font-size: 3rem;\n}\n\n.italic {\n  font-style: italic;\n}\n\n.roman {\n  font-style: normal;\n}\n\n.uppercase {\n  text-transform: uppercase;\n}\n\n.lowercase {\n  text-transform: lowercase;\n}\n\n.capitalize {\n  text-transform: capitalize;\n}\n\n.normal-case {\n  text-transform: none;\n}\n\n.underline {\n  text-decoration: underline;\n}\n\n.line-through {\n  text-decoration: line-through;\n}\n\n.no-underline {\n  text-decoration: none;\n}\n\n.antialiased {\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n.subpixel-antialiased {\n  -webkit-font-smoothing: auto;\n  -moz-osx-font-smoothing: auto;\n}\n\n.hover\\:italic:hover {\n  font-style: italic;\n}\n\n.hover\\:roman:hover {\n  font-style: normal;\n}\n\n.hover\\:uppercase:hover {\n  text-transform: uppercase;\n}\n\n.hover\\:lowercase:hover {\n  text-transform: lowercase;\n}\n\n.hover\\:capitalize:hover {\n  text-transform: capitalize;\n}\n\n.hover\\:normal-case:hover {\n  text-transform: none;\n}\n\n.hover\\:underline:hover {\n  text-decoration: underline;\n}\n\n.hover\\:line-through:hover {\n  text-decoration: line-through;\n}\n\n.hover\\:no-underline:hover {\n  text-decoration: none;\n}\n\n.hover\\:antialiased:hover {\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n.hover\\:subpixel-antialiased:hover {\n  -webkit-font-smoothing: auto;\n  -moz-osx-font-smoothing: auto;\n}\n\n.tracking-tight {\n  letter-spacing: -0.05em;\n}\n\n.tracking-normal {\n  letter-spacing: 0;\n}\n\n.tracking-wide {\n  letter-spacing: .05em;\n}\n\n.select-none {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.select-text {\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n}\n\n.align-baseline {\n  vertical-align: baseline;\n}\n\n.align-top {\n  vertical-align: top;\n}\n\n.align-middle {\n  vertical-align: middle;\n}\n\n.align-bottom {\n  vertical-align: bottom;\n}\n\n.align-text-top {\n  vertical-align: text-top;\n}\n\n.align-text-bottom {\n  vertical-align: text-bottom;\n}\n\n.visible {\n  visibility: visible;\n}\n\n.invisible {\n  visibility: hidden;\n}\n\n.whitespace-normal {\n  white-space: normal;\n}\n\n.whitespace-no-wrap {\n  white-space: nowrap;\n}\n\n.whitespace-pre {\n  white-space: pre;\n}\n\n.whitespace-pre-line {\n  white-space: pre-line;\n}\n\n.whitespace-pre-wrap {\n  white-space: pre-wrap;\n}\n\n.break-words {\n  word-wrap: break-word;\n}\n\n.break-normal {\n  word-wrap: normal;\n}\n\n.truncate {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.w-1 {\n  width: .25rem;\n}\n\n.w-2 {\n  width: .5rem;\n}\n\n.w-3 {\n  width: .75rem;\n}\n\n.w-4 {\n  width: 1rem;\n}\n\n.w-6 {\n  width: 1.5rem;\n}\n\n.w-8 {\n  width: 2rem;\n}\n\n.w-10 {\n  width: 2.5rem;\n}\n\n.w-12 {\n  width: 3rem;\n}\n\n.w-16 {\n  width: 4rem;\n}\n\n.w-24 {\n  width: 6rem;\n}\n\n.w-32 {\n  width: 8rem;\n}\n\n.w-48 {\n  width: 12rem;\n}\n\n.w-64 {\n  width: 16rem;\n}\n\n.w-auto {\n  width: auto;\n}\n\n.w-px {\n  width: 1px;\n}\n\n.w-1\\/2 {\n  width: 50%;\n}\n\n.w-1\\/3 {\n  width: 33.33333%;\n}\n\n.w-2\\/3 {\n  width: 66.66667%;\n}\n\n.w-1\\/4 {\n  width: 25%;\n}\n\n.w-3\\/4 {\n  width: 75%;\n}\n\n.w-1\\/5 {\n  width: 20%;\n}\n\n.w-2\\/5 {\n  width: 40%;\n}\n\n.w-3\\/5 {\n  width: 60%;\n}\n\n.w-4\\/5 {\n  width: 80%;\n}\n\n.w-1\\/6 {\n  width: 16.66667%;\n}\n\n.w-5\\/6 {\n  width: 83.33333%;\n}\n\n.w-full {\n  width: 100%;\n}\n\n.w-screen {\n  width: 100vw;\n}\n\n.z-0 {\n  z-index: 0;\n}\n\n.z-10 {\n  z-index: 10;\n}\n\n.z-20 {\n  z-index: 20;\n}\n\n.z-30 {\n  z-index: 30;\n}\n\n.z-40 {\n  z-index: 40;\n}\n\n.z-50 {\n  z-index: 50;\n}\n\n.z-auto {\n  z-index: auto;\n}\n\n/**\n  * Here you would add any custom utilities you need that don't come out of the\n  * box with Tailwind.\n  *\n  * Example :\n  *\n  * .bg-pattern-graph-paper { ... }\n  * .skew-45 { ... }\n  *\n  * Or if using a preprocessor..\n  * \n  * @import \"utilities/backgrond-patterns\";\n  * @import \"utilities/skew-transforms\";\n  */\n\n.gu-mirror {\n  position: fixed !important;\n  margin: 0 !important;\n  z-index: 9999 !important;\n  opacity: .8;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)\";\n      filter: alpha(opacity=80);\n}\n\n.gu-hide {\n  display: none !important;\n}\n\n.gu-unselectable {\n  -webkit-user-select: none !important;\n     -moz-user-select: none !important;\n      -ms-user-select: none !important;\n          user-select: none !important;\n}\n\n.gu-transit {\n  opacity: .2;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)\";\n      filter: alpha(opacity=20);\n}\n\n.vue-notification {\n  padding: 10px;\n  margin: 0 5px 5px;\n  font-size: 12px;\n  color: #fff;\n  background: #44a4fc;\n  border-left: 5px solid #187fe7;\n}\n\n.vue-notification.warn {\n  background: #ffb648;\n  border-left-color: #f48a06;\n}\n\n.vue-notification.error {\n  background: #e54d42;\n  border-left-color: #b82e24;\n}\n\n.vue-notification.success {\n  background: #68cd86;\n  border-left-color: #42a85f;\n}\n\n.label {\n  display: block;\n  color: #606f7b;\n  font-size: .875rem;\n  font-weight: 700;\n  margin-bottom: .5rem;\n}\n\n.form-control {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  display: block;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);\n  border-width: 1px;\n  border-radius: 0;\n  width: 100%;\n  padding-top: .5rem;\n  padding-bottom: .5rem;\n  padding-left: .75rem;\n  padding-right: .75rem;\n  color: #606f7b;\n  background-color: #fff;\n}\n\nselect.form-control:after {\n  content: 'arrow_drop_down';\n  font-family: 'Material Icons';\n}\n\n.btn-default {\n  margin-right: .25rem;\n  padding: .5rem;\n  background-color: #606f7b;\n  color: #fff;\n  font-size: .75rem;\n  font-weight: 700;\n  text-transform: uppercase;\n}\n\n.btn-default:hover {\n  background-color: #8795a1;\n}\n\n.btn-primary {\n  margin-top: 1rem;\n  margin-right: .25rem;\n  padding: .5rem;\n  background-color: #3490dc;\n  color: #fff;\n  font-size: .75rem;\n  font-weight: 700;\n  text-transform: uppercase;\n}\n\n.btn-primary:hover {\n  background-color: #6cb2eb;\n}\n\n.btn-default > i {\n  float: left;\n  margin-top: -2px;\n}\n\n.modal__header,\n.modal__content,\n.modal__footer {\n  display: block;\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n  padding-left: 1rem;\n  padding-right: 1rem;\n}\n\n.modal__header {\n  background-color: #f1f5f8;\n}\n\n.modal__footer {\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  background-color: #f1f5f8;\n}\n\n.modal__title {\n  color: #606f7b;\n}\n\n.modal__close,\n.modal__close:active,\n.modal__close:focus {\n  outline: 0;\n  margin-top: -0.25rem;\n  color: #606f7b;\n}\n\n.modal__close:hover {\n  color: #b8c2cc;\n}\n\n.toolbar {\n  margin-top: 48px;\n  position: fixed;\n  background-color: #f1f5f8;\n  border-width: 1px;\n  border-color: #dae1e7;\n  top: 0;\n  bottom: 0;\n}\n\n.toolbar-left {\n  left: 0;\n  border-left-width: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\n.toolbar-right {\n  width: 250px;\n  right: 0;\n  border-right-width: 0;\n}\n\n.toolbar-tabs {\n  height: 100%;\n  background-color: #3d4852;\n}\n\n.toolbar-content {\n  width: 250px;\n  padding: 1rem;\n}\n\n.toolbar-tabs a {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  position: relative;\n  box-sizing: border-box;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  font-size: 10px;\n  padding-left: .75rem;\n  padding-right: .75rem;\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n  color: #b8c2cc;\n  font-weight: 300;\n  text-transform: uppercase;\n}\n\n.toolbar-tabs a > i {\n  margin-bottom: .5rem;\n}\n\n.toolbar-tabs a:hover,\n.toolbar-tabs a.active {\n  cursor: pointer;\n  background-color: #22292f;\n  color: #dae1e7;\n}\n\n.toolbar-tabs a.active:before {\n  content: ' ';\n  top: 0;\n  left: 0;\n  bottom: 0;\n  width: 1px;\n  position: absolute;\n  border-left-width: 4px;\n  border-color: #3490dc;\n}\n\n.toolbar h5 {\n  margin-bottom: 1rem;\n  font-weight: 400;\n  color: #8795a1;\n}\n\n.toolbar hr {\n  border-width: 0;\n  border-top-width: 1px;\n  border-color: #dae1e7;\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  display: block;\n  height: 1px;\n}\n\n.toolbar__button,\n.toolbar__button:active,\n.toolbar__button:focus,\n.toolbar__button:disabled:hover {\n  outline: 0;\n  background-color: #fff;\n  border-width: 1px;\n  border-color: #dae1e7;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: .25rem;\n  margin-top: .25rem;\n  margin-bottom: .25rem;\n  font-size: .75rem;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.toolbar__button:disabled:hover {\n  color: #606f7b;\n  cursor: not-allowed;\n}\n\n.toolbar__button:hover {\n  background-color: #22292f;\n  border-color: #606f7b;\n  color: #fff;\n}\n\n.toolbar__button > i {\n  margin-right: .25rem;\n}\n\n.toolbar-right h5 {\n  margin-bottom: .25rem;\n  margin-top: 1rem;\n  color: #606f7b;\n  font-size: .75rem;\n  text-transform: uppercase;\n}\n\n.toolbar-right h5:first-child {\n  margin-bottom: .25rem;\n  margin-top: 0;\n}\n\n.toolbar label {\n  font-size: .75rem;\n  color: #b8c2cc;\n}\n\n.toolbar input,\n.toolbar input.form-control,\n.toolbar input:focus,\n.toolbar input:active {\n  outline: none;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-color: transparent;\n  border-bottom-width: 1px;\n  border-color: #dae1e7;\n  width: 100%;\n  color: #606f7b;\n  font-size: .875rem;\n  box-shadow: none;\n}\n\n.toolbar .checkbox {\n  display: inline;\n}\n\n.toolbar .checkbox .material-icons {\n  font-size: 1.25rem;\n  color: #b8c2cc;\n}\n\n.toolbar .checkbox label {\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  cursor: pointer;\n}\n\n.toolbar .checkbox label:hover i,\n.toolbar .checkbox .material-icons:hover {\n  color: #6cb2eb;\n  cursor: pointer;\n}\n\n.toolbar .checkbox input:checked ~ i {\n  color: #3490dc;\n}\n\n.toolbar .checkbox input[type=\"checkbox\"] {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  border-style: none;\n  width: auto;\n}\n\n.dropdown_menu > ul {\n  position: absolute;\n  display: none;\n  background-color: #22292f;\n  padding: 0;\n  margin: 0;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);\n  z-index: 99;\n}\n\n.dropdown_menu > ul > li {\n  display: block;\n  margin: 0;\n  color: #e1e1e1;\n  padding: 6px 3px;\n  padding-right: 6px;\n  cursor: pointer;\n  font-size: 12px;\n  min-width: 80px;\n}\n\n.dropdown_menu > ul > li > i {\n  font-size: 16px;\n  float: left;\n  margin-top: -1px;\n  margin-right: 3px;\n}\n\n.dropdown_menu > ul > li:hover {\n  cursor: pointer;\n  background-color: #333;\n}\n\n.dropdown_menu__button {\n  display: inline-block;\n  padding: 2px;\n}\n\n.dropdown_menu:hover > .dropdown_menu__button {\n  background-color: #e9e9e9;\n  cursor: pointer;\n}\n\n.dropdown_menu:hover .document__page_number {\n  color: #333;\n}\n\n.dropdown_menu:hover > ul {\n  display: block;\n}\n\n@media print {\n  @page {\n    size: 210mm 297mm;\n    margin: 0;\n  }\n\n  body {\n    background-color: #fff;\n  }\n\n  body * {\n    visibility: hidden;\n  }\n\n  .document {\n    border: 0 !important;\n    margin: 0 !important;\n    padding: 0 !important;\n  }\n\n  .document__page-container {\n    background-color: #fff;\n  }\n\n  .document__page {\n    page-break-before: always;\n  }\n\n  .document__page,\n  .document__page > div {\n    margin: 0 !important;\n    padding: 0 !important;\n    border: 0 !important;\n  }\n\n  .document__page,\n  .document__page * {\n    visibility: visible;\n  }\n\n  .document__page-element.hovering::before,\n  .document__page-element.selected::before {\n    display: none;\n  }\n}\n\n.d-table {\n  width: 100%;\n  max-width: 100%;\n  border-spacing: 0;\n  table-layout: fixed;\n  border-collapse: collapse;\n}\n\n.d-table td {\n  height: 15px;\n}\n\n.editMode .d-table td.selected.resizable:before {\n  content: ' ';\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 8px;\n  height: 100%;\n  z-index: 100;\n  cursor: ew-resize;\n}\n\n.d-table td,\n.d-table th {\n  white-space: normal;\n  /* Only needed when it's set differntly somewhere else */\n  word-wrap: break-word;\n}\n\n.progress {\n  color: #333;\n  font-size: 13px;\n}\n\n.progress:after {\n  content: '.';\n  -webkit-animation: dots 1s steps(5, end) infinite;\n          animation: dots 1s steps(5, end) infinite;\n}\n\n.loading {\n  position: absolute;\n  top: 40%;\n  width: 100px;\n  border: 1px solid #333;\n  padding: 6px 5px;\n  left: calc(50% - 53px);\n  text-align: center;\n}\n\n@-webkit-keyframes dots {\n  0%,\n  20% {\n    color: #333;\n    text-shadow: .25em 0 0 transparent, .5em 0 0 transparent;\n  }\n\n  40% {\n    color: #b8c2cc;\n    text-shadow: .25em 0 0 transparent, .5em 0 0 transparent;\n  }\n\n  60% {\n    text-shadow: .25em 0 0 #e4e4e4, .5em 0 0 transparent;\n  }\n\n  80%,\n  100% {\n    text-shadow: .25em 0 0 #e4e4e4, .5em 0 0 #e4e4e4;\n  }\n}\n\n@keyframes dots {\n  0%,\n  20% {\n    color: #333;\n    text-shadow: .25em 0 0 transparent, .5em 0 0 transparent;\n  }\n\n  40% {\n    color: #b8c2cc;\n    text-shadow: .25em 0 0 transparent, .5em 0 0 transparent;\n  }\n\n  60% {\n    text-shadow: .25em 0 0 #e4e4e4, .5em 0 0 transparent;\n  }\n\n  80%,\n  100% {\n    text-shadow: .25em 0 0 #e4e4e4, .5em 0 0 #e4e4e4;\n  }\n}\n\n.boot-error {\n  position: absolute;\n  margin: 50px;\n  left: calc(50% - 250px);\n  padding: 25px;\n  width: 400px;\n  display: inline-block;\n  border: 1px solid maroon;\n}\n\n.boot-error > h3 {\n  color: maroon;\n  margin-bottom: 20px;\n}\n\n.material-icons {\n  font-size: 16px;\n}\n\n.text-center {\n  text-align: center;\n}\n\n.document {\n  margin-top: 80px;\n}\n\n.editMode .document {\n  margin-left: 330px;\n}\n\n.document h2 {\n  margin-bottom: 0;\n}\n\n.document__page {\n  overflow: hidden;\n  background-color: #fff;\n  border-width: 1px;\n  margin-bottom: 10mm;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.document__page_number {\n  color: #b4b4b4;\n  font-size: 12px;\n  padding-bottom: 4px;\n  padding-top: 4px;\n  padding-right: 6px;\n  clear: both;\n}\n\n.document__page_number > i {\n  font-size: 16px;\n  margin-right: 3px;\n  margin-top: -1px;\n  float: left;\n}\n\n.document__page > div > .document__page-container {\n  min-height: 100%;\n}\n\n.document__page-element {\n  z-index: 5;\n  position: relative;\n}\n\n.document__page-element:hover {\n  cursor: pointer;\n}\n\n.editMode .document__page-element.hovering:after,\n.editMode .document__page-element.selected:after {\n  content: \" \";\n  position: absolute;\n  display: block;\n  z-index: 1;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  border: 1px dashed #65b1c9;\n  background-color: transparent;\n}\n\n.editMode tr.document__page-element.selected:after {\n  content: none !important;\n}\n\n.editMode tr.document__page-element.selected > td:after {\n  content: ' ';\n  position: absolute;\n  display: block;\n  z-index: 100;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  -webkit-animation: glowing 1000ms infinite;\n          animation: glowing 1000ms infinite;\n  background-color: rgba(189, 238, 255, .2);\n}\n\n@-webkit-keyframes glowing {\n  0% {\n    background-color: rgba(189, 238, 255, .2);\n  }\n\n  10% {\n    background-color: rgba(189, 238, 255, .3);\n  }\n\n  50% {\n    background-color: rgba(189, 238, 255, .4);\n  }\n\n  80% {\n    background-color: rgba(189, 238, 255, .3);\n  }\n\n  100% {\n    background-color: rgba(189, 238, 255, .2);\n  }\n}\n\n@keyframes glowing {\n  0% {\n    background-color: rgba(189, 238, 255, .2);\n  }\n\n  10% {\n    background-color: rgba(189, 238, 255, .3);\n  }\n\n  50% {\n    background-color: rgba(189, 238, 255, .4);\n  }\n\n  80% {\n    background-color: rgba(189, 238, 255, .3);\n  }\n\n  100% {\n    background-color: rgba(189, 238, 255, .2);\n  }\n}\n\n.editMode .document__page-element.selected:after {\n  border: 1px solid #65b1c9;\n}\n\n.element__photo {\n  text-align: center;\n}\n\n@media (min-width: 576px) {\n  .sm\\:list-reset {\n    list-style: none;\n    padding: 0;\n  }\n\n  .sm\\:appearance-none {\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n  }\n\n  .sm\\:bg-fixed {\n    background-attachment: fixed;\n  }\n\n  .sm\\:bg-local {\n    background-attachment: local;\n  }\n\n  .sm\\:bg-scroll {\n    background-attachment: scroll;\n  }\n\n  .sm\\:bg-transparent {\n    background-color: transparent;\n  }\n\n  .sm\\:bg-black {\n    background-color: #22292f;\n  }\n\n  .sm\\:bg-grey-darkest {\n    background-color: #3d4852;\n  }\n\n  .sm\\:bg-grey-darker {\n    background-color: #606f7b;\n  }\n\n  .sm\\:bg-grey-dark {\n    background-color: #8795a1;\n  }\n\n  .sm\\:bg-grey {\n    background-color: #b8c2cc;\n  }\n\n  .sm\\:bg-grey-light {\n    background-color: #dae1e7;\n  }\n\n  .sm\\:bg-grey-lighter {\n    background-color: #f1f5f8;\n  }\n\n  .sm\\:bg-grey-lightest {\n    background-color: #f8fafc;\n  }\n\n  .sm\\:bg-white {\n    background-color: #fff;\n  }\n\n  .sm\\:bg-red-darkest {\n    background-color: #3b0d0c;\n  }\n\n  .sm\\:bg-red-darker {\n    background-color: #621b18;\n  }\n\n  .sm\\:bg-red-dark {\n    background-color: #cc1f1a;\n  }\n\n  .sm\\:bg-red {\n    background-color: #e3342f;\n  }\n\n  .sm\\:bg-red-light {\n    background-color: #ef5753;\n  }\n\n  .sm\\:bg-red-lighter {\n    background-color: #f9acaa;\n  }\n\n  .sm\\:bg-red-lightest {\n    background-color: #fcebea;\n  }\n\n  .sm\\:bg-orange-darkest {\n    background-color: #462a16;\n  }\n\n  .sm\\:bg-orange-darker {\n    background-color: #613b1f;\n  }\n\n  .sm\\:bg-orange-dark {\n    background-color: #de751f;\n  }\n\n  .sm\\:bg-orange {\n    background-color: #f6993f;\n  }\n\n  .sm\\:bg-orange-light {\n    background-color: #faad63;\n  }\n\n  .sm\\:bg-orange-lighter {\n    background-color: #fcd9b6;\n  }\n\n  .sm\\:bg-orange-lightest {\n    background-color: #fff5eb;\n  }\n\n  .sm\\:bg-yellow-darkest {\n    background-color: #453411;\n  }\n\n  .sm\\:bg-yellow-darker {\n    background-color: #684f1d;\n  }\n\n  .sm\\:bg-yellow-dark {\n    background-color: #f2d024;\n  }\n\n  .sm\\:bg-yellow {\n    background-color: #ffed4a;\n  }\n\n  .sm\\:bg-yellow-light {\n    background-color: #fff382;\n  }\n\n  .sm\\:bg-yellow-lighter {\n    background-color: #fff9c2;\n  }\n\n  .sm\\:bg-yellow-lightest {\n    background-color: #fcfbeb;\n  }\n\n  .sm\\:bg-green-darkest {\n    background-color: #0f2f21;\n  }\n\n  .sm\\:bg-green-darker {\n    background-color: #1a4731;\n  }\n\n  .sm\\:bg-green-dark {\n    background-color: #1f9d55;\n  }\n\n  .sm\\:bg-green {\n    background-color: #38c172;\n  }\n\n  .sm\\:bg-green-light {\n    background-color: #51d88a;\n  }\n\n  .sm\\:bg-green-lighter {\n    background-color: #a2f5bf;\n  }\n\n  .sm\\:bg-green-lightest {\n    background-color: #e3fcec;\n  }\n\n  .sm\\:bg-teal-darkest {\n    background-color: #0d3331;\n  }\n\n  .sm\\:bg-teal-darker {\n    background-color: #20504f;\n  }\n\n  .sm\\:bg-teal-dark {\n    background-color: #38a89d;\n  }\n\n  .sm\\:bg-teal {\n    background-color: #4dc0b5;\n  }\n\n  .sm\\:bg-teal-light {\n    background-color: #64d5ca;\n  }\n\n  .sm\\:bg-teal-lighter {\n    background-color: #a0f0ed;\n  }\n\n  .sm\\:bg-teal-lightest {\n    background-color: #e8fffe;\n  }\n\n  .sm\\:bg-blue-darkest {\n    background-color: #12283a;\n  }\n\n  .sm\\:bg-blue-darker {\n    background-color: #1c3d5a;\n  }\n\n  .sm\\:bg-blue-dark {\n    background-color: #2779bd;\n  }\n\n  .sm\\:bg-blue {\n    background-color: #3490dc;\n  }\n\n  .sm\\:bg-blue-light {\n    background-color: #6cb2eb;\n  }\n\n  .sm\\:bg-blue-lighter {\n    background-color: #bcdefa;\n  }\n\n  .sm\\:bg-blue-lightest {\n    background-color: #eff8ff;\n  }\n\n  .sm\\:bg-indigo-darkest {\n    background-color: #191e38;\n  }\n\n  .sm\\:bg-indigo-darker {\n    background-color: #2f365f;\n  }\n\n  .sm\\:bg-indigo-dark {\n    background-color: #5661b3;\n  }\n\n  .sm\\:bg-indigo {\n    background-color: #6574cd;\n  }\n\n  .sm\\:bg-indigo-light {\n    background-color: #7886d7;\n  }\n\n  .sm\\:bg-indigo-lighter {\n    background-color: #b2b7ff;\n  }\n\n  .sm\\:bg-indigo-lightest {\n    background-color: #e6e8ff;\n  }\n\n  .sm\\:bg-purple-darkest {\n    background-color: #21183c;\n  }\n\n  .sm\\:bg-purple-darker {\n    background-color: #382b5f;\n  }\n\n  .sm\\:bg-purple-dark {\n    background-color: #794acf;\n  }\n\n  .sm\\:bg-purple {\n    background-color: #9561e2;\n  }\n\n  .sm\\:bg-purple-light {\n    background-color: #a779e9;\n  }\n\n  .sm\\:bg-purple-lighter {\n    background-color: #d6bbfc;\n  }\n\n  .sm\\:bg-purple-lightest {\n    background-color: #f3ebff;\n  }\n\n  .sm\\:bg-pink-darkest {\n    background-color: #451225;\n  }\n\n  .sm\\:bg-pink-darker {\n    background-color: #6f213f;\n  }\n\n  .sm\\:bg-pink-dark {\n    background-color: #eb5286;\n  }\n\n  .sm\\:bg-pink {\n    background-color: #f66d9b;\n  }\n\n  .sm\\:bg-pink-light {\n    background-color: #fa7ea8;\n  }\n\n  .sm\\:bg-pink-lighter {\n    background-color: #ffbbca;\n  }\n\n  .sm\\:bg-pink-lightest {\n    background-color: #ffebef;\n  }\n\n  .sm\\:hover\\:bg-transparent:hover {\n    background-color: transparent;\n  }\n\n  .sm\\:hover\\:bg-black:hover {\n    background-color: #22292f;\n  }\n\n  .sm\\:hover\\:bg-grey-darkest:hover {\n    background-color: #3d4852;\n  }\n\n  .sm\\:hover\\:bg-grey-darker:hover {\n    background-color: #606f7b;\n  }\n\n  .sm\\:hover\\:bg-grey-dark:hover {\n    background-color: #8795a1;\n  }\n\n  .sm\\:hover\\:bg-grey:hover {\n    background-color: #b8c2cc;\n  }\n\n  .sm\\:hover\\:bg-grey-light:hover {\n    background-color: #dae1e7;\n  }\n\n  .sm\\:hover\\:bg-grey-lighter:hover {\n    background-color: #f1f5f8;\n  }\n\n  .sm\\:hover\\:bg-grey-lightest:hover {\n    background-color: #f8fafc;\n  }\n\n  .sm\\:hover\\:bg-white:hover {\n    background-color: #fff;\n  }\n\n  .sm\\:hover\\:bg-red-darkest:hover {\n    background-color: #3b0d0c;\n  }\n\n  .sm\\:hover\\:bg-red-darker:hover {\n    background-color: #621b18;\n  }\n\n  .sm\\:hover\\:bg-red-dark:hover {\n    background-color: #cc1f1a;\n  }\n\n  .sm\\:hover\\:bg-red:hover {\n    background-color: #e3342f;\n  }\n\n  .sm\\:hover\\:bg-red-light:hover {\n    background-color: #ef5753;\n  }\n\n  .sm\\:hover\\:bg-red-lighter:hover {\n    background-color: #f9acaa;\n  }\n\n  .sm\\:hover\\:bg-red-lightest:hover {\n    background-color: #fcebea;\n  }\n\n  .sm\\:hover\\:bg-orange-darkest:hover {\n    background-color: #462a16;\n  }\n\n  .sm\\:hover\\:bg-orange-darker:hover {\n    background-color: #613b1f;\n  }\n\n  .sm\\:hover\\:bg-orange-dark:hover {\n    background-color: #de751f;\n  }\n\n  .sm\\:hover\\:bg-orange:hover {\n    background-color: #f6993f;\n  }\n\n  .sm\\:hover\\:bg-orange-light:hover {\n    background-color: #faad63;\n  }\n\n  .sm\\:hover\\:bg-orange-lighter:hover {\n    background-color: #fcd9b6;\n  }\n\n  .sm\\:hover\\:bg-orange-lightest:hover {\n    background-color: #fff5eb;\n  }\n\n  .sm\\:hover\\:bg-yellow-darkest:hover {\n    background-color: #453411;\n  }\n\n  .sm\\:hover\\:bg-yellow-darker:hover {\n    background-color: #684f1d;\n  }\n\n  .sm\\:hover\\:bg-yellow-dark:hover {\n    background-color: #f2d024;\n  }\n\n  .sm\\:hover\\:bg-yellow:hover {\n    background-color: #ffed4a;\n  }\n\n  .sm\\:hover\\:bg-yellow-light:hover {\n    background-color: #fff382;\n  }\n\n  .sm\\:hover\\:bg-yellow-lighter:hover {\n    background-color: #fff9c2;\n  }\n\n  .sm\\:hover\\:bg-yellow-lightest:hover {\n    background-color: #fcfbeb;\n  }\n\n  .sm\\:hover\\:bg-green-darkest:hover {\n    background-color: #0f2f21;\n  }\n\n  .sm\\:hover\\:bg-green-darker:hover {\n    background-color: #1a4731;\n  }\n\n  .sm\\:hover\\:bg-green-dark:hover {\n    background-color: #1f9d55;\n  }\n\n  .sm\\:hover\\:bg-green:hover {\n    background-color: #38c172;\n  }\n\n  .sm\\:hover\\:bg-green-light:hover {\n    background-color: #51d88a;\n  }\n\n  .sm\\:hover\\:bg-green-lighter:hover {\n    background-color: #a2f5bf;\n  }\n\n  .sm\\:hover\\:bg-green-lightest:hover {\n    background-color: #e3fcec;\n  }\n\n  .sm\\:hover\\:bg-teal-darkest:hover {\n    background-color: #0d3331;\n  }\n\n  .sm\\:hover\\:bg-teal-darker:hover {\n    background-color: #20504f;\n  }\n\n  .sm\\:hover\\:bg-teal-dark:hover {\n    background-color: #38a89d;\n  }\n\n  .sm\\:hover\\:bg-teal:hover {\n    background-color: #4dc0b5;\n  }\n\n  .sm\\:hover\\:bg-teal-light:hover {\n    background-color: #64d5ca;\n  }\n\n  .sm\\:hover\\:bg-teal-lighter:hover {\n    background-color: #a0f0ed;\n  }\n\n  .sm\\:hover\\:bg-teal-lightest:hover {\n    background-color: #e8fffe;\n  }\n\n  .sm\\:hover\\:bg-blue-darkest:hover {\n    background-color: #12283a;\n  }\n\n  .sm\\:hover\\:bg-blue-darker:hover {\n    background-color: #1c3d5a;\n  }\n\n  .sm\\:hover\\:bg-blue-dark:hover {\n    background-color: #2779bd;\n  }\n\n  .sm\\:hover\\:bg-blue:hover {\n    background-color: #3490dc;\n  }\n\n  .sm\\:hover\\:bg-blue-light:hover {\n    background-color: #6cb2eb;\n  }\n\n  .sm\\:hover\\:bg-blue-lighter:hover {\n    background-color: #bcdefa;\n  }\n\n  .sm\\:hover\\:bg-blue-lightest:hover {\n    background-color: #eff8ff;\n  }\n\n  .sm\\:hover\\:bg-indigo-darkest:hover {\n    background-color: #191e38;\n  }\n\n  .sm\\:hover\\:bg-indigo-darker:hover {\n    background-color: #2f365f;\n  }\n\n  .sm\\:hover\\:bg-indigo-dark:hover {\n    background-color: #5661b3;\n  }\n\n  .sm\\:hover\\:bg-indigo:hover {\n    background-color: #6574cd;\n  }\n\n  .sm\\:hover\\:bg-indigo-light:hover {\n    background-color: #7886d7;\n  }\n\n  .sm\\:hover\\:bg-indigo-lighter:hover {\n    background-color: #b2b7ff;\n  }\n\n  .sm\\:hover\\:bg-indigo-lightest:hover {\n    background-color: #e6e8ff;\n  }\n\n  .sm\\:hover\\:bg-purple-darkest:hover {\n    background-color: #21183c;\n  }\n\n  .sm\\:hover\\:bg-purple-darker:hover {\n    background-color: #382b5f;\n  }\n\n  .sm\\:hover\\:bg-purple-dark:hover {\n    background-color: #794acf;\n  }\n\n  .sm\\:hover\\:bg-purple:hover {\n    background-color: #9561e2;\n  }\n\n  .sm\\:hover\\:bg-purple-light:hover {\n    background-color: #a779e9;\n  }\n\n  .sm\\:hover\\:bg-purple-lighter:hover {\n    background-color: #d6bbfc;\n  }\n\n  .sm\\:hover\\:bg-purple-lightest:hover {\n    background-color: #f3ebff;\n  }\n\n  .sm\\:hover\\:bg-pink-darkest:hover {\n    background-color: #451225;\n  }\n\n  .sm\\:hover\\:bg-pink-darker:hover {\n    background-color: #6f213f;\n  }\n\n  .sm\\:hover\\:bg-pink-dark:hover {\n    background-color: #eb5286;\n  }\n\n  .sm\\:hover\\:bg-pink:hover {\n    background-color: #f66d9b;\n  }\n\n  .sm\\:hover\\:bg-pink-light:hover {\n    background-color: #fa7ea8;\n  }\n\n  .sm\\:hover\\:bg-pink-lighter:hover {\n    background-color: #ffbbca;\n  }\n\n  .sm\\:hover\\:bg-pink-lightest:hover {\n    background-color: #ffebef;\n  }\n\n  .sm\\:bg-bottom {\n    background-position: bottom;\n  }\n\n  .sm\\:bg-center {\n    background-position: center;\n  }\n\n  .sm\\:bg-left {\n    background-position: left;\n  }\n\n  .sm\\:bg-left-bottom {\n    background-position: left bottom;\n  }\n\n  .sm\\:bg-left-top {\n    background-position: left top;\n  }\n\n  .sm\\:bg-right {\n    background-position: right;\n  }\n\n  .sm\\:bg-right-bottom {\n    background-position: right bottom;\n  }\n\n  .sm\\:bg-right-top {\n    background-position: right top;\n  }\n\n  .sm\\:bg-top {\n    background-position: top;\n  }\n\n  .sm\\:bg-repeat {\n    background-repeat: repeat;\n  }\n\n  .sm\\:bg-no-repeat {\n    background-repeat: no-repeat;\n  }\n\n  .sm\\:bg-repeat-x {\n    background-repeat: repeat-x;\n  }\n\n  .sm\\:bg-repeat-y {\n    background-repeat: repeat-y;\n  }\n\n  .sm\\:bg-auto {\n    background-size: auto;\n  }\n\n  .sm\\:bg-cover {\n    background-size: cover;\n  }\n\n  .sm\\:bg-contain {\n    background-size: contain;\n  }\n\n  .sm\\:border-transparent {\n    border-color: transparent;\n  }\n\n  .sm\\:border-black {\n    border-color: #22292f;\n  }\n\n  .sm\\:border-grey-darkest {\n    border-color: #3d4852;\n  }\n\n  .sm\\:border-grey-darker {\n    border-color: #606f7b;\n  }\n\n  .sm\\:border-grey-dark {\n    border-color: #8795a1;\n  }\n\n  .sm\\:border-grey {\n    border-color: #b8c2cc;\n  }\n\n  .sm\\:border-grey-light {\n    border-color: #dae1e7;\n  }\n\n  .sm\\:border-grey-lighter {\n    border-color: #f1f5f8;\n  }\n\n  .sm\\:border-grey-lightest {\n    border-color: #f8fafc;\n  }\n\n  .sm\\:border-white {\n    border-color: #fff;\n  }\n\n  .sm\\:border-red-darkest {\n    border-color: #3b0d0c;\n  }\n\n  .sm\\:border-red-darker {\n    border-color: #621b18;\n  }\n\n  .sm\\:border-red-dark {\n    border-color: #cc1f1a;\n  }\n\n  .sm\\:border-red {\n    border-color: #e3342f;\n  }\n\n  .sm\\:border-red-light {\n    border-color: #ef5753;\n  }\n\n  .sm\\:border-red-lighter {\n    border-color: #f9acaa;\n  }\n\n  .sm\\:border-red-lightest {\n    border-color: #fcebea;\n  }\n\n  .sm\\:border-orange-darkest {\n    border-color: #462a16;\n  }\n\n  .sm\\:border-orange-darker {\n    border-color: #613b1f;\n  }\n\n  .sm\\:border-orange-dark {\n    border-color: #de751f;\n  }\n\n  .sm\\:border-orange {\n    border-color: #f6993f;\n  }\n\n  .sm\\:border-orange-light {\n    border-color: #faad63;\n  }\n\n  .sm\\:border-orange-lighter {\n    border-color: #fcd9b6;\n  }\n\n  .sm\\:border-orange-lightest {\n    border-color: #fff5eb;\n  }\n\n  .sm\\:border-yellow-darkest {\n    border-color: #453411;\n  }\n\n  .sm\\:border-yellow-darker {\n    border-color: #684f1d;\n  }\n\n  .sm\\:border-yellow-dark {\n    border-color: #f2d024;\n  }\n\n  .sm\\:border-yellow {\n    border-color: #ffed4a;\n  }\n\n  .sm\\:border-yellow-light {\n    border-color: #fff382;\n  }\n\n  .sm\\:border-yellow-lighter {\n    border-color: #fff9c2;\n  }\n\n  .sm\\:border-yellow-lightest {\n    border-color: #fcfbeb;\n  }\n\n  .sm\\:border-green-darkest {\n    border-color: #0f2f21;\n  }\n\n  .sm\\:border-green-darker {\n    border-color: #1a4731;\n  }\n\n  .sm\\:border-green-dark {\n    border-color: #1f9d55;\n  }\n\n  .sm\\:border-green {\n    border-color: #38c172;\n  }\n\n  .sm\\:border-green-light {\n    border-color: #51d88a;\n  }\n\n  .sm\\:border-green-lighter {\n    border-color: #a2f5bf;\n  }\n\n  .sm\\:border-green-lightest {\n    border-color: #e3fcec;\n  }\n\n  .sm\\:border-teal-darkest {\n    border-color: #0d3331;\n  }\n\n  .sm\\:border-teal-darker {\n    border-color: #20504f;\n  }\n\n  .sm\\:border-teal-dark {\n    border-color: #38a89d;\n  }\n\n  .sm\\:border-teal {\n    border-color: #4dc0b5;\n  }\n\n  .sm\\:border-teal-light {\n    border-color: #64d5ca;\n  }\n\n  .sm\\:border-teal-lighter {\n    border-color: #a0f0ed;\n  }\n\n  .sm\\:border-teal-lightest {\n    border-color: #e8fffe;\n  }\n\n  .sm\\:border-blue-darkest {\n    border-color: #12283a;\n  }\n\n  .sm\\:border-blue-darker {\n    border-color: #1c3d5a;\n  }\n\n  .sm\\:border-blue-dark {\n    border-color: #2779bd;\n  }\n\n  .sm\\:border-blue {\n    border-color: #3490dc;\n  }\n\n  .sm\\:border-blue-light {\n    border-color: #6cb2eb;\n  }\n\n  .sm\\:border-blue-lighter {\n    border-color: #bcdefa;\n  }\n\n  .sm\\:border-blue-lightest {\n    border-color: #eff8ff;\n  }\n\n  .sm\\:border-indigo-darkest {\n    border-color: #191e38;\n  }\n\n  .sm\\:border-indigo-darker {\n    border-color: #2f365f;\n  }\n\n  .sm\\:border-indigo-dark {\n    border-color: #5661b3;\n  }\n\n  .sm\\:border-indigo {\n    border-color: #6574cd;\n  }\n\n  .sm\\:border-indigo-light {\n    border-color: #7886d7;\n  }\n\n  .sm\\:border-indigo-lighter {\n    border-color: #b2b7ff;\n  }\n\n  .sm\\:border-indigo-lightest {\n    border-color: #e6e8ff;\n  }\n\n  .sm\\:border-purple-darkest {\n    border-color: #21183c;\n  }\n\n  .sm\\:border-purple-darker {\n    border-color: #382b5f;\n  }\n\n  .sm\\:border-purple-dark {\n    border-color: #794acf;\n  }\n\n  .sm\\:border-purple {\n    border-color: #9561e2;\n  }\n\n  .sm\\:border-purple-light {\n    border-color: #a779e9;\n  }\n\n  .sm\\:border-purple-lighter {\n    border-color: #d6bbfc;\n  }\n\n  .sm\\:border-purple-lightest {\n    border-color: #f3ebff;\n  }\n\n  .sm\\:border-pink-darkest {\n    border-color: #451225;\n  }\n\n  .sm\\:border-pink-darker {\n    border-color: #6f213f;\n  }\n\n  .sm\\:border-pink-dark {\n    border-color: #eb5286;\n  }\n\n  .sm\\:border-pink {\n    border-color: #f66d9b;\n  }\n\n  .sm\\:border-pink-light {\n    border-color: #fa7ea8;\n  }\n\n  .sm\\:border-pink-lighter {\n    border-color: #ffbbca;\n  }\n\n  .sm\\:border-pink-lightest {\n    border-color: #ffebef;\n  }\n\n  .sm\\:hover\\:border-transparent:hover {\n    border-color: transparent;\n  }\n\n  .sm\\:hover\\:border-black:hover {\n    border-color: #22292f;\n  }\n\n  .sm\\:hover\\:border-grey-darkest:hover {\n    border-color: #3d4852;\n  }\n\n  .sm\\:hover\\:border-grey-darker:hover {\n    border-color: #606f7b;\n  }\n\n  .sm\\:hover\\:border-grey-dark:hover {\n    border-color: #8795a1;\n  }\n\n  .sm\\:hover\\:border-grey:hover {\n    border-color: #b8c2cc;\n  }\n\n  .sm\\:hover\\:border-grey-light:hover {\n    border-color: #dae1e7;\n  }\n\n  .sm\\:hover\\:border-grey-lighter:hover {\n    border-color: #f1f5f8;\n  }\n\n  .sm\\:hover\\:border-grey-lightest:hover {\n    border-color: #f8fafc;\n  }\n\n  .sm\\:hover\\:border-white:hover {\n    border-color: #fff;\n  }\n\n  .sm\\:hover\\:border-red-darkest:hover {\n    border-color: #3b0d0c;\n  }\n\n  .sm\\:hover\\:border-red-darker:hover {\n    border-color: #621b18;\n  }\n\n  .sm\\:hover\\:border-red-dark:hover {\n    border-color: #cc1f1a;\n  }\n\n  .sm\\:hover\\:border-red:hover {\n    border-color: #e3342f;\n  }\n\n  .sm\\:hover\\:border-red-light:hover {\n    border-color: #ef5753;\n  }\n\n  .sm\\:hover\\:border-red-lighter:hover {\n    border-color: #f9acaa;\n  }\n\n  .sm\\:hover\\:border-red-lightest:hover {\n    border-color: #fcebea;\n  }\n\n  .sm\\:hover\\:border-orange-darkest:hover {\n    border-color: #462a16;\n  }\n\n  .sm\\:hover\\:border-orange-darker:hover {\n    border-color: #613b1f;\n  }\n\n  .sm\\:hover\\:border-orange-dark:hover {\n    border-color: #de751f;\n  }\n\n  .sm\\:hover\\:border-orange:hover {\n    border-color: #f6993f;\n  }\n\n  .sm\\:hover\\:border-orange-light:hover {\n    border-color: #faad63;\n  }\n\n  .sm\\:hover\\:border-orange-lighter:hover {\n    border-color: #fcd9b6;\n  }\n\n  .sm\\:hover\\:border-orange-lightest:hover {\n    border-color: #fff5eb;\n  }\n\n  .sm\\:hover\\:border-yellow-darkest:hover {\n    border-color: #453411;\n  }\n\n  .sm\\:hover\\:border-yellow-darker:hover {\n    border-color: #684f1d;\n  }\n\n  .sm\\:hover\\:border-yellow-dark:hover {\n    border-color: #f2d024;\n  }\n\n  .sm\\:hover\\:border-yellow:hover {\n    border-color: #ffed4a;\n  }\n\n  .sm\\:hover\\:border-yellow-light:hover {\n    border-color: #fff382;\n  }\n\n  .sm\\:hover\\:border-yellow-lighter:hover {\n    border-color: #fff9c2;\n  }\n\n  .sm\\:hover\\:border-yellow-lightest:hover {\n    border-color: #fcfbeb;\n  }\n\n  .sm\\:hover\\:border-green-darkest:hover {\n    border-color: #0f2f21;\n  }\n\n  .sm\\:hover\\:border-green-darker:hover {\n    border-color: #1a4731;\n  }\n\n  .sm\\:hover\\:border-green-dark:hover {\n    border-color: #1f9d55;\n  }\n\n  .sm\\:hover\\:border-green:hover {\n    border-color: #38c172;\n  }\n\n  .sm\\:hover\\:border-green-light:hover {\n    border-color: #51d88a;\n  }\n\n  .sm\\:hover\\:border-green-lighter:hover {\n    border-color: #a2f5bf;\n  }\n\n  .sm\\:hover\\:border-green-lightest:hover {\n    border-color: #e3fcec;\n  }\n\n  .sm\\:hover\\:border-teal-darkest:hover {\n    border-color: #0d3331;\n  }\n\n  .sm\\:hover\\:border-teal-darker:hover {\n    border-color: #20504f;\n  }\n\n  .sm\\:hover\\:border-teal-dark:hover {\n    border-color: #38a89d;\n  }\n\n  .sm\\:hover\\:border-teal:hover {\n    border-color: #4dc0b5;\n  }\n\n  .sm\\:hover\\:border-teal-light:hover {\n    border-color: #64d5ca;\n  }\n\n  .sm\\:hover\\:border-teal-lighter:hover {\n    border-color: #a0f0ed;\n  }\n\n  .sm\\:hover\\:border-teal-lightest:hover {\n    border-color: #e8fffe;\n  }\n\n  .sm\\:hover\\:border-blue-darkest:hover {\n    border-color: #12283a;\n  }\n\n  .sm\\:hover\\:border-blue-darker:hover {\n    border-color: #1c3d5a;\n  }\n\n  .sm\\:hover\\:border-blue-dark:hover {\n    border-color: #2779bd;\n  }\n\n  .sm\\:hover\\:border-blue:hover {\n    border-color: #3490dc;\n  }\n\n  .sm\\:hover\\:border-blue-light:hover {\n    border-color: #6cb2eb;\n  }\n\n  .sm\\:hover\\:border-blue-lighter:hover {\n    border-color: #bcdefa;\n  }\n\n  .sm\\:hover\\:border-blue-lightest:hover {\n    border-color: #eff8ff;\n  }\n\n  .sm\\:hover\\:border-indigo-darkest:hover {\n    border-color: #191e38;\n  }\n\n  .sm\\:hover\\:border-indigo-darker:hover {\n    border-color: #2f365f;\n  }\n\n  .sm\\:hover\\:border-indigo-dark:hover {\n    border-color: #5661b3;\n  }\n\n  .sm\\:hover\\:border-indigo:hover {\n    border-color: #6574cd;\n  }\n\n  .sm\\:hover\\:border-indigo-light:hover {\n    border-color: #7886d7;\n  }\n\n  .sm\\:hover\\:border-indigo-lighter:hover {\n    border-color: #b2b7ff;\n  }\n\n  .sm\\:hover\\:border-indigo-lightest:hover {\n    border-color: #e6e8ff;\n  }\n\n  .sm\\:hover\\:border-purple-darkest:hover {\n    border-color: #21183c;\n  }\n\n  .sm\\:hover\\:border-purple-darker:hover {\n    border-color: #382b5f;\n  }\n\n  .sm\\:hover\\:border-purple-dark:hover {\n    border-color: #794acf;\n  }\n\n  .sm\\:hover\\:border-purple:hover {\n    border-color: #9561e2;\n  }\n\n  .sm\\:hover\\:border-purple-light:hover {\n    border-color: #a779e9;\n  }\n\n  .sm\\:hover\\:border-purple-lighter:hover {\n    border-color: #d6bbfc;\n  }\n\n  .sm\\:hover\\:border-purple-lightest:hover {\n    border-color: #f3ebff;\n  }\n\n  .sm\\:hover\\:border-pink-darkest:hover {\n    border-color: #451225;\n  }\n\n  .sm\\:hover\\:border-pink-darker:hover {\n    border-color: #6f213f;\n  }\n\n  .sm\\:hover\\:border-pink-dark:hover {\n    border-color: #eb5286;\n  }\n\n  .sm\\:hover\\:border-pink:hover {\n    border-color: #f66d9b;\n  }\n\n  .sm\\:hover\\:border-pink-light:hover {\n    border-color: #fa7ea8;\n  }\n\n  .sm\\:hover\\:border-pink-lighter:hover {\n    border-color: #ffbbca;\n  }\n\n  .sm\\:hover\\:border-pink-lightest:hover {\n    border-color: #ffebef;\n  }\n\n  .sm\\:rounded-none {\n    border-radius: 0;\n  }\n\n  .sm\\:rounded-sm {\n    border-radius: .125rem;\n  }\n\n  .sm\\:rounded {\n    border-radius: .25rem;\n  }\n\n  .sm\\:rounded-lg {\n    border-radius: .5rem;\n  }\n\n  .sm\\:rounded-full {\n    border-radius: 9999px;\n  }\n\n  .sm\\:rounded-t-none {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n  }\n\n  .sm\\:rounded-r-none {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n  }\n\n  .sm\\:rounded-b-none {\n    border-bottom-right-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .sm\\:rounded-l-none {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .sm\\:rounded-t-sm {\n    border-top-left-radius: .125rem;\n    border-top-right-radius: .125rem;\n  }\n\n  .sm\\:rounded-r-sm {\n    border-top-right-radius: .125rem;\n    border-bottom-right-radius: .125rem;\n  }\n\n  .sm\\:rounded-b-sm {\n    border-bottom-right-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .sm\\:rounded-l-sm {\n    border-top-left-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .sm\\:rounded-t {\n    border-top-left-radius: .25rem;\n    border-top-right-radius: .25rem;\n  }\n\n  .sm\\:rounded-r {\n    border-top-right-radius: .25rem;\n    border-bottom-right-radius: .25rem;\n  }\n\n  .sm\\:rounded-b {\n    border-bottom-right-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .sm\\:rounded-l {\n    border-top-left-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .sm\\:rounded-t-lg {\n    border-top-left-radius: .5rem;\n    border-top-right-radius: .5rem;\n  }\n\n  .sm\\:rounded-r-lg {\n    border-top-right-radius: .5rem;\n    border-bottom-right-radius: .5rem;\n  }\n\n  .sm\\:rounded-b-lg {\n    border-bottom-right-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .sm\\:rounded-l-lg {\n    border-top-left-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .sm\\:rounded-t-full {\n    border-top-left-radius: 9999px;\n    border-top-right-radius: 9999px;\n  }\n\n  .sm\\:rounded-r-full {\n    border-top-right-radius: 9999px;\n    border-bottom-right-radius: 9999px;\n  }\n\n  .sm\\:rounded-b-full {\n    border-bottom-right-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .sm\\:rounded-l-full {\n    border-top-left-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .sm\\:rounded-tl-none {\n    border-top-left-radius: 0;\n  }\n\n  .sm\\:rounded-tr-none {\n    border-top-right-radius: 0;\n  }\n\n  .sm\\:rounded-br-none {\n    border-bottom-right-radius: 0;\n  }\n\n  .sm\\:rounded-bl-none {\n    border-bottom-left-radius: 0;\n  }\n\n  .sm\\:rounded-tl-sm {\n    border-top-left-radius: .125rem;\n  }\n\n  .sm\\:rounded-tr-sm {\n    border-top-right-radius: .125rem;\n  }\n\n  .sm\\:rounded-br-sm {\n    border-bottom-right-radius: .125rem;\n  }\n\n  .sm\\:rounded-bl-sm {\n    border-bottom-left-radius: .125rem;\n  }\n\n  .sm\\:rounded-tl {\n    border-top-left-radius: .25rem;\n  }\n\n  .sm\\:rounded-tr {\n    border-top-right-radius: .25rem;\n  }\n\n  .sm\\:rounded-br {\n    border-bottom-right-radius: .25rem;\n  }\n\n  .sm\\:rounded-bl {\n    border-bottom-left-radius: .25rem;\n  }\n\n  .sm\\:rounded-tl-lg {\n    border-top-left-radius: .5rem;\n  }\n\n  .sm\\:rounded-tr-lg {\n    border-top-right-radius: .5rem;\n  }\n\n  .sm\\:rounded-br-lg {\n    border-bottom-right-radius: .5rem;\n  }\n\n  .sm\\:rounded-bl-lg {\n    border-bottom-left-radius: .5rem;\n  }\n\n  .sm\\:rounded-tl-full {\n    border-top-left-radius: 9999px;\n  }\n\n  .sm\\:rounded-tr-full {\n    border-top-right-radius: 9999px;\n  }\n\n  .sm\\:rounded-br-full {\n    border-bottom-right-radius: 9999px;\n  }\n\n  .sm\\:rounded-bl-full {\n    border-bottom-left-radius: 9999px;\n  }\n\n  .sm\\:border-solid {\n    border-style: solid;\n  }\n\n  .sm\\:border-dashed {\n    border-style: dashed;\n  }\n\n  .sm\\:border-dotted {\n    border-style: dotted;\n  }\n\n  .sm\\:border-none {\n    border-style: none;\n  }\n\n  .sm\\:border-0 {\n    border-width: 0;\n  }\n\n  .sm\\:border-2 {\n    border-width: 2px;\n  }\n\n  .sm\\:border-4 {\n    border-width: 4px;\n  }\n\n  .sm\\:border-8 {\n    border-width: 8px;\n  }\n\n  .sm\\:border {\n    border-width: 1px;\n  }\n\n  .sm\\:border-t-0 {\n    border-top-width: 0;\n  }\n\n  .sm\\:border-r-0 {\n    border-right-width: 0;\n  }\n\n  .sm\\:border-b-0 {\n    border-bottom-width: 0;\n  }\n\n  .sm\\:border-l-0 {\n    border-left-width: 0;\n  }\n\n  .sm\\:border-t-2 {\n    border-top-width: 2px;\n  }\n\n  .sm\\:border-r-2 {\n    border-right-width: 2px;\n  }\n\n  .sm\\:border-b-2 {\n    border-bottom-width: 2px;\n  }\n\n  .sm\\:border-l-2 {\n    border-left-width: 2px;\n  }\n\n  .sm\\:border-t-4 {\n    border-top-width: 4px;\n  }\n\n  .sm\\:border-r-4 {\n    border-right-width: 4px;\n  }\n\n  .sm\\:border-b-4 {\n    border-bottom-width: 4px;\n  }\n\n  .sm\\:border-l-4 {\n    border-left-width: 4px;\n  }\n\n  .sm\\:border-t-8 {\n    border-top-width: 8px;\n  }\n\n  .sm\\:border-r-8 {\n    border-right-width: 8px;\n  }\n\n  .sm\\:border-b-8 {\n    border-bottom-width: 8px;\n  }\n\n  .sm\\:border-l-8 {\n    border-left-width: 8px;\n  }\n\n  .sm\\:border-t {\n    border-top-width: 1px;\n  }\n\n  .sm\\:border-r {\n    border-right-width: 1px;\n  }\n\n  .sm\\:border-b {\n    border-bottom-width: 1px;\n  }\n\n  .sm\\:border-l {\n    border-left-width: 1px;\n  }\n\n  .sm\\:cursor-auto {\n    cursor: auto;\n  }\n\n  .sm\\:cursor-default {\n    cursor: default;\n  }\n\n  .sm\\:cursor-pointer {\n    cursor: pointer;\n  }\n\n  .sm\\:cursor-wait {\n    cursor: wait;\n  }\n\n  .sm\\:cursor-move {\n    cursor: move;\n  }\n\n  .sm\\:cursor-not-allowed {\n    cursor: not-allowed;\n  }\n\n  .sm\\:block {\n    display: block;\n  }\n\n  .sm\\:inline-block {\n    display: inline-block;\n  }\n\n  .sm\\:inline {\n    display: inline;\n  }\n\n  .sm\\:table {\n    display: table;\n  }\n\n  .sm\\:table-row {\n    display: table-row;\n  }\n\n  .sm\\:table-cell {\n    display: table-cell;\n  }\n\n  .sm\\:hidden {\n    display: none;\n  }\n\n  .sm\\:flex {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n  }\n\n  .sm\\:inline-flex {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n  }\n\n  .sm\\:flex-row {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n  }\n\n  .sm\\:flex-row-reverse {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: row-reverse;\n            flex-direction: row-reverse;\n  }\n\n  .sm\\:flex-col {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n\n  .sm\\:flex-col-reverse {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n  }\n\n  .sm\\:flex-wrap {\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n  }\n\n  .sm\\:flex-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse;\n        flex-wrap: wrap-reverse;\n  }\n\n  .sm\\:flex-no-wrap {\n    -ms-flex-wrap: nowrap;\n        flex-wrap: nowrap;\n  }\n\n  .sm\\:items-start {\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n  }\n\n  .sm\\:items-end {\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n  }\n\n  .sm\\:items-center {\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n  }\n\n  .sm\\:items-baseline {\n    -webkit-box-align: baseline;\n        -ms-flex-align: baseline;\n            align-items: baseline;\n  }\n\n  .sm\\:items-stretch {\n    -webkit-box-align: stretch;\n        -ms-flex-align: stretch;\n            align-items: stretch;\n  }\n\n  .sm\\:self-auto {\n    -ms-flex-item-align: auto;\n        -ms-grid-row-align: auto;\n        align-self: auto;\n  }\n\n  .sm\\:self-start {\n    -ms-flex-item-align: start;\n        align-self: flex-start;\n  }\n\n  .sm\\:self-end {\n    -ms-flex-item-align: end;\n        align-self: flex-end;\n  }\n\n  .sm\\:self-center {\n    -ms-flex-item-align: center;\n        -ms-grid-row-align: center;\n        align-self: center;\n  }\n\n  .sm\\:self-stretch {\n    -ms-flex-item-align: stretch;\n        -ms-grid-row-align: stretch;\n        align-self: stretch;\n  }\n\n  .sm\\:justify-start {\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n  }\n\n  .sm\\:justify-end {\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n  }\n\n  .sm\\:justify-center {\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n  }\n\n  .sm\\:justify-between {\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n  }\n\n  .sm\\:justify-around {\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n  }\n\n  .sm\\:content-center {\n    -ms-flex-line-pack: center;\n        align-content: center;\n  }\n\n  .sm\\:content-start {\n    -ms-flex-line-pack: start;\n        align-content: flex-start;\n  }\n\n  .sm\\:content-end {\n    -ms-flex-line-pack: end;\n        align-content: flex-end;\n  }\n\n  .sm\\:content-between {\n    -ms-flex-line-pack: justify;\n        align-content: space-between;\n  }\n\n  .sm\\:content-around {\n    -ms-flex-line-pack: distribute;\n        align-content: space-around;\n  }\n\n  .sm\\:flex-1 {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n  }\n\n  .sm\\:flex-auto {\n    -webkit-box-flex: 1;\n        -ms-flex: auto;\n            flex: auto;\n  }\n\n  .sm\\:flex-initial {\n    -webkit-box-flex: initial;\n        -ms-flex: initial;\n            flex: initial;\n  }\n\n  .sm\\:flex-none {\n    -webkit-box-flex: 0;\n        -ms-flex: none;\n            flex: none;\n  }\n\n  .sm\\:flex-grow {\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n  }\n\n  .sm\\:flex-shrink {\n    -ms-flex-negative: 1;\n        flex-shrink: 1;\n  }\n\n  .sm\\:flex-no-grow {\n    -webkit-box-flex: 0;\n        -ms-flex-positive: 0;\n            flex-grow: 0;\n  }\n\n  .sm\\:flex-no-shrink {\n    -ms-flex-negative: 0;\n        flex-shrink: 0;\n  }\n\n  .sm\\:float-right {\n    float: right;\n  }\n\n  .sm\\:float-left {\n    float: left;\n  }\n\n  .sm\\:float-none {\n    float: none;\n  }\n\n  .sm\\:clearfix:after {\n    content: \"\";\n    display: table;\n    clear: both;\n  }\n\n  .sm\\:font-sans {\n    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;\n  }\n\n  .sm\\:font-serif {\n    font-family: Constantia, Lucida Bright, Lucidabright, Lucida Serif, Lucida, DejaVu Serif, Bitstream Vera Serif, Liberation Serif, Georgia, serif;\n  }\n\n  .sm\\:font-mono {\n    font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;\n  }\n\n  .sm\\:font-hairline {\n    font-weight: 100;\n  }\n\n  .sm\\:font-thin {\n    font-weight: 200;\n  }\n\n  .sm\\:font-light {\n    font-weight: 300;\n  }\n\n  .sm\\:font-normal {\n    font-weight: 400;\n  }\n\n  .sm\\:font-medium {\n    font-weight: 500;\n  }\n\n  .sm\\:font-semibold {\n    font-weight: 600;\n  }\n\n  .sm\\:font-bold {\n    font-weight: 700;\n  }\n\n  .sm\\:font-extrabold {\n    font-weight: 800;\n  }\n\n  .sm\\:font-black {\n    font-weight: 900;\n  }\n\n  .sm\\:hover\\:font-hairline:hover {\n    font-weight: 100;\n  }\n\n  .sm\\:hover\\:font-thin:hover {\n    font-weight: 200;\n  }\n\n  .sm\\:hover\\:font-light:hover {\n    font-weight: 300;\n  }\n\n  .sm\\:hover\\:font-normal:hover {\n    font-weight: 400;\n  }\n\n  .sm\\:hover\\:font-medium:hover {\n    font-weight: 500;\n  }\n\n  .sm\\:hover\\:font-semibold:hover {\n    font-weight: 600;\n  }\n\n  .sm\\:hover\\:font-bold:hover {\n    font-weight: 700;\n  }\n\n  .sm\\:hover\\:font-extrabold:hover {\n    font-weight: 800;\n  }\n\n  .sm\\:hover\\:font-black:hover {\n    font-weight: 900;\n  }\n\n  .sm\\:h-1 {\n    height: .25rem;\n  }\n\n  .sm\\:h-2 {\n    height: .5rem;\n  }\n\n  .sm\\:h-3 {\n    height: .75rem;\n  }\n\n  .sm\\:h-4 {\n    height: 1rem;\n  }\n\n  .sm\\:h-6 {\n    height: 1.5rem;\n  }\n\n  .sm\\:h-8 {\n    height: 2rem;\n  }\n\n  .sm\\:h-10 {\n    height: 2.5rem;\n  }\n\n  .sm\\:h-12 {\n    height: 3rem;\n  }\n\n  .sm\\:h-16 {\n    height: 4rem;\n  }\n\n  .sm\\:h-24 {\n    height: 6rem;\n  }\n\n  .sm\\:h-32 {\n    height: 8rem;\n  }\n\n  .sm\\:h-48 {\n    height: 12rem;\n  }\n\n  .sm\\:h-64 {\n    height: 16rem;\n  }\n\n  .sm\\:h-auto {\n    height: auto;\n  }\n\n  .sm\\:h-px {\n    height: 1px;\n  }\n\n  .sm\\:h-full {\n    height: 100%;\n  }\n\n  .sm\\:h-screen {\n    height: 100vh;\n  }\n\n  .sm\\:leading-none {\n    line-height: 1;\n  }\n\n  .sm\\:leading-tight {\n    line-height: 1.25;\n  }\n\n  .sm\\:leading-normal {\n    line-height: 1.5;\n  }\n\n  .sm\\:leading-loose {\n    line-height: 2;\n  }\n\n  .sm\\:m-0 {\n    margin: 0;\n  }\n\n  .sm\\:m-1 {\n    margin: .25rem;\n  }\n\n  .sm\\:m-2 {\n    margin: .5rem;\n  }\n\n  .sm\\:m-3 {\n    margin: .75rem;\n  }\n\n  .sm\\:m-4 {\n    margin: 1rem;\n  }\n\n  .sm\\:m-6 {\n    margin: 1.5rem;\n  }\n\n  .sm\\:m-8 {\n    margin: 2rem;\n  }\n\n  .sm\\:m-auto {\n    margin: auto;\n  }\n\n  .sm\\:m-px {\n    margin: 1px;\n  }\n\n  .sm\\:my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .sm\\:mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .sm\\:my-1 {\n    margin-top: .25rem;\n    margin-bottom: .25rem;\n  }\n\n  .sm\\:mx-1 {\n    margin-left: .25rem;\n    margin-right: .25rem;\n  }\n\n  .sm\\:my-2 {\n    margin-top: .5rem;\n    margin-bottom: .5rem;\n  }\n\n  .sm\\:mx-2 {\n    margin-left: .5rem;\n    margin-right: .5rem;\n  }\n\n  .sm\\:my-3 {\n    margin-top: .75rem;\n    margin-bottom: .75rem;\n  }\n\n  .sm\\:mx-3 {\n    margin-left: .75rem;\n    margin-right: .75rem;\n  }\n\n  .sm\\:my-4 {\n    margin-top: 1rem;\n    margin-bottom: 1rem;\n  }\n\n  .sm\\:mx-4 {\n    margin-left: 1rem;\n    margin-right: 1rem;\n  }\n\n  .sm\\:my-6 {\n    margin-top: 1.5rem;\n    margin-bottom: 1.5rem;\n  }\n\n  .sm\\:mx-6 {\n    margin-left: 1.5rem;\n    margin-right: 1.5rem;\n  }\n\n  .sm\\:my-8 {\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n  }\n\n  .sm\\:mx-8 {\n    margin-left: 2rem;\n    margin-right: 2rem;\n  }\n\n  .sm\\:my-auto {\n    margin-top: auto;\n    margin-bottom: auto;\n  }\n\n  .sm\\:mx-auto {\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  .sm\\:my-px {\n    margin-top: 1px;\n    margin-bottom: 1px;\n  }\n\n  .sm\\:mx-px {\n    margin-left: 1px;\n    margin-right: 1px;\n  }\n\n  .sm\\:mt-0 {\n    margin-top: 0;\n  }\n\n  .sm\\:mr-0 {\n    margin-right: 0;\n  }\n\n  .sm\\:mb-0 {\n    margin-bottom: 0;\n  }\n\n  .sm\\:ml-0 {\n    margin-left: 0;\n  }\n\n  .sm\\:mt-1 {\n    margin-top: .25rem;\n  }\n\n  .sm\\:mr-1 {\n    margin-right: .25rem;\n  }\n\n  .sm\\:mb-1 {\n    margin-bottom: .25rem;\n  }\n\n  .sm\\:ml-1 {\n    margin-left: .25rem;\n  }\n\n  .sm\\:mt-2 {\n    margin-top: .5rem;\n  }\n\n  .sm\\:mr-2 {\n    margin-right: .5rem;\n  }\n\n  .sm\\:mb-2 {\n    margin-bottom: .5rem;\n  }\n\n  .sm\\:ml-2 {\n    margin-left: .5rem;\n  }\n\n  .sm\\:mt-3 {\n    margin-top: .75rem;\n  }\n\n  .sm\\:mr-3 {\n    margin-right: .75rem;\n  }\n\n  .sm\\:mb-3 {\n    margin-bottom: .75rem;\n  }\n\n  .sm\\:ml-3 {\n    margin-left: .75rem;\n  }\n\n  .sm\\:mt-4 {\n    margin-top: 1rem;\n  }\n\n  .sm\\:mr-4 {\n    margin-right: 1rem;\n  }\n\n  .sm\\:mb-4 {\n    margin-bottom: 1rem;\n  }\n\n  .sm\\:ml-4 {\n    margin-left: 1rem;\n  }\n\n  .sm\\:mt-6 {\n    margin-top: 1.5rem;\n  }\n\n  .sm\\:mr-6 {\n    margin-right: 1.5rem;\n  }\n\n  .sm\\:mb-6 {\n    margin-bottom: 1.5rem;\n  }\n\n  .sm\\:ml-6 {\n    margin-left: 1.5rem;\n  }\n\n  .sm\\:mt-8 {\n    margin-top: 2rem;\n  }\n\n  .sm\\:mr-8 {\n    margin-right: 2rem;\n  }\n\n  .sm\\:mb-8 {\n    margin-bottom: 2rem;\n  }\n\n  .sm\\:ml-8 {\n    margin-left: 2rem;\n  }\n\n  .sm\\:mt-auto {\n    margin-top: auto;\n  }\n\n  .sm\\:mr-auto {\n    margin-right: auto;\n  }\n\n  .sm\\:mb-auto {\n    margin-bottom: auto;\n  }\n\n  .sm\\:ml-auto {\n    margin-left: auto;\n  }\n\n  .sm\\:mt-px {\n    margin-top: 1px;\n  }\n\n  .sm\\:mr-px {\n    margin-right: 1px;\n  }\n\n  .sm\\:mb-px {\n    margin-bottom: 1px;\n  }\n\n  .sm\\:ml-px {\n    margin-left: 1px;\n  }\n\n  .sm\\:max-h-full {\n    max-height: 100%;\n  }\n\n  .sm\\:max-h-screen {\n    max-height: 100vh;\n  }\n\n  .sm\\:max-w-xs {\n    max-width: 20rem;\n  }\n\n  .sm\\:max-w-sm {\n    max-width: 30rem;\n  }\n\n  .sm\\:max-w-md {\n    max-width: 40rem;\n  }\n\n  .sm\\:max-w-lg {\n    max-width: 50rem;\n  }\n\n  .sm\\:max-w-xl {\n    max-width: 60rem;\n  }\n\n  .sm\\:max-w-2xl {\n    max-width: 70rem;\n  }\n\n  .sm\\:max-w-3xl {\n    max-width: 80rem;\n  }\n\n  .sm\\:max-w-4xl {\n    max-width: 90rem;\n  }\n\n  .sm\\:max-w-5xl {\n    max-width: 100rem;\n  }\n\n  .sm\\:max-w-full {\n    max-width: 100%;\n  }\n\n  .sm\\:min-h-0 {\n    min-height: 0;\n  }\n\n  .sm\\:min-h-full {\n    min-height: 100%;\n  }\n\n  .sm\\:min-h-screen {\n    min-height: 100vh;\n  }\n\n  .sm\\:min-w-0 {\n    min-width: 0;\n  }\n\n  .sm\\:min-w-full {\n    min-width: 100%;\n  }\n\n  .sm\\:-m-0 {\n    margin: 0;\n  }\n\n  .sm\\:-m-1 {\n    margin: -0.25rem;\n  }\n\n  .sm\\:-m-2 {\n    margin: -0.5rem;\n  }\n\n  .sm\\:-m-3 {\n    margin: -0.75rem;\n  }\n\n  .sm\\:-m-4 {\n    margin: -1rem;\n  }\n\n  .sm\\:-m-6 {\n    margin: -1.5rem;\n  }\n\n  .sm\\:-m-8 {\n    margin: -2rem;\n  }\n\n  .sm\\:-m-px {\n    margin: -1px;\n  }\n\n  .sm\\:-my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .sm\\:-mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .sm\\:-my-1 {\n    margin-top: -0.25rem;\n    margin-bottom: -0.25rem;\n  }\n\n  .sm\\:-mx-1 {\n    margin-left: -0.25rem;\n    margin-right: -0.25rem;\n  }\n\n  .sm\\:-my-2 {\n    margin-top: -0.5rem;\n    margin-bottom: -0.5rem;\n  }\n\n  .sm\\:-mx-2 {\n    margin-left: -0.5rem;\n    margin-right: -0.5rem;\n  }\n\n  .sm\\:-my-3 {\n    margin-top: -0.75rem;\n    margin-bottom: -0.75rem;\n  }\n\n  .sm\\:-mx-3 {\n    margin-left: -0.75rem;\n    margin-right: -0.75rem;\n  }\n\n  .sm\\:-my-4 {\n    margin-top: -1rem;\n    margin-bottom: -1rem;\n  }\n\n  .sm\\:-mx-4 {\n    margin-left: -1rem;\n    margin-right: -1rem;\n  }\n\n  .sm\\:-my-6 {\n    margin-top: -1.5rem;\n    margin-bottom: -1.5rem;\n  }\n\n  .sm\\:-mx-6 {\n    margin-left: -1.5rem;\n    margin-right: -1.5rem;\n  }\n\n  .sm\\:-my-8 {\n    margin-top: -2rem;\n    margin-bottom: -2rem;\n  }\n\n  .sm\\:-mx-8 {\n    margin-left: -2rem;\n    margin-right: -2rem;\n  }\n\n  .sm\\:-my-px {\n    margin-top: -1px;\n    margin-bottom: -1px;\n  }\n\n  .sm\\:-mx-px {\n    margin-left: -1px;\n    margin-right: -1px;\n  }\n\n  .sm\\:-mt-0 {\n    margin-top: 0;\n  }\n\n  .sm\\:-mr-0 {\n    margin-right: 0;\n  }\n\n  .sm\\:-mb-0 {\n    margin-bottom: 0;\n  }\n\n  .sm\\:-ml-0 {\n    margin-left: 0;\n  }\n\n  .sm\\:-mt-1 {\n    margin-top: -0.25rem;\n  }\n\n  .sm\\:-mr-1 {\n    margin-right: -0.25rem;\n  }\n\n  .sm\\:-mb-1 {\n    margin-bottom: -0.25rem;\n  }\n\n  .sm\\:-ml-1 {\n    margin-left: -0.25rem;\n  }\n\n  .sm\\:-mt-2 {\n    margin-top: -0.5rem;\n  }\n\n  .sm\\:-mr-2 {\n    margin-right: -0.5rem;\n  }\n\n  .sm\\:-mb-2 {\n    margin-bottom: -0.5rem;\n  }\n\n  .sm\\:-ml-2 {\n    margin-left: -0.5rem;\n  }\n\n  .sm\\:-mt-3 {\n    margin-top: -0.75rem;\n  }\n\n  .sm\\:-mr-3 {\n    margin-right: -0.75rem;\n  }\n\n  .sm\\:-mb-3 {\n    margin-bottom: -0.75rem;\n  }\n\n  .sm\\:-ml-3 {\n    margin-left: -0.75rem;\n  }\n\n  .sm\\:-mt-4 {\n    margin-top: -1rem;\n  }\n\n  .sm\\:-mr-4 {\n    margin-right: -1rem;\n  }\n\n  .sm\\:-mb-4 {\n    margin-bottom: -1rem;\n  }\n\n  .sm\\:-ml-4 {\n    margin-left: -1rem;\n  }\n\n  .sm\\:-mt-6 {\n    margin-top: -1.5rem;\n  }\n\n  .sm\\:-mr-6 {\n    margin-right: -1.5rem;\n  }\n\n  .sm\\:-mb-6 {\n    margin-bottom: -1.5rem;\n  }\n\n  .sm\\:-ml-6 {\n    margin-left: -1.5rem;\n  }\n\n  .sm\\:-mt-8 {\n    margin-top: -2rem;\n  }\n\n  .sm\\:-mr-8 {\n    margin-right: -2rem;\n  }\n\n  .sm\\:-mb-8 {\n    margin-bottom: -2rem;\n  }\n\n  .sm\\:-ml-8 {\n    margin-left: -2rem;\n  }\n\n  .sm\\:-mt-px {\n    margin-top: -1px;\n  }\n\n  .sm\\:-mr-px {\n    margin-right: -1px;\n  }\n\n  .sm\\:-mb-px {\n    margin-bottom: -1px;\n  }\n\n  .sm\\:-ml-px {\n    margin-left: -1px;\n  }\n\n  .sm\\:opacity-0 {\n    opacity: 0;\n  }\n\n  .sm\\:opacity-25 {\n    opacity: .25;\n  }\n\n  .sm\\:opacity-50 {\n    opacity: .5;\n  }\n\n  .sm\\:opacity-75 {\n    opacity: .75;\n  }\n\n  .sm\\:opacity-100 {\n    opacity: 1;\n  }\n\n  .sm\\:overflow-auto {\n    overflow: auto;\n  }\n\n  .sm\\:overflow-hidden {\n    overflow: hidden;\n  }\n\n  .sm\\:overflow-visible {\n    overflow: visible;\n  }\n\n  .sm\\:overflow-scroll {\n    overflow: scroll;\n  }\n\n  .sm\\:overflow-x-auto {\n    overflow-x: auto;\n  }\n\n  .sm\\:overflow-y-auto {\n    overflow-y: auto;\n  }\n\n  .sm\\:overflow-x-scroll {\n    overflow-x: scroll;\n  }\n\n  .sm\\:overflow-y-scroll {\n    overflow-y: scroll;\n  }\n\n  .sm\\:scrolling-touch {\n    -webkit-overflow-scrolling: touch;\n  }\n\n  .sm\\:scrolling-auto {\n    -webkit-overflow-scrolling: auto;\n  }\n\n  .sm\\:p-0 {\n    padding: 0;\n  }\n\n  .sm\\:p-1 {\n    padding: .25rem;\n  }\n\n  .sm\\:p-2 {\n    padding: .5rem;\n  }\n\n  .sm\\:p-3 {\n    padding: .75rem;\n  }\n\n  .sm\\:p-4 {\n    padding: 1rem;\n  }\n\n  .sm\\:p-6 {\n    padding: 1.5rem;\n  }\n\n  .sm\\:p-8 {\n    padding: 2rem;\n  }\n\n  .sm\\:p-px {\n    padding: 1px;\n  }\n\n  .sm\\:py-0 {\n    padding-top: 0;\n    padding-bottom: 0;\n  }\n\n  .sm\\:px-0 {\n    padding-left: 0;\n    padding-right: 0;\n  }\n\n  .sm\\:py-1 {\n    padding-top: .25rem;\n    padding-bottom: .25rem;\n  }\n\n  .sm\\:px-1 {\n    padding-left: .25rem;\n    padding-right: .25rem;\n  }\n\n  .sm\\:py-2 {\n    padding-top: .5rem;\n    padding-bottom: .5rem;\n  }\n\n  .sm\\:px-2 {\n    padding-left: .5rem;\n    padding-right: .5rem;\n  }\n\n  .sm\\:py-3 {\n    padding-top: .75rem;\n    padding-bottom: .75rem;\n  }\n\n  .sm\\:px-3 {\n    padding-left: .75rem;\n    padding-right: .75rem;\n  }\n\n  .sm\\:py-4 {\n    padding-top: 1rem;\n    padding-bottom: 1rem;\n  }\n\n  .sm\\:px-4 {\n    padding-left: 1rem;\n    padding-right: 1rem;\n  }\n\n  .sm\\:py-6 {\n    padding-top: 1.5rem;\n    padding-bottom: 1.5rem;\n  }\n\n  .sm\\:px-6 {\n    padding-left: 1.5rem;\n    padding-right: 1.5rem;\n  }\n\n  .sm\\:py-8 {\n    padding-top: 2rem;\n    padding-bottom: 2rem;\n  }\n\n  .sm\\:px-8 {\n    padding-left: 2rem;\n    padding-right: 2rem;\n  }\n\n  .sm\\:py-px {\n    padding-top: 1px;\n    padding-bottom: 1px;\n  }\n\n  .sm\\:px-px {\n    padding-left: 1px;\n    padding-right: 1px;\n  }\n\n  .sm\\:pt-0 {\n    padding-top: 0;\n  }\n\n  .sm\\:pr-0 {\n    padding-right: 0;\n  }\n\n  .sm\\:pb-0 {\n    padding-bottom: 0;\n  }\n\n  .sm\\:pl-0 {\n    padding-left: 0;\n  }\n\n  .sm\\:pt-1 {\n    padding-top: .25rem;\n  }\n\n  .sm\\:pr-1 {\n    padding-right: .25rem;\n  }\n\n  .sm\\:pb-1 {\n    padding-bottom: .25rem;\n  }\n\n  .sm\\:pl-1 {\n    padding-left: .25rem;\n  }\n\n  .sm\\:pt-2 {\n    padding-top: .5rem;\n  }\n\n  .sm\\:pr-2 {\n    padding-right: .5rem;\n  }\n\n  .sm\\:pb-2 {\n    padding-bottom: .5rem;\n  }\n\n  .sm\\:pl-2 {\n    padding-left: .5rem;\n  }\n\n  .sm\\:pt-3 {\n    padding-top: .75rem;\n  }\n\n  .sm\\:pr-3 {\n    padding-right: .75rem;\n  }\n\n  .sm\\:pb-3 {\n    padding-bottom: .75rem;\n  }\n\n  .sm\\:pl-3 {\n    padding-left: .75rem;\n  }\n\n  .sm\\:pt-4 {\n    padding-top: 1rem;\n  }\n\n  .sm\\:pr-4 {\n    padding-right: 1rem;\n  }\n\n  .sm\\:pb-4 {\n    padding-bottom: 1rem;\n  }\n\n  .sm\\:pl-4 {\n    padding-left: 1rem;\n  }\n\n  .sm\\:pt-6 {\n    padding-top: 1.5rem;\n  }\n\n  .sm\\:pr-6 {\n    padding-right: 1.5rem;\n  }\n\n  .sm\\:pb-6 {\n    padding-bottom: 1.5rem;\n  }\n\n  .sm\\:pl-6 {\n    padding-left: 1.5rem;\n  }\n\n  .sm\\:pt-8 {\n    padding-top: 2rem;\n  }\n\n  .sm\\:pr-8 {\n    padding-right: 2rem;\n  }\n\n  .sm\\:pb-8 {\n    padding-bottom: 2rem;\n  }\n\n  .sm\\:pl-8 {\n    padding-left: 2rem;\n  }\n\n  .sm\\:pt-px {\n    padding-top: 1px;\n  }\n\n  .sm\\:pr-px {\n    padding-right: 1px;\n  }\n\n  .sm\\:pb-px {\n    padding-bottom: 1px;\n  }\n\n  .sm\\:pl-px {\n    padding-left: 1px;\n  }\n\n  .sm\\:pointer-events-none {\n    pointer-events: none;\n  }\n\n  .sm\\:pointer-events-auto {\n    pointer-events: auto;\n  }\n\n  .sm\\:static {\n    position: static;\n  }\n\n  .sm\\:fixed {\n    position: fixed;\n  }\n\n  .sm\\:absolute {\n    position: absolute;\n  }\n\n  .sm\\:relative {\n    position: relative;\n  }\n\n  .sm\\:sticky {\n    position: -webkit-sticky;\n    position: sticky;\n  }\n\n  .sm\\:pin-none {\n    top: auto;\n    right: auto;\n    bottom: auto;\n    left: auto;\n  }\n\n  .sm\\:pin {\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n  }\n\n  .sm\\:pin-y {\n    top: 0;\n    bottom: 0;\n  }\n\n  .sm\\:pin-x {\n    right: 0;\n    left: 0;\n  }\n\n  .sm\\:pin-t {\n    top: 0;\n  }\n\n  .sm\\:pin-r {\n    right: 0;\n  }\n\n  .sm\\:pin-b {\n    bottom: 0;\n  }\n\n  .sm\\:pin-l {\n    left: 0;\n  }\n\n  .sm\\:resize-none {\n    resize: none;\n  }\n\n  .sm\\:resize-y {\n    resize: vertical;\n  }\n\n  .sm\\:resize-x {\n    resize: horizontal;\n  }\n\n  .sm\\:resize {\n    resize: both;\n  }\n\n  .sm\\:shadow {\n    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);\n  }\n\n  .sm\\:shadow-md {\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);\n  }\n\n  .sm\\:shadow-lg {\n    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);\n  }\n\n  .sm\\:shadow-inner {\n    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);\n  }\n\n  .sm\\:shadow-none {\n    box-shadow: none;\n  }\n\n  .sm\\:text-left {\n    text-align: left;\n  }\n\n  .sm\\:text-center {\n    text-align: center;\n  }\n\n  .sm\\:text-right {\n    text-align: right;\n  }\n\n  .sm\\:text-justify {\n    text-align: justify;\n  }\n\n  .sm\\:text-transparent {\n    color: transparent;\n  }\n\n  .sm\\:text-black {\n    color: #22292f;\n  }\n\n  .sm\\:text-grey-darkest {\n    color: #3d4852;\n  }\n\n  .sm\\:text-grey-darker {\n    color: #606f7b;\n  }\n\n  .sm\\:text-grey-dark {\n    color: #8795a1;\n  }\n\n  .sm\\:text-grey {\n    color: #b8c2cc;\n  }\n\n  .sm\\:text-grey-light {\n    color: #dae1e7;\n  }\n\n  .sm\\:text-grey-lighter {\n    color: #f1f5f8;\n  }\n\n  .sm\\:text-grey-lightest {\n    color: #f8fafc;\n  }\n\n  .sm\\:text-white {\n    color: #fff;\n  }\n\n  .sm\\:text-red-darkest {\n    color: #3b0d0c;\n  }\n\n  .sm\\:text-red-darker {\n    color: #621b18;\n  }\n\n  .sm\\:text-red-dark {\n    color: #cc1f1a;\n  }\n\n  .sm\\:text-red {\n    color: #e3342f;\n  }\n\n  .sm\\:text-red-light {\n    color: #ef5753;\n  }\n\n  .sm\\:text-red-lighter {\n    color: #f9acaa;\n  }\n\n  .sm\\:text-red-lightest {\n    color: #fcebea;\n  }\n\n  .sm\\:text-orange-darkest {\n    color: #462a16;\n  }\n\n  .sm\\:text-orange-darker {\n    color: #613b1f;\n  }\n\n  .sm\\:text-orange-dark {\n    color: #de751f;\n  }\n\n  .sm\\:text-orange {\n    color: #f6993f;\n  }\n\n  .sm\\:text-orange-light {\n    color: #faad63;\n  }\n\n  .sm\\:text-orange-lighter {\n    color: #fcd9b6;\n  }\n\n  .sm\\:text-orange-lightest {\n    color: #fff5eb;\n  }\n\n  .sm\\:text-yellow-darkest {\n    color: #453411;\n  }\n\n  .sm\\:text-yellow-darker {\n    color: #684f1d;\n  }\n\n  .sm\\:text-yellow-dark {\n    color: #f2d024;\n  }\n\n  .sm\\:text-yellow {\n    color: #ffed4a;\n  }\n\n  .sm\\:text-yellow-light {\n    color: #fff382;\n  }\n\n  .sm\\:text-yellow-lighter {\n    color: #fff9c2;\n  }\n\n  .sm\\:text-yellow-lightest {\n    color: #fcfbeb;\n  }\n\n  .sm\\:text-green-darkest {\n    color: #0f2f21;\n  }\n\n  .sm\\:text-green-darker {\n    color: #1a4731;\n  }\n\n  .sm\\:text-green-dark {\n    color: #1f9d55;\n  }\n\n  .sm\\:text-green {\n    color: #38c172;\n  }\n\n  .sm\\:text-green-light {\n    color: #51d88a;\n  }\n\n  .sm\\:text-green-lighter {\n    color: #a2f5bf;\n  }\n\n  .sm\\:text-green-lightest {\n    color: #e3fcec;\n  }\n\n  .sm\\:text-teal-darkest {\n    color: #0d3331;\n  }\n\n  .sm\\:text-teal-darker {\n    color: #20504f;\n  }\n\n  .sm\\:text-teal-dark {\n    color: #38a89d;\n  }\n\n  .sm\\:text-teal {\n    color: #4dc0b5;\n  }\n\n  .sm\\:text-teal-light {\n    color: #64d5ca;\n  }\n\n  .sm\\:text-teal-lighter {\n    color: #a0f0ed;\n  }\n\n  .sm\\:text-teal-lightest {\n    color: #e8fffe;\n  }\n\n  .sm\\:text-blue-darkest {\n    color: #12283a;\n  }\n\n  .sm\\:text-blue-darker {\n    color: #1c3d5a;\n  }\n\n  .sm\\:text-blue-dark {\n    color: #2779bd;\n  }\n\n  .sm\\:text-blue {\n    color: #3490dc;\n  }\n\n  .sm\\:text-blue-light {\n    color: #6cb2eb;\n  }\n\n  .sm\\:text-blue-lighter {\n    color: #bcdefa;\n  }\n\n  .sm\\:text-blue-lightest {\n    color: #eff8ff;\n  }\n\n  .sm\\:text-indigo-darkest {\n    color: #191e38;\n  }\n\n  .sm\\:text-indigo-darker {\n    color: #2f365f;\n  }\n\n  .sm\\:text-indigo-dark {\n    color: #5661b3;\n  }\n\n  .sm\\:text-indigo {\n    color: #6574cd;\n  }\n\n  .sm\\:text-indigo-light {\n    color: #7886d7;\n  }\n\n  .sm\\:text-indigo-lighter {\n    color: #b2b7ff;\n  }\n\n  .sm\\:text-indigo-lightest {\n    color: #e6e8ff;\n  }\n\n  .sm\\:text-purple-darkest {\n    color: #21183c;\n  }\n\n  .sm\\:text-purple-darker {\n    color: #382b5f;\n  }\n\n  .sm\\:text-purple-dark {\n    color: #794acf;\n  }\n\n  .sm\\:text-purple {\n    color: #9561e2;\n  }\n\n  .sm\\:text-purple-light {\n    color: #a779e9;\n  }\n\n  .sm\\:text-purple-lighter {\n    color: #d6bbfc;\n  }\n\n  .sm\\:text-purple-lightest {\n    color: #f3ebff;\n  }\n\n  .sm\\:text-pink-darkest {\n    color: #451225;\n  }\n\n  .sm\\:text-pink-darker {\n    color: #6f213f;\n  }\n\n  .sm\\:text-pink-dark {\n    color: #eb5286;\n  }\n\n  .sm\\:text-pink {\n    color: #f66d9b;\n  }\n\n  .sm\\:text-pink-light {\n    color: #fa7ea8;\n  }\n\n  .sm\\:text-pink-lighter {\n    color: #ffbbca;\n  }\n\n  .sm\\:text-pink-lightest {\n    color: #ffebef;\n  }\n\n  .sm\\:hover\\:text-transparent:hover {\n    color: transparent;\n  }\n\n  .sm\\:hover\\:text-black:hover {\n    color: #22292f;\n  }\n\n  .sm\\:hover\\:text-grey-darkest:hover {\n    color: #3d4852;\n  }\n\n  .sm\\:hover\\:text-grey-darker:hover {\n    color: #606f7b;\n  }\n\n  .sm\\:hover\\:text-grey-dark:hover {\n    color: #8795a1;\n  }\n\n  .sm\\:hover\\:text-grey:hover {\n    color: #b8c2cc;\n  }\n\n  .sm\\:hover\\:text-grey-light:hover {\n    color: #dae1e7;\n  }\n\n  .sm\\:hover\\:text-grey-lighter:hover {\n    color: #f1f5f8;\n  }\n\n  .sm\\:hover\\:text-grey-lightest:hover {\n    color: #f8fafc;\n  }\n\n  .sm\\:hover\\:text-white:hover {\n    color: #fff;\n  }\n\n  .sm\\:hover\\:text-red-darkest:hover {\n    color: #3b0d0c;\n  }\n\n  .sm\\:hover\\:text-red-darker:hover {\n    color: #621b18;\n  }\n\n  .sm\\:hover\\:text-red-dark:hover {\n    color: #cc1f1a;\n  }\n\n  .sm\\:hover\\:text-red:hover {\n    color: #e3342f;\n  }\n\n  .sm\\:hover\\:text-red-light:hover {\n    color: #ef5753;\n  }\n\n  .sm\\:hover\\:text-red-lighter:hover {\n    color: #f9acaa;\n  }\n\n  .sm\\:hover\\:text-red-lightest:hover {\n    color: #fcebea;\n  }\n\n  .sm\\:hover\\:text-orange-darkest:hover {\n    color: #462a16;\n  }\n\n  .sm\\:hover\\:text-orange-darker:hover {\n    color: #613b1f;\n  }\n\n  .sm\\:hover\\:text-orange-dark:hover {\n    color: #de751f;\n  }\n\n  .sm\\:hover\\:text-orange:hover {\n    color: #f6993f;\n  }\n\n  .sm\\:hover\\:text-orange-light:hover {\n    color: #faad63;\n  }\n\n  .sm\\:hover\\:text-orange-lighter:hover {\n    color: #fcd9b6;\n  }\n\n  .sm\\:hover\\:text-orange-lightest:hover {\n    color: #fff5eb;\n  }\n\n  .sm\\:hover\\:text-yellow-darkest:hover {\n    color: #453411;\n  }\n\n  .sm\\:hover\\:text-yellow-darker:hover {\n    color: #684f1d;\n  }\n\n  .sm\\:hover\\:text-yellow-dark:hover {\n    color: #f2d024;\n  }\n\n  .sm\\:hover\\:text-yellow:hover {\n    color: #ffed4a;\n  }\n\n  .sm\\:hover\\:text-yellow-light:hover {\n    color: #fff382;\n  }\n\n  .sm\\:hover\\:text-yellow-lighter:hover {\n    color: #fff9c2;\n  }\n\n  .sm\\:hover\\:text-yellow-lightest:hover {\n    color: #fcfbeb;\n  }\n\n  .sm\\:hover\\:text-green-darkest:hover {\n    color: #0f2f21;\n  }\n\n  .sm\\:hover\\:text-green-darker:hover {\n    color: #1a4731;\n  }\n\n  .sm\\:hover\\:text-green-dark:hover {\n    color: #1f9d55;\n  }\n\n  .sm\\:hover\\:text-green:hover {\n    color: #38c172;\n  }\n\n  .sm\\:hover\\:text-green-light:hover {\n    color: #51d88a;\n  }\n\n  .sm\\:hover\\:text-green-lighter:hover {\n    color: #a2f5bf;\n  }\n\n  .sm\\:hover\\:text-green-lightest:hover {\n    color: #e3fcec;\n  }\n\n  .sm\\:hover\\:text-teal-darkest:hover {\n    color: #0d3331;\n  }\n\n  .sm\\:hover\\:text-teal-darker:hover {\n    color: #20504f;\n  }\n\n  .sm\\:hover\\:text-teal-dark:hover {\n    color: #38a89d;\n  }\n\n  .sm\\:hover\\:text-teal:hover {\n    color: #4dc0b5;\n  }\n\n  .sm\\:hover\\:text-teal-light:hover {\n    color: #64d5ca;\n  }\n\n  .sm\\:hover\\:text-teal-lighter:hover {\n    color: #a0f0ed;\n  }\n\n  .sm\\:hover\\:text-teal-lightest:hover {\n    color: #e8fffe;\n  }\n\n  .sm\\:hover\\:text-blue-darkest:hover {\n    color: #12283a;\n  }\n\n  .sm\\:hover\\:text-blue-darker:hover {\n    color: #1c3d5a;\n  }\n\n  .sm\\:hover\\:text-blue-dark:hover {\n    color: #2779bd;\n  }\n\n  .sm\\:hover\\:text-blue:hover {\n    color: #3490dc;\n  }\n\n  .sm\\:hover\\:text-blue-light:hover {\n    color: #6cb2eb;\n  }\n\n  .sm\\:hover\\:text-blue-lighter:hover {\n    color: #bcdefa;\n  }\n\n  .sm\\:hover\\:text-blue-lightest:hover {\n    color: #eff8ff;\n  }\n\n  .sm\\:hover\\:text-indigo-darkest:hover {\n    color: #191e38;\n  }\n\n  .sm\\:hover\\:text-indigo-darker:hover {\n    color: #2f365f;\n  }\n\n  .sm\\:hover\\:text-indigo-dark:hover {\n    color: #5661b3;\n  }\n\n  .sm\\:hover\\:text-indigo:hover {\n    color: #6574cd;\n  }\n\n  .sm\\:hover\\:text-indigo-light:hover {\n    color: #7886d7;\n  }\n\n  .sm\\:hover\\:text-indigo-lighter:hover {\n    color: #b2b7ff;\n  }\n\n  .sm\\:hover\\:text-indigo-lightest:hover {\n    color: #e6e8ff;\n  }\n\n  .sm\\:hover\\:text-purple-darkest:hover {\n    color: #21183c;\n  }\n\n  .sm\\:hover\\:text-purple-darker:hover {\n    color: #382b5f;\n  }\n\n  .sm\\:hover\\:text-purple-dark:hover {\n    color: #794acf;\n  }\n\n  .sm\\:hover\\:text-purple:hover {\n    color: #9561e2;\n  }\n\n  .sm\\:hover\\:text-purple-light:hover {\n    color: #a779e9;\n  }\n\n  .sm\\:hover\\:text-purple-lighter:hover {\n    color: #d6bbfc;\n  }\n\n  .sm\\:hover\\:text-purple-lightest:hover {\n    color: #f3ebff;\n  }\n\n  .sm\\:hover\\:text-pink-darkest:hover {\n    color: #451225;\n  }\n\n  .sm\\:hover\\:text-pink-darker:hover {\n    color: #6f213f;\n  }\n\n  .sm\\:hover\\:text-pink-dark:hover {\n    color: #eb5286;\n  }\n\n  .sm\\:hover\\:text-pink:hover {\n    color: #f66d9b;\n  }\n\n  .sm\\:hover\\:text-pink-light:hover {\n    color: #fa7ea8;\n  }\n\n  .sm\\:hover\\:text-pink-lighter:hover {\n    color: #ffbbca;\n  }\n\n  .sm\\:hover\\:text-pink-lightest:hover {\n    color: #ffebef;\n  }\n\n  .sm\\:text-xs {\n    font-size: .75rem;\n  }\n\n  .sm\\:text-sm {\n    font-size: .875rem;\n  }\n\n  .sm\\:text-base {\n    font-size: 1rem;\n  }\n\n  .sm\\:text-lg {\n    font-size: 1.125rem;\n  }\n\n  .sm\\:text-xl {\n    font-size: 1.25rem;\n  }\n\n  .sm\\:text-2xl {\n    font-size: 1.5rem;\n  }\n\n  .sm\\:text-3xl {\n    font-size: 1.875rem;\n  }\n\n  .sm\\:text-4xl {\n    font-size: 2.25rem;\n  }\n\n  .sm\\:text-5xl {\n    font-size: 3rem;\n  }\n\n  .sm\\:italic {\n    font-style: italic;\n  }\n\n  .sm\\:roman {\n    font-style: normal;\n  }\n\n  .sm\\:uppercase {\n    text-transform: uppercase;\n  }\n\n  .sm\\:lowercase {\n    text-transform: lowercase;\n  }\n\n  .sm\\:capitalize {\n    text-transform: capitalize;\n  }\n\n  .sm\\:normal-case {\n    text-transform: none;\n  }\n\n  .sm\\:underline {\n    text-decoration: underline;\n  }\n\n  .sm\\:line-through {\n    text-decoration: line-through;\n  }\n\n  .sm\\:no-underline {\n    text-decoration: none;\n  }\n\n  .sm\\:antialiased {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .sm\\:subpixel-antialiased {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .sm\\:hover\\:italic:hover {\n    font-style: italic;\n  }\n\n  .sm\\:hover\\:roman:hover {\n    font-style: normal;\n  }\n\n  .sm\\:hover\\:uppercase:hover {\n    text-transform: uppercase;\n  }\n\n  .sm\\:hover\\:lowercase:hover {\n    text-transform: lowercase;\n  }\n\n  .sm\\:hover\\:capitalize:hover {\n    text-transform: capitalize;\n  }\n\n  .sm\\:hover\\:normal-case:hover {\n    text-transform: none;\n  }\n\n  .sm\\:hover\\:underline:hover {\n    text-decoration: underline;\n  }\n\n  .sm\\:hover\\:line-through:hover {\n    text-decoration: line-through;\n  }\n\n  .sm\\:hover\\:no-underline:hover {\n    text-decoration: none;\n  }\n\n  .sm\\:hover\\:antialiased:hover {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .sm\\:hover\\:subpixel-antialiased:hover {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .sm\\:tracking-tight {\n    letter-spacing: -0.05em;\n  }\n\n  .sm\\:tracking-normal {\n    letter-spacing: 0;\n  }\n\n  .sm\\:tracking-wide {\n    letter-spacing: .05em;\n  }\n\n  .sm\\:select-none {\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n  }\n\n  .sm\\:select-text {\n    -webkit-user-select: text;\n       -moz-user-select: text;\n        -ms-user-select: text;\n            user-select: text;\n  }\n\n  .sm\\:align-baseline {\n    vertical-align: baseline;\n  }\n\n  .sm\\:align-top {\n    vertical-align: top;\n  }\n\n  .sm\\:align-middle {\n    vertical-align: middle;\n  }\n\n  .sm\\:align-bottom {\n    vertical-align: bottom;\n  }\n\n  .sm\\:align-text-top {\n    vertical-align: text-top;\n  }\n\n  .sm\\:align-text-bottom {\n    vertical-align: text-bottom;\n  }\n\n  .sm\\:visible {\n    visibility: visible;\n  }\n\n  .sm\\:invisible {\n    visibility: hidden;\n  }\n\n  .sm\\:whitespace-normal {\n    white-space: normal;\n  }\n\n  .sm\\:whitespace-no-wrap {\n    white-space: nowrap;\n  }\n\n  .sm\\:whitespace-pre {\n    white-space: pre;\n  }\n\n  .sm\\:whitespace-pre-line {\n    white-space: pre-line;\n  }\n\n  .sm\\:whitespace-pre-wrap {\n    white-space: pre-wrap;\n  }\n\n  .sm\\:break-words {\n    word-wrap: break-word;\n  }\n\n  .sm\\:break-normal {\n    word-wrap: normal;\n  }\n\n  .sm\\:truncate {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .sm\\:w-1 {\n    width: .25rem;\n  }\n\n  .sm\\:w-2 {\n    width: .5rem;\n  }\n\n  .sm\\:w-3 {\n    width: .75rem;\n  }\n\n  .sm\\:w-4 {\n    width: 1rem;\n  }\n\n  .sm\\:w-6 {\n    width: 1.5rem;\n  }\n\n  .sm\\:w-8 {\n    width: 2rem;\n  }\n\n  .sm\\:w-10 {\n    width: 2.5rem;\n  }\n\n  .sm\\:w-12 {\n    width: 3rem;\n  }\n\n  .sm\\:w-16 {\n    width: 4rem;\n  }\n\n  .sm\\:w-24 {\n    width: 6rem;\n  }\n\n  .sm\\:w-32 {\n    width: 8rem;\n  }\n\n  .sm\\:w-48 {\n    width: 12rem;\n  }\n\n  .sm\\:w-64 {\n    width: 16rem;\n  }\n\n  .sm\\:w-auto {\n    width: auto;\n  }\n\n  .sm\\:w-px {\n    width: 1px;\n  }\n\n  .sm\\:w-1\\/2 {\n    width: 50%;\n  }\n\n  .sm\\:w-1\\/3 {\n    width: 33.33333%;\n  }\n\n  .sm\\:w-2\\/3 {\n    width: 66.66667%;\n  }\n\n  .sm\\:w-1\\/4 {\n    width: 25%;\n  }\n\n  .sm\\:w-3\\/4 {\n    width: 75%;\n  }\n\n  .sm\\:w-1\\/5 {\n    width: 20%;\n  }\n\n  .sm\\:w-2\\/5 {\n    width: 40%;\n  }\n\n  .sm\\:w-3\\/5 {\n    width: 60%;\n  }\n\n  .sm\\:w-4\\/5 {\n    width: 80%;\n  }\n\n  .sm\\:w-1\\/6 {\n    width: 16.66667%;\n  }\n\n  .sm\\:w-5\\/6 {\n    width: 83.33333%;\n  }\n\n  .sm\\:w-full {\n    width: 100%;\n  }\n\n  .sm\\:w-screen {\n    width: 100vw;\n  }\n\n  .sm\\:z-0 {\n    z-index: 0;\n  }\n\n  .sm\\:z-10 {\n    z-index: 10;\n  }\n\n  .sm\\:z-20 {\n    z-index: 20;\n  }\n\n  .sm\\:z-30 {\n    z-index: 30;\n  }\n\n  .sm\\:z-40 {\n    z-index: 40;\n  }\n\n  .sm\\:z-50 {\n    z-index: 50;\n  }\n\n  .sm\\:z-auto {\n    z-index: auto;\n  }\n}\n\n@media (min-width: 768px) {\n  .md\\:list-reset {\n    list-style: none;\n    padding: 0;\n  }\n\n  .md\\:appearance-none {\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n  }\n\n  .md\\:bg-fixed {\n    background-attachment: fixed;\n  }\n\n  .md\\:bg-local {\n    background-attachment: local;\n  }\n\n  .md\\:bg-scroll {\n    background-attachment: scroll;\n  }\n\n  .md\\:bg-transparent {\n    background-color: transparent;\n  }\n\n  .md\\:bg-black {\n    background-color: #22292f;\n  }\n\n  .md\\:bg-grey-darkest {\n    background-color: #3d4852;\n  }\n\n  .md\\:bg-grey-darker {\n    background-color: #606f7b;\n  }\n\n  .md\\:bg-grey-dark {\n    background-color: #8795a1;\n  }\n\n  .md\\:bg-grey {\n    background-color: #b8c2cc;\n  }\n\n  .md\\:bg-grey-light {\n    background-color: #dae1e7;\n  }\n\n  .md\\:bg-grey-lighter {\n    background-color: #f1f5f8;\n  }\n\n  .md\\:bg-grey-lightest {\n    background-color: #f8fafc;\n  }\n\n  .md\\:bg-white {\n    background-color: #fff;\n  }\n\n  .md\\:bg-red-darkest {\n    background-color: #3b0d0c;\n  }\n\n  .md\\:bg-red-darker {\n    background-color: #621b18;\n  }\n\n  .md\\:bg-red-dark {\n    background-color: #cc1f1a;\n  }\n\n  .md\\:bg-red {\n    background-color: #e3342f;\n  }\n\n  .md\\:bg-red-light {\n    background-color: #ef5753;\n  }\n\n  .md\\:bg-red-lighter {\n    background-color: #f9acaa;\n  }\n\n  .md\\:bg-red-lightest {\n    background-color: #fcebea;\n  }\n\n  .md\\:bg-orange-darkest {\n    background-color: #462a16;\n  }\n\n  .md\\:bg-orange-darker {\n    background-color: #613b1f;\n  }\n\n  .md\\:bg-orange-dark {\n    background-color: #de751f;\n  }\n\n  .md\\:bg-orange {\n    background-color: #f6993f;\n  }\n\n  .md\\:bg-orange-light {\n    background-color: #faad63;\n  }\n\n  .md\\:bg-orange-lighter {\n    background-color: #fcd9b6;\n  }\n\n  .md\\:bg-orange-lightest {\n    background-color: #fff5eb;\n  }\n\n  .md\\:bg-yellow-darkest {\n    background-color: #453411;\n  }\n\n  .md\\:bg-yellow-darker {\n    background-color: #684f1d;\n  }\n\n  .md\\:bg-yellow-dark {\n    background-color: #f2d024;\n  }\n\n  .md\\:bg-yellow {\n    background-color: #ffed4a;\n  }\n\n  .md\\:bg-yellow-light {\n    background-color: #fff382;\n  }\n\n  .md\\:bg-yellow-lighter {\n    background-color: #fff9c2;\n  }\n\n  .md\\:bg-yellow-lightest {\n    background-color: #fcfbeb;\n  }\n\n  .md\\:bg-green-darkest {\n    background-color: #0f2f21;\n  }\n\n  .md\\:bg-green-darker {\n    background-color: #1a4731;\n  }\n\n  .md\\:bg-green-dark {\n    background-color: #1f9d55;\n  }\n\n  .md\\:bg-green {\n    background-color: #38c172;\n  }\n\n  .md\\:bg-green-light {\n    background-color: #51d88a;\n  }\n\n  .md\\:bg-green-lighter {\n    background-color: #a2f5bf;\n  }\n\n  .md\\:bg-green-lightest {\n    background-color: #e3fcec;\n  }\n\n  .md\\:bg-teal-darkest {\n    background-color: #0d3331;\n  }\n\n  .md\\:bg-teal-darker {\n    background-color: #20504f;\n  }\n\n  .md\\:bg-teal-dark {\n    background-color: #38a89d;\n  }\n\n  .md\\:bg-teal {\n    background-color: #4dc0b5;\n  }\n\n  .md\\:bg-teal-light {\n    background-color: #64d5ca;\n  }\n\n  .md\\:bg-teal-lighter {\n    background-color: #a0f0ed;\n  }\n\n  .md\\:bg-teal-lightest {\n    background-color: #e8fffe;\n  }\n\n  .md\\:bg-blue-darkest {\n    background-color: #12283a;\n  }\n\n  .md\\:bg-blue-darker {\n    background-color: #1c3d5a;\n  }\n\n  .md\\:bg-blue-dark {\n    background-color: #2779bd;\n  }\n\n  .md\\:bg-blue {\n    background-color: #3490dc;\n  }\n\n  .md\\:bg-blue-light {\n    background-color: #6cb2eb;\n  }\n\n  .md\\:bg-blue-lighter {\n    background-color: #bcdefa;\n  }\n\n  .md\\:bg-blue-lightest {\n    background-color: #eff8ff;\n  }\n\n  .md\\:bg-indigo-darkest {\n    background-color: #191e38;\n  }\n\n  .md\\:bg-indigo-darker {\n    background-color: #2f365f;\n  }\n\n  .md\\:bg-indigo-dark {\n    background-color: #5661b3;\n  }\n\n  .md\\:bg-indigo {\n    background-color: #6574cd;\n  }\n\n  .md\\:bg-indigo-light {\n    background-color: #7886d7;\n  }\n\n  .md\\:bg-indigo-lighter {\n    background-color: #b2b7ff;\n  }\n\n  .md\\:bg-indigo-lightest {\n    background-color: #e6e8ff;\n  }\n\n  .md\\:bg-purple-darkest {\n    background-color: #21183c;\n  }\n\n  .md\\:bg-purple-darker {\n    background-color: #382b5f;\n  }\n\n  .md\\:bg-purple-dark {\n    background-color: #794acf;\n  }\n\n  .md\\:bg-purple {\n    background-color: #9561e2;\n  }\n\n  .md\\:bg-purple-light {\n    background-color: #a779e9;\n  }\n\n  .md\\:bg-purple-lighter {\n    background-color: #d6bbfc;\n  }\n\n  .md\\:bg-purple-lightest {\n    background-color: #f3ebff;\n  }\n\n  .md\\:bg-pink-darkest {\n    background-color: #451225;\n  }\n\n  .md\\:bg-pink-darker {\n    background-color: #6f213f;\n  }\n\n  .md\\:bg-pink-dark {\n    background-color: #eb5286;\n  }\n\n  .md\\:bg-pink {\n    background-color: #f66d9b;\n  }\n\n  .md\\:bg-pink-light {\n    background-color: #fa7ea8;\n  }\n\n  .md\\:bg-pink-lighter {\n    background-color: #ffbbca;\n  }\n\n  .md\\:bg-pink-lightest {\n    background-color: #ffebef;\n  }\n\n  .md\\:hover\\:bg-transparent:hover {\n    background-color: transparent;\n  }\n\n  .md\\:hover\\:bg-black:hover {\n    background-color: #22292f;\n  }\n\n  .md\\:hover\\:bg-grey-darkest:hover {\n    background-color: #3d4852;\n  }\n\n  .md\\:hover\\:bg-grey-darker:hover {\n    background-color: #606f7b;\n  }\n\n  .md\\:hover\\:bg-grey-dark:hover {\n    background-color: #8795a1;\n  }\n\n  .md\\:hover\\:bg-grey:hover {\n    background-color: #b8c2cc;\n  }\n\n  .md\\:hover\\:bg-grey-light:hover {\n    background-color: #dae1e7;\n  }\n\n  .md\\:hover\\:bg-grey-lighter:hover {\n    background-color: #f1f5f8;\n  }\n\n  .md\\:hover\\:bg-grey-lightest:hover {\n    background-color: #f8fafc;\n  }\n\n  .md\\:hover\\:bg-white:hover {\n    background-color: #fff;\n  }\n\n  .md\\:hover\\:bg-red-darkest:hover {\n    background-color: #3b0d0c;\n  }\n\n  .md\\:hover\\:bg-red-darker:hover {\n    background-color: #621b18;\n  }\n\n  .md\\:hover\\:bg-red-dark:hover {\n    background-color: #cc1f1a;\n  }\n\n  .md\\:hover\\:bg-red:hover {\n    background-color: #e3342f;\n  }\n\n  .md\\:hover\\:bg-red-light:hover {\n    background-color: #ef5753;\n  }\n\n  .md\\:hover\\:bg-red-lighter:hover {\n    background-color: #f9acaa;\n  }\n\n  .md\\:hover\\:bg-red-lightest:hover {\n    background-color: #fcebea;\n  }\n\n  .md\\:hover\\:bg-orange-darkest:hover {\n    background-color: #462a16;\n  }\n\n  .md\\:hover\\:bg-orange-darker:hover {\n    background-color: #613b1f;\n  }\n\n  .md\\:hover\\:bg-orange-dark:hover {\n    background-color: #de751f;\n  }\n\n  .md\\:hover\\:bg-orange:hover {\n    background-color: #f6993f;\n  }\n\n  .md\\:hover\\:bg-orange-light:hover {\n    background-color: #faad63;\n  }\n\n  .md\\:hover\\:bg-orange-lighter:hover {\n    background-color: #fcd9b6;\n  }\n\n  .md\\:hover\\:bg-orange-lightest:hover {\n    background-color: #fff5eb;\n  }\n\n  .md\\:hover\\:bg-yellow-darkest:hover {\n    background-color: #453411;\n  }\n\n  .md\\:hover\\:bg-yellow-darker:hover {\n    background-color: #684f1d;\n  }\n\n  .md\\:hover\\:bg-yellow-dark:hover {\n    background-color: #f2d024;\n  }\n\n  .md\\:hover\\:bg-yellow:hover {\n    background-color: #ffed4a;\n  }\n\n  .md\\:hover\\:bg-yellow-light:hover {\n    background-color: #fff382;\n  }\n\n  .md\\:hover\\:bg-yellow-lighter:hover {\n    background-color: #fff9c2;\n  }\n\n  .md\\:hover\\:bg-yellow-lightest:hover {\n    background-color: #fcfbeb;\n  }\n\n  .md\\:hover\\:bg-green-darkest:hover {\n    background-color: #0f2f21;\n  }\n\n  .md\\:hover\\:bg-green-darker:hover {\n    background-color: #1a4731;\n  }\n\n  .md\\:hover\\:bg-green-dark:hover {\n    background-color: #1f9d55;\n  }\n\n  .md\\:hover\\:bg-green:hover {\n    background-color: #38c172;\n  }\n\n  .md\\:hover\\:bg-green-light:hover {\n    background-color: #51d88a;\n  }\n\n  .md\\:hover\\:bg-green-lighter:hover {\n    background-color: #a2f5bf;\n  }\n\n  .md\\:hover\\:bg-green-lightest:hover {\n    background-color: #e3fcec;\n  }\n\n  .md\\:hover\\:bg-teal-darkest:hover {\n    background-color: #0d3331;\n  }\n\n  .md\\:hover\\:bg-teal-darker:hover {\n    background-color: #20504f;\n  }\n\n  .md\\:hover\\:bg-teal-dark:hover {\n    background-color: #38a89d;\n  }\n\n  .md\\:hover\\:bg-teal:hover {\n    background-color: #4dc0b5;\n  }\n\n  .md\\:hover\\:bg-teal-light:hover {\n    background-color: #64d5ca;\n  }\n\n  .md\\:hover\\:bg-teal-lighter:hover {\n    background-color: #a0f0ed;\n  }\n\n  .md\\:hover\\:bg-teal-lightest:hover {\n    background-color: #e8fffe;\n  }\n\n  .md\\:hover\\:bg-blue-darkest:hover {\n    background-color: #12283a;\n  }\n\n  .md\\:hover\\:bg-blue-darker:hover {\n    background-color: #1c3d5a;\n  }\n\n  .md\\:hover\\:bg-blue-dark:hover {\n    background-color: #2779bd;\n  }\n\n  .md\\:hover\\:bg-blue:hover {\n    background-color: #3490dc;\n  }\n\n  .md\\:hover\\:bg-blue-light:hover {\n    background-color: #6cb2eb;\n  }\n\n  .md\\:hover\\:bg-blue-lighter:hover {\n    background-color: #bcdefa;\n  }\n\n  .md\\:hover\\:bg-blue-lightest:hover {\n    background-color: #eff8ff;\n  }\n\n  .md\\:hover\\:bg-indigo-darkest:hover {\n    background-color: #191e38;\n  }\n\n  .md\\:hover\\:bg-indigo-darker:hover {\n    background-color: #2f365f;\n  }\n\n  .md\\:hover\\:bg-indigo-dark:hover {\n    background-color: #5661b3;\n  }\n\n  .md\\:hover\\:bg-indigo:hover {\n    background-color: #6574cd;\n  }\n\n  .md\\:hover\\:bg-indigo-light:hover {\n    background-color: #7886d7;\n  }\n\n  .md\\:hover\\:bg-indigo-lighter:hover {\n    background-color: #b2b7ff;\n  }\n\n  .md\\:hover\\:bg-indigo-lightest:hover {\n    background-color: #e6e8ff;\n  }\n\n  .md\\:hover\\:bg-purple-darkest:hover {\n    background-color: #21183c;\n  }\n\n  .md\\:hover\\:bg-purple-darker:hover {\n    background-color: #382b5f;\n  }\n\n  .md\\:hover\\:bg-purple-dark:hover {\n    background-color: #794acf;\n  }\n\n  .md\\:hover\\:bg-purple:hover {\n    background-color: #9561e2;\n  }\n\n  .md\\:hover\\:bg-purple-light:hover {\n    background-color: #a779e9;\n  }\n\n  .md\\:hover\\:bg-purple-lighter:hover {\n    background-color: #d6bbfc;\n  }\n\n  .md\\:hover\\:bg-purple-lightest:hover {\n    background-color: #f3ebff;\n  }\n\n  .md\\:hover\\:bg-pink-darkest:hover {\n    background-color: #451225;\n  }\n\n  .md\\:hover\\:bg-pink-darker:hover {\n    background-color: #6f213f;\n  }\n\n  .md\\:hover\\:bg-pink-dark:hover {\n    background-color: #eb5286;\n  }\n\n  .md\\:hover\\:bg-pink:hover {\n    background-color: #f66d9b;\n  }\n\n  .md\\:hover\\:bg-pink-light:hover {\n    background-color: #fa7ea8;\n  }\n\n  .md\\:hover\\:bg-pink-lighter:hover {\n    background-color: #ffbbca;\n  }\n\n  .md\\:hover\\:bg-pink-lightest:hover {\n    background-color: #ffebef;\n  }\n\n  .md\\:bg-bottom {\n    background-position: bottom;\n  }\n\n  .md\\:bg-center {\n    background-position: center;\n  }\n\n  .md\\:bg-left {\n    background-position: left;\n  }\n\n  .md\\:bg-left-bottom {\n    background-position: left bottom;\n  }\n\n  .md\\:bg-left-top {\n    background-position: left top;\n  }\n\n  .md\\:bg-right {\n    background-position: right;\n  }\n\n  .md\\:bg-right-bottom {\n    background-position: right bottom;\n  }\n\n  .md\\:bg-right-top {\n    background-position: right top;\n  }\n\n  .md\\:bg-top {\n    background-position: top;\n  }\n\n  .md\\:bg-repeat {\n    background-repeat: repeat;\n  }\n\n  .md\\:bg-no-repeat {\n    background-repeat: no-repeat;\n  }\n\n  .md\\:bg-repeat-x {\n    background-repeat: repeat-x;\n  }\n\n  .md\\:bg-repeat-y {\n    background-repeat: repeat-y;\n  }\n\n  .md\\:bg-auto {\n    background-size: auto;\n  }\n\n  .md\\:bg-cover {\n    background-size: cover;\n  }\n\n  .md\\:bg-contain {\n    background-size: contain;\n  }\n\n  .md\\:border-transparent {\n    border-color: transparent;\n  }\n\n  .md\\:border-black {\n    border-color: #22292f;\n  }\n\n  .md\\:border-grey-darkest {\n    border-color: #3d4852;\n  }\n\n  .md\\:border-grey-darker {\n    border-color: #606f7b;\n  }\n\n  .md\\:border-grey-dark {\n    border-color: #8795a1;\n  }\n\n  .md\\:border-grey {\n    border-color: #b8c2cc;\n  }\n\n  .md\\:border-grey-light {\n    border-color: #dae1e7;\n  }\n\n  .md\\:border-grey-lighter {\n    border-color: #f1f5f8;\n  }\n\n  .md\\:border-grey-lightest {\n    border-color: #f8fafc;\n  }\n\n  .md\\:border-white {\n    border-color: #fff;\n  }\n\n  .md\\:border-red-darkest {\n    border-color: #3b0d0c;\n  }\n\n  .md\\:border-red-darker {\n    border-color: #621b18;\n  }\n\n  .md\\:border-red-dark {\n    border-color: #cc1f1a;\n  }\n\n  .md\\:border-red {\n    border-color: #e3342f;\n  }\n\n  .md\\:border-red-light {\n    border-color: #ef5753;\n  }\n\n  .md\\:border-red-lighter {\n    border-color: #f9acaa;\n  }\n\n  .md\\:border-red-lightest {\n    border-color: #fcebea;\n  }\n\n  .md\\:border-orange-darkest {\n    border-color: #462a16;\n  }\n\n  .md\\:border-orange-darker {\n    border-color: #613b1f;\n  }\n\n  .md\\:border-orange-dark {\n    border-color: #de751f;\n  }\n\n  .md\\:border-orange {\n    border-color: #f6993f;\n  }\n\n  .md\\:border-orange-light {\n    border-color: #faad63;\n  }\n\n  .md\\:border-orange-lighter {\n    border-color: #fcd9b6;\n  }\n\n  .md\\:border-orange-lightest {\n    border-color: #fff5eb;\n  }\n\n  .md\\:border-yellow-darkest {\n    border-color: #453411;\n  }\n\n  .md\\:border-yellow-darker {\n    border-color: #684f1d;\n  }\n\n  .md\\:border-yellow-dark {\n    border-color: #f2d024;\n  }\n\n  .md\\:border-yellow {\n    border-color: #ffed4a;\n  }\n\n  .md\\:border-yellow-light {\n    border-color: #fff382;\n  }\n\n  .md\\:border-yellow-lighter {\n    border-color: #fff9c2;\n  }\n\n  .md\\:border-yellow-lightest {\n    border-color: #fcfbeb;\n  }\n\n  .md\\:border-green-darkest {\n    border-color: #0f2f21;\n  }\n\n  .md\\:border-green-darker {\n    border-color: #1a4731;\n  }\n\n  .md\\:border-green-dark {\n    border-color: #1f9d55;\n  }\n\n  .md\\:border-green {\n    border-color: #38c172;\n  }\n\n  .md\\:border-green-light {\n    border-color: #51d88a;\n  }\n\n  .md\\:border-green-lighter {\n    border-color: #a2f5bf;\n  }\n\n  .md\\:border-green-lightest {\n    border-color: #e3fcec;\n  }\n\n  .md\\:border-teal-darkest {\n    border-color: #0d3331;\n  }\n\n  .md\\:border-teal-darker {\n    border-color: #20504f;\n  }\n\n  .md\\:border-teal-dark {\n    border-color: #38a89d;\n  }\n\n  .md\\:border-teal {\n    border-color: #4dc0b5;\n  }\n\n  .md\\:border-teal-light {\n    border-color: #64d5ca;\n  }\n\n  .md\\:border-teal-lighter {\n    border-color: #a0f0ed;\n  }\n\n  .md\\:border-teal-lightest {\n    border-color: #e8fffe;\n  }\n\n  .md\\:border-blue-darkest {\n    border-color: #12283a;\n  }\n\n  .md\\:border-blue-darker {\n    border-color: #1c3d5a;\n  }\n\n  .md\\:border-blue-dark {\n    border-color: #2779bd;\n  }\n\n  .md\\:border-blue {\n    border-color: #3490dc;\n  }\n\n  .md\\:border-blue-light {\n    border-color: #6cb2eb;\n  }\n\n  .md\\:border-blue-lighter {\n    border-color: #bcdefa;\n  }\n\n  .md\\:border-blue-lightest {\n    border-color: #eff8ff;\n  }\n\n  .md\\:border-indigo-darkest {\n    border-color: #191e38;\n  }\n\n  .md\\:border-indigo-darker {\n    border-color: #2f365f;\n  }\n\n  .md\\:border-indigo-dark {\n    border-color: #5661b3;\n  }\n\n  .md\\:border-indigo {\n    border-color: #6574cd;\n  }\n\n  .md\\:border-indigo-light {\n    border-color: #7886d7;\n  }\n\n  .md\\:border-indigo-lighter {\n    border-color: #b2b7ff;\n  }\n\n  .md\\:border-indigo-lightest {\n    border-color: #e6e8ff;\n  }\n\n  .md\\:border-purple-darkest {\n    border-color: #21183c;\n  }\n\n  .md\\:border-purple-darker {\n    border-color: #382b5f;\n  }\n\n  .md\\:border-purple-dark {\n    border-color: #794acf;\n  }\n\n  .md\\:border-purple {\n    border-color: #9561e2;\n  }\n\n  .md\\:border-purple-light {\n    border-color: #a779e9;\n  }\n\n  .md\\:border-purple-lighter {\n    border-color: #d6bbfc;\n  }\n\n  .md\\:border-purple-lightest {\n    border-color: #f3ebff;\n  }\n\n  .md\\:border-pink-darkest {\n    border-color: #451225;\n  }\n\n  .md\\:border-pink-darker {\n    border-color: #6f213f;\n  }\n\n  .md\\:border-pink-dark {\n    border-color: #eb5286;\n  }\n\n  .md\\:border-pink {\n    border-color: #f66d9b;\n  }\n\n  .md\\:border-pink-light {\n    border-color: #fa7ea8;\n  }\n\n  .md\\:border-pink-lighter {\n    border-color: #ffbbca;\n  }\n\n  .md\\:border-pink-lightest {\n    border-color: #ffebef;\n  }\n\n  .md\\:hover\\:border-transparent:hover {\n    border-color: transparent;\n  }\n\n  .md\\:hover\\:border-black:hover {\n    border-color: #22292f;\n  }\n\n  .md\\:hover\\:border-grey-darkest:hover {\n    border-color: #3d4852;\n  }\n\n  .md\\:hover\\:border-grey-darker:hover {\n    border-color: #606f7b;\n  }\n\n  .md\\:hover\\:border-grey-dark:hover {\n    border-color: #8795a1;\n  }\n\n  .md\\:hover\\:border-grey:hover {\n    border-color: #b8c2cc;\n  }\n\n  .md\\:hover\\:border-grey-light:hover {\n    border-color: #dae1e7;\n  }\n\n  .md\\:hover\\:border-grey-lighter:hover {\n    border-color: #f1f5f8;\n  }\n\n  .md\\:hover\\:border-grey-lightest:hover {\n    border-color: #f8fafc;\n  }\n\n  .md\\:hover\\:border-white:hover {\n    border-color: #fff;\n  }\n\n  .md\\:hover\\:border-red-darkest:hover {\n    border-color: #3b0d0c;\n  }\n\n  .md\\:hover\\:border-red-darker:hover {\n    border-color: #621b18;\n  }\n\n  .md\\:hover\\:border-red-dark:hover {\n    border-color: #cc1f1a;\n  }\n\n  .md\\:hover\\:border-red:hover {\n    border-color: #e3342f;\n  }\n\n  .md\\:hover\\:border-red-light:hover {\n    border-color: #ef5753;\n  }\n\n  .md\\:hover\\:border-red-lighter:hover {\n    border-color: #f9acaa;\n  }\n\n  .md\\:hover\\:border-red-lightest:hover {\n    border-color: #fcebea;\n  }\n\n  .md\\:hover\\:border-orange-darkest:hover {\n    border-color: #462a16;\n  }\n\n  .md\\:hover\\:border-orange-darker:hover {\n    border-color: #613b1f;\n  }\n\n  .md\\:hover\\:border-orange-dark:hover {\n    border-color: #de751f;\n  }\n\n  .md\\:hover\\:border-orange:hover {\n    border-color: #f6993f;\n  }\n\n  .md\\:hover\\:border-orange-light:hover {\n    border-color: #faad63;\n  }\n\n  .md\\:hover\\:border-orange-lighter:hover {\n    border-color: #fcd9b6;\n  }\n\n  .md\\:hover\\:border-orange-lightest:hover {\n    border-color: #fff5eb;\n  }\n\n  .md\\:hover\\:border-yellow-darkest:hover {\n    border-color: #453411;\n  }\n\n  .md\\:hover\\:border-yellow-darker:hover {\n    border-color: #684f1d;\n  }\n\n  .md\\:hover\\:border-yellow-dark:hover {\n    border-color: #f2d024;\n  }\n\n  .md\\:hover\\:border-yellow:hover {\n    border-color: #ffed4a;\n  }\n\n  .md\\:hover\\:border-yellow-light:hover {\n    border-color: #fff382;\n  }\n\n  .md\\:hover\\:border-yellow-lighter:hover {\n    border-color: #fff9c2;\n  }\n\n  .md\\:hover\\:border-yellow-lightest:hover {\n    border-color: #fcfbeb;\n  }\n\n  .md\\:hover\\:border-green-darkest:hover {\n    border-color: #0f2f21;\n  }\n\n  .md\\:hover\\:border-green-darker:hover {\n    border-color: #1a4731;\n  }\n\n  .md\\:hover\\:border-green-dark:hover {\n    border-color: #1f9d55;\n  }\n\n  .md\\:hover\\:border-green:hover {\n    border-color: #38c172;\n  }\n\n  .md\\:hover\\:border-green-light:hover {\n    border-color: #51d88a;\n  }\n\n  .md\\:hover\\:border-green-lighter:hover {\n    border-color: #a2f5bf;\n  }\n\n  .md\\:hover\\:border-green-lightest:hover {\n    border-color: #e3fcec;\n  }\n\n  .md\\:hover\\:border-teal-darkest:hover {\n    border-color: #0d3331;\n  }\n\n  .md\\:hover\\:border-teal-darker:hover {\n    border-color: #20504f;\n  }\n\n  .md\\:hover\\:border-teal-dark:hover {\n    border-color: #38a89d;\n  }\n\n  .md\\:hover\\:border-teal:hover {\n    border-color: #4dc0b5;\n  }\n\n  .md\\:hover\\:border-teal-light:hover {\n    border-color: #64d5ca;\n  }\n\n  .md\\:hover\\:border-teal-lighter:hover {\n    border-color: #a0f0ed;\n  }\n\n  .md\\:hover\\:border-teal-lightest:hover {\n    border-color: #e8fffe;\n  }\n\n  .md\\:hover\\:border-blue-darkest:hover {\n    border-color: #12283a;\n  }\n\n  .md\\:hover\\:border-blue-darker:hover {\n    border-color: #1c3d5a;\n  }\n\n  .md\\:hover\\:border-blue-dark:hover {\n    border-color: #2779bd;\n  }\n\n  .md\\:hover\\:border-blue:hover {\n    border-color: #3490dc;\n  }\n\n  .md\\:hover\\:border-blue-light:hover {\n    border-color: #6cb2eb;\n  }\n\n  .md\\:hover\\:border-blue-lighter:hover {\n    border-color: #bcdefa;\n  }\n\n  .md\\:hover\\:border-blue-lightest:hover {\n    border-color: #eff8ff;\n  }\n\n  .md\\:hover\\:border-indigo-darkest:hover {\n    border-color: #191e38;\n  }\n\n  .md\\:hover\\:border-indigo-darker:hover {\n    border-color: #2f365f;\n  }\n\n  .md\\:hover\\:border-indigo-dark:hover {\n    border-color: #5661b3;\n  }\n\n  .md\\:hover\\:border-indigo:hover {\n    border-color: #6574cd;\n  }\n\n  .md\\:hover\\:border-indigo-light:hover {\n    border-color: #7886d7;\n  }\n\n  .md\\:hover\\:border-indigo-lighter:hover {\n    border-color: #b2b7ff;\n  }\n\n  .md\\:hover\\:border-indigo-lightest:hover {\n    border-color: #e6e8ff;\n  }\n\n  .md\\:hover\\:border-purple-darkest:hover {\n    border-color: #21183c;\n  }\n\n  .md\\:hover\\:border-purple-darker:hover {\n    border-color: #382b5f;\n  }\n\n  .md\\:hover\\:border-purple-dark:hover {\n    border-color: #794acf;\n  }\n\n  .md\\:hover\\:border-purple:hover {\n    border-color: #9561e2;\n  }\n\n  .md\\:hover\\:border-purple-light:hover {\n    border-color: #a779e9;\n  }\n\n  .md\\:hover\\:border-purple-lighter:hover {\n    border-color: #d6bbfc;\n  }\n\n  .md\\:hover\\:border-purple-lightest:hover {\n    border-color: #f3ebff;\n  }\n\n  .md\\:hover\\:border-pink-darkest:hover {\n    border-color: #451225;\n  }\n\n  .md\\:hover\\:border-pink-darker:hover {\n    border-color: #6f213f;\n  }\n\n  .md\\:hover\\:border-pink-dark:hover {\n    border-color: #eb5286;\n  }\n\n  .md\\:hover\\:border-pink:hover {\n    border-color: #f66d9b;\n  }\n\n  .md\\:hover\\:border-pink-light:hover {\n    border-color: #fa7ea8;\n  }\n\n  .md\\:hover\\:border-pink-lighter:hover {\n    border-color: #ffbbca;\n  }\n\n  .md\\:hover\\:border-pink-lightest:hover {\n    border-color: #ffebef;\n  }\n\n  .md\\:rounded-none {\n    border-radius: 0;\n  }\n\n  .md\\:rounded-sm {\n    border-radius: .125rem;\n  }\n\n  .md\\:rounded {\n    border-radius: .25rem;\n  }\n\n  .md\\:rounded-lg {\n    border-radius: .5rem;\n  }\n\n  .md\\:rounded-full {\n    border-radius: 9999px;\n  }\n\n  .md\\:rounded-t-none {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n  }\n\n  .md\\:rounded-r-none {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n  }\n\n  .md\\:rounded-b-none {\n    border-bottom-right-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .md\\:rounded-l-none {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .md\\:rounded-t-sm {\n    border-top-left-radius: .125rem;\n    border-top-right-radius: .125rem;\n  }\n\n  .md\\:rounded-r-sm {\n    border-top-right-radius: .125rem;\n    border-bottom-right-radius: .125rem;\n  }\n\n  .md\\:rounded-b-sm {\n    border-bottom-right-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .md\\:rounded-l-sm {\n    border-top-left-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .md\\:rounded-t {\n    border-top-left-radius: .25rem;\n    border-top-right-radius: .25rem;\n  }\n\n  .md\\:rounded-r {\n    border-top-right-radius: .25rem;\n    border-bottom-right-radius: .25rem;\n  }\n\n  .md\\:rounded-b {\n    border-bottom-right-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .md\\:rounded-l {\n    border-top-left-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .md\\:rounded-t-lg {\n    border-top-left-radius: .5rem;\n    border-top-right-radius: .5rem;\n  }\n\n  .md\\:rounded-r-lg {\n    border-top-right-radius: .5rem;\n    border-bottom-right-radius: .5rem;\n  }\n\n  .md\\:rounded-b-lg {\n    border-bottom-right-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .md\\:rounded-l-lg {\n    border-top-left-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .md\\:rounded-t-full {\n    border-top-left-radius: 9999px;\n    border-top-right-radius: 9999px;\n  }\n\n  .md\\:rounded-r-full {\n    border-top-right-radius: 9999px;\n    border-bottom-right-radius: 9999px;\n  }\n\n  .md\\:rounded-b-full {\n    border-bottom-right-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .md\\:rounded-l-full {\n    border-top-left-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .md\\:rounded-tl-none {\n    border-top-left-radius: 0;\n  }\n\n  .md\\:rounded-tr-none {\n    border-top-right-radius: 0;\n  }\n\n  .md\\:rounded-br-none {\n    border-bottom-right-radius: 0;\n  }\n\n  .md\\:rounded-bl-none {\n    border-bottom-left-radius: 0;\n  }\n\n  .md\\:rounded-tl-sm {\n    border-top-left-radius: .125rem;\n  }\n\n  .md\\:rounded-tr-sm {\n    border-top-right-radius: .125rem;\n  }\n\n  .md\\:rounded-br-sm {\n    border-bottom-right-radius: .125rem;\n  }\n\n  .md\\:rounded-bl-sm {\n    border-bottom-left-radius: .125rem;\n  }\n\n  .md\\:rounded-tl {\n    border-top-left-radius: .25rem;\n  }\n\n  .md\\:rounded-tr {\n    border-top-right-radius: .25rem;\n  }\n\n  .md\\:rounded-br {\n    border-bottom-right-radius: .25rem;\n  }\n\n  .md\\:rounded-bl {\n    border-bottom-left-radius: .25rem;\n  }\n\n  .md\\:rounded-tl-lg {\n    border-top-left-radius: .5rem;\n  }\n\n  .md\\:rounded-tr-lg {\n    border-top-right-radius: .5rem;\n  }\n\n  .md\\:rounded-br-lg {\n    border-bottom-right-radius: .5rem;\n  }\n\n  .md\\:rounded-bl-lg {\n    border-bottom-left-radius: .5rem;\n  }\n\n  .md\\:rounded-tl-full {\n    border-top-left-radius: 9999px;\n  }\n\n  .md\\:rounded-tr-full {\n    border-top-right-radius: 9999px;\n  }\n\n  .md\\:rounded-br-full {\n    border-bottom-right-radius: 9999px;\n  }\n\n  .md\\:rounded-bl-full {\n    border-bottom-left-radius: 9999px;\n  }\n\n  .md\\:border-solid {\n    border-style: solid;\n  }\n\n  .md\\:border-dashed {\n    border-style: dashed;\n  }\n\n  .md\\:border-dotted {\n    border-style: dotted;\n  }\n\n  .md\\:border-none {\n    border-style: none;\n  }\n\n  .md\\:border-0 {\n    border-width: 0;\n  }\n\n  .md\\:border-2 {\n    border-width: 2px;\n  }\n\n  .md\\:border-4 {\n    border-width: 4px;\n  }\n\n  .md\\:border-8 {\n    border-width: 8px;\n  }\n\n  .md\\:border {\n    border-width: 1px;\n  }\n\n  .md\\:border-t-0 {\n    border-top-width: 0;\n  }\n\n  .md\\:border-r-0 {\n    border-right-width: 0;\n  }\n\n  .md\\:border-b-0 {\n    border-bottom-width: 0;\n  }\n\n  .md\\:border-l-0 {\n    border-left-width: 0;\n  }\n\n  .md\\:border-t-2 {\n    border-top-width: 2px;\n  }\n\n  .md\\:border-r-2 {\n    border-right-width: 2px;\n  }\n\n  .md\\:border-b-2 {\n    border-bottom-width: 2px;\n  }\n\n  .md\\:border-l-2 {\n    border-left-width: 2px;\n  }\n\n  .md\\:border-t-4 {\n    border-top-width: 4px;\n  }\n\n  .md\\:border-r-4 {\n    border-right-width: 4px;\n  }\n\n  .md\\:border-b-4 {\n    border-bottom-width: 4px;\n  }\n\n  .md\\:border-l-4 {\n    border-left-width: 4px;\n  }\n\n  .md\\:border-t-8 {\n    border-top-width: 8px;\n  }\n\n  .md\\:border-r-8 {\n    border-right-width: 8px;\n  }\n\n  .md\\:border-b-8 {\n    border-bottom-width: 8px;\n  }\n\n  .md\\:border-l-8 {\n    border-left-width: 8px;\n  }\n\n  .md\\:border-t {\n    border-top-width: 1px;\n  }\n\n  .md\\:border-r {\n    border-right-width: 1px;\n  }\n\n  .md\\:border-b {\n    border-bottom-width: 1px;\n  }\n\n  .md\\:border-l {\n    border-left-width: 1px;\n  }\n\n  .md\\:cursor-auto {\n    cursor: auto;\n  }\n\n  .md\\:cursor-default {\n    cursor: default;\n  }\n\n  .md\\:cursor-pointer {\n    cursor: pointer;\n  }\n\n  .md\\:cursor-wait {\n    cursor: wait;\n  }\n\n  .md\\:cursor-move {\n    cursor: move;\n  }\n\n  .md\\:cursor-not-allowed {\n    cursor: not-allowed;\n  }\n\n  .md\\:block {\n    display: block;\n  }\n\n  .md\\:inline-block {\n    display: inline-block;\n  }\n\n  .md\\:inline {\n    display: inline;\n  }\n\n  .md\\:table {\n    display: table;\n  }\n\n  .md\\:table-row {\n    display: table-row;\n  }\n\n  .md\\:table-cell {\n    display: table-cell;\n  }\n\n  .md\\:hidden {\n    display: none;\n  }\n\n  .md\\:flex {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n  }\n\n  .md\\:inline-flex {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n  }\n\n  .md\\:flex-row {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n  }\n\n  .md\\:flex-row-reverse {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: row-reverse;\n            flex-direction: row-reverse;\n  }\n\n  .md\\:flex-col {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n\n  .md\\:flex-col-reverse {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n  }\n\n  .md\\:flex-wrap {\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n  }\n\n  .md\\:flex-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse;\n        flex-wrap: wrap-reverse;\n  }\n\n  .md\\:flex-no-wrap {\n    -ms-flex-wrap: nowrap;\n        flex-wrap: nowrap;\n  }\n\n  .md\\:items-start {\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n  }\n\n  .md\\:items-end {\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n  }\n\n  .md\\:items-center {\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n  }\n\n  .md\\:items-baseline {\n    -webkit-box-align: baseline;\n        -ms-flex-align: baseline;\n            align-items: baseline;\n  }\n\n  .md\\:items-stretch {\n    -webkit-box-align: stretch;\n        -ms-flex-align: stretch;\n            align-items: stretch;\n  }\n\n  .md\\:self-auto {\n    -ms-flex-item-align: auto;\n        -ms-grid-row-align: auto;\n        align-self: auto;\n  }\n\n  .md\\:self-start {\n    -ms-flex-item-align: start;\n        align-self: flex-start;\n  }\n\n  .md\\:self-end {\n    -ms-flex-item-align: end;\n        align-self: flex-end;\n  }\n\n  .md\\:self-center {\n    -ms-flex-item-align: center;\n        -ms-grid-row-align: center;\n        align-self: center;\n  }\n\n  .md\\:self-stretch {\n    -ms-flex-item-align: stretch;\n        -ms-grid-row-align: stretch;\n        align-self: stretch;\n  }\n\n  .md\\:justify-start {\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n  }\n\n  .md\\:justify-end {\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n  }\n\n  .md\\:justify-center {\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n  }\n\n  .md\\:justify-between {\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n  }\n\n  .md\\:justify-around {\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n  }\n\n  .md\\:content-center {\n    -ms-flex-line-pack: center;\n        align-content: center;\n  }\n\n  .md\\:content-start {\n    -ms-flex-line-pack: start;\n        align-content: flex-start;\n  }\n\n  .md\\:content-end {\n    -ms-flex-line-pack: end;\n        align-content: flex-end;\n  }\n\n  .md\\:content-between {\n    -ms-flex-line-pack: justify;\n        align-content: space-between;\n  }\n\n  .md\\:content-around {\n    -ms-flex-line-pack: distribute;\n        align-content: space-around;\n  }\n\n  .md\\:flex-1 {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n  }\n\n  .md\\:flex-auto {\n    -webkit-box-flex: 1;\n        -ms-flex: auto;\n            flex: auto;\n  }\n\n  .md\\:flex-initial {\n    -webkit-box-flex: initial;\n        -ms-flex: initial;\n            flex: initial;\n  }\n\n  .md\\:flex-none {\n    -webkit-box-flex: 0;\n        -ms-flex: none;\n            flex: none;\n  }\n\n  .md\\:flex-grow {\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n  }\n\n  .md\\:flex-shrink {\n    -ms-flex-negative: 1;\n        flex-shrink: 1;\n  }\n\n  .md\\:flex-no-grow {\n    -webkit-box-flex: 0;\n        -ms-flex-positive: 0;\n            flex-grow: 0;\n  }\n\n  .md\\:flex-no-shrink {\n    -ms-flex-negative: 0;\n        flex-shrink: 0;\n  }\n\n  .md\\:float-right {\n    float: right;\n  }\n\n  .md\\:float-left {\n    float: left;\n  }\n\n  .md\\:float-none {\n    float: none;\n  }\n\n  .md\\:clearfix:after {\n    content: \"\";\n    display: table;\n    clear: both;\n  }\n\n  .md\\:font-sans {\n    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;\n  }\n\n  .md\\:font-serif {\n    font-family: Constantia, Lucida Bright, Lucidabright, Lucida Serif, Lucida, DejaVu Serif, Bitstream Vera Serif, Liberation Serif, Georgia, serif;\n  }\n\n  .md\\:font-mono {\n    font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;\n  }\n\n  .md\\:font-hairline {\n    font-weight: 100;\n  }\n\n  .md\\:font-thin {\n    font-weight: 200;\n  }\n\n  .md\\:font-light {\n    font-weight: 300;\n  }\n\n  .md\\:font-normal {\n    font-weight: 400;\n  }\n\n  .md\\:font-medium {\n    font-weight: 500;\n  }\n\n  .md\\:font-semibold {\n    font-weight: 600;\n  }\n\n  .md\\:font-bold {\n    font-weight: 700;\n  }\n\n  .md\\:font-extrabold {\n    font-weight: 800;\n  }\n\n  .md\\:font-black {\n    font-weight: 900;\n  }\n\n  .md\\:hover\\:font-hairline:hover {\n    font-weight: 100;\n  }\n\n  .md\\:hover\\:font-thin:hover {\n    font-weight: 200;\n  }\n\n  .md\\:hover\\:font-light:hover {\n    font-weight: 300;\n  }\n\n  .md\\:hover\\:font-normal:hover {\n    font-weight: 400;\n  }\n\n  .md\\:hover\\:font-medium:hover {\n    font-weight: 500;\n  }\n\n  .md\\:hover\\:font-semibold:hover {\n    font-weight: 600;\n  }\n\n  .md\\:hover\\:font-bold:hover {\n    font-weight: 700;\n  }\n\n  .md\\:hover\\:font-extrabold:hover {\n    font-weight: 800;\n  }\n\n  .md\\:hover\\:font-black:hover {\n    font-weight: 900;\n  }\n\n  .md\\:h-1 {\n    height: .25rem;\n  }\n\n  .md\\:h-2 {\n    height: .5rem;\n  }\n\n  .md\\:h-3 {\n    height: .75rem;\n  }\n\n  .md\\:h-4 {\n    height: 1rem;\n  }\n\n  .md\\:h-6 {\n    height: 1.5rem;\n  }\n\n  .md\\:h-8 {\n    height: 2rem;\n  }\n\n  .md\\:h-10 {\n    height: 2.5rem;\n  }\n\n  .md\\:h-12 {\n    height: 3rem;\n  }\n\n  .md\\:h-16 {\n    height: 4rem;\n  }\n\n  .md\\:h-24 {\n    height: 6rem;\n  }\n\n  .md\\:h-32 {\n    height: 8rem;\n  }\n\n  .md\\:h-48 {\n    height: 12rem;\n  }\n\n  .md\\:h-64 {\n    height: 16rem;\n  }\n\n  .md\\:h-auto {\n    height: auto;\n  }\n\n  .md\\:h-px {\n    height: 1px;\n  }\n\n  .md\\:h-full {\n    height: 100%;\n  }\n\n  .md\\:h-screen {\n    height: 100vh;\n  }\n\n  .md\\:leading-none {\n    line-height: 1;\n  }\n\n  .md\\:leading-tight {\n    line-height: 1.25;\n  }\n\n  .md\\:leading-normal {\n    line-height: 1.5;\n  }\n\n  .md\\:leading-loose {\n    line-height: 2;\n  }\n\n  .md\\:m-0 {\n    margin: 0;\n  }\n\n  .md\\:m-1 {\n    margin: .25rem;\n  }\n\n  .md\\:m-2 {\n    margin: .5rem;\n  }\n\n  .md\\:m-3 {\n    margin: .75rem;\n  }\n\n  .md\\:m-4 {\n    margin: 1rem;\n  }\n\n  .md\\:m-6 {\n    margin: 1.5rem;\n  }\n\n  .md\\:m-8 {\n    margin: 2rem;\n  }\n\n  .md\\:m-auto {\n    margin: auto;\n  }\n\n  .md\\:m-px {\n    margin: 1px;\n  }\n\n  .md\\:my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .md\\:mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .md\\:my-1 {\n    margin-top: .25rem;\n    margin-bottom: .25rem;\n  }\n\n  .md\\:mx-1 {\n    margin-left: .25rem;\n    margin-right: .25rem;\n  }\n\n  .md\\:my-2 {\n    margin-top: .5rem;\n    margin-bottom: .5rem;\n  }\n\n  .md\\:mx-2 {\n    margin-left: .5rem;\n    margin-right: .5rem;\n  }\n\n  .md\\:my-3 {\n    margin-top: .75rem;\n    margin-bottom: .75rem;\n  }\n\n  .md\\:mx-3 {\n    margin-left: .75rem;\n    margin-right: .75rem;\n  }\n\n  .md\\:my-4 {\n    margin-top: 1rem;\n    margin-bottom: 1rem;\n  }\n\n  .md\\:mx-4 {\n    margin-left: 1rem;\n    margin-right: 1rem;\n  }\n\n  .md\\:my-6 {\n    margin-top: 1.5rem;\n    margin-bottom: 1.5rem;\n  }\n\n  .md\\:mx-6 {\n    margin-left: 1.5rem;\n    margin-right: 1.5rem;\n  }\n\n  .md\\:my-8 {\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n  }\n\n  .md\\:mx-8 {\n    margin-left: 2rem;\n    margin-right: 2rem;\n  }\n\n  .md\\:my-auto {\n    margin-top: auto;\n    margin-bottom: auto;\n  }\n\n  .md\\:mx-auto {\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  .md\\:my-px {\n    margin-top: 1px;\n    margin-bottom: 1px;\n  }\n\n  .md\\:mx-px {\n    margin-left: 1px;\n    margin-right: 1px;\n  }\n\n  .md\\:mt-0 {\n    margin-top: 0;\n  }\n\n  .md\\:mr-0 {\n    margin-right: 0;\n  }\n\n  .md\\:mb-0 {\n    margin-bottom: 0;\n  }\n\n  .md\\:ml-0 {\n    margin-left: 0;\n  }\n\n  .md\\:mt-1 {\n    margin-top: .25rem;\n  }\n\n  .md\\:mr-1 {\n    margin-right: .25rem;\n  }\n\n  .md\\:mb-1 {\n    margin-bottom: .25rem;\n  }\n\n  .md\\:ml-1 {\n    margin-left: .25rem;\n  }\n\n  .md\\:mt-2 {\n    margin-top: .5rem;\n  }\n\n  .md\\:mr-2 {\n    margin-right: .5rem;\n  }\n\n  .md\\:mb-2 {\n    margin-bottom: .5rem;\n  }\n\n  .md\\:ml-2 {\n    margin-left: .5rem;\n  }\n\n  .md\\:mt-3 {\n    margin-top: .75rem;\n  }\n\n  .md\\:mr-3 {\n    margin-right: .75rem;\n  }\n\n  .md\\:mb-3 {\n    margin-bottom: .75rem;\n  }\n\n  .md\\:ml-3 {\n    margin-left: .75rem;\n  }\n\n  .md\\:mt-4 {\n    margin-top: 1rem;\n  }\n\n  .md\\:mr-4 {\n    margin-right: 1rem;\n  }\n\n  .md\\:mb-4 {\n    margin-bottom: 1rem;\n  }\n\n  .md\\:ml-4 {\n    margin-left: 1rem;\n  }\n\n  .md\\:mt-6 {\n    margin-top: 1.5rem;\n  }\n\n  .md\\:mr-6 {\n    margin-right: 1.5rem;\n  }\n\n  .md\\:mb-6 {\n    margin-bottom: 1.5rem;\n  }\n\n  .md\\:ml-6 {\n    margin-left: 1.5rem;\n  }\n\n  .md\\:mt-8 {\n    margin-top: 2rem;\n  }\n\n  .md\\:mr-8 {\n    margin-right: 2rem;\n  }\n\n  .md\\:mb-8 {\n    margin-bottom: 2rem;\n  }\n\n  .md\\:ml-8 {\n    margin-left: 2rem;\n  }\n\n  .md\\:mt-auto {\n    margin-top: auto;\n  }\n\n  .md\\:mr-auto {\n    margin-right: auto;\n  }\n\n  .md\\:mb-auto {\n    margin-bottom: auto;\n  }\n\n  .md\\:ml-auto {\n    margin-left: auto;\n  }\n\n  .md\\:mt-px {\n    margin-top: 1px;\n  }\n\n  .md\\:mr-px {\n    margin-right: 1px;\n  }\n\n  .md\\:mb-px {\n    margin-bottom: 1px;\n  }\n\n  .md\\:ml-px {\n    margin-left: 1px;\n  }\n\n  .md\\:max-h-full {\n    max-height: 100%;\n  }\n\n  .md\\:max-h-screen {\n    max-height: 100vh;\n  }\n\n  .md\\:max-w-xs {\n    max-width: 20rem;\n  }\n\n  .md\\:max-w-sm {\n    max-width: 30rem;\n  }\n\n  .md\\:max-w-md {\n    max-width: 40rem;\n  }\n\n  .md\\:max-w-lg {\n    max-width: 50rem;\n  }\n\n  .md\\:max-w-xl {\n    max-width: 60rem;\n  }\n\n  .md\\:max-w-2xl {\n    max-width: 70rem;\n  }\n\n  .md\\:max-w-3xl {\n    max-width: 80rem;\n  }\n\n  .md\\:max-w-4xl {\n    max-width: 90rem;\n  }\n\n  .md\\:max-w-5xl {\n    max-width: 100rem;\n  }\n\n  .md\\:max-w-full {\n    max-width: 100%;\n  }\n\n  .md\\:min-h-0 {\n    min-height: 0;\n  }\n\n  .md\\:min-h-full {\n    min-height: 100%;\n  }\n\n  .md\\:min-h-screen {\n    min-height: 100vh;\n  }\n\n  .md\\:min-w-0 {\n    min-width: 0;\n  }\n\n  .md\\:min-w-full {\n    min-width: 100%;\n  }\n\n  .md\\:-m-0 {\n    margin: 0;\n  }\n\n  .md\\:-m-1 {\n    margin: -0.25rem;\n  }\n\n  .md\\:-m-2 {\n    margin: -0.5rem;\n  }\n\n  .md\\:-m-3 {\n    margin: -0.75rem;\n  }\n\n  .md\\:-m-4 {\n    margin: -1rem;\n  }\n\n  .md\\:-m-6 {\n    margin: -1.5rem;\n  }\n\n  .md\\:-m-8 {\n    margin: -2rem;\n  }\n\n  .md\\:-m-px {\n    margin: -1px;\n  }\n\n  .md\\:-my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .md\\:-mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .md\\:-my-1 {\n    margin-top: -0.25rem;\n    margin-bottom: -0.25rem;\n  }\n\n  .md\\:-mx-1 {\n    margin-left: -0.25rem;\n    margin-right: -0.25rem;\n  }\n\n  .md\\:-my-2 {\n    margin-top: -0.5rem;\n    margin-bottom: -0.5rem;\n  }\n\n  .md\\:-mx-2 {\n    margin-left: -0.5rem;\n    margin-right: -0.5rem;\n  }\n\n  .md\\:-my-3 {\n    margin-top: -0.75rem;\n    margin-bottom: -0.75rem;\n  }\n\n  .md\\:-mx-3 {\n    margin-left: -0.75rem;\n    margin-right: -0.75rem;\n  }\n\n  .md\\:-my-4 {\n    margin-top: -1rem;\n    margin-bottom: -1rem;\n  }\n\n  .md\\:-mx-4 {\n    margin-left: -1rem;\n    margin-right: -1rem;\n  }\n\n  .md\\:-my-6 {\n    margin-top: -1.5rem;\n    margin-bottom: -1.5rem;\n  }\n\n  .md\\:-mx-6 {\n    margin-left: -1.5rem;\n    margin-right: -1.5rem;\n  }\n\n  .md\\:-my-8 {\n    margin-top: -2rem;\n    margin-bottom: -2rem;\n  }\n\n  .md\\:-mx-8 {\n    margin-left: -2rem;\n    margin-right: -2rem;\n  }\n\n  .md\\:-my-px {\n    margin-top: -1px;\n    margin-bottom: -1px;\n  }\n\n  .md\\:-mx-px {\n    margin-left: -1px;\n    margin-right: -1px;\n  }\n\n  .md\\:-mt-0 {\n    margin-top: 0;\n  }\n\n  .md\\:-mr-0 {\n    margin-right: 0;\n  }\n\n  .md\\:-mb-0 {\n    margin-bottom: 0;\n  }\n\n  .md\\:-ml-0 {\n    margin-left: 0;\n  }\n\n  .md\\:-mt-1 {\n    margin-top: -0.25rem;\n  }\n\n  .md\\:-mr-1 {\n    margin-right: -0.25rem;\n  }\n\n  .md\\:-mb-1 {\n    margin-bottom: -0.25rem;\n  }\n\n  .md\\:-ml-1 {\n    margin-left: -0.25rem;\n  }\n\n  .md\\:-mt-2 {\n    margin-top: -0.5rem;\n  }\n\n  .md\\:-mr-2 {\n    margin-right: -0.5rem;\n  }\n\n  .md\\:-mb-2 {\n    margin-bottom: -0.5rem;\n  }\n\n  .md\\:-ml-2 {\n    margin-left: -0.5rem;\n  }\n\n  .md\\:-mt-3 {\n    margin-top: -0.75rem;\n  }\n\n  .md\\:-mr-3 {\n    margin-right: -0.75rem;\n  }\n\n  .md\\:-mb-3 {\n    margin-bottom: -0.75rem;\n  }\n\n  .md\\:-ml-3 {\n    margin-left: -0.75rem;\n  }\n\n  .md\\:-mt-4 {\n    margin-top: -1rem;\n  }\n\n  .md\\:-mr-4 {\n    margin-right: -1rem;\n  }\n\n  .md\\:-mb-4 {\n    margin-bottom: -1rem;\n  }\n\n  .md\\:-ml-4 {\n    margin-left: -1rem;\n  }\n\n  .md\\:-mt-6 {\n    margin-top: -1.5rem;\n  }\n\n  .md\\:-mr-6 {\n    margin-right: -1.5rem;\n  }\n\n  .md\\:-mb-6 {\n    margin-bottom: -1.5rem;\n  }\n\n  .md\\:-ml-6 {\n    margin-left: -1.5rem;\n  }\n\n  .md\\:-mt-8 {\n    margin-top: -2rem;\n  }\n\n  .md\\:-mr-8 {\n    margin-right: -2rem;\n  }\n\n  .md\\:-mb-8 {\n    margin-bottom: -2rem;\n  }\n\n  .md\\:-ml-8 {\n    margin-left: -2rem;\n  }\n\n  .md\\:-mt-px {\n    margin-top: -1px;\n  }\n\n  .md\\:-mr-px {\n    margin-right: -1px;\n  }\n\n  .md\\:-mb-px {\n    margin-bottom: -1px;\n  }\n\n  .md\\:-ml-px {\n    margin-left: -1px;\n  }\n\n  .md\\:opacity-0 {\n    opacity: 0;\n  }\n\n  .md\\:opacity-25 {\n    opacity: .25;\n  }\n\n  .md\\:opacity-50 {\n    opacity: .5;\n  }\n\n  .md\\:opacity-75 {\n    opacity: .75;\n  }\n\n  .md\\:opacity-100 {\n    opacity: 1;\n  }\n\n  .md\\:overflow-auto {\n    overflow: auto;\n  }\n\n  .md\\:overflow-hidden {\n    overflow: hidden;\n  }\n\n  .md\\:overflow-visible {\n    overflow: visible;\n  }\n\n  .md\\:overflow-scroll {\n    overflow: scroll;\n  }\n\n  .md\\:overflow-x-auto {\n    overflow-x: auto;\n  }\n\n  .md\\:overflow-y-auto {\n    overflow-y: auto;\n  }\n\n  .md\\:overflow-x-scroll {\n    overflow-x: scroll;\n  }\n\n  .md\\:overflow-y-scroll {\n    overflow-y: scroll;\n  }\n\n  .md\\:scrolling-touch {\n    -webkit-overflow-scrolling: touch;\n  }\n\n  .md\\:scrolling-auto {\n    -webkit-overflow-scrolling: auto;\n  }\n\n  .md\\:p-0 {\n    padding: 0;\n  }\n\n  .md\\:p-1 {\n    padding: .25rem;\n  }\n\n  .md\\:p-2 {\n    padding: .5rem;\n  }\n\n  .md\\:p-3 {\n    padding: .75rem;\n  }\n\n  .md\\:p-4 {\n    padding: 1rem;\n  }\n\n  .md\\:p-6 {\n    padding: 1.5rem;\n  }\n\n  .md\\:p-8 {\n    padding: 2rem;\n  }\n\n  .md\\:p-px {\n    padding: 1px;\n  }\n\n  .md\\:py-0 {\n    padding-top: 0;\n    padding-bottom: 0;\n  }\n\n  .md\\:px-0 {\n    padding-left: 0;\n    padding-right: 0;\n  }\n\n  .md\\:py-1 {\n    padding-top: .25rem;\n    padding-bottom: .25rem;\n  }\n\n  .md\\:px-1 {\n    padding-left: .25rem;\n    padding-right: .25rem;\n  }\n\n  .md\\:py-2 {\n    padding-top: .5rem;\n    padding-bottom: .5rem;\n  }\n\n  .md\\:px-2 {\n    padding-left: .5rem;\n    padding-right: .5rem;\n  }\n\n  .md\\:py-3 {\n    padding-top: .75rem;\n    padding-bottom: .75rem;\n  }\n\n  .md\\:px-3 {\n    padding-left: .75rem;\n    padding-right: .75rem;\n  }\n\n  .md\\:py-4 {\n    padding-top: 1rem;\n    padding-bottom: 1rem;\n  }\n\n  .md\\:px-4 {\n    padding-left: 1rem;\n    padding-right: 1rem;\n  }\n\n  .md\\:py-6 {\n    padding-top: 1.5rem;\n    padding-bottom: 1.5rem;\n  }\n\n  .md\\:px-6 {\n    padding-left: 1.5rem;\n    padding-right: 1.5rem;\n  }\n\n  .md\\:py-8 {\n    padding-top: 2rem;\n    padding-bottom: 2rem;\n  }\n\n  .md\\:px-8 {\n    padding-left: 2rem;\n    padding-right: 2rem;\n  }\n\n  .md\\:py-px {\n    padding-top: 1px;\n    padding-bottom: 1px;\n  }\n\n  .md\\:px-px {\n    padding-left: 1px;\n    padding-right: 1px;\n  }\n\n  .md\\:pt-0 {\n    padding-top: 0;\n  }\n\n  .md\\:pr-0 {\n    padding-right: 0;\n  }\n\n  .md\\:pb-0 {\n    padding-bottom: 0;\n  }\n\n  .md\\:pl-0 {\n    padding-left: 0;\n  }\n\n  .md\\:pt-1 {\n    padding-top: .25rem;\n  }\n\n  .md\\:pr-1 {\n    padding-right: .25rem;\n  }\n\n  .md\\:pb-1 {\n    padding-bottom: .25rem;\n  }\n\n  .md\\:pl-1 {\n    padding-left: .25rem;\n  }\n\n  .md\\:pt-2 {\n    padding-top: .5rem;\n  }\n\n  .md\\:pr-2 {\n    padding-right: .5rem;\n  }\n\n  .md\\:pb-2 {\n    padding-bottom: .5rem;\n  }\n\n  .md\\:pl-2 {\n    padding-left: .5rem;\n  }\n\n  .md\\:pt-3 {\n    padding-top: .75rem;\n  }\n\n  .md\\:pr-3 {\n    padding-right: .75rem;\n  }\n\n  .md\\:pb-3 {\n    padding-bottom: .75rem;\n  }\n\n  .md\\:pl-3 {\n    padding-left: .75rem;\n  }\n\n  .md\\:pt-4 {\n    padding-top: 1rem;\n  }\n\n  .md\\:pr-4 {\n    padding-right: 1rem;\n  }\n\n  .md\\:pb-4 {\n    padding-bottom: 1rem;\n  }\n\n  .md\\:pl-4 {\n    padding-left: 1rem;\n  }\n\n  .md\\:pt-6 {\n    padding-top: 1.5rem;\n  }\n\n  .md\\:pr-6 {\n    padding-right: 1.5rem;\n  }\n\n  .md\\:pb-6 {\n    padding-bottom: 1.5rem;\n  }\n\n  .md\\:pl-6 {\n    padding-left: 1.5rem;\n  }\n\n  .md\\:pt-8 {\n    padding-top: 2rem;\n  }\n\n  .md\\:pr-8 {\n    padding-right: 2rem;\n  }\n\n  .md\\:pb-8 {\n    padding-bottom: 2rem;\n  }\n\n  .md\\:pl-8 {\n    padding-left: 2rem;\n  }\n\n  .md\\:pt-px {\n    padding-top: 1px;\n  }\n\n  .md\\:pr-px {\n    padding-right: 1px;\n  }\n\n  .md\\:pb-px {\n    padding-bottom: 1px;\n  }\n\n  .md\\:pl-px {\n    padding-left: 1px;\n  }\n\n  .md\\:pointer-events-none {\n    pointer-events: none;\n  }\n\n  .md\\:pointer-events-auto {\n    pointer-events: auto;\n  }\n\n  .md\\:static {\n    position: static;\n  }\n\n  .md\\:fixed {\n    position: fixed;\n  }\n\n  .md\\:absolute {\n    position: absolute;\n  }\n\n  .md\\:relative {\n    position: relative;\n  }\n\n  .md\\:sticky {\n    position: -webkit-sticky;\n    position: sticky;\n  }\n\n  .md\\:pin-none {\n    top: auto;\n    right: auto;\n    bottom: auto;\n    left: auto;\n  }\n\n  .md\\:pin {\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n  }\n\n  .md\\:pin-y {\n    top: 0;\n    bottom: 0;\n  }\n\n  .md\\:pin-x {\n    right: 0;\n    left: 0;\n  }\n\n  .md\\:pin-t {\n    top: 0;\n  }\n\n  .md\\:pin-r {\n    right: 0;\n  }\n\n  .md\\:pin-b {\n    bottom: 0;\n  }\n\n  .md\\:pin-l {\n    left: 0;\n  }\n\n  .md\\:resize-none {\n    resize: none;\n  }\n\n  .md\\:resize-y {\n    resize: vertical;\n  }\n\n  .md\\:resize-x {\n    resize: horizontal;\n  }\n\n  .md\\:resize {\n    resize: both;\n  }\n\n  .md\\:shadow {\n    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);\n  }\n\n  .md\\:shadow-md {\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);\n  }\n\n  .md\\:shadow-lg {\n    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);\n  }\n\n  .md\\:shadow-inner {\n    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);\n  }\n\n  .md\\:shadow-none {\n    box-shadow: none;\n  }\n\n  .md\\:text-left {\n    text-align: left;\n  }\n\n  .md\\:text-center {\n    text-align: center;\n  }\n\n  .md\\:text-right {\n    text-align: right;\n  }\n\n  .md\\:text-justify {\n    text-align: justify;\n  }\n\n  .md\\:text-transparent {\n    color: transparent;\n  }\n\n  .md\\:text-black {\n    color: #22292f;\n  }\n\n  .md\\:text-grey-darkest {\n    color: #3d4852;\n  }\n\n  .md\\:text-grey-darker {\n    color: #606f7b;\n  }\n\n  .md\\:text-grey-dark {\n    color: #8795a1;\n  }\n\n  .md\\:text-grey {\n    color: #b8c2cc;\n  }\n\n  .md\\:text-grey-light {\n    color: #dae1e7;\n  }\n\n  .md\\:text-grey-lighter {\n    color: #f1f5f8;\n  }\n\n  .md\\:text-grey-lightest {\n    color: #f8fafc;\n  }\n\n  .md\\:text-white {\n    color: #fff;\n  }\n\n  .md\\:text-red-darkest {\n    color: #3b0d0c;\n  }\n\n  .md\\:text-red-darker {\n    color: #621b18;\n  }\n\n  .md\\:text-red-dark {\n    color: #cc1f1a;\n  }\n\n  .md\\:text-red {\n    color: #e3342f;\n  }\n\n  .md\\:text-red-light {\n    color: #ef5753;\n  }\n\n  .md\\:text-red-lighter {\n    color: #f9acaa;\n  }\n\n  .md\\:text-red-lightest {\n    color: #fcebea;\n  }\n\n  .md\\:text-orange-darkest {\n    color: #462a16;\n  }\n\n  .md\\:text-orange-darker {\n    color: #613b1f;\n  }\n\n  .md\\:text-orange-dark {\n    color: #de751f;\n  }\n\n  .md\\:text-orange {\n    color: #f6993f;\n  }\n\n  .md\\:text-orange-light {\n    color: #faad63;\n  }\n\n  .md\\:text-orange-lighter {\n    color: #fcd9b6;\n  }\n\n  .md\\:text-orange-lightest {\n    color: #fff5eb;\n  }\n\n  .md\\:text-yellow-darkest {\n    color: #453411;\n  }\n\n  .md\\:text-yellow-darker {\n    color: #684f1d;\n  }\n\n  .md\\:text-yellow-dark {\n    color: #f2d024;\n  }\n\n  .md\\:text-yellow {\n    color: #ffed4a;\n  }\n\n  .md\\:text-yellow-light {\n    color: #fff382;\n  }\n\n  .md\\:text-yellow-lighter {\n    color: #fff9c2;\n  }\n\n  .md\\:text-yellow-lightest {\n    color: #fcfbeb;\n  }\n\n  .md\\:text-green-darkest {\n    color: #0f2f21;\n  }\n\n  .md\\:text-green-darker {\n    color: #1a4731;\n  }\n\n  .md\\:text-green-dark {\n    color: #1f9d55;\n  }\n\n  .md\\:text-green {\n    color: #38c172;\n  }\n\n  .md\\:text-green-light {\n    color: #51d88a;\n  }\n\n  .md\\:text-green-lighter {\n    color: #a2f5bf;\n  }\n\n  .md\\:text-green-lightest {\n    color: #e3fcec;\n  }\n\n  .md\\:text-teal-darkest {\n    color: #0d3331;\n  }\n\n  .md\\:text-teal-darker {\n    color: #20504f;\n  }\n\n  .md\\:text-teal-dark {\n    color: #38a89d;\n  }\n\n  .md\\:text-teal {\n    color: #4dc0b5;\n  }\n\n  .md\\:text-teal-light {\n    color: #64d5ca;\n  }\n\n  .md\\:text-teal-lighter {\n    color: #a0f0ed;\n  }\n\n  .md\\:text-teal-lightest {\n    color: #e8fffe;\n  }\n\n  .md\\:text-blue-darkest {\n    color: #12283a;\n  }\n\n  .md\\:text-blue-darker {\n    color: #1c3d5a;\n  }\n\n  .md\\:text-blue-dark {\n    color: #2779bd;\n  }\n\n  .md\\:text-blue {\n    color: #3490dc;\n  }\n\n  .md\\:text-blue-light {\n    color: #6cb2eb;\n  }\n\n  .md\\:text-blue-lighter {\n    color: #bcdefa;\n  }\n\n  .md\\:text-blue-lightest {\n    color: #eff8ff;\n  }\n\n  .md\\:text-indigo-darkest {\n    color: #191e38;\n  }\n\n  .md\\:text-indigo-darker {\n    color: #2f365f;\n  }\n\n  .md\\:text-indigo-dark {\n    color: #5661b3;\n  }\n\n  .md\\:text-indigo {\n    color: #6574cd;\n  }\n\n  .md\\:text-indigo-light {\n    color: #7886d7;\n  }\n\n  .md\\:text-indigo-lighter {\n    color: #b2b7ff;\n  }\n\n  .md\\:text-indigo-lightest {\n    color: #e6e8ff;\n  }\n\n  .md\\:text-purple-darkest {\n    color: #21183c;\n  }\n\n  .md\\:text-purple-darker {\n    color: #382b5f;\n  }\n\n  .md\\:text-purple-dark {\n    color: #794acf;\n  }\n\n  .md\\:text-purple {\n    color: #9561e2;\n  }\n\n  .md\\:text-purple-light {\n    color: #a779e9;\n  }\n\n  .md\\:text-purple-lighter {\n    color: #d6bbfc;\n  }\n\n  .md\\:text-purple-lightest {\n    color: #f3ebff;\n  }\n\n  .md\\:text-pink-darkest {\n    color: #451225;\n  }\n\n  .md\\:text-pink-darker {\n    color: #6f213f;\n  }\n\n  .md\\:text-pink-dark {\n    color: #eb5286;\n  }\n\n  .md\\:text-pink {\n    color: #f66d9b;\n  }\n\n  .md\\:text-pink-light {\n    color: #fa7ea8;\n  }\n\n  .md\\:text-pink-lighter {\n    color: #ffbbca;\n  }\n\n  .md\\:text-pink-lightest {\n    color: #ffebef;\n  }\n\n  .md\\:hover\\:text-transparent:hover {\n    color: transparent;\n  }\n\n  .md\\:hover\\:text-black:hover {\n    color: #22292f;\n  }\n\n  .md\\:hover\\:text-grey-darkest:hover {\n    color: #3d4852;\n  }\n\n  .md\\:hover\\:text-grey-darker:hover {\n    color: #606f7b;\n  }\n\n  .md\\:hover\\:text-grey-dark:hover {\n    color: #8795a1;\n  }\n\n  .md\\:hover\\:text-grey:hover {\n    color: #b8c2cc;\n  }\n\n  .md\\:hover\\:text-grey-light:hover {\n    color: #dae1e7;\n  }\n\n  .md\\:hover\\:text-grey-lighter:hover {\n    color: #f1f5f8;\n  }\n\n  .md\\:hover\\:text-grey-lightest:hover {\n    color: #f8fafc;\n  }\n\n  .md\\:hover\\:text-white:hover {\n    color: #fff;\n  }\n\n  .md\\:hover\\:text-red-darkest:hover {\n    color: #3b0d0c;\n  }\n\n  .md\\:hover\\:text-red-darker:hover {\n    color: #621b18;\n  }\n\n  .md\\:hover\\:text-red-dark:hover {\n    color: #cc1f1a;\n  }\n\n  .md\\:hover\\:text-red:hover {\n    color: #e3342f;\n  }\n\n  .md\\:hover\\:text-red-light:hover {\n    color: #ef5753;\n  }\n\n  .md\\:hover\\:text-red-lighter:hover {\n    color: #f9acaa;\n  }\n\n  .md\\:hover\\:text-red-lightest:hover {\n    color: #fcebea;\n  }\n\n  .md\\:hover\\:text-orange-darkest:hover {\n    color: #462a16;\n  }\n\n  .md\\:hover\\:text-orange-darker:hover {\n    color: #613b1f;\n  }\n\n  .md\\:hover\\:text-orange-dark:hover {\n    color: #de751f;\n  }\n\n  .md\\:hover\\:text-orange:hover {\n    color: #f6993f;\n  }\n\n  .md\\:hover\\:text-orange-light:hover {\n    color: #faad63;\n  }\n\n  .md\\:hover\\:text-orange-lighter:hover {\n    color: #fcd9b6;\n  }\n\n  .md\\:hover\\:text-orange-lightest:hover {\n    color: #fff5eb;\n  }\n\n  .md\\:hover\\:text-yellow-darkest:hover {\n    color: #453411;\n  }\n\n  .md\\:hover\\:text-yellow-darker:hover {\n    color: #684f1d;\n  }\n\n  .md\\:hover\\:text-yellow-dark:hover {\n    color: #f2d024;\n  }\n\n  .md\\:hover\\:text-yellow:hover {\n    color: #ffed4a;\n  }\n\n  .md\\:hover\\:text-yellow-light:hover {\n    color: #fff382;\n  }\n\n  .md\\:hover\\:text-yellow-lighter:hover {\n    color: #fff9c2;\n  }\n\n  .md\\:hover\\:text-yellow-lightest:hover {\n    color: #fcfbeb;\n  }\n\n  .md\\:hover\\:text-green-darkest:hover {\n    color: #0f2f21;\n  }\n\n  .md\\:hover\\:text-green-darker:hover {\n    color: #1a4731;\n  }\n\n  .md\\:hover\\:text-green-dark:hover {\n    color: #1f9d55;\n  }\n\n  .md\\:hover\\:text-green:hover {\n    color: #38c172;\n  }\n\n  .md\\:hover\\:text-green-light:hover {\n    color: #51d88a;\n  }\n\n  .md\\:hover\\:text-green-lighter:hover {\n    color: #a2f5bf;\n  }\n\n  .md\\:hover\\:text-green-lightest:hover {\n    color: #e3fcec;\n  }\n\n  .md\\:hover\\:text-teal-darkest:hover {\n    color: #0d3331;\n  }\n\n  .md\\:hover\\:text-teal-darker:hover {\n    color: #20504f;\n  }\n\n  .md\\:hover\\:text-teal-dark:hover {\n    color: #38a89d;\n  }\n\n  .md\\:hover\\:text-teal:hover {\n    color: #4dc0b5;\n  }\n\n  .md\\:hover\\:text-teal-light:hover {\n    color: #64d5ca;\n  }\n\n  .md\\:hover\\:text-teal-lighter:hover {\n    color: #a0f0ed;\n  }\n\n  .md\\:hover\\:text-teal-lightest:hover {\n    color: #e8fffe;\n  }\n\n  .md\\:hover\\:text-blue-darkest:hover {\n    color: #12283a;\n  }\n\n  .md\\:hover\\:text-blue-darker:hover {\n    color: #1c3d5a;\n  }\n\n  .md\\:hover\\:text-blue-dark:hover {\n    color: #2779bd;\n  }\n\n  .md\\:hover\\:text-blue:hover {\n    color: #3490dc;\n  }\n\n  .md\\:hover\\:text-blue-light:hover {\n    color: #6cb2eb;\n  }\n\n  .md\\:hover\\:text-blue-lighter:hover {\n    color: #bcdefa;\n  }\n\n  .md\\:hover\\:text-blue-lightest:hover {\n    color: #eff8ff;\n  }\n\n  .md\\:hover\\:text-indigo-darkest:hover {\n    color: #191e38;\n  }\n\n  .md\\:hover\\:text-indigo-darker:hover {\n    color: #2f365f;\n  }\n\n  .md\\:hover\\:text-indigo-dark:hover {\n    color: #5661b3;\n  }\n\n  .md\\:hover\\:text-indigo:hover {\n    color: #6574cd;\n  }\n\n  .md\\:hover\\:text-indigo-light:hover {\n    color: #7886d7;\n  }\n\n  .md\\:hover\\:text-indigo-lighter:hover {\n    color: #b2b7ff;\n  }\n\n  .md\\:hover\\:text-indigo-lightest:hover {\n    color: #e6e8ff;\n  }\n\n  .md\\:hover\\:text-purple-darkest:hover {\n    color: #21183c;\n  }\n\n  .md\\:hover\\:text-purple-darker:hover {\n    color: #382b5f;\n  }\n\n  .md\\:hover\\:text-purple-dark:hover {\n    color: #794acf;\n  }\n\n  .md\\:hover\\:text-purple:hover {\n    color: #9561e2;\n  }\n\n  .md\\:hover\\:text-purple-light:hover {\n    color: #a779e9;\n  }\n\n  .md\\:hover\\:text-purple-lighter:hover {\n    color: #d6bbfc;\n  }\n\n  .md\\:hover\\:text-purple-lightest:hover {\n    color: #f3ebff;\n  }\n\n  .md\\:hover\\:text-pink-darkest:hover {\n    color: #451225;\n  }\n\n  .md\\:hover\\:text-pink-darker:hover {\n    color: #6f213f;\n  }\n\n  .md\\:hover\\:text-pink-dark:hover {\n    color: #eb5286;\n  }\n\n  .md\\:hover\\:text-pink:hover {\n    color: #f66d9b;\n  }\n\n  .md\\:hover\\:text-pink-light:hover {\n    color: #fa7ea8;\n  }\n\n  .md\\:hover\\:text-pink-lighter:hover {\n    color: #ffbbca;\n  }\n\n  .md\\:hover\\:text-pink-lightest:hover {\n    color: #ffebef;\n  }\n\n  .md\\:text-xs {\n    font-size: .75rem;\n  }\n\n  .md\\:text-sm {\n    font-size: .875rem;\n  }\n\n  .md\\:text-base {\n    font-size: 1rem;\n  }\n\n  .md\\:text-lg {\n    font-size: 1.125rem;\n  }\n\n  .md\\:text-xl {\n    font-size: 1.25rem;\n  }\n\n  .md\\:text-2xl {\n    font-size: 1.5rem;\n  }\n\n  .md\\:text-3xl {\n    font-size: 1.875rem;\n  }\n\n  .md\\:text-4xl {\n    font-size: 2.25rem;\n  }\n\n  .md\\:text-5xl {\n    font-size: 3rem;\n  }\n\n  .md\\:italic {\n    font-style: italic;\n  }\n\n  .md\\:roman {\n    font-style: normal;\n  }\n\n  .md\\:uppercase {\n    text-transform: uppercase;\n  }\n\n  .md\\:lowercase {\n    text-transform: lowercase;\n  }\n\n  .md\\:capitalize {\n    text-transform: capitalize;\n  }\n\n  .md\\:normal-case {\n    text-transform: none;\n  }\n\n  .md\\:underline {\n    text-decoration: underline;\n  }\n\n  .md\\:line-through {\n    text-decoration: line-through;\n  }\n\n  .md\\:no-underline {\n    text-decoration: none;\n  }\n\n  .md\\:antialiased {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .md\\:subpixel-antialiased {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .md\\:hover\\:italic:hover {\n    font-style: italic;\n  }\n\n  .md\\:hover\\:roman:hover {\n    font-style: normal;\n  }\n\n  .md\\:hover\\:uppercase:hover {\n    text-transform: uppercase;\n  }\n\n  .md\\:hover\\:lowercase:hover {\n    text-transform: lowercase;\n  }\n\n  .md\\:hover\\:capitalize:hover {\n    text-transform: capitalize;\n  }\n\n  .md\\:hover\\:normal-case:hover {\n    text-transform: none;\n  }\n\n  .md\\:hover\\:underline:hover {\n    text-decoration: underline;\n  }\n\n  .md\\:hover\\:line-through:hover {\n    text-decoration: line-through;\n  }\n\n  .md\\:hover\\:no-underline:hover {\n    text-decoration: none;\n  }\n\n  .md\\:hover\\:antialiased:hover {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .md\\:hover\\:subpixel-antialiased:hover {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .md\\:tracking-tight {\n    letter-spacing: -0.05em;\n  }\n\n  .md\\:tracking-normal {\n    letter-spacing: 0;\n  }\n\n  .md\\:tracking-wide {\n    letter-spacing: .05em;\n  }\n\n  .md\\:select-none {\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n  }\n\n  .md\\:select-text {\n    -webkit-user-select: text;\n       -moz-user-select: text;\n        -ms-user-select: text;\n            user-select: text;\n  }\n\n  .md\\:align-baseline {\n    vertical-align: baseline;\n  }\n\n  .md\\:align-top {\n    vertical-align: top;\n  }\n\n  .md\\:align-middle {\n    vertical-align: middle;\n  }\n\n  .md\\:align-bottom {\n    vertical-align: bottom;\n  }\n\n  .md\\:align-text-top {\n    vertical-align: text-top;\n  }\n\n  .md\\:align-text-bottom {\n    vertical-align: text-bottom;\n  }\n\n  .md\\:visible {\n    visibility: visible;\n  }\n\n  .md\\:invisible {\n    visibility: hidden;\n  }\n\n  .md\\:whitespace-normal {\n    white-space: normal;\n  }\n\n  .md\\:whitespace-no-wrap {\n    white-space: nowrap;\n  }\n\n  .md\\:whitespace-pre {\n    white-space: pre;\n  }\n\n  .md\\:whitespace-pre-line {\n    white-space: pre-line;\n  }\n\n  .md\\:whitespace-pre-wrap {\n    white-space: pre-wrap;\n  }\n\n  .md\\:break-words {\n    word-wrap: break-word;\n  }\n\n  .md\\:break-normal {\n    word-wrap: normal;\n  }\n\n  .md\\:truncate {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .md\\:w-1 {\n    width: .25rem;\n  }\n\n  .md\\:w-2 {\n    width: .5rem;\n  }\n\n  .md\\:w-3 {\n    width: .75rem;\n  }\n\n  .md\\:w-4 {\n    width: 1rem;\n  }\n\n  .md\\:w-6 {\n    width: 1.5rem;\n  }\n\n  .md\\:w-8 {\n    width: 2rem;\n  }\n\n  .md\\:w-10 {\n    width: 2.5rem;\n  }\n\n  .md\\:w-12 {\n    width: 3rem;\n  }\n\n  .md\\:w-16 {\n    width: 4rem;\n  }\n\n  .md\\:w-24 {\n    width: 6rem;\n  }\n\n  .md\\:w-32 {\n    width: 8rem;\n  }\n\n  .md\\:w-48 {\n    width: 12rem;\n  }\n\n  .md\\:w-64 {\n    width: 16rem;\n  }\n\n  .md\\:w-auto {\n    width: auto;\n  }\n\n  .md\\:w-px {\n    width: 1px;\n  }\n\n  .md\\:w-1\\/2 {\n    width: 50%;\n  }\n\n  .md\\:w-1\\/3 {\n    width: 33.33333%;\n  }\n\n  .md\\:w-2\\/3 {\n    width: 66.66667%;\n  }\n\n  .md\\:w-1\\/4 {\n    width: 25%;\n  }\n\n  .md\\:w-3\\/4 {\n    width: 75%;\n  }\n\n  .md\\:w-1\\/5 {\n    width: 20%;\n  }\n\n  .md\\:w-2\\/5 {\n    width: 40%;\n  }\n\n  .md\\:w-3\\/5 {\n    width: 60%;\n  }\n\n  .md\\:w-4\\/5 {\n    width: 80%;\n  }\n\n  .md\\:w-1\\/6 {\n    width: 16.66667%;\n  }\n\n  .md\\:w-5\\/6 {\n    width: 83.33333%;\n  }\n\n  .md\\:w-full {\n    width: 100%;\n  }\n\n  .md\\:w-screen {\n    width: 100vw;\n  }\n\n  .md\\:z-0 {\n    z-index: 0;\n  }\n\n  .md\\:z-10 {\n    z-index: 10;\n  }\n\n  .md\\:z-20 {\n    z-index: 20;\n  }\n\n  .md\\:z-30 {\n    z-index: 30;\n  }\n\n  .md\\:z-40 {\n    z-index: 40;\n  }\n\n  .md\\:z-50 {\n    z-index: 50;\n  }\n\n  .md\\:z-auto {\n    z-index: auto;\n  }\n}\n\n@media (min-width: 992px) {\n  .lg\\:list-reset {\n    list-style: none;\n    padding: 0;\n  }\n\n  .lg\\:appearance-none {\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n  }\n\n  .lg\\:bg-fixed {\n    background-attachment: fixed;\n  }\n\n  .lg\\:bg-local {\n    background-attachment: local;\n  }\n\n  .lg\\:bg-scroll {\n    background-attachment: scroll;\n  }\n\n  .lg\\:bg-transparent {\n    background-color: transparent;\n  }\n\n  .lg\\:bg-black {\n    background-color: #22292f;\n  }\n\n  .lg\\:bg-grey-darkest {\n    background-color: #3d4852;\n  }\n\n  .lg\\:bg-grey-darker {\n    background-color: #606f7b;\n  }\n\n  .lg\\:bg-grey-dark {\n    background-color: #8795a1;\n  }\n\n  .lg\\:bg-grey {\n    background-color: #b8c2cc;\n  }\n\n  .lg\\:bg-grey-light {\n    background-color: #dae1e7;\n  }\n\n  .lg\\:bg-grey-lighter {\n    background-color: #f1f5f8;\n  }\n\n  .lg\\:bg-grey-lightest {\n    background-color: #f8fafc;\n  }\n\n  .lg\\:bg-white {\n    background-color: #fff;\n  }\n\n  .lg\\:bg-red-darkest {\n    background-color: #3b0d0c;\n  }\n\n  .lg\\:bg-red-darker {\n    background-color: #621b18;\n  }\n\n  .lg\\:bg-red-dark {\n    background-color: #cc1f1a;\n  }\n\n  .lg\\:bg-red {\n    background-color: #e3342f;\n  }\n\n  .lg\\:bg-red-light {\n    background-color: #ef5753;\n  }\n\n  .lg\\:bg-red-lighter {\n    background-color: #f9acaa;\n  }\n\n  .lg\\:bg-red-lightest {\n    background-color: #fcebea;\n  }\n\n  .lg\\:bg-orange-darkest {\n    background-color: #462a16;\n  }\n\n  .lg\\:bg-orange-darker {\n    background-color: #613b1f;\n  }\n\n  .lg\\:bg-orange-dark {\n    background-color: #de751f;\n  }\n\n  .lg\\:bg-orange {\n    background-color: #f6993f;\n  }\n\n  .lg\\:bg-orange-light {\n    background-color: #faad63;\n  }\n\n  .lg\\:bg-orange-lighter {\n    background-color: #fcd9b6;\n  }\n\n  .lg\\:bg-orange-lightest {\n    background-color: #fff5eb;\n  }\n\n  .lg\\:bg-yellow-darkest {\n    background-color: #453411;\n  }\n\n  .lg\\:bg-yellow-darker {\n    background-color: #684f1d;\n  }\n\n  .lg\\:bg-yellow-dark {\n    background-color: #f2d024;\n  }\n\n  .lg\\:bg-yellow {\n    background-color: #ffed4a;\n  }\n\n  .lg\\:bg-yellow-light {\n    background-color: #fff382;\n  }\n\n  .lg\\:bg-yellow-lighter {\n    background-color: #fff9c2;\n  }\n\n  .lg\\:bg-yellow-lightest {\n    background-color: #fcfbeb;\n  }\n\n  .lg\\:bg-green-darkest {\n    background-color: #0f2f21;\n  }\n\n  .lg\\:bg-green-darker {\n    background-color: #1a4731;\n  }\n\n  .lg\\:bg-green-dark {\n    background-color: #1f9d55;\n  }\n\n  .lg\\:bg-green {\n    background-color: #38c172;\n  }\n\n  .lg\\:bg-green-light {\n    background-color: #51d88a;\n  }\n\n  .lg\\:bg-green-lighter {\n    background-color: #a2f5bf;\n  }\n\n  .lg\\:bg-green-lightest {\n    background-color: #e3fcec;\n  }\n\n  .lg\\:bg-teal-darkest {\n    background-color: #0d3331;\n  }\n\n  .lg\\:bg-teal-darker {\n    background-color: #20504f;\n  }\n\n  .lg\\:bg-teal-dark {\n    background-color: #38a89d;\n  }\n\n  .lg\\:bg-teal {\n    background-color: #4dc0b5;\n  }\n\n  .lg\\:bg-teal-light {\n    background-color: #64d5ca;\n  }\n\n  .lg\\:bg-teal-lighter {\n    background-color: #a0f0ed;\n  }\n\n  .lg\\:bg-teal-lightest {\n    background-color: #e8fffe;\n  }\n\n  .lg\\:bg-blue-darkest {\n    background-color: #12283a;\n  }\n\n  .lg\\:bg-blue-darker {\n    background-color: #1c3d5a;\n  }\n\n  .lg\\:bg-blue-dark {\n    background-color: #2779bd;\n  }\n\n  .lg\\:bg-blue {\n    background-color: #3490dc;\n  }\n\n  .lg\\:bg-blue-light {\n    background-color: #6cb2eb;\n  }\n\n  .lg\\:bg-blue-lighter {\n    background-color: #bcdefa;\n  }\n\n  .lg\\:bg-blue-lightest {\n    background-color: #eff8ff;\n  }\n\n  .lg\\:bg-indigo-darkest {\n    background-color: #191e38;\n  }\n\n  .lg\\:bg-indigo-darker {\n    background-color: #2f365f;\n  }\n\n  .lg\\:bg-indigo-dark {\n    background-color: #5661b3;\n  }\n\n  .lg\\:bg-indigo {\n    background-color: #6574cd;\n  }\n\n  .lg\\:bg-indigo-light {\n    background-color: #7886d7;\n  }\n\n  .lg\\:bg-indigo-lighter {\n    background-color: #b2b7ff;\n  }\n\n  .lg\\:bg-indigo-lightest {\n    background-color: #e6e8ff;\n  }\n\n  .lg\\:bg-purple-darkest {\n    background-color: #21183c;\n  }\n\n  .lg\\:bg-purple-darker {\n    background-color: #382b5f;\n  }\n\n  .lg\\:bg-purple-dark {\n    background-color: #794acf;\n  }\n\n  .lg\\:bg-purple {\n    background-color: #9561e2;\n  }\n\n  .lg\\:bg-purple-light {\n    background-color: #a779e9;\n  }\n\n  .lg\\:bg-purple-lighter {\n    background-color: #d6bbfc;\n  }\n\n  .lg\\:bg-purple-lightest {\n    background-color: #f3ebff;\n  }\n\n  .lg\\:bg-pink-darkest {\n    background-color: #451225;\n  }\n\n  .lg\\:bg-pink-darker {\n    background-color: #6f213f;\n  }\n\n  .lg\\:bg-pink-dark {\n    background-color: #eb5286;\n  }\n\n  .lg\\:bg-pink {\n    background-color: #f66d9b;\n  }\n\n  .lg\\:bg-pink-light {\n    background-color: #fa7ea8;\n  }\n\n  .lg\\:bg-pink-lighter {\n    background-color: #ffbbca;\n  }\n\n  .lg\\:bg-pink-lightest {\n    background-color: #ffebef;\n  }\n\n  .lg\\:hover\\:bg-transparent:hover {\n    background-color: transparent;\n  }\n\n  .lg\\:hover\\:bg-black:hover {\n    background-color: #22292f;\n  }\n\n  .lg\\:hover\\:bg-grey-darkest:hover {\n    background-color: #3d4852;\n  }\n\n  .lg\\:hover\\:bg-grey-darker:hover {\n    background-color: #606f7b;\n  }\n\n  .lg\\:hover\\:bg-grey-dark:hover {\n    background-color: #8795a1;\n  }\n\n  .lg\\:hover\\:bg-grey:hover {\n    background-color: #b8c2cc;\n  }\n\n  .lg\\:hover\\:bg-grey-light:hover {\n    background-color: #dae1e7;\n  }\n\n  .lg\\:hover\\:bg-grey-lighter:hover {\n    background-color: #f1f5f8;\n  }\n\n  .lg\\:hover\\:bg-grey-lightest:hover {\n    background-color: #f8fafc;\n  }\n\n  .lg\\:hover\\:bg-white:hover {\n    background-color: #fff;\n  }\n\n  .lg\\:hover\\:bg-red-darkest:hover {\n    background-color: #3b0d0c;\n  }\n\n  .lg\\:hover\\:bg-red-darker:hover {\n    background-color: #621b18;\n  }\n\n  .lg\\:hover\\:bg-red-dark:hover {\n    background-color: #cc1f1a;\n  }\n\n  .lg\\:hover\\:bg-red:hover {\n    background-color: #e3342f;\n  }\n\n  .lg\\:hover\\:bg-red-light:hover {\n    background-color: #ef5753;\n  }\n\n  .lg\\:hover\\:bg-red-lighter:hover {\n    background-color: #f9acaa;\n  }\n\n  .lg\\:hover\\:bg-red-lightest:hover {\n    background-color: #fcebea;\n  }\n\n  .lg\\:hover\\:bg-orange-darkest:hover {\n    background-color: #462a16;\n  }\n\n  .lg\\:hover\\:bg-orange-darker:hover {\n    background-color: #613b1f;\n  }\n\n  .lg\\:hover\\:bg-orange-dark:hover {\n    background-color: #de751f;\n  }\n\n  .lg\\:hover\\:bg-orange:hover {\n    background-color: #f6993f;\n  }\n\n  .lg\\:hover\\:bg-orange-light:hover {\n    background-color: #faad63;\n  }\n\n  .lg\\:hover\\:bg-orange-lighter:hover {\n    background-color: #fcd9b6;\n  }\n\n  .lg\\:hover\\:bg-orange-lightest:hover {\n    background-color: #fff5eb;\n  }\n\n  .lg\\:hover\\:bg-yellow-darkest:hover {\n    background-color: #453411;\n  }\n\n  .lg\\:hover\\:bg-yellow-darker:hover {\n    background-color: #684f1d;\n  }\n\n  .lg\\:hover\\:bg-yellow-dark:hover {\n    background-color: #f2d024;\n  }\n\n  .lg\\:hover\\:bg-yellow:hover {\n    background-color: #ffed4a;\n  }\n\n  .lg\\:hover\\:bg-yellow-light:hover {\n    background-color: #fff382;\n  }\n\n  .lg\\:hover\\:bg-yellow-lighter:hover {\n    background-color: #fff9c2;\n  }\n\n  .lg\\:hover\\:bg-yellow-lightest:hover {\n    background-color: #fcfbeb;\n  }\n\n  .lg\\:hover\\:bg-green-darkest:hover {\n    background-color: #0f2f21;\n  }\n\n  .lg\\:hover\\:bg-green-darker:hover {\n    background-color: #1a4731;\n  }\n\n  .lg\\:hover\\:bg-green-dark:hover {\n    background-color: #1f9d55;\n  }\n\n  .lg\\:hover\\:bg-green:hover {\n    background-color: #38c172;\n  }\n\n  .lg\\:hover\\:bg-green-light:hover {\n    background-color: #51d88a;\n  }\n\n  .lg\\:hover\\:bg-green-lighter:hover {\n    background-color: #a2f5bf;\n  }\n\n  .lg\\:hover\\:bg-green-lightest:hover {\n    background-color: #e3fcec;\n  }\n\n  .lg\\:hover\\:bg-teal-darkest:hover {\n    background-color: #0d3331;\n  }\n\n  .lg\\:hover\\:bg-teal-darker:hover {\n    background-color: #20504f;\n  }\n\n  .lg\\:hover\\:bg-teal-dark:hover {\n    background-color: #38a89d;\n  }\n\n  .lg\\:hover\\:bg-teal:hover {\n    background-color: #4dc0b5;\n  }\n\n  .lg\\:hover\\:bg-teal-light:hover {\n    background-color: #64d5ca;\n  }\n\n  .lg\\:hover\\:bg-teal-lighter:hover {\n    background-color: #a0f0ed;\n  }\n\n  .lg\\:hover\\:bg-teal-lightest:hover {\n    background-color: #e8fffe;\n  }\n\n  .lg\\:hover\\:bg-blue-darkest:hover {\n    background-color: #12283a;\n  }\n\n  .lg\\:hover\\:bg-blue-darker:hover {\n    background-color: #1c3d5a;\n  }\n\n  .lg\\:hover\\:bg-blue-dark:hover {\n    background-color: #2779bd;\n  }\n\n  .lg\\:hover\\:bg-blue:hover {\n    background-color: #3490dc;\n  }\n\n  .lg\\:hover\\:bg-blue-light:hover {\n    background-color: #6cb2eb;\n  }\n\n  .lg\\:hover\\:bg-blue-lighter:hover {\n    background-color: #bcdefa;\n  }\n\n  .lg\\:hover\\:bg-blue-lightest:hover {\n    background-color: #eff8ff;\n  }\n\n  .lg\\:hover\\:bg-indigo-darkest:hover {\n    background-color: #191e38;\n  }\n\n  .lg\\:hover\\:bg-indigo-darker:hover {\n    background-color: #2f365f;\n  }\n\n  .lg\\:hover\\:bg-indigo-dark:hover {\n    background-color: #5661b3;\n  }\n\n  .lg\\:hover\\:bg-indigo:hover {\n    background-color: #6574cd;\n  }\n\n  .lg\\:hover\\:bg-indigo-light:hover {\n    background-color: #7886d7;\n  }\n\n  .lg\\:hover\\:bg-indigo-lighter:hover {\n    background-color: #b2b7ff;\n  }\n\n  .lg\\:hover\\:bg-indigo-lightest:hover {\n    background-color: #e6e8ff;\n  }\n\n  .lg\\:hover\\:bg-purple-darkest:hover {\n    background-color: #21183c;\n  }\n\n  .lg\\:hover\\:bg-purple-darker:hover {\n    background-color: #382b5f;\n  }\n\n  .lg\\:hover\\:bg-purple-dark:hover {\n    background-color: #794acf;\n  }\n\n  .lg\\:hover\\:bg-purple:hover {\n    background-color: #9561e2;\n  }\n\n  .lg\\:hover\\:bg-purple-light:hover {\n    background-color: #a779e9;\n  }\n\n  .lg\\:hover\\:bg-purple-lighter:hover {\n    background-color: #d6bbfc;\n  }\n\n  .lg\\:hover\\:bg-purple-lightest:hover {\n    background-color: #f3ebff;\n  }\n\n  .lg\\:hover\\:bg-pink-darkest:hover {\n    background-color: #451225;\n  }\n\n  .lg\\:hover\\:bg-pink-darker:hover {\n    background-color: #6f213f;\n  }\n\n  .lg\\:hover\\:bg-pink-dark:hover {\n    background-color: #eb5286;\n  }\n\n  .lg\\:hover\\:bg-pink:hover {\n    background-color: #f66d9b;\n  }\n\n  .lg\\:hover\\:bg-pink-light:hover {\n    background-color: #fa7ea8;\n  }\n\n  .lg\\:hover\\:bg-pink-lighter:hover {\n    background-color: #ffbbca;\n  }\n\n  .lg\\:hover\\:bg-pink-lightest:hover {\n    background-color: #ffebef;\n  }\n\n  .lg\\:bg-bottom {\n    background-position: bottom;\n  }\n\n  .lg\\:bg-center {\n    background-position: center;\n  }\n\n  .lg\\:bg-left {\n    background-position: left;\n  }\n\n  .lg\\:bg-left-bottom {\n    background-position: left bottom;\n  }\n\n  .lg\\:bg-left-top {\n    background-position: left top;\n  }\n\n  .lg\\:bg-right {\n    background-position: right;\n  }\n\n  .lg\\:bg-right-bottom {\n    background-position: right bottom;\n  }\n\n  .lg\\:bg-right-top {\n    background-position: right top;\n  }\n\n  .lg\\:bg-top {\n    background-position: top;\n  }\n\n  .lg\\:bg-repeat {\n    background-repeat: repeat;\n  }\n\n  .lg\\:bg-no-repeat {\n    background-repeat: no-repeat;\n  }\n\n  .lg\\:bg-repeat-x {\n    background-repeat: repeat-x;\n  }\n\n  .lg\\:bg-repeat-y {\n    background-repeat: repeat-y;\n  }\n\n  .lg\\:bg-auto {\n    background-size: auto;\n  }\n\n  .lg\\:bg-cover {\n    background-size: cover;\n  }\n\n  .lg\\:bg-contain {\n    background-size: contain;\n  }\n\n  .lg\\:border-transparent {\n    border-color: transparent;\n  }\n\n  .lg\\:border-black {\n    border-color: #22292f;\n  }\n\n  .lg\\:border-grey-darkest {\n    border-color: #3d4852;\n  }\n\n  .lg\\:border-grey-darker {\n    border-color: #606f7b;\n  }\n\n  .lg\\:border-grey-dark {\n    border-color: #8795a1;\n  }\n\n  .lg\\:border-grey {\n    border-color: #b8c2cc;\n  }\n\n  .lg\\:border-grey-light {\n    border-color: #dae1e7;\n  }\n\n  .lg\\:border-grey-lighter {\n    border-color: #f1f5f8;\n  }\n\n  .lg\\:border-grey-lightest {\n    border-color: #f8fafc;\n  }\n\n  .lg\\:border-white {\n    border-color: #fff;\n  }\n\n  .lg\\:border-red-darkest {\n    border-color: #3b0d0c;\n  }\n\n  .lg\\:border-red-darker {\n    border-color: #621b18;\n  }\n\n  .lg\\:border-red-dark {\n    border-color: #cc1f1a;\n  }\n\n  .lg\\:border-red {\n    border-color: #e3342f;\n  }\n\n  .lg\\:border-red-light {\n    border-color: #ef5753;\n  }\n\n  .lg\\:border-red-lighter {\n    border-color: #f9acaa;\n  }\n\n  .lg\\:border-red-lightest {\n    border-color: #fcebea;\n  }\n\n  .lg\\:border-orange-darkest {\n    border-color: #462a16;\n  }\n\n  .lg\\:border-orange-darker {\n    border-color: #613b1f;\n  }\n\n  .lg\\:border-orange-dark {\n    border-color: #de751f;\n  }\n\n  .lg\\:border-orange {\n    border-color: #f6993f;\n  }\n\n  .lg\\:border-orange-light {\n    border-color: #faad63;\n  }\n\n  .lg\\:border-orange-lighter {\n    border-color: #fcd9b6;\n  }\n\n  .lg\\:border-orange-lightest {\n    border-color: #fff5eb;\n  }\n\n  .lg\\:border-yellow-darkest {\n    border-color: #453411;\n  }\n\n  .lg\\:border-yellow-darker {\n    border-color: #684f1d;\n  }\n\n  .lg\\:border-yellow-dark {\n    border-color: #f2d024;\n  }\n\n  .lg\\:border-yellow {\n    border-color: #ffed4a;\n  }\n\n  .lg\\:border-yellow-light {\n    border-color: #fff382;\n  }\n\n  .lg\\:border-yellow-lighter {\n    border-color: #fff9c2;\n  }\n\n  .lg\\:border-yellow-lightest {\n    border-color: #fcfbeb;\n  }\n\n  .lg\\:border-green-darkest {\n    border-color: #0f2f21;\n  }\n\n  .lg\\:border-green-darker {\n    border-color: #1a4731;\n  }\n\n  .lg\\:border-green-dark {\n    border-color: #1f9d55;\n  }\n\n  .lg\\:border-green {\n    border-color: #38c172;\n  }\n\n  .lg\\:border-green-light {\n    border-color: #51d88a;\n  }\n\n  .lg\\:border-green-lighter {\n    border-color: #a2f5bf;\n  }\n\n  .lg\\:border-green-lightest {\n    border-color: #e3fcec;\n  }\n\n  .lg\\:border-teal-darkest {\n    border-color: #0d3331;\n  }\n\n  .lg\\:border-teal-darker {\n    border-color: #20504f;\n  }\n\n  .lg\\:border-teal-dark {\n    border-color: #38a89d;\n  }\n\n  .lg\\:border-teal {\n    border-color: #4dc0b5;\n  }\n\n  .lg\\:border-teal-light {\n    border-color: #64d5ca;\n  }\n\n  .lg\\:border-teal-lighter {\n    border-color: #a0f0ed;\n  }\n\n  .lg\\:border-teal-lightest {\n    border-color: #e8fffe;\n  }\n\n  .lg\\:border-blue-darkest {\n    border-color: #12283a;\n  }\n\n  .lg\\:border-blue-darker {\n    border-color: #1c3d5a;\n  }\n\n  .lg\\:border-blue-dark {\n    border-color: #2779bd;\n  }\n\n  .lg\\:border-blue {\n    border-color: #3490dc;\n  }\n\n  .lg\\:border-blue-light {\n    border-color: #6cb2eb;\n  }\n\n  .lg\\:border-blue-lighter {\n    border-color: #bcdefa;\n  }\n\n  .lg\\:border-blue-lightest {\n    border-color: #eff8ff;\n  }\n\n  .lg\\:border-indigo-darkest {\n    border-color: #191e38;\n  }\n\n  .lg\\:border-indigo-darker {\n    border-color: #2f365f;\n  }\n\n  .lg\\:border-indigo-dark {\n    border-color: #5661b3;\n  }\n\n  .lg\\:border-indigo {\n    border-color: #6574cd;\n  }\n\n  .lg\\:border-indigo-light {\n    border-color: #7886d7;\n  }\n\n  .lg\\:border-indigo-lighter {\n    border-color: #b2b7ff;\n  }\n\n  .lg\\:border-indigo-lightest {\n    border-color: #e6e8ff;\n  }\n\n  .lg\\:border-purple-darkest {\n    border-color: #21183c;\n  }\n\n  .lg\\:border-purple-darker {\n    border-color: #382b5f;\n  }\n\n  .lg\\:border-purple-dark {\n    border-color: #794acf;\n  }\n\n  .lg\\:border-purple {\n    border-color: #9561e2;\n  }\n\n  .lg\\:border-purple-light {\n    border-color: #a779e9;\n  }\n\n  .lg\\:border-purple-lighter {\n    border-color: #d6bbfc;\n  }\n\n  .lg\\:border-purple-lightest {\n    border-color: #f3ebff;\n  }\n\n  .lg\\:border-pink-darkest {\n    border-color: #451225;\n  }\n\n  .lg\\:border-pink-darker {\n    border-color: #6f213f;\n  }\n\n  .lg\\:border-pink-dark {\n    border-color: #eb5286;\n  }\n\n  .lg\\:border-pink {\n    border-color: #f66d9b;\n  }\n\n  .lg\\:border-pink-light {\n    border-color: #fa7ea8;\n  }\n\n  .lg\\:border-pink-lighter {\n    border-color: #ffbbca;\n  }\n\n  .lg\\:border-pink-lightest {\n    border-color: #ffebef;\n  }\n\n  .lg\\:hover\\:border-transparent:hover {\n    border-color: transparent;\n  }\n\n  .lg\\:hover\\:border-black:hover {\n    border-color: #22292f;\n  }\n\n  .lg\\:hover\\:border-grey-darkest:hover {\n    border-color: #3d4852;\n  }\n\n  .lg\\:hover\\:border-grey-darker:hover {\n    border-color: #606f7b;\n  }\n\n  .lg\\:hover\\:border-grey-dark:hover {\n    border-color: #8795a1;\n  }\n\n  .lg\\:hover\\:border-grey:hover {\n    border-color: #b8c2cc;\n  }\n\n  .lg\\:hover\\:border-grey-light:hover {\n    border-color: #dae1e7;\n  }\n\n  .lg\\:hover\\:border-grey-lighter:hover {\n    border-color: #f1f5f8;\n  }\n\n  .lg\\:hover\\:border-grey-lightest:hover {\n    border-color: #f8fafc;\n  }\n\n  .lg\\:hover\\:border-white:hover {\n    border-color: #fff;\n  }\n\n  .lg\\:hover\\:border-red-darkest:hover {\n    border-color: #3b0d0c;\n  }\n\n  .lg\\:hover\\:border-red-darker:hover {\n    border-color: #621b18;\n  }\n\n  .lg\\:hover\\:border-red-dark:hover {\n    border-color: #cc1f1a;\n  }\n\n  .lg\\:hover\\:border-red:hover {\n    border-color: #e3342f;\n  }\n\n  .lg\\:hover\\:border-red-light:hover {\n    border-color: #ef5753;\n  }\n\n  .lg\\:hover\\:border-red-lighter:hover {\n    border-color: #f9acaa;\n  }\n\n  .lg\\:hover\\:border-red-lightest:hover {\n    border-color: #fcebea;\n  }\n\n  .lg\\:hover\\:border-orange-darkest:hover {\n    border-color: #462a16;\n  }\n\n  .lg\\:hover\\:border-orange-darker:hover {\n    border-color: #613b1f;\n  }\n\n  .lg\\:hover\\:border-orange-dark:hover {\n    border-color: #de751f;\n  }\n\n  .lg\\:hover\\:border-orange:hover {\n    border-color: #f6993f;\n  }\n\n  .lg\\:hover\\:border-orange-light:hover {\n    border-color: #faad63;\n  }\n\n  .lg\\:hover\\:border-orange-lighter:hover {\n    border-color: #fcd9b6;\n  }\n\n  .lg\\:hover\\:border-orange-lightest:hover {\n    border-color: #fff5eb;\n  }\n\n  .lg\\:hover\\:border-yellow-darkest:hover {\n    border-color: #453411;\n  }\n\n  .lg\\:hover\\:border-yellow-darker:hover {\n    border-color: #684f1d;\n  }\n\n  .lg\\:hover\\:border-yellow-dark:hover {\n    border-color: #f2d024;\n  }\n\n  .lg\\:hover\\:border-yellow:hover {\n    border-color: #ffed4a;\n  }\n\n  .lg\\:hover\\:border-yellow-light:hover {\n    border-color: #fff382;\n  }\n\n  .lg\\:hover\\:border-yellow-lighter:hover {\n    border-color: #fff9c2;\n  }\n\n  .lg\\:hover\\:border-yellow-lightest:hover {\n    border-color: #fcfbeb;\n  }\n\n  .lg\\:hover\\:border-green-darkest:hover {\n    border-color: #0f2f21;\n  }\n\n  .lg\\:hover\\:border-green-darker:hover {\n    border-color: #1a4731;\n  }\n\n  .lg\\:hover\\:border-green-dark:hover {\n    border-color: #1f9d55;\n  }\n\n  .lg\\:hover\\:border-green:hover {\n    border-color: #38c172;\n  }\n\n  .lg\\:hover\\:border-green-light:hover {\n    border-color: #51d88a;\n  }\n\n  .lg\\:hover\\:border-green-lighter:hover {\n    border-color: #a2f5bf;\n  }\n\n  .lg\\:hover\\:border-green-lightest:hover {\n    border-color: #e3fcec;\n  }\n\n  .lg\\:hover\\:border-teal-darkest:hover {\n    border-color: #0d3331;\n  }\n\n  .lg\\:hover\\:border-teal-darker:hover {\n    border-color: #20504f;\n  }\n\n  .lg\\:hover\\:border-teal-dark:hover {\n    border-color: #38a89d;\n  }\n\n  .lg\\:hover\\:border-teal:hover {\n    border-color: #4dc0b5;\n  }\n\n  .lg\\:hover\\:border-teal-light:hover {\n    border-color: #64d5ca;\n  }\n\n  .lg\\:hover\\:border-teal-lighter:hover {\n    border-color: #a0f0ed;\n  }\n\n  .lg\\:hover\\:border-teal-lightest:hover {\n    border-color: #e8fffe;\n  }\n\n  .lg\\:hover\\:border-blue-darkest:hover {\n    border-color: #12283a;\n  }\n\n  .lg\\:hover\\:border-blue-darker:hover {\n    border-color: #1c3d5a;\n  }\n\n  .lg\\:hover\\:border-blue-dark:hover {\n    border-color: #2779bd;\n  }\n\n  .lg\\:hover\\:border-blue:hover {\n    border-color: #3490dc;\n  }\n\n  .lg\\:hover\\:border-blue-light:hover {\n    border-color: #6cb2eb;\n  }\n\n  .lg\\:hover\\:border-blue-lighter:hover {\n    border-color: #bcdefa;\n  }\n\n  .lg\\:hover\\:border-blue-lightest:hover {\n    border-color: #eff8ff;\n  }\n\n  .lg\\:hover\\:border-indigo-darkest:hover {\n    border-color: #191e38;\n  }\n\n  .lg\\:hover\\:border-indigo-darker:hover {\n    border-color: #2f365f;\n  }\n\n  .lg\\:hover\\:border-indigo-dark:hover {\n    border-color: #5661b3;\n  }\n\n  .lg\\:hover\\:border-indigo:hover {\n    border-color: #6574cd;\n  }\n\n  .lg\\:hover\\:border-indigo-light:hover {\n    border-color: #7886d7;\n  }\n\n  .lg\\:hover\\:border-indigo-lighter:hover {\n    border-color: #b2b7ff;\n  }\n\n  .lg\\:hover\\:border-indigo-lightest:hover {\n    border-color: #e6e8ff;\n  }\n\n  .lg\\:hover\\:border-purple-darkest:hover {\n    border-color: #21183c;\n  }\n\n  .lg\\:hover\\:border-purple-darker:hover {\n    border-color: #382b5f;\n  }\n\n  .lg\\:hover\\:border-purple-dark:hover {\n    border-color: #794acf;\n  }\n\n  .lg\\:hover\\:border-purple:hover {\n    border-color: #9561e2;\n  }\n\n  .lg\\:hover\\:border-purple-light:hover {\n    border-color: #a779e9;\n  }\n\n  .lg\\:hover\\:border-purple-lighter:hover {\n    border-color: #d6bbfc;\n  }\n\n  .lg\\:hover\\:border-purple-lightest:hover {\n    border-color: #f3ebff;\n  }\n\n  .lg\\:hover\\:border-pink-darkest:hover {\n    border-color: #451225;\n  }\n\n  .lg\\:hover\\:border-pink-darker:hover {\n    border-color: #6f213f;\n  }\n\n  .lg\\:hover\\:border-pink-dark:hover {\n    border-color: #eb5286;\n  }\n\n  .lg\\:hover\\:border-pink:hover {\n    border-color: #f66d9b;\n  }\n\n  .lg\\:hover\\:border-pink-light:hover {\n    border-color: #fa7ea8;\n  }\n\n  .lg\\:hover\\:border-pink-lighter:hover {\n    border-color: #ffbbca;\n  }\n\n  .lg\\:hover\\:border-pink-lightest:hover {\n    border-color: #ffebef;\n  }\n\n  .lg\\:rounded-none {\n    border-radius: 0;\n  }\n\n  .lg\\:rounded-sm {\n    border-radius: .125rem;\n  }\n\n  .lg\\:rounded {\n    border-radius: .25rem;\n  }\n\n  .lg\\:rounded-lg {\n    border-radius: .5rem;\n  }\n\n  .lg\\:rounded-full {\n    border-radius: 9999px;\n  }\n\n  .lg\\:rounded-t-none {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n  }\n\n  .lg\\:rounded-r-none {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n  }\n\n  .lg\\:rounded-b-none {\n    border-bottom-right-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .lg\\:rounded-l-none {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .lg\\:rounded-t-sm {\n    border-top-left-radius: .125rem;\n    border-top-right-radius: .125rem;\n  }\n\n  .lg\\:rounded-r-sm {\n    border-top-right-radius: .125rem;\n    border-bottom-right-radius: .125rem;\n  }\n\n  .lg\\:rounded-b-sm {\n    border-bottom-right-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .lg\\:rounded-l-sm {\n    border-top-left-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .lg\\:rounded-t {\n    border-top-left-radius: .25rem;\n    border-top-right-radius: .25rem;\n  }\n\n  .lg\\:rounded-r {\n    border-top-right-radius: .25rem;\n    border-bottom-right-radius: .25rem;\n  }\n\n  .lg\\:rounded-b {\n    border-bottom-right-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .lg\\:rounded-l {\n    border-top-left-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .lg\\:rounded-t-lg {\n    border-top-left-radius: .5rem;\n    border-top-right-radius: .5rem;\n  }\n\n  .lg\\:rounded-r-lg {\n    border-top-right-radius: .5rem;\n    border-bottom-right-radius: .5rem;\n  }\n\n  .lg\\:rounded-b-lg {\n    border-bottom-right-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .lg\\:rounded-l-lg {\n    border-top-left-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .lg\\:rounded-t-full {\n    border-top-left-radius: 9999px;\n    border-top-right-radius: 9999px;\n  }\n\n  .lg\\:rounded-r-full {\n    border-top-right-radius: 9999px;\n    border-bottom-right-radius: 9999px;\n  }\n\n  .lg\\:rounded-b-full {\n    border-bottom-right-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .lg\\:rounded-l-full {\n    border-top-left-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .lg\\:rounded-tl-none {\n    border-top-left-radius: 0;\n  }\n\n  .lg\\:rounded-tr-none {\n    border-top-right-radius: 0;\n  }\n\n  .lg\\:rounded-br-none {\n    border-bottom-right-radius: 0;\n  }\n\n  .lg\\:rounded-bl-none {\n    border-bottom-left-radius: 0;\n  }\n\n  .lg\\:rounded-tl-sm {\n    border-top-left-radius: .125rem;\n  }\n\n  .lg\\:rounded-tr-sm {\n    border-top-right-radius: .125rem;\n  }\n\n  .lg\\:rounded-br-sm {\n    border-bottom-right-radius: .125rem;\n  }\n\n  .lg\\:rounded-bl-sm {\n    border-bottom-left-radius: .125rem;\n  }\n\n  .lg\\:rounded-tl {\n    border-top-left-radius: .25rem;\n  }\n\n  .lg\\:rounded-tr {\n    border-top-right-radius: .25rem;\n  }\n\n  .lg\\:rounded-br {\n    border-bottom-right-radius: .25rem;\n  }\n\n  .lg\\:rounded-bl {\n    border-bottom-left-radius: .25rem;\n  }\n\n  .lg\\:rounded-tl-lg {\n    border-top-left-radius: .5rem;\n  }\n\n  .lg\\:rounded-tr-lg {\n    border-top-right-radius: .5rem;\n  }\n\n  .lg\\:rounded-br-lg {\n    border-bottom-right-radius: .5rem;\n  }\n\n  .lg\\:rounded-bl-lg {\n    border-bottom-left-radius: .5rem;\n  }\n\n  .lg\\:rounded-tl-full {\n    border-top-left-radius: 9999px;\n  }\n\n  .lg\\:rounded-tr-full {\n    border-top-right-radius: 9999px;\n  }\n\n  .lg\\:rounded-br-full {\n    border-bottom-right-radius: 9999px;\n  }\n\n  .lg\\:rounded-bl-full {\n    border-bottom-left-radius: 9999px;\n  }\n\n  .lg\\:border-solid {\n    border-style: solid;\n  }\n\n  .lg\\:border-dashed {\n    border-style: dashed;\n  }\n\n  .lg\\:border-dotted {\n    border-style: dotted;\n  }\n\n  .lg\\:border-none {\n    border-style: none;\n  }\n\n  .lg\\:border-0 {\n    border-width: 0;\n  }\n\n  .lg\\:border-2 {\n    border-width: 2px;\n  }\n\n  .lg\\:border-4 {\n    border-width: 4px;\n  }\n\n  .lg\\:border-8 {\n    border-width: 8px;\n  }\n\n  .lg\\:border {\n    border-width: 1px;\n  }\n\n  .lg\\:border-t-0 {\n    border-top-width: 0;\n  }\n\n  .lg\\:border-r-0 {\n    border-right-width: 0;\n  }\n\n  .lg\\:border-b-0 {\n    border-bottom-width: 0;\n  }\n\n  .lg\\:border-l-0 {\n    border-left-width: 0;\n  }\n\n  .lg\\:border-t-2 {\n    border-top-width: 2px;\n  }\n\n  .lg\\:border-r-2 {\n    border-right-width: 2px;\n  }\n\n  .lg\\:border-b-2 {\n    border-bottom-width: 2px;\n  }\n\n  .lg\\:border-l-2 {\n    border-left-width: 2px;\n  }\n\n  .lg\\:border-t-4 {\n    border-top-width: 4px;\n  }\n\n  .lg\\:border-r-4 {\n    border-right-width: 4px;\n  }\n\n  .lg\\:border-b-4 {\n    border-bottom-width: 4px;\n  }\n\n  .lg\\:border-l-4 {\n    border-left-width: 4px;\n  }\n\n  .lg\\:border-t-8 {\n    border-top-width: 8px;\n  }\n\n  .lg\\:border-r-8 {\n    border-right-width: 8px;\n  }\n\n  .lg\\:border-b-8 {\n    border-bottom-width: 8px;\n  }\n\n  .lg\\:border-l-8 {\n    border-left-width: 8px;\n  }\n\n  .lg\\:border-t {\n    border-top-width: 1px;\n  }\n\n  .lg\\:border-r {\n    border-right-width: 1px;\n  }\n\n  .lg\\:border-b {\n    border-bottom-width: 1px;\n  }\n\n  .lg\\:border-l {\n    border-left-width: 1px;\n  }\n\n  .lg\\:cursor-auto {\n    cursor: auto;\n  }\n\n  .lg\\:cursor-default {\n    cursor: default;\n  }\n\n  .lg\\:cursor-pointer {\n    cursor: pointer;\n  }\n\n  .lg\\:cursor-wait {\n    cursor: wait;\n  }\n\n  .lg\\:cursor-move {\n    cursor: move;\n  }\n\n  .lg\\:cursor-not-allowed {\n    cursor: not-allowed;\n  }\n\n  .lg\\:block {\n    display: block;\n  }\n\n  .lg\\:inline-block {\n    display: inline-block;\n  }\n\n  .lg\\:inline {\n    display: inline;\n  }\n\n  .lg\\:table {\n    display: table;\n  }\n\n  .lg\\:table-row {\n    display: table-row;\n  }\n\n  .lg\\:table-cell {\n    display: table-cell;\n  }\n\n  .lg\\:hidden {\n    display: none;\n  }\n\n  .lg\\:flex {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n  }\n\n  .lg\\:inline-flex {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n  }\n\n  .lg\\:flex-row {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n  }\n\n  .lg\\:flex-row-reverse {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: row-reverse;\n            flex-direction: row-reverse;\n  }\n\n  .lg\\:flex-col {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n\n  .lg\\:flex-col-reverse {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n  }\n\n  .lg\\:flex-wrap {\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n  }\n\n  .lg\\:flex-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse;\n        flex-wrap: wrap-reverse;\n  }\n\n  .lg\\:flex-no-wrap {\n    -ms-flex-wrap: nowrap;\n        flex-wrap: nowrap;\n  }\n\n  .lg\\:items-start {\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n  }\n\n  .lg\\:items-end {\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n  }\n\n  .lg\\:items-center {\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n  }\n\n  .lg\\:items-baseline {\n    -webkit-box-align: baseline;\n        -ms-flex-align: baseline;\n            align-items: baseline;\n  }\n\n  .lg\\:items-stretch {\n    -webkit-box-align: stretch;\n        -ms-flex-align: stretch;\n            align-items: stretch;\n  }\n\n  .lg\\:self-auto {\n    -ms-flex-item-align: auto;\n        -ms-grid-row-align: auto;\n        align-self: auto;\n  }\n\n  .lg\\:self-start {\n    -ms-flex-item-align: start;\n        align-self: flex-start;\n  }\n\n  .lg\\:self-end {\n    -ms-flex-item-align: end;\n        align-self: flex-end;\n  }\n\n  .lg\\:self-center {\n    -ms-flex-item-align: center;\n        -ms-grid-row-align: center;\n        align-self: center;\n  }\n\n  .lg\\:self-stretch {\n    -ms-flex-item-align: stretch;\n        -ms-grid-row-align: stretch;\n        align-self: stretch;\n  }\n\n  .lg\\:justify-start {\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n  }\n\n  .lg\\:justify-end {\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n  }\n\n  .lg\\:justify-center {\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n  }\n\n  .lg\\:justify-between {\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n  }\n\n  .lg\\:justify-around {\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n  }\n\n  .lg\\:content-center {\n    -ms-flex-line-pack: center;\n        align-content: center;\n  }\n\n  .lg\\:content-start {\n    -ms-flex-line-pack: start;\n        align-content: flex-start;\n  }\n\n  .lg\\:content-end {\n    -ms-flex-line-pack: end;\n        align-content: flex-end;\n  }\n\n  .lg\\:content-between {\n    -ms-flex-line-pack: justify;\n        align-content: space-between;\n  }\n\n  .lg\\:content-around {\n    -ms-flex-line-pack: distribute;\n        align-content: space-around;\n  }\n\n  .lg\\:flex-1 {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n  }\n\n  .lg\\:flex-auto {\n    -webkit-box-flex: 1;\n        -ms-flex: auto;\n            flex: auto;\n  }\n\n  .lg\\:flex-initial {\n    -webkit-box-flex: initial;\n        -ms-flex: initial;\n            flex: initial;\n  }\n\n  .lg\\:flex-none {\n    -webkit-box-flex: 0;\n        -ms-flex: none;\n            flex: none;\n  }\n\n  .lg\\:flex-grow {\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n  }\n\n  .lg\\:flex-shrink {\n    -ms-flex-negative: 1;\n        flex-shrink: 1;\n  }\n\n  .lg\\:flex-no-grow {\n    -webkit-box-flex: 0;\n        -ms-flex-positive: 0;\n            flex-grow: 0;\n  }\n\n  .lg\\:flex-no-shrink {\n    -ms-flex-negative: 0;\n        flex-shrink: 0;\n  }\n\n  .lg\\:float-right {\n    float: right;\n  }\n\n  .lg\\:float-left {\n    float: left;\n  }\n\n  .lg\\:float-none {\n    float: none;\n  }\n\n  .lg\\:clearfix:after {\n    content: \"\";\n    display: table;\n    clear: both;\n  }\n\n  .lg\\:font-sans {\n    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;\n  }\n\n  .lg\\:font-serif {\n    font-family: Constantia, Lucida Bright, Lucidabright, Lucida Serif, Lucida, DejaVu Serif, Bitstream Vera Serif, Liberation Serif, Georgia, serif;\n  }\n\n  .lg\\:font-mono {\n    font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;\n  }\n\n  .lg\\:font-hairline {\n    font-weight: 100;\n  }\n\n  .lg\\:font-thin {\n    font-weight: 200;\n  }\n\n  .lg\\:font-light {\n    font-weight: 300;\n  }\n\n  .lg\\:font-normal {\n    font-weight: 400;\n  }\n\n  .lg\\:font-medium {\n    font-weight: 500;\n  }\n\n  .lg\\:font-semibold {\n    font-weight: 600;\n  }\n\n  .lg\\:font-bold {\n    font-weight: 700;\n  }\n\n  .lg\\:font-extrabold {\n    font-weight: 800;\n  }\n\n  .lg\\:font-black {\n    font-weight: 900;\n  }\n\n  .lg\\:hover\\:font-hairline:hover {\n    font-weight: 100;\n  }\n\n  .lg\\:hover\\:font-thin:hover {\n    font-weight: 200;\n  }\n\n  .lg\\:hover\\:font-light:hover {\n    font-weight: 300;\n  }\n\n  .lg\\:hover\\:font-normal:hover {\n    font-weight: 400;\n  }\n\n  .lg\\:hover\\:font-medium:hover {\n    font-weight: 500;\n  }\n\n  .lg\\:hover\\:font-semibold:hover {\n    font-weight: 600;\n  }\n\n  .lg\\:hover\\:font-bold:hover {\n    font-weight: 700;\n  }\n\n  .lg\\:hover\\:font-extrabold:hover {\n    font-weight: 800;\n  }\n\n  .lg\\:hover\\:font-black:hover {\n    font-weight: 900;\n  }\n\n  .lg\\:h-1 {\n    height: .25rem;\n  }\n\n  .lg\\:h-2 {\n    height: .5rem;\n  }\n\n  .lg\\:h-3 {\n    height: .75rem;\n  }\n\n  .lg\\:h-4 {\n    height: 1rem;\n  }\n\n  .lg\\:h-6 {\n    height: 1.5rem;\n  }\n\n  .lg\\:h-8 {\n    height: 2rem;\n  }\n\n  .lg\\:h-10 {\n    height: 2.5rem;\n  }\n\n  .lg\\:h-12 {\n    height: 3rem;\n  }\n\n  .lg\\:h-16 {\n    height: 4rem;\n  }\n\n  .lg\\:h-24 {\n    height: 6rem;\n  }\n\n  .lg\\:h-32 {\n    height: 8rem;\n  }\n\n  .lg\\:h-48 {\n    height: 12rem;\n  }\n\n  .lg\\:h-64 {\n    height: 16rem;\n  }\n\n  .lg\\:h-auto {\n    height: auto;\n  }\n\n  .lg\\:h-px {\n    height: 1px;\n  }\n\n  .lg\\:h-full {\n    height: 100%;\n  }\n\n  .lg\\:h-screen {\n    height: 100vh;\n  }\n\n  .lg\\:leading-none {\n    line-height: 1;\n  }\n\n  .lg\\:leading-tight {\n    line-height: 1.25;\n  }\n\n  .lg\\:leading-normal {\n    line-height: 1.5;\n  }\n\n  .lg\\:leading-loose {\n    line-height: 2;\n  }\n\n  .lg\\:m-0 {\n    margin: 0;\n  }\n\n  .lg\\:m-1 {\n    margin: .25rem;\n  }\n\n  .lg\\:m-2 {\n    margin: .5rem;\n  }\n\n  .lg\\:m-3 {\n    margin: .75rem;\n  }\n\n  .lg\\:m-4 {\n    margin: 1rem;\n  }\n\n  .lg\\:m-6 {\n    margin: 1.5rem;\n  }\n\n  .lg\\:m-8 {\n    margin: 2rem;\n  }\n\n  .lg\\:m-auto {\n    margin: auto;\n  }\n\n  .lg\\:m-px {\n    margin: 1px;\n  }\n\n  .lg\\:my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .lg\\:mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .lg\\:my-1 {\n    margin-top: .25rem;\n    margin-bottom: .25rem;\n  }\n\n  .lg\\:mx-1 {\n    margin-left: .25rem;\n    margin-right: .25rem;\n  }\n\n  .lg\\:my-2 {\n    margin-top: .5rem;\n    margin-bottom: .5rem;\n  }\n\n  .lg\\:mx-2 {\n    margin-left: .5rem;\n    margin-right: .5rem;\n  }\n\n  .lg\\:my-3 {\n    margin-top: .75rem;\n    margin-bottom: .75rem;\n  }\n\n  .lg\\:mx-3 {\n    margin-left: .75rem;\n    margin-right: .75rem;\n  }\n\n  .lg\\:my-4 {\n    margin-top: 1rem;\n    margin-bottom: 1rem;\n  }\n\n  .lg\\:mx-4 {\n    margin-left: 1rem;\n    margin-right: 1rem;\n  }\n\n  .lg\\:my-6 {\n    margin-top: 1.5rem;\n    margin-bottom: 1.5rem;\n  }\n\n  .lg\\:mx-6 {\n    margin-left: 1.5rem;\n    margin-right: 1.5rem;\n  }\n\n  .lg\\:my-8 {\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n  }\n\n  .lg\\:mx-8 {\n    margin-left: 2rem;\n    margin-right: 2rem;\n  }\n\n  .lg\\:my-auto {\n    margin-top: auto;\n    margin-bottom: auto;\n  }\n\n  .lg\\:mx-auto {\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  .lg\\:my-px {\n    margin-top: 1px;\n    margin-bottom: 1px;\n  }\n\n  .lg\\:mx-px {\n    margin-left: 1px;\n    margin-right: 1px;\n  }\n\n  .lg\\:mt-0 {\n    margin-top: 0;\n  }\n\n  .lg\\:mr-0 {\n    margin-right: 0;\n  }\n\n  .lg\\:mb-0 {\n    margin-bottom: 0;\n  }\n\n  .lg\\:ml-0 {\n    margin-left: 0;\n  }\n\n  .lg\\:mt-1 {\n    margin-top: .25rem;\n  }\n\n  .lg\\:mr-1 {\n    margin-right: .25rem;\n  }\n\n  .lg\\:mb-1 {\n    margin-bottom: .25rem;\n  }\n\n  .lg\\:ml-1 {\n    margin-left: .25rem;\n  }\n\n  .lg\\:mt-2 {\n    margin-top: .5rem;\n  }\n\n  .lg\\:mr-2 {\n    margin-right: .5rem;\n  }\n\n  .lg\\:mb-2 {\n    margin-bottom: .5rem;\n  }\n\n  .lg\\:ml-2 {\n    margin-left: .5rem;\n  }\n\n  .lg\\:mt-3 {\n    margin-top: .75rem;\n  }\n\n  .lg\\:mr-3 {\n    margin-right: .75rem;\n  }\n\n  .lg\\:mb-3 {\n    margin-bottom: .75rem;\n  }\n\n  .lg\\:ml-3 {\n    margin-left: .75rem;\n  }\n\n  .lg\\:mt-4 {\n    margin-top: 1rem;\n  }\n\n  .lg\\:mr-4 {\n    margin-right: 1rem;\n  }\n\n  .lg\\:mb-4 {\n    margin-bottom: 1rem;\n  }\n\n  .lg\\:ml-4 {\n    margin-left: 1rem;\n  }\n\n  .lg\\:mt-6 {\n    margin-top: 1.5rem;\n  }\n\n  .lg\\:mr-6 {\n    margin-right: 1.5rem;\n  }\n\n  .lg\\:mb-6 {\n    margin-bottom: 1.5rem;\n  }\n\n  .lg\\:ml-6 {\n    margin-left: 1.5rem;\n  }\n\n  .lg\\:mt-8 {\n    margin-top: 2rem;\n  }\n\n  .lg\\:mr-8 {\n    margin-right: 2rem;\n  }\n\n  .lg\\:mb-8 {\n    margin-bottom: 2rem;\n  }\n\n  .lg\\:ml-8 {\n    margin-left: 2rem;\n  }\n\n  .lg\\:mt-auto {\n    margin-top: auto;\n  }\n\n  .lg\\:mr-auto {\n    margin-right: auto;\n  }\n\n  .lg\\:mb-auto {\n    margin-bottom: auto;\n  }\n\n  .lg\\:ml-auto {\n    margin-left: auto;\n  }\n\n  .lg\\:mt-px {\n    margin-top: 1px;\n  }\n\n  .lg\\:mr-px {\n    margin-right: 1px;\n  }\n\n  .lg\\:mb-px {\n    margin-bottom: 1px;\n  }\n\n  .lg\\:ml-px {\n    margin-left: 1px;\n  }\n\n  .lg\\:max-h-full {\n    max-height: 100%;\n  }\n\n  .lg\\:max-h-screen {\n    max-height: 100vh;\n  }\n\n  .lg\\:max-w-xs {\n    max-width: 20rem;\n  }\n\n  .lg\\:max-w-sm {\n    max-width: 30rem;\n  }\n\n  .lg\\:max-w-md {\n    max-width: 40rem;\n  }\n\n  .lg\\:max-w-lg {\n    max-width: 50rem;\n  }\n\n  .lg\\:max-w-xl {\n    max-width: 60rem;\n  }\n\n  .lg\\:max-w-2xl {\n    max-width: 70rem;\n  }\n\n  .lg\\:max-w-3xl {\n    max-width: 80rem;\n  }\n\n  .lg\\:max-w-4xl {\n    max-width: 90rem;\n  }\n\n  .lg\\:max-w-5xl {\n    max-width: 100rem;\n  }\n\n  .lg\\:max-w-full {\n    max-width: 100%;\n  }\n\n  .lg\\:min-h-0 {\n    min-height: 0;\n  }\n\n  .lg\\:min-h-full {\n    min-height: 100%;\n  }\n\n  .lg\\:min-h-screen {\n    min-height: 100vh;\n  }\n\n  .lg\\:min-w-0 {\n    min-width: 0;\n  }\n\n  .lg\\:min-w-full {\n    min-width: 100%;\n  }\n\n  .lg\\:-m-0 {\n    margin: 0;\n  }\n\n  .lg\\:-m-1 {\n    margin: -0.25rem;\n  }\n\n  .lg\\:-m-2 {\n    margin: -0.5rem;\n  }\n\n  .lg\\:-m-3 {\n    margin: -0.75rem;\n  }\n\n  .lg\\:-m-4 {\n    margin: -1rem;\n  }\n\n  .lg\\:-m-6 {\n    margin: -1.5rem;\n  }\n\n  .lg\\:-m-8 {\n    margin: -2rem;\n  }\n\n  .lg\\:-m-px {\n    margin: -1px;\n  }\n\n  .lg\\:-my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .lg\\:-mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .lg\\:-my-1 {\n    margin-top: -0.25rem;\n    margin-bottom: -0.25rem;\n  }\n\n  .lg\\:-mx-1 {\n    margin-left: -0.25rem;\n    margin-right: -0.25rem;\n  }\n\n  .lg\\:-my-2 {\n    margin-top: -0.5rem;\n    margin-bottom: -0.5rem;\n  }\n\n  .lg\\:-mx-2 {\n    margin-left: -0.5rem;\n    margin-right: -0.5rem;\n  }\n\n  .lg\\:-my-3 {\n    margin-top: -0.75rem;\n    margin-bottom: -0.75rem;\n  }\n\n  .lg\\:-mx-3 {\n    margin-left: -0.75rem;\n    margin-right: -0.75rem;\n  }\n\n  .lg\\:-my-4 {\n    margin-top: -1rem;\n    margin-bottom: -1rem;\n  }\n\n  .lg\\:-mx-4 {\n    margin-left: -1rem;\n    margin-right: -1rem;\n  }\n\n  .lg\\:-my-6 {\n    margin-top: -1.5rem;\n    margin-bottom: -1.5rem;\n  }\n\n  .lg\\:-mx-6 {\n    margin-left: -1.5rem;\n    margin-right: -1.5rem;\n  }\n\n  .lg\\:-my-8 {\n    margin-top: -2rem;\n    margin-bottom: -2rem;\n  }\n\n  .lg\\:-mx-8 {\n    margin-left: -2rem;\n    margin-right: -2rem;\n  }\n\n  .lg\\:-my-px {\n    margin-top: -1px;\n    margin-bottom: -1px;\n  }\n\n  .lg\\:-mx-px {\n    margin-left: -1px;\n    margin-right: -1px;\n  }\n\n  .lg\\:-mt-0 {\n    margin-top: 0;\n  }\n\n  .lg\\:-mr-0 {\n    margin-right: 0;\n  }\n\n  .lg\\:-mb-0 {\n    margin-bottom: 0;\n  }\n\n  .lg\\:-ml-0 {\n    margin-left: 0;\n  }\n\n  .lg\\:-mt-1 {\n    margin-top: -0.25rem;\n  }\n\n  .lg\\:-mr-1 {\n    margin-right: -0.25rem;\n  }\n\n  .lg\\:-mb-1 {\n    margin-bottom: -0.25rem;\n  }\n\n  .lg\\:-ml-1 {\n    margin-left: -0.25rem;\n  }\n\n  .lg\\:-mt-2 {\n    margin-top: -0.5rem;\n  }\n\n  .lg\\:-mr-2 {\n    margin-right: -0.5rem;\n  }\n\n  .lg\\:-mb-2 {\n    margin-bottom: -0.5rem;\n  }\n\n  .lg\\:-ml-2 {\n    margin-left: -0.5rem;\n  }\n\n  .lg\\:-mt-3 {\n    margin-top: -0.75rem;\n  }\n\n  .lg\\:-mr-3 {\n    margin-right: -0.75rem;\n  }\n\n  .lg\\:-mb-3 {\n    margin-bottom: -0.75rem;\n  }\n\n  .lg\\:-ml-3 {\n    margin-left: -0.75rem;\n  }\n\n  .lg\\:-mt-4 {\n    margin-top: -1rem;\n  }\n\n  .lg\\:-mr-4 {\n    margin-right: -1rem;\n  }\n\n  .lg\\:-mb-4 {\n    margin-bottom: -1rem;\n  }\n\n  .lg\\:-ml-4 {\n    margin-left: -1rem;\n  }\n\n  .lg\\:-mt-6 {\n    margin-top: -1.5rem;\n  }\n\n  .lg\\:-mr-6 {\n    margin-right: -1.5rem;\n  }\n\n  .lg\\:-mb-6 {\n    margin-bottom: -1.5rem;\n  }\n\n  .lg\\:-ml-6 {\n    margin-left: -1.5rem;\n  }\n\n  .lg\\:-mt-8 {\n    margin-top: -2rem;\n  }\n\n  .lg\\:-mr-8 {\n    margin-right: -2rem;\n  }\n\n  .lg\\:-mb-8 {\n    margin-bottom: -2rem;\n  }\n\n  .lg\\:-ml-8 {\n    margin-left: -2rem;\n  }\n\n  .lg\\:-mt-px {\n    margin-top: -1px;\n  }\n\n  .lg\\:-mr-px {\n    margin-right: -1px;\n  }\n\n  .lg\\:-mb-px {\n    margin-bottom: -1px;\n  }\n\n  .lg\\:-ml-px {\n    margin-left: -1px;\n  }\n\n  .lg\\:opacity-0 {\n    opacity: 0;\n  }\n\n  .lg\\:opacity-25 {\n    opacity: .25;\n  }\n\n  .lg\\:opacity-50 {\n    opacity: .5;\n  }\n\n  .lg\\:opacity-75 {\n    opacity: .75;\n  }\n\n  .lg\\:opacity-100 {\n    opacity: 1;\n  }\n\n  .lg\\:overflow-auto {\n    overflow: auto;\n  }\n\n  .lg\\:overflow-hidden {\n    overflow: hidden;\n  }\n\n  .lg\\:overflow-visible {\n    overflow: visible;\n  }\n\n  .lg\\:overflow-scroll {\n    overflow: scroll;\n  }\n\n  .lg\\:overflow-x-auto {\n    overflow-x: auto;\n  }\n\n  .lg\\:overflow-y-auto {\n    overflow-y: auto;\n  }\n\n  .lg\\:overflow-x-scroll {\n    overflow-x: scroll;\n  }\n\n  .lg\\:overflow-y-scroll {\n    overflow-y: scroll;\n  }\n\n  .lg\\:scrolling-touch {\n    -webkit-overflow-scrolling: touch;\n  }\n\n  .lg\\:scrolling-auto {\n    -webkit-overflow-scrolling: auto;\n  }\n\n  .lg\\:p-0 {\n    padding: 0;\n  }\n\n  .lg\\:p-1 {\n    padding: .25rem;\n  }\n\n  .lg\\:p-2 {\n    padding: .5rem;\n  }\n\n  .lg\\:p-3 {\n    padding: .75rem;\n  }\n\n  .lg\\:p-4 {\n    padding: 1rem;\n  }\n\n  .lg\\:p-6 {\n    padding: 1.5rem;\n  }\n\n  .lg\\:p-8 {\n    padding: 2rem;\n  }\n\n  .lg\\:p-px {\n    padding: 1px;\n  }\n\n  .lg\\:py-0 {\n    padding-top: 0;\n    padding-bottom: 0;\n  }\n\n  .lg\\:px-0 {\n    padding-left: 0;\n    padding-right: 0;\n  }\n\n  .lg\\:py-1 {\n    padding-top: .25rem;\n    padding-bottom: .25rem;\n  }\n\n  .lg\\:px-1 {\n    padding-left: .25rem;\n    padding-right: .25rem;\n  }\n\n  .lg\\:py-2 {\n    padding-top: .5rem;\n    padding-bottom: .5rem;\n  }\n\n  .lg\\:px-2 {\n    padding-left: .5rem;\n    padding-right: .5rem;\n  }\n\n  .lg\\:py-3 {\n    padding-top: .75rem;\n    padding-bottom: .75rem;\n  }\n\n  .lg\\:px-3 {\n    padding-left: .75rem;\n    padding-right: .75rem;\n  }\n\n  .lg\\:py-4 {\n    padding-top: 1rem;\n    padding-bottom: 1rem;\n  }\n\n  .lg\\:px-4 {\n    padding-left: 1rem;\n    padding-right: 1rem;\n  }\n\n  .lg\\:py-6 {\n    padding-top: 1.5rem;\n    padding-bottom: 1.5rem;\n  }\n\n  .lg\\:px-6 {\n    padding-left: 1.5rem;\n    padding-right: 1.5rem;\n  }\n\n  .lg\\:py-8 {\n    padding-top: 2rem;\n    padding-bottom: 2rem;\n  }\n\n  .lg\\:px-8 {\n    padding-left: 2rem;\n    padding-right: 2rem;\n  }\n\n  .lg\\:py-px {\n    padding-top: 1px;\n    padding-bottom: 1px;\n  }\n\n  .lg\\:px-px {\n    padding-left: 1px;\n    padding-right: 1px;\n  }\n\n  .lg\\:pt-0 {\n    padding-top: 0;\n  }\n\n  .lg\\:pr-0 {\n    padding-right: 0;\n  }\n\n  .lg\\:pb-0 {\n    padding-bottom: 0;\n  }\n\n  .lg\\:pl-0 {\n    padding-left: 0;\n  }\n\n  .lg\\:pt-1 {\n    padding-top: .25rem;\n  }\n\n  .lg\\:pr-1 {\n    padding-right: .25rem;\n  }\n\n  .lg\\:pb-1 {\n    padding-bottom: .25rem;\n  }\n\n  .lg\\:pl-1 {\n    padding-left: .25rem;\n  }\n\n  .lg\\:pt-2 {\n    padding-top: .5rem;\n  }\n\n  .lg\\:pr-2 {\n    padding-right: .5rem;\n  }\n\n  .lg\\:pb-2 {\n    padding-bottom: .5rem;\n  }\n\n  .lg\\:pl-2 {\n    padding-left: .5rem;\n  }\n\n  .lg\\:pt-3 {\n    padding-top: .75rem;\n  }\n\n  .lg\\:pr-3 {\n    padding-right: .75rem;\n  }\n\n  .lg\\:pb-3 {\n    padding-bottom: .75rem;\n  }\n\n  .lg\\:pl-3 {\n    padding-left: .75rem;\n  }\n\n  .lg\\:pt-4 {\n    padding-top: 1rem;\n  }\n\n  .lg\\:pr-4 {\n    padding-right: 1rem;\n  }\n\n  .lg\\:pb-4 {\n    padding-bottom: 1rem;\n  }\n\n  .lg\\:pl-4 {\n    padding-left: 1rem;\n  }\n\n  .lg\\:pt-6 {\n    padding-top: 1.5rem;\n  }\n\n  .lg\\:pr-6 {\n    padding-right: 1.5rem;\n  }\n\n  .lg\\:pb-6 {\n    padding-bottom: 1.5rem;\n  }\n\n  .lg\\:pl-6 {\n    padding-left: 1.5rem;\n  }\n\n  .lg\\:pt-8 {\n    padding-top: 2rem;\n  }\n\n  .lg\\:pr-8 {\n    padding-right: 2rem;\n  }\n\n  .lg\\:pb-8 {\n    padding-bottom: 2rem;\n  }\n\n  .lg\\:pl-8 {\n    padding-left: 2rem;\n  }\n\n  .lg\\:pt-px {\n    padding-top: 1px;\n  }\n\n  .lg\\:pr-px {\n    padding-right: 1px;\n  }\n\n  .lg\\:pb-px {\n    padding-bottom: 1px;\n  }\n\n  .lg\\:pl-px {\n    padding-left: 1px;\n  }\n\n  .lg\\:pointer-events-none {\n    pointer-events: none;\n  }\n\n  .lg\\:pointer-events-auto {\n    pointer-events: auto;\n  }\n\n  .lg\\:static {\n    position: static;\n  }\n\n  .lg\\:fixed {\n    position: fixed;\n  }\n\n  .lg\\:absolute {\n    position: absolute;\n  }\n\n  .lg\\:relative {\n    position: relative;\n  }\n\n  .lg\\:sticky {\n    position: -webkit-sticky;\n    position: sticky;\n  }\n\n  .lg\\:pin-none {\n    top: auto;\n    right: auto;\n    bottom: auto;\n    left: auto;\n  }\n\n  .lg\\:pin {\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n  }\n\n  .lg\\:pin-y {\n    top: 0;\n    bottom: 0;\n  }\n\n  .lg\\:pin-x {\n    right: 0;\n    left: 0;\n  }\n\n  .lg\\:pin-t {\n    top: 0;\n  }\n\n  .lg\\:pin-r {\n    right: 0;\n  }\n\n  .lg\\:pin-b {\n    bottom: 0;\n  }\n\n  .lg\\:pin-l {\n    left: 0;\n  }\n\n  .lg\\:resize-none {\n    resize: none;\n  }\n\n  .lg\\:resize-y {\n    resize: vertical;\n  }\n\n  .lg\\:resize-x {\n    resize: horizontal;\n  }\n\n  .lg\\:resize {\n    resize: both;\n  }\n\n  .lg\\:shadow {\n    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);\n  }\n\n  .lg\\:shadow-md {\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);\n  }\n\n  .lg\\:shadow-lg {\n    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);\n  }\n\n  .lg\\:shadow-inner {\n    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);\n  }\n\n  .lg\\:shadow-none {\n    box-shadow: none;\n  }\n\n  .lg\\:text-left {\n    text-align: left;\n  }\n\n  .lg\\:text-center {\n    text-align: center;\n  }\n\n  .lg\\:text-right {\n    text-align: right;\n  }\n\n  .lg\\:text-justify {\n    text-align: justify;\n  }\n\n  .lg\\:text-transparent {\n    color: transparent;\n  }\n\n  .lg\\:text-black {\n    color: #22292f;\n  }\n\n  .lg\\:text-grey-darkest {\n    color: #3d4852;\n  }\n\n  .lg\\:text-grey-darker {\n    color: #606f7b;\n  }\n\n  .lg\\:text-grey-dark {\n    color: #8795a1;\n  }\n\n  .lg\\:text-grey {\n    color: #b8c2cc;\n  }\n\n  .lg\\:text-grey-light {\n    color: #dae1e7;\n  }\n\n  .lg\\:text-grey-lighter {\n    color: #f1f5f8;\n  }\n\n  .lg\\:text-grey-lightest {\n    color: #f8fafc;\n  }\n\n  .lg\\:text-white {\n    color: #fff;\n  }\n\n  .lg\\:text-red-darkest {\n    color: #3b0d0c;\n  }\n\n  .lg\\:text-red-darker {\n    color: #621b18;\n  }\n\n  .lg\\:text-red-dark {\n    color: #cc1f1a;\n  }\n\n  .lg\\:text-red {\n    color: #e3342f;\n  }\n\n  .lg\\:text-red-light {\n    color: #ef5753;\n  }\n\n  .lg\\:text-red-lighter {\n    color: #f9acaa;\n  }\n\n  .lg\\:text-red-lightest {\n    color: #fcebea;\n  }\n\n  .lg\\:text-orange-darkest {\n    color: #462a16;\n  }\n\n  .lg\\:text-orange-darker {\n    color: #613b1f;\n  }\n\n  .lg\\:text-orange-dark {\n    color: #de751f;\n  }\n\n  .lg\\:text-orange {\n    color: #f6993f;\n  }\n\n  .lg\\:text-orange-light {\n    color: #faad63;\n  }\n\n  .lg\\:text-orange-lighter {\n    color: #fcd9b6;\n  }\n\n  .lg\\:text-orange-lightest {\n    color: #fff5eb;\n  }\n\n  .lg\\:text-yellow-darkest {\n    color: #453411;\n  }\n\n  .lg\\:text-yellow-darker {\n    color: #684f1d;\n  }\n\n  .lg\\:text-yellow-dark {\n    color: #f2d024;\n  }\n\n  .lg\\:text-yellow {\n    color: #ffed4a;\n  }\n\n  .lg\\:text-yellow-light {\n    color: #fff382;\n  }\n\n  .lg\\:text-yellow-lighter {\n    color: #fff9c2;\n  }\n\n  .lg\\:text-yellow-lightest {\n    color: #fcfbeb;\n  }\n\n  .lg\\:text-green-darkest {\n    color: #0f2f21;\n  }\n\n  .lg\\:text-green-darker {\n    color: #1a4731;\n  }\n\n  .lg\\:text-green-dark {\n    color: #1f9d55;\n  }\n\n  .lg\\:text-green {\n    color: #38c172;\n  }\n\n  .lg\\:text-green-light {\n    color: #51d88a;\n  }\n\n  .lg\\:text-green-lighter {\n    color: #a2f5bf;\n  }\n\n  .lg\\:text-green-lightest {\n    color: #e3fcec;\n  }\n\n  .lg\\:text-teal-darkest {\n    color: #0d3331;\n  }\n\n  .lg\\:text-teal-darker {\n    color: #20504f;\n  }\n\n  .lg\\:text-teal-dark {\n    color: #38a89d;\n  }\n\n  .lg\\:text-teal {\n    color: #4dc0b5;\n  }\n\n  .lg\\:text-teal-light {\n    color: #64d5ca;\n  }\n\n  .lg\\:text-teal-lighter {\n    color: #a0f0ed;\n  }\n\n  .lg\\:text-teal-lightest {\n    color: #e8fffe;\n  }\n\n  .lg\\:text-blue-darkest {\n    color: #12283a;\n  }\n\n  .lg\\:text-blue-darker {\n    color: #1c3d5a;\n  }\n\n  .lg\\:text-blue-dark {\n    color: #2779bd;\n  }\n\n  .lg\\:text-blue {\n    color: #3490dc;\n  }\n\n  .lg\\:text-blue-light {\n    color: #6cb2eb;\n  }\n\n  .lg\\:text-blue-lighter {\n    color: #bcdefa;\n  }\n\n  .lg\\:text-blue-lightest {\n    color: #eff8ff;\n  }\n\n  .lg\\:text-indigo-darkest {\n    color: #191e38;\n  }\n\n  .lg\\:text-indigo-darker {\n    color: #2f365f;\n  }\n\n  .lg\\:text-indigo-dark {\n    color: #5661b3;\n  }\n\n  .lg\\:text-indigo {\n    color: #6574cd;\n  }\n\n  .lg\\:text-indigo-light {\n    color: #7886d7;\n  }\n\n  .lg\\:text-indigo-lighter {\n    color: #b2b7ff;\n  }\n\n  .lg\\:text-indigo-lightest {\n    color: #e6e8ff;\n  }\n\n  .lg\\:text-purple-darkest {\n    color: #21183c;\n  }\n\n  .lg\\:text-purple-darker {\n    color: #382b5f;\n  }\n\n  .lg\\:text-purple-dark {\n    color: #794acf;\n  }\n\n  .lg\\:text-purple {\n    color: #9561e2;\n  }\n\n  .lg\\:text-purple-light {\n    color: #a779e9;\n  }\n\n  .lg\\:text-purple-lighter {\n    color: #d6bbfc;\n  }\n\n  .lg\\:text-purple-lightest {\n    color: #f3ebff;\n  }\n\n  .lg\\:text-pink-darkest {\n    color: #451225;\n  }\n\n  .lg\\:text-pink-darker {\n    color: #6f213f;\n  }\n\n  .lg\\:text-pink-dark {\n    color: #eb5286;\n  }\n\n  .lg\\:text-pink {\n    color: #f66d9b;\n  }\n\n  .lg\\:text-pink-light {\n    color: #fa7ea8;\n  }\n\n  .lg\\:text-pink-lighter {\n    color: #ffbbca;\n  }\n\n  .lg\\:text-pink-lightest {\n    color: #ffebef;\n  }\n\n  .lg\\:hover\\:text-transparent:hover {\n    color: transparent;\n  }\n\n  .lg\\:hover\\:text-black:hover {\n    color: #22292f;\n  }\n\n  .lg\\:hover\\:text-grey-darkest:hover {\n    color: #3d4852;\n  }\n\n  .lg\\:hover\\:text-grey-darker:hover {\n    color: #606f7b;\n  }\n\n  .lg\\:hover\\:text-grey-dark:hover {\n    color: #8795a1;\n  }\n\n  .lg\\:hover\\:text-grey:hover {\n    color: #b8c2cc;\n  }\n\n  .lg\\:hover\\:text-grey-light:hover {\n    color: #dae1e7;\n  }\n\n  .lg\\:hover\\:text-grey-lighter:hover {\n    color: #f1f5f8;\n  }\n\n  .lg\\:hover\\:text-grey-lightest:hover {\n    color: #f8fafc;\n  }\n\n  .lg\\:hover\\:text-white:hover {\n    color: #fff;\n  }\n\n  .lg\\:hover\\:text-red-darkest:hover {\n    color: #3b0d0c;\n  }\n\n  .lg\\:hover\\:text-red-darker:hover {\n    color: #621b18;\n  }\n\n  .lg\\:hover\\:text-red-dark:hover {\n    color: #cc1f1a;\n  }\n\n  .lg\\:hover\\:text-red:hover {\n    color: #e3342f;\n  }\n\n  .lg\\:hover\\:text-red-light:hover {\n    color: #ef5753;\n  }\n\n  .lg\\:hover\\:text-red-lighter:hover {\n    color: #f9acaa;\n  }\n\n  .lg\\:hover\\:text-red-lightest:hover {\n    color: #fcebea;\n  }\n\n  .lg\\:hover\\:text-orange-darkest:hover {\n    color: #462a16;\n  }\n\n  .lg\\:hover\\:text-orange-darker:hover {\n    color: #613b1f;\n  }\n\n  .lg\\:hover\\:text-orange-dark:hover {\n    color: #de751f;\n  }\n\n  .lg\\:hover\\:text-orange:hover {\n    color: #f6993f;\n  }\n\n  .lg\\:hover\\:text-orange-light:hover {\n    color: #faad63;\n  }\n\n  .lg\\:hover\\:text-orange-lighter:hover {\n    color: #fcd9b6;\n  }\n\n  .lg\\:hover\\:text-orange-lightest:hover {\n    color: #fff5eb;\n  }\n\n  .lg\\:hover\\:text-yellow-darkest:hover {\n    color: #453411;\n  }\n\n  .lg\\:hover\\:text-yellow-darker:hover {\n    color: #684f1d;\n  }\n\n  .lg\\:hover\\:text-yellow-dark:hover {\n    color: #f2d024;\n  }\n\n  .lg\\:hover\\:text-yellow:hover {\n    color: #ffed4a;\n  }\n\n  .lg\\:hover\\:text-yellow-light:hover {\n    color: #fff382;\n  }\n\n  .lg\\:hover\\:text-yellow-lighter:hover {\n    color: #fff9c2;\n  }\n\n  .lg\\:hover\\:text-yellow-lightest:hover {\n    color: #fcfbeb;\n  }\n\n  .lg\\:hover\\:text-green-darkest:hover {\n    color: #0f2f21;\n  }\n\n  .lg\\:hover\\:text-green-darker:hover {\n    color: #1a4731;\n  }\n\n  .lg\\:hover\\:text-green-dark:hover {\n    color: #1f9d55;\n  }\n\n  .lg\\:hover\\:text-green:hover {\n    color: #38c172;\n  }\n\n  .lg\\:hover\\:text-green-light:hover {\n    color: #51d88a;\n  }\n\n  .lg\\:hover\\:text-green-lighter:hover {\n    color: #a2f5bf;\n  }\n\n  .lg\\:hover\\:text-green-lightest:hover {\n    color: #e3fcec;\n  }\n\n  .lg\\:hover\\:text-teal-darkest:hover {\n    color: #0d3331;\n  }\n\n  .lg\\:hover\\:text-teal-darker:hover {\n    color: #20504f;\n  }\n\n  .lg\\:hover\\:text-teal-dark:hover {\n    color: #38a89d;\n  }\n\n  .lg\\:hover\\:text-teal:hover {\n    color: #4dc0b5;\n  }\n\n  .lg\\:hover\\:text-teal-light:hover {\n    color: #64d5ca;\n  }\n\n  .lg\\:hover\\:text-teal-lighter:hover {\n    color: #a0f0ed;\n  }\n\n  .lg\\:hover\\:text-teal-lightest:hover {\n    color: #e8fffe;\n  }\n\n  .lg\\:hover\\:text-blue-darkest:hover {\n    color: #12283a;\n  }\n\n  .lg\\:hover\\:text-blue-darker:hover {\n    color: #1c3d5a;\n  }\n\n  .lg\\:hover\\:text-blue-dark:hover {\n    color: #2779bd;\n  }\n\n  .lg\\:hover\\:text-blue:hover {\n    color: #3490dc;\n  }\n\n  .lg\\:hover\\:text-blue-light:hover {\n    color: #6cb2eb;\n  }\n\n  .lg\\:hover\\:text-blue-lighter:hover {\n    color: #bcdefa;\n  }\n\n  .lg\\:hover\\:text-blue-lightest:hover {\n    color: #eff8ff;\n  }\n\n  .lg\\:hover\\:text-indigo-darkest:hover {\n    color: #191e38;\n  }\n\n  .lg\\:hover\\:text-indigo-darker:hover {\n    color: #2f365f;\n  }\n\n  .lg\\:hover\\:text-indigo-dark:hover {\n    color: #5661b3;\n  }\n\n  .lg\\:hover\\:text-indigo:hover {\n    color: #6574cd;\n  }\n\n  .lg\\:hover\\:text-indigo-light:hover {\n    color: #7886d7;\n  }\n\n  .lg\\:hover\\:text-indigo-lighter:hover {\n    color: #b2b7ff;\n  }\n\n  .lg\\:hover\\:text-indigo-lightest:hover {\n    color: #e6e8ff;\n  }\n\n  .lg\\:hover\\:text-purple-darkest:hover {\n    color: #21183c;\n  }\n\n  .lg\\:hover\\:text-purple-darker:hover {\n    color: #382b5f;\n  }\n\n  .lg\\:hover\\:text-purple-dark:hover {\n    color: #794acf;\n  }\n\n  .lg\\:hover\\:text-purple:hover {\n    color: #9561e2;\n  }\n\n  .lg\\:hover\\:text-purple-light:hover {\n    color: #a779e9;\n  }\n\n  .lg\\:hover\\:text-purple-lighter:hover {\n    color: #d6bbfc;\n  }\n\n  .lg\\:hover\\:text-purple-lightest:hover {\n    color: #f3ebff;\n  }\n\n  .lg\\:hover\\:text-pink-darkest:hover {\n    color: #451225;\n  }\n\n  .lg\\:hover\\:text-pink-darker:hover {\n    color: #6f213f;\n  }\n\n  .lg\\:hover\\:text-pink-dark:hover {\n    color: #eb5286;\n  }\n\n  .lg\\:hover\\:text-pink:hover {\n    color: #f66d9b;\n  }\n\n  .lg\\:hover\\:text-pink-light:hover {\n    color: #fa7ea8;\n  }\n\n  .lg\\:hover\\:text-pink-lighter:hover {\n    color: #ffbbca;\n  }\n\n  .lg\\:hover\\:text-pink-lightest:hover {\n    color: #ffebef;\n  }\n\n  .lg\\:text-xs {\n    font-size: .75rem;\n  }\n\n  .lg\\:text-sm {\n    font-size: .875rem;\n  }\n\n  .lg\\:text-base {\n    font-size: 1rem;\n  }\n\n  .lg\\:text-lg {\n    font-size: 1.125rem;\n  }\n\n  .lg\\:text-xl {\n    font-size: 1.25rem;\n  }\n\n  .lg\\:text-2xl {\n    font-size: 1.5rem;\n  }\n\n  .lg\\:text-3xl {\n    font-size: 1.875rem;\n  }\n\n  .lg\\:text-4xl {\n    font-size: 2.25rem;\n  }\n\n  .lg\\:text-5xl {\n    font-size: 3rem;\n  }\n\n  .lg\\:italic {\n    font-style: italic;\n  }\n\n  .lg\\:roman {\n    font-style: normal;\n  }\n\n  .lg\\:uppercase {\n    text-transform: uppercase;\n  }\n\n  .lg\\:lowercase {\n    text-transform: lowercase;\n  }\n\n  .lg\\:capitalize {\n    text-transform: capitalize;\n  }\n\n  .lg\\:normal-case {\n    text-transform: none;\n  }\n\n  .lg\\:underline {\n    text-decoration: underline;\n  }\n\n  .lg\\:line-through {\n    text-decoration: line-through;\n  }\n\n  .lg\\:no-underline {\n    text-decoration: none;\n  }\n\n  .lg\\:antialiased {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .lg\\:subpixel-antialiased {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .lg\\:hover\\:italic:hover {\n    font-style: italic;\n  }\n\n  .lg\\:hover\\:roman:hover {\n    font-style: normal;\n  }\n\n  .lg\\:hover\\:uppercase:hover {\n    text-transform: uppercase;\n  }\n\n  .lg\\:hover\\:lowercase:hover {\n    text-transform: lowercase;\n  }\n\n  .lg\\:hover\\:capitalize:hover {\n    text-transform: capitalize;\n  }\n\n  .lg\\:hover\\:normal-case:hover {\n    text-transform: none;\n  }\n\n  .lg\\:hover\\:underline:hover {\n    text-decoration: underline;\n  }\n\n  .lg\\:hover\\:line-through:hover {\n    text-decoration: line-through;\n  }\n\n  .lg\\:hover\\:no-underline:hover {\n    text-decoration: none;\n  }\n\n  .lg\\:hover\\:antialiased:hover {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .lg\\:hover\\:subpixel-antialiased:hover {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .lg\\:tracking-tight {\n    letter-spacing: -0.05em;\n  }\n\n  .lg\\:tracking-normal {\n    letter-spacing: 0;\n  }\n\n  .lg\\:tracking-wide {\n    letter-spacing: .05em;\n  }\n\n  .lg\\:select-none {\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n  }\n\n  .lg\\:select-text {\n    -webkit-user-select: text;\n       -moz-user-select: text;\n        -ms-user-select: text;\n            user-select: text;\n  }\n\n  .lg\\:align-baseline {\n    vertical-align: baseline;\n  }\n\n  .lg\\:align-top {\n    vertical-align: top;\n  }\n\n  .lg\\:align-middle {\n    vertical-align: middle;\n  }\n\n  .lg\\:align-bottom {\n    vertical-align: bottom;\n  }\n\n  .lg\\:align-text-top {\n    vertical-align: text-top;\n  }\n\n  .lg\\:align-text-bottom {\n    vertical-align: text-bottom;\n  }\n\n  .lg\\:visible {\n    visibility: visible;\n  }\n\n  .lg\\:invisible {\n    visibility: hidden;\n  }\n\n  .lg\\:whitespace-normal {\n    white-space: normal;\n  }\n\n  .lg\\:whitespace-no-wrap {\n    white-space: nowrap;\n  }\n\n  .lg\\:whitespace-pre {\n    white-space: pre;\n  }\n\n  .lg\\:whitespace-pre-line {\n    white-space: pre-line;\n  }\n\n  .lg\\:whitespace-pre-wrap {\n    white-space: pre-wrap;\n  }\n\n  .lg\\:break-words {\n    word-wrap: break-word;\n  }\n\n  .lg\\:break-normal {\n    word-wrap: normal;\n  }\n\n  .lg\\:truncate {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .lg\\:w-1 {\n    width: .25rem;\n  }\n\n  .lg\\:w-2 {\n    width: .5rem;\n  }\n\n  .lg\\:w-3 {\n    width: .75rem;\n  }\n\n  .lg\\:w-4 {\n    width: 1rem;\n  }\n\n  .lg\\:w-6 {\n    width: 1.5rem;\n  }\n\n  .lg\\:w-8 {\n    width: 2rem;\n  }\n\n  .lg\\:w-10 {\n    width: 2.5rem;\n  }\n\n  .lg\\:w-12 {\n    width: 3rem;\n  }\n\n  .lg\\:w-16 {\n    width: 4rem;\n  }\n\n  .lg\\:w-24 {\n    width: 6rem;\n  }\n\n  .lg\\:w-32 {\n    width: 8rem;\n  }\n\n  .lg\\:w-48 {\n    width: 12rem;\n  }\n\n  .lg\\:w-64 {\n    width: 16rem;\n  }\n\n  .lg\\:w-auto {\n    width: auto;\n  }\n\n  .lg\\:w-px {\n    width: 1px;\n  }\n\n  .lg\\:w-1\\/2 {\n    width: 50%;\n  }\n\n  .lg\\:w-1\\/3 {\n    width: 33.33333%;\n  }\n\n  .lg\\:w-2\\/3 {\n    width: 66.66667%;\n  }\n\n  .lg\\:w-1\\/4 {\n    width: 25%;\n  }\n\n  .lg\\:w-3\\/4 {\n    width: 75%;\n  }\n\n  .lg\\:w-1\\/5 {\n    width: 20%;\n  }\n\n  .lg\\:w-2\\/5 {\n    width: 40%;\n  }\n\n  .lg\\:w-3\\/5 {\n    width: 60%;\n  }\n\n  .lg\\:w-4\\/5 {\n    width: 80%;\n  }\n\n  .lg\\:w-1\\/6 {\n    width: 16.66667%;\n  }\n\n  .lg\\:w-5\\/6 {\n    width: 83.33333%;\n  }\n\n  .lg\\:w-full {\n    width: 100%;\n  }\n\n  .lg\\:w-screen {\n    width: 100vw;\n  }\n\n  .lg\\:z-0 {\n    z-index: 0;\n  }\n\n  .lg\\:z-10 {\n    z-index: 10;\n  }\n\n  .lg\\:z-20 {\n    z-index: 20;\n  }\n\n  .lg\\:z-30 {\n    z-index: 30;\n  }\n\n  .lg\\:z-40 {\n    z-index: 40;\n  }\n\n  .lg\\:z-50 {\n    z-index: 50;\n  }\n\n  .lg\\:z-auto {\n    z-index: auto;\n  }\n}\n\n@media (min-width: 1200px) {\n  .xl\\:list-reset {\n    list-style: none;\n    padding: 0;\n  }\n\n  .xl\\:appearance-none {\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n  }\n\n  .xl\\:bg-fixed {\n    background-attachment: fixed;\n  }\n\n  .xl\\:bg-local {\n    background-attachment: local;\n  }\n\n  .xl\\:bg-scroll {\n    background-attachment: scroll;\n  }\n\n  .xl\\:bg-transparent {\n    background-color: transparent;\n  }\n\n  .xl\\:bg-black {\n    background-color: #22292f;\n  }\n\n  .xl\\:bg-grey-darkest {\n    background-color: #3d4852;\n  }\n\n  .xl\\:bg-grey-darker {\n    background-color: #606f7b;\n  }\n\n  .xl\\:bg-grey-dark {\n    background-color: #8795a1;\n  }\n\n  .xl\\:bg-grey {\n    background-color: #b8c2cc;\n  }\n\n  .xl\\:bg-grey-light {\n    background-color: #dae1e7;\n  }\n\n  .xl\\:bg-grey-lighter {\n    background-color: #f1f5f8;\n  }\n\n  .xl\\:bg-grey-lightest {\n    background-color: #f8fafc;\n  }\n\n  .xl\\:bg-white {\n    background-color: #fff;\n  }\n\n  .xl\\:bg-red-darkest {\n    background-color: #3b0d0c;\n  }\n\n  .xl\\:bg-red-darker {\n    background-color: #621b18;\n  }\n\n  .xl\\:bg-red-dark {\n    background-color: #cc1f1a;\n  }\n\n  .xl\\:bg-red {\n    background-color: #e3342f;\n  }\n\n  .xl\\:bg-red-light {\n    background-color: #ef5753;\n  }\n\n  .xl\\:bg-red-lighter {\n    background-color: #f9acaa;\n  }\n\n  .xl\\:bg-red-lightest {\n    background-color: #fcebea;\n  }\n\n  .xl\\:bg-orange-darkest {\n    background-color: #462a16;\n  }\n\n  .xl\\:bg-orange-darker {\n    background-color: #613b1f;\n  }\n\n  .xl\\:bg-orange-dark {\n    background-color: #de751f;\n  }\n\n  .xl\\:bg-orange {\n    background-color: #f6993f;\n  }\n\n  .xl\\:bg-orange-light {\n    background-color: #faad63;\n  }\n\n  .xl\\:bg-orange-lighter {\n    background-color: #fcd9b6;\n  }\n\n  .xl\\:bg-orange-lightest {\n    background-color: #fff5eb;\n  }\n\n  .xl\\:bg-yellow-darkest {\n    background-color: #453411;\n  }\n\n  .xl\\:bg-yellow-darker {\n    background-color: #684f1d;\n  }\n\n  .xl\\:bg-yellow-dark {\n    background-color: #f2d024;\n  }\n\n  .xl\\:bg-yellow {\n    background-color: #ffed4a;\n  }\n\n  .xl\\:bg-yellow-light {\n    background-color: #fff382;\n  }\n\n  .xl\\:bg-yellow-lighter {\n    background-color: #fff9c2;\n  }\n\n  .xl\\:bg-yellow-lightest {\n    background-color: #fcfbeb;\n  }\n\n  .xl\\:bg-green-darkest {\n    background-color: #0f2f21;\n  }\n\n  .xl\\:bg-green-darker {\n    background-color: #1a4731;\n  }\n\n  .xl\\:bg-green-dark {\n    background-color: #1f9d55;\n  }\n\n  .xl\\:bg-green {\n    background-color: #38c172;\n  }\n\n  .xl\\:bg-green-light {\n    background-color: #51d88a;\n  }\n\n  .xl\\:bg-green-lighter {\n    background-color: #a2f5bf;\n  }\n\n  .xl\\:bg-green-lightest {\n    background-color: #e3fcec;\n  }\n\n  .xl\\:bg-teal-darkest {\n    background-color: #0d3331;\n  }\n\n  .xl\\:bg-teal-darker {\n    background-color: #20504f;\n  }\n\n  .xl\\:bg-teal-dark {\n    background-color: #38a89d;\n  }\n\n  .xl\\:bg-teal {\n    background-color: #4dc0b5;\n  }\n\n  .xl\\:bg-teal-light {\n    background-color: #64d5ca;\n  }\n\n  .xl\\:bg-teal-lighter {\n    background-color: #a0f0ed;\n  }\n\n  .xl\\:bg-teal-lightest {\n    background-color: #e8fffe;\n  }\n\n  .xl\\:bg-blue-darkest {\n    background-color: #12283a;\n  }\n\n  .xl\\:bg-blue-darker {\n    background-color: #1c3d5a;\n  }\n\n  .xl\\:bg-blue-dark {\n    background-color: #2779bd;\n  }\n\n  .xl\\:bg-blue {\n    background-color: #3490dc;\n  }\n\n  .xl\\:bg-blue-light {\n    background-color: #6cb2eb;\n  }\n\n  .xl\\:bg-blue-lighter {\n    background-color: #bcdefa;\n  }\n\n  .xl\\:bg-blue-lightest {\n    background-color: #eff8ff;\n  }\n\n  .xl\\:bg-indigo-darkest {\n    background-color: #191e38;\n  }\n\n  .xl\\:bg-indigo-darker {\n    background-color: #2f365f;\n  }\n\n  .xl\\:bg-indigo-dark {\n    background-color: #5661b3;\n  }\n\n  .xl\\:bg-indigo {\n    background-color: #6574cd;\n  }\n\n  .xl\\:bg-indigo-light {\n    background-color: #7886d7;\n  }\n\n  .xl\\:bg-indigo-lighter {\n    background-color: #b2b7ff;\n  }\n\n  .xl\\:bg-indigo-lightest {\n    background-color: #e6e8ff;\n  }\n\n  .xl\\:bg-purple-darkest {\n    background-color: #21183c;\n  }\n\n  .xl\\:bg-purple-darker {\n    background-color: #382b5f;\n  }\n\n  .xl\\:bg-purple-dark {\n    background-color: #794acf;\n  }\n\n  .xl\\:bg-purple {\n    background-color: #9561e2;\n  }\n\n  .xl\\:bg-purple-light {\n    background-color: #a779e9;\n  }\n\n  .xl\\:bg-purple-lighter {\n    background-color: #d6bbfc;\n  }\n\n  .xl\\:bg-purple-lightest {\n    background-color: #f3ebff;\n  }\n\n  .xl\\:bg-pink-darkest {\n    background-color: #451225;\n  }\n\n  .xl\\:bg-pink-darker {\n    background-color: #6f213f;\n  }\n\n  .xl\\:bg-pink-dark {\n    background-color: #eb5286;\n  }\n\n  .xl\\:bg-pink {\n    background-color: #f66d9b;\n  }\n\n  .xl\\:bg-pink-light {\n    background-color: #fa7ea8;\n  }\n\n  .xl\\:bg-pink-lighter {\n    background-color: #ffbbca;\n  }\n\n  .xl\\:bg-pink-lightest {\n    background-color: #ffebef;\n  }\n\n  .xl\\:hover\\:bg-transparent:hover {\n    background-color: transparent;\n  }\n\n  .xl\\:hover\\:bg-black:hover {\n    background-color: #22292f;\n  }\n\n  .xl\\:hover\\:bg-grey-darkest:hover {\n    background-color: #3d4852;\n  }\n\n  .xl\\:hover\\:bg-grey-darker:hover {\n    background-color: #606f7b;\n  }\n\n  .xl\\:hover\\:bg-grey-dark:hover {\n    background-color: #8795a1;\n  }\n\n  .xl\\:hover\\:bg-grey:hover {\n    background-color: #b8c2cc;\n  }\n\n  .xl\\:hover\\:bg-grey-light:hover {\n    background-color: #dae1e7;\n  }\n\n  .xl\\:hover\\:bg-grey-lighter:hover {\n    background-color: #f1f5f8;\n  }\n\n  .xl\\:hover\\:bg-grey-lightest:hover {\n    background-color: #f8fafc;\n  }\n\n  .xl\\:hover\\:bg-white:hover {\n    background-color: #fff;\n  }\n\n  .xl\\:hover\\:bg-red-darkest:hover {\n    background-color: #3b0d0c;\n  }\n\n  .xl\\:hover\\:bg-red-darker:hover {\n    background-color: #621b18;\n  }\n\n  .xl\\:hover\\:bg-red-dark:hover {\n    background-color: #cc1f1a;\n  }\n\n  .xl\\:hover\\:bg-red:hover {\n    background-color: #e3342f;\n  }\n\n  .xl\\:hover\\:bg-red-light:hover {\n    background-color: #ef5753;\n  }\n\n  .xl\\:hover\\:bg-red-lighter:hover {\n    background-color: #f9acaa;\n  }\n\n  .xl\\:hover\\:bg-red-lightest:hover {\n    background-color: #fcebea;\n  }\n\n  .xl\\:hover\\:bg-orange-darkest:hover {\n    background-color: #462a16;\n  }\n\n  .xl\\:hover\\:bg-orange-darker:hover {\n    background-color: #613b1f;\n  }\n\n  .xl\\:hover\\:bg-orange-dark:hover {\n    background-color: #de751f;\n  }\n\n  .xl\\:hover\\:bg-orange:hover {\n    background-color: #f6993f;\n  }\n\n  .xl\\:hover\\:bg-orange-light:hover {\n    background-color: #faad63;\n  }\n\n  .xl\\:hover\\:bg-orange-lighter:hover {\n    background-color: #fcd9b6;\n  }\n\n  .xl\\:hover\\:bg-orange-lightest:hover {\n    background-color: #fff5eb;\n  }\n\n  .xl\\:hover\\:bg-yellow-darkest:hover {\n    background-color: #453411;\n  }\n\n  .xl\\:hover\\:bg-yellow-darker:hover {\n    background-color: #684f1d;\n  }\n\n  .xl\\:hover\\:bg-yellow-dark:hover {\n    background-color: #f2d024;\n  }\n\n  .xl\\:hover\\:bg-yellow:hover {\n    background-color: #ffed4a;\n  }\n\n  .xl\\:hover\\:bg-yellow-light:hover {\n    background-color: #fff382;\n  }\n\n  .xl\\:hover\\:bg-yellow-lighter:hover {\n    background-color: #fff9c2;\n  }\n\n  .xl\\:hover\\:bg-yellow-lightest:hover {\n    background-color: #fcfbeb;\n  }\n\n  .xl\\:hover\\:bg-green-darkest:hover {\n    background-color: #0f2f21;\n  }\n\n  .xl\\:hover\\:bg-green-darker:hover {\n    background-color: #1a4731;\n  }\n\n  .xl\\:hover\\:bg-green-dark:hover {\n    background-color: #1f9d55;\n  }\n\n  .xl\\:hover\\:bg-green:hover {\n    background-color: #38c172;\n  }\n\n  .xl\\:hover\\:bg-green-light:hover {\n    background-color: #51d88a;\n  }\n\n  .xl\\:hover\\:bg-green-lighter:hover {\n    background-color: #a2f5bf;\n  }\n\n  .xl\\:hover\\:bg-green-lightest:hover {\n    background-color: #e3fcec;\n  }\n\n  .xl\\:hover\\:bg-teal-darkest:hover {\n    background-color: #0d3331;\n  }\n\n  .xl\\:hover\\:bg-teal-darker:hover {\n    background-color: #20504f;\n  }\n\n  .xl\\:hover\\:bg-teal-dark:hover {\n    background-color: #38a89d;\n  }\n\n  .xl\\:hover\\:bg-teal:hover {\n    background-color: #4dc0b5;\n  }\n\n  .xl\\:hover\\:bg-teal-light:hover {\n    background-color: #64d5ca;\n  }\n\n  .xl\\:hover\\:bg-teal-lighter:hover {\n    background-color: #a0f0ed;\n  }\n\n  .xl\\:hover\\:bg-teal-lightest:hover {\n    background-color: #e8fffe;\n  }\n\n  .xl\\:hover\\:bg-blue-darkest:hover {\n    background-color: #12283a;\n  }\n\n  .xl\\:hover\\:bg-blue-darker:hover {\n    background-color: #1c3d5a;\n  }\n\n  .xl\\:hover\\:bg-blue-dark:hover {\n    background-color: #2779bd;\n  }\n\n  .xl\\:hover\\:bg-blue:hover {\n    background-color: #3490dc;\n  }\n\n  .xl\\:hover\\:bg-blue-light:hover {\n    background-color: #6cb2eb;\n  }\n\n  .xl\\:hover\\:bg-blue-lighter:hover {\n    background-color: #bcdefa;\n  }\n\n  .xl\\:hover\\:bg-blue-lightest:hover {\n    background-color: #eff8ff;\n  }\n\n  .xl\\:hover\\:bg-indigo-darkest:hover {\n    background-color: #191e38;\n  }\n\n  .xl\\:hover\\:bg-indigo-darker:hover {\n    background-color: #2f365f;\n  }\n\n  .xl\\:hover\\:bg-indigo-dark:hover {\n    background-color: #5661b3;\n  }\n\n  .xl\\:hover\\:bg-indigo:hover {\n    background-color: #6574cd;\n  }\n\n  .xl\\:hover\\:bg-indigo-light:hover {\n    background-color: #7886d7;\n  }\n\n  .xl\\:hover\\:bg-indigo-lighter:hover {\n    background-color: #b2b7ff;\n  }\n\n  .xl\\:hover\\:bg-indigo-lightest:hover {\n    background-color: #e6e8ff;\n  }\n\n  .xl\\:hover\\:bg-purple-darkest:hover {\n    background-color: #21183c;\n  }\n\n  .xl\\:hover\\:bg-purple-darker:hover {\n    background-color: #382b5f;\n  }\n\n  .xl\\:hover\\:bg-purple-dark:hover {\n    background-color: #794acf;\n  }\n\n  .xl\\:hover\\:bg-purple:hover {\n    background-color: #9561e2;\n  }\n\n  .xl\\:hover\\:bg-purple-light:hover {\n    background-color: #a779e9;\n  }\n\n  .xl\\:hover\\:bg-purple-lighter:hover {\n    background-color: #d6bbfc;\n  }\n\n  .xl\\:hover\\:bg-purple-lightest:hover {\n    background-color: #f3ebff;\n  }\n\n  .xl\\:hover\\:bg-pink-darkest:hover {\n    background-color: #451225;\n  }\n\n  .xl\\:hover\\:bg-pink-darker:hover {\n    background-color: #6f213f;\n  }\n\n  .xl\\:hover\\:bg-pink-dark:hover {\n    background-color: #eb5286;\n  }\n\n  .xl\\:hover\\:bg-pink:hover {\n    background-color: #f66d9b;\n  }\n\n  .xl\\:hover\\:bg-pink-light:hover {\n    background-color: #fa7ea8;\n  }\n\n  .xl\\:hover\\:bg-pink-lighter:hover {\n    background-color: #ffbbca;\n  }\n\n  .xl\\:hover\\:bg-pink-lightest:hover {\n    background-color: #ffebef;\n  }\n\n  .xl\\:bg-bottom {\n    background-position: bottom;\n  }\n\n  .xl\\:bg-center {\n    background-position: center;\n  }\n\n  .xl\\:bg-left {\n    background-position: left;\n  }\n\n  .xl\\:bg-left-bottom {\n    background-position: left bottom;\n  }\n\n  .xl\\:bg-left-top {\n    background-position: left top;\n  }\n\n  .xl\\:bg-right {\n    background-position: right;\n  }\n\n  .xl\\:bg-right-bottom {\n    background-position: right bottom;\n  }\n\n  .xl\\:bg-right-top {\n    background-position: right top;\n  }\n\n  .xl\\:bg-top {\n    background-position: top;\n  }\n\n  .xl\\:bg-repeat {\n    background-repeat: repeat;\n  }\n\n  .xl\\:bg-no-repeat {\n    background-repeat: no-repeat;\n  }\n\n  .xl\\:bg-repeat-x {\n    background-repeat: repeat-x;\n  }\n\n  .xl\\:bg-repeat-y {\n    background-repeat: repeat-y;\n  }\n\n  .xl\\:bg-auto {\n    background-size: auto;\n  }\n\n  .xl\\:bg-cover {\n    background-size: cover;\n  }\n\n  .xl\\:bg-contain {\n    background-size: contain;\n  }\n\n  .xl\\:border-transparent {\n    border-color: transparent;\n  }\n\n  .xl\\:border-black {\n    border-color: #22292f;\n  }\n\n  .xl\\:border-grey-darkest {\n    border-color: #3d4852;\n  }\n\n  .xl\\:border-grey-darker {\n    border-color: #606f7b;\n  }\n\n  .xl\\:border-grey-dark {\n    border-color: #8795a1;\n  }\n\n  .xl\\:border-grey {\n    border-color: #b8c2cc;\n  }\n\n  .xl\\:border-grey-light {\n    border-color: #dae1e7;\n  }\n\n  .xl\\:border-grey-lighter {\n    border-color: #f1f5f8;\n  }\n\n  .xl\\:border-grey-lightest {\n    border-color: #f8fafc;\n  }\n\n  .xl\\:border-white {\n    border-color: #fff;\n  }\n\n  .xl\\:border-red-darkest {\n    border-color: #3b0d0c;\n  }\n\n  .xl\\:border-red-darker {\n    border-color: #621b18;\n  }\n\n  .xl\\:border-red-dark {\n    border-color: #cc1f1a;\n  }\n\n  .xl\\:border-red {\n    border-color: #e3342f;\n  }\n\n  .xl\\:border-red-light {\n    border-color: #ef5753;\n  }\n\n  .xl\\:border-red-lighter {\n    border-color: #f9acaa;\n  }\n\n  .xl\\:border-red-lightest {\n    border-color: #fcebea;\n  }\n\n  .xl\\:border-orange-darkest {\n    border-color: #462a16;\n  }\n\n  .xl\\:border-orange-darker {\n    border-color: #613b1f;\n  }\n\n  .xl\\:border-orange-dark {\n    border-color: #de751f;\n  }\n\n  .xl\\:border-orange {\n    border-color: #f6993f;\n  }\n\n  .xl\\:border-orange-light {\n    border-color: #faad63;\n  }\n\n  .xl\\:border-orange-lighter {\n    border-color: #fcd9b6;\n  }\n\n  .xl\\:border-orange-lightest {\n    border-color: #fff5eb;\n  }\n\n  .xl\\:border-yellow-darkest {\n    border-color: #453411;\n  }\n\n  .xl\\:border-yellow-darker {\n    border-color: #684f1d;\n  }\n\n  .xl\\:border-yellow-dark {\n    border-color: #f2d024;\n  }\n\n  .xl\\:border-yellow {\n    border-color: #ffed4a;\n  }\n\n  .xl\\:border-yellow-light {\n    border-color: #fff382;\n  }\n\n  .xl\\:border-yellow-lighter {\n    border-color: #fff9c2;\n  }\n\n  .xl\\:border-yellow-lightest {\n    border-color: #fcfbeb;\n  }\n\n  .xl\\:border-green-darkest {\n    border-color: #0f2f21;\n  }\n\n  .xl\\:border-green-darker {\n    border-color: #1a4731;\n  }\n\n  .xl\\:border-green-dark {\n    border-color: #1f9d55;\n  }\n\n  .xl\\:border-green {\n    border-color: #38c172;\n  }\n\n  .xl\\:border-green-light {\n    border-color: #51d88a;\n  }\n\n  .xl\\:border-green-lighter {\n    border-color: #a2f5bf;\n  }\n\n  .xl\\:border-green-lightest {\n    border-color: #e3fcec;\n  }\n\n  .xl\\:border-teal-darkest {\n    border-color: #0d3331;\n  }\n\n  .xl\\:border-teal-darker {\n    border-color: #20504f;\n  }\n\n  .xl\\:border-teal-dark {\n    border-color: #38a89d;\n  }\n\n  .xl\\:border-teal {\n    border-color: #4dc0b5;\n  }\n\n  .xl\\:border-teal-light {\n    border-color: #64d5ca;\n  }\n\n  .xl\\:border-teal-lighter {\n    border-color: #a0f0ed;\n  }\n\n  .xl\\:border-teal-lightest {\n    border-color: #e8fffe;\n  }\n\n  .xl\\:border-blue-darkest {\n    border-color: #12283a;\n  }\n\n  .xl\\:border-blue-darker {\n    border-color: #1c3d5a;\n  }\n\n  .xl\\:border-blue-dark {\n    border-color: #2779bd;\n  }\n\n  .xl\\:border-blue {\n    border-color: #3490dc;\n  }\n\n  .xl\\:border-blue-light {\n    border-color: #6cb2eb;\n  }\n\n  .xl\\:border-blue-lighter {\n    border-color: #bcdefa;\n  }\n\n  .xl\\:border-blue-lightest {\n    border-color: #eff8ff;\n  }\n\n  .xl\\:border-indigo-darkest {\n    border-color: #191e38;\n  }\n\n  .xl\\:border-indigo-darker {\n    border-color: #2f365f;\n  }\n\n  .xl\\:border-indigo-dark {\n    border-color: #5661b3;\n  }\n\n  .xl\\:border-indigo {\n    border-color: #6574cd;\n  }\n\n  .xl\\:border-indigo-light {\n    border-color: #7886d7;\n  }\n\n  .xl\\:border-indigo-lighter {\n    border-color: #b2b7ff;\n  }\n\n  .xl\\:border-indigo-lightest {\n    border-color: #e6e8ff;\n  }\n\n  .xl\\:border-purple-darkest {\n    border-color: #21183c;\n  }\n\n  .xl\\:border-purple-darker {\n    border-color: #382b5f;\n  }\n\n  .xl\\:border-purple-dark {\n    border-color: #794acf;\n  }\n\n  .xl\\:border-purple {\n    border-color: #9561e2;\n  }\n\n  .xl\\:border-purple-light {\n    border-color: #a779e9;\n  }\n\n  .xl\\:border-purple-lighter {\n    border-color: #d6bbfc;\n  }\n\n  .xl\\:border-purple-lightest {\n    border-color: #f3ebff;\n  }\n\n  .xl\\:border-pink-darkest {\n    border-color: #451225;\n  }\n\n  .xl\\:border-pink-darker {\n    border-color: #6f213f;\n  }\n\n  .xl\\:border-pink-dark {\n    border-color: #eb5286;\n  }\n\n  .xl\\:border-pink {\n    border-color: #f66d9b;\n  }\n\n  .xl\\:border-pink-light {\n    border-color: #fa7ea8;\n  }\n\n  .xl\\:border-pink-lighter {\n    border-color: #ffbbca;\n  }\n\n  .xl\\:border-pink-lightest {\n    border-color: #ffebef;\n  }\n\n  .xl\\:hover\\:border-transparent:hover {\n    border-color: transparent;\n  }\n\n  .xl\\:hover\\:border-black:hover {\n    border-color: #22292f;\n  }\n\n  .xl\\:hover\\:border-grey-darkest:hover {\n    border-color: #3d4852;\n  }\n\n  .xl\\:hover\\:border-grey-darker:hover {\n    border-color: #606f7b;\n  }\n\n  .xl\\:hover\\:border-grey-dark:hover {\n    border-color: #8795a1;\n  }\n\n  .xl\\:hover\\:border-grey:hover {\n    border-color: #b8c2cc;\n  }\n\n  .xl\\:hover\\:border-grey-light:hover {\n    border-color: #dae1e7;\n  }\n\n  .xl\\:hover\\:border-grey-lighter:hover {\n    border-color: #f1f5f8;\n  }\n\n  .xl\\:hover\\:border-grey-lightest:hover {\n    border-color: #f8fafc;\n  }\n\n  .xl\\:hover\\:border-white:hover {\n    border-color: #fff;\n  }\n\n  .xl\\:hover\\:border-red-darkest:hover {\n    border-color: #3b0d0c;\n  }\n\n  .xl\\:hover\\:border-red-darker:hover {\n    border-color: #621b18;\n  }\n\n  .xl\\:hover\\:border-red-dark:hover {\n    border-color: #cc1f1a;\n  }\n\n  .xl\\:hover\\:border-red:hover {\n    border-color: #e3342f;\n  }\n\n  .xl\\:hover\\:border-red-light:hover {\n    border-color: #ef5753;\n  }\n\n  .xl\\:hover\\:border-red-lighter:hover {\n    border-color: #f9acaa;\n  }\n\n  .xl\\:hover\\:border-red-lightest:hover {\n    border-color: #fcebea;\n  }\n\n  .xl\\:hover\\:border-orange-darkest:hover {\n    border-color: #462a16;\n  }\n\n  .xl\\:hover\\:border-orange-darker:hover {\n    border-color: #613b1f;\n  }\n\n  .xl\\:hover\\:border-orange-dark:hover {\n    border-color: #de751f;\n  }\n\n  .xl\\:hover\\:border-orange:hover {\n    border-color: #f6993f;\n  }\n\n  .xl\\:hover\\:border-orange-light:hover {\n    border-color: #faad63;\n  }\n\n  .xl\\:hover\\:border-orange-lighter:hover {\n    border-color: #fcd9b6;\n  }\n\n  .xl\\:hover\\:border-orange-lightest:hover {\n    border-color: #fff5eb;\n  }\n\n  .xl\\:hover\\:border-yellow-darkest:hover {\n    border-color: #453411;\n  }\n\n  .xl\\:hover\\:border-yellow-darker:hover {\n    border-color: #684f1d;\n  }\n\n  .xl\\:hover\\:border-yellow-dark:hover {\n    border-color: #f2d024;\n  }\n\n  .xl\\:hover\\:border-yellow:hover {\n    border-color: #ffed4a;\n  }\n\n  .xl\\:hover\\:border-yellow-light:hover {\n    border-color: #fff382;\n  }\n\n  .xl\\:hover\\:border-yellow-lighter:hover {\n    border-color: #fff9c2;\n  }\n\n  .xl\\:hover\\:border-yellow-lightest:hover {\n    border-color: #fcfbeb;\n  }\n\n  .xl\\:hover\\:border-green-darkest:hover {\n    border-color: #0f2f21;\n  }\n\n  .xl\\:hover\\:border-green-darker:hover {\n    border-color: #1a4731;\n  }\n\n  .xl\\:hover\\:border-green-dark:hover {\n    border-color: #1f9d55;\n  }\n\n  .xl\\:hover\\:border-green:hover {\n    border-color: #38c172;\n  }\n\n  .xl\\:hover\\:border-green-light:hover {\n    border-color: #51d88a;\n  }\n\n  .xl\\:hover\\:border-green-lighter:hover {\n    border-color: #a2f5bf;\n  }\n\n  .xl\\:hover\\:border-green-lightest:hover {\n    border-color: #e3fcec;\n  }\n\n  .xl\\:hover\\:border-teal-darkest:hover {\n    border-color: #0d3331;\n  }\n\n  .xl\\:hover\\:border-teal-darker:hover {\n    border-color: #20504f;\n  }\n\n  .xl\\:hover\\:border-teal-dark:hover {\n    border-color: #38a89d;\n  }\n\n  .xl\\:hover\\:border-teal:hover {\n    border-color: #4dc0b5;\n  }\n\n  .xl\\:hover\\:border-teal-light:hover {\n    border-color: #64d5ca;\n  }\n\n  .xl\\:hover\\:border-teal-lighter:hover {\n    border-color: #a0f0ed;\n  }\n\n  .xl\\:hover\\:border-teal-lightest:hover {\n    border-color: #e8fffe;\n  }\n\n  .xl\\:hover\\:border-blue-darkest:hover {\n    border-color: #12283a;\n  }\n\n  .xl\\:hover\\:border-blue-darker:hover {\n    border-color: #1c3d5a;\n  }\n\n  .xl\\:hover\\:border-blue-dark:hover {\n    border-color: #2779bd;\n  }\n\n  .xl\\:hover\\:border-blue:hover {\n    border-color: #3490dc;\n  }\n\n  .xl\\:hover\\:border-blue-light:hover {\n    border-color: #6cb2eb;\n  }\n\n  .xl\\:hover\\:border-blue-lighter:hover {\n    border-color: #bcdefa;\n  }\n\n  .xl\\:hover\\:border-blue-lightest:hover {\n    border-color: #eff8ff;\n  }\n\n  .xl\\:hover\\:border-indigo-darkest:hover {\n    border-color: #191e38;\n  }\n\n  .xl\\:hover\\:border-indigo-darker:hover {\n    border-color: #2f365f;\n  }\n\n  .xl\\:hover\\:border-indigo-dark:hover {\n    border-color: #5661b3;\n  }\n\n  .xl\\:hover\\:border-indigo:hover {\n    border-color: #6574cd;\n  }\n\n  .xl\\:hover\\:border-indigo-light:hover {\n    border-color: #7886d7;\n  }\n\n  .xl\\:hover\\:border-indigo-lighter:hover {\n    border-color: #b2b7ff;\n  }\n\n  .xl\\:hover\\:border-indigo-lightest:hover {\n    border-color: #e6e8ff;\n  }\n\n  .xl\\:hover\\:border-purple-darkest:hover {\n    border-color: #21183c;\n  }\n\n  .xl\\:hover\\:border-purple-darker:hover {\n    border-color: #382b5f;\n  }\n\n  .xl\\:hover\\:border-purple-dark:hover {\n    border-color: #794acf;\n  }\n\n  .xl\\:hover\\:border-purple:hover {\n    border-color: #9561e2;\n  }\n\n  .xl\\:hover\\:border-purple-light:hover {\n    border-color: #a779e9;\n  }\n\n  .xl\\:hover\\:border-purple-lighter:hover {\n    border-color: #d6bbfc;\n  }\n\n  .xl\\:hover\\:border-purple-lightest:hover {\n    border-color: #f3ebff;\n  }\n\n  .xl\\:hover\\:border-pink-darkest:hover {\n    border-color: #451225;\n  }\n\n  .xl\\:hover\\:border-pink-darker:hover {\n    border-color: #6f213f;\n  }\n\n  .xl\\:hover\\:border-pink-dark:hover {\n    border-color: #eb5286;\n  }\n\n  .xl\\:hover\\:border-pink:hover {\n    border-color: #f66d9b;\n  }\n\n  .xl\\:hover\\:border-pink-light:hover {\n    border-color: #fa7ea8;\n  }\n\n  .xl\\:hover\\:border-pink-lighter:hover {\n    border-color: #ffbbca;\n  }\n\n  .xl\\:hover\\:border-pink-lightest:hover {\n    border-color: #ffebef;\n  }\n\n  .xl\\:rounded-none {\n    border-radius: 0;\n  }\n\n  .xl\\:rounded-sm {\n    border-radius: .125rem;\n  }\n\n  .xl\\:rounded {\n    border-radius: .25rem;\n  }\n\n  .xl\\:rounded-lg {\n    border-radius: .5rem;\n  }\n\n  .xl\\:rounded-full {\n    border-radius: 9999px;\n  }\n\n  .xl\\:rounded-t-none {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n  }\n\n  .xl\\:rounded-r-none {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n  }\n\n  .xl\\:rounded-b-none {\n    border-bottom-right-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .xl\\:rounded-l-none {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .xl\\:rounded-t-sm {\n    border-top-left-radius: .125rem;\n    border-top-right-radius: .125rem;\n  }\n\n  .xl\\:rounded-r-sm {\n    border-top-right-radius: .125rem;\n    border-bottom-right-radius: .125rem;\n  }\n\n  .xl\\:rounded-b-sm {\n    border-bottom-right-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .xl\\:rounded-l-sm {\n    border-top-left-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .xl\\:rounded-t {\n    border-top-left-radius: .25rem;\n    border-top-right-radius: .25rem;\n  }\n\n  .xl\\:rounded-r {\n    border-top-right-radius: .25rem;\n    border-bottom-right-radius: .25rem;\n  }\n\n  .xl\\:rounded-b {\n    border-bottom-right-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .xl\\:rounded-l {\n    border-top-left-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .xl\\:rounded-t-lg {\n    border-top-left-radius: .5rem;\n    border-top-right-radius: .5rem;\n  }\n\n  .xl\\:rounded-r-lg {\n    border-top-right-radius: .5rem;\n    border-bottom-right-radius: .5rem;\n  }\n\n  .xl\\:rounded-b-lg {\n    border-bottom-right-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .xl\\:rounded-l-lg {\n    border-top-left-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .xl\\:rounded-t-full {\n    border-top-left-radius: 9999px;\n    border-top-right-radius: 9999px;\n  }\n\n  .xl\\:rounded-r-full {\n    border-top-right-radius: 9999px;\n    border-bottom-right-radius: 9999px;\n  }\n\n  .xl\\:rounded-b-full {\n    border-bottom-right-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .xl\\:rounded-l-full {\n    border-top-left-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .xl\\:rounded-tl-none {\n    border-top-left-radius: 0;\n  }\n\n  .xl\\:rounded-tr-none {\n    border-top-right-radius: 0;\n  }\n\n  .xl\\:rounded-br-none {\n    border-bottom-right-radius: 0;\n  }\n\n  .xl\\:rounded-bl-none {\n    border-bottom-left-radius: 0;\n  }\n\n  .xl\\:rounded-tl-sm {\n    border-top-left-radius: .125rem;\n  }\n\n  .xl\\:rounded-tr-sm {\n    border-top-right-radius: .125rem;\n  }\n\n  .xl\\:rounded-br-sm {\n    border-bottom-right-radius: .125rem;\n  }\n\n  .xl\\:rounded-bl-sm {\n    border-bottom-left-radius: .125rem;\n  }\n\n  .xl\\:rounded-tl {\n    border-top-left-radius: .25rem;\n  }\n\n  .xl\\:rounded-tr {\n    border-top-right-radius: .25rem;\n  }\n\n  .xl\\:rounded-br {\n    border-bottom-right-radius: .25rem;\n  }\n\n  .xl\\:rounded-bl {\n    border-bottom-left-radius: .25rem;\n  }\n\n  .xl\\:rounded-tl-lg {\n    border-top-left-radius: .5rem;\n  }\n\n  .xl\\:rounded-tr-lg {\n    border-top-right-radius: .5rem;\n  }\n\n  .xl\\:rounded-br-lg {\n    border-bottom-right-radius: .5rem;\n  }\n\n  .xl\\:rounded-bl-lg {\n    border-bottom-left-radius: .5rem;\n  }\n\n  .xl\\:rounded-tl-full {\n    border-top-left-radius: 9999px;\n  }\n\n  .xl\\:rounded-tr-full {\n    border-top-right-radius: 9999px;\n  }\n\n  .xl\\:rounded-br-full {\n    border-bottom-right-radius: 9999px;\n  }\n\n  .xl\\:rounded-bl-full {\n    border-bottom-left-radius: 9999px;\n  }\n\n  .xl\\:border-solid {\n    border-style: solid;\n  }\n\n  .xl\\:border-dashed {\n    border-style: dashed;\n  }\n\n  .xl\\:border-dotted {\n    border-style: dotted;\n  }\n\n  .xl\\:border-none {\n    border-style: none;\n  }\n\n  .xl\\:border-0 {\n    border-width: 0;\n  }\n\n  .xl\\:border-2 {\n    border-width: 2px;\n  }\n\n  .xl\\:border-4 {\n    border-width: 4px;\n  }\n\n  .xl\\:border-8 {\n    border-width: 8px;\n  }\n\n  .xl\\:border {\n    border-width: 1px;\n  }\n\n  .xl\\:border-t-0 {\n    border-top-width: 0;\n  }\n\n  .xl\\:border-r-0 {\n    border-right-width: 0;\n  }\n\n  .xl\\:border-b-0 {\n    border-bottom-width: 0;\n  }\n\n  .xl\\:border-l-0 {\n    border-left-width: 0;\n  }\n\n  .xl\\:border-t-2 {\n    border-top-width: 2px;\n  }\n\n  .xl\\:border-r-2 {\n    border-right-width: 2px;\n  }\n\n  .xl\\:border-b-2 {\n    border-bottom-width: 2px;\n  }\n\n  .xl\\:border-l-2 {\n    border-left-width: 2px;\n  }\n\n  .xl\\:border-t-4 {\n    border-top-width: 4px;\n  }\n\n  .xl\\:border-r-4 {\n    border-right-width: 4px;\n  }\n\n  .xl\\:border-b-4 {\n    border-bottom-width: 4px;\n  }\n\n  .xl\\:border-l-4 {\n    border-left-width: 4px;\n  }\n\n  .xl\\:border-t-8 {\n    border-top-width: 8px;\n  }\n\n  .xl\\:border-r-8 {\n    border-right-width: 8px;\n  }\n\n  .xl\\:border-b-8 {\n    border-bottom-width: 8px;\n  }\n\n  .xl\\:border-l-8 {\n    border-left-width: 8px;\n  }\n\n  .xl\\:border-t {\n    border-top-width: 1px;\n  }\n\n  .xl\\:border-r {\n    border-right-width: 1px;\n  }\n\n  .xl\\:border-b {\n    border-bottom-width: 1px;\n  }\n\n  .xl\\:border-l {\n    border-left-width: 1px;\n  }\n\n  .xl\\:cursor-auto {\n    cursor: auto;\n  }\n\n  .xl\\:cursor-default {\n    cursor: default;\n  }\n\n  .xl\\:cursor-pointer {\n    cursor: pointer;\n  }\n\n  .xl\\:cursor-wait {\n    cursor: wait;\n  }\n\n  .xl\\:cursor-move {\n    cursor: move;\n  }\n\n  .xl\\:cursor-not-allowed {\n    cursor: not-allowed;\n  }\n\n  .xl\\:block {\n    display: block;\n  }\n\n  .xl\\:inline-block {\n    display: inline-block;\n  }\n\n  .xl\\:inline {\n    display: inline;\n  }\n\n  .xl\\:table {\n    display: table;\n  }\n\n  .xl\\:table-row {\n    display: table-row;\n  }\n\n  .xl\\:table-cell {\n    display: table-cell;\n  }\n\n  .xl\\:hidden {\n    display: none;\n  }\n\n  .xl\\:flex {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n  }\n\n  .xl\\:inline-flex {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n  }\n\n  .xl\\:flex-row {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n  }\n\n  .xl\\:flex-row-reverse {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: row-reverse;\n            flex-direction: row-reverse;\n  }\n\n  .xl\\:flex-col {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n\n  .xl\\:flex-col-reverse {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n  }\n\n  .xl\\:flex-wrap {\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n  }\n\n  .xl\\:flex-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse;\n        flex-wrap: wrap-reverse;\n  }\n\n  .xl\\:flex-no-wrap {\n    -ms-flex-wrap: nowrap;\n        flex-wrap: nowrap;\n  }\n\n  .xl\\:items-start {\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n  }\n\n  .xl\\:items-end {\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n  }\n\n  .xl\\:items-center {\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n  }\n\n  .xl\\:items-baseline {\n    -webkit-box-align: baseline;\n        -ms-flex-align: baseline;\n            align-items: baseline;\n  }\n\n  .xl\\:items-stretch {\n    -webkit-box-align: stretch;\n        -ms-flex-align: stretch;\n            align-items: stretch;\n  }\n\n  .xl\\:self-auto {\n    -ms-flex-item-align: auto;\n        -ms-grid-row-align: auto;\n        align-self: auto;\n  }\n\n  .xl\\:self-start {\n    -ms-flex-item-align: start;\n        align-self: flex-start;\n  }\n\n  .xl\\:self-end {\n    -ms-flex-item-align: end;\n        align-self: flex-end;\n  }\n\n  .xl\\:self-center {\n    -ms-flex-item-align: center;\n        -ms-grid-row-align: center;\n        align-self: center;\n  }\n\n  .xl\\:self-stretch {\n    -ms-flex-item-align: stretch;\n        -ms-grid-row-align: stretch;\n        align-self: stretch;\n  }\n\n  .xl\\:justify-start {\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n  }\n\n  .xl\\:justify-end {\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n  }\n\n  .xl\\:justify-center {\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n  }\n\n  .xl\\:justify-between {\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n  }\n\n  .xl\\:justify-around {\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n  }\n\n  .xl\\:content-center {\n    -ms-flex-line-pack: center;\n        align-content: center;\n  }\n\n  .xl\\:content-start {\n    -ms-flex-line-pack: start;\n        align-content: flex-start;\n  }\n\n  .xl\\:content-end {\n    -ms-flex-line-pack: end;\n        align-content: flex-end;\n  }\n\n  .xl\\:content-between {\n    -ms-flex-line-pack: justify;\n        align-content: space-between;\n  }\n\n  .xl\\:content-around {\n    -ms-flex-line-pack: distribute;\n        align-content: space-around;\n  }\n\n  .xl\\:flex-1 {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n  }\n\n  .xl\\:flex-auto {\n    -webkit-box-flex: 1;\n        -ms-flex: auto;\n            flex: auto;\n  }\n\n  .xl\\:flex-initial {\n    -webkit-box-flex: initial;\n        -ms-flex: initial;\n            flex: initial;\n  }\n\n  .xl\\:flex-none {\n    -webkit-box-flex: 0;\n        -ms-flex: none;\n            flex: none;\n  }\n\n  .xl\\:flex-grow {\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n  }\n\n  .xl\\:flex-shrink {\n    -ms-flex-negative: 1;\n        flex-shrink: 1;\n  }\n\n  .xl\\:flex-no-grow {\n    -webkit-box-flex: 0;\n        -ms-flex-positive: 0;\n            flex-grow: 0;\n  }\n\n  .xl\\:flex-no-shrink {\n    -ms-flex-negative: 0;\n        flex-shrink: 0;\n  }\n\n  .xl\\:float-right {\n    float: right;\n  }\n\n  .xl\\:float-left {\n    float: left;\n  }\n\n  .xl\\:float-none {\n    float: none;\n  }\n\n  .xl\\:clearfix:after {\n    content: \"\";\n    display: table;\n    clear: both;\n  }\n\n  .xl\\:font-sans {\n    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;\n  }\n\n  .xl\\:font-serif {\n    font-family: Constantia, Lucida Bright, Lucidabright, Lucida Serif, Lucida, DejaVu Serif, Bitstream Vera Serif, Liberation Serif, Georgia, serif;\n  }\n\n  .xl\\:font-mono {\n    font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;\n  }\n\n  .xl\\:font-hairline {\n    font-weight: 100;\n  }\n\n  .xl\\:font-thin {\n    font-weight: 200;\n  }\n\n  .xl\\:font-light {\n    font-weight: 300;\n  }\n\n  .xl\\:font-normal {\n    font-weight: 400;\n  }\n\n  .xl\\:font-medium {\n    font-weight: 500;\n  }\n\n  .xl\\:font-semibold {\n    font-weight: 600;\n  }\n\n  .xl\\:font-bold {\n    font-weight: 700;\n  }\n\n  .xl\\:font-extrabold {\n    font-weight: 800;\n  }\n\n  .xl\\:font-black {\n    font-weight: 900;\n  }\n\n  .xl\\:hover\\:font-hairline:hover {\n    font-weight: 100;\n  }\n\n  .xl\\:hover\\:font-thin:hover {\n    font-weight: 200;\n  }\n\n  .xl\\:hover\\:font-light:hover {\n    font-weight: 300;\n  }\n\n  .xl\\:hover\\:font-normal:hover {\n    font-weight: 400;\n  }\n\n  .xl\\:hover\\:font-medium:hover {\n    font-weight: 500;\n  }\n\n  .xl\\:hover\\:font-semibold:hover {\n    font-weight: 600;\n  }\n\n  .xl\\:hover\\:font-bold:hover {\n    font-weight: 700;\n  }\n\n  .xl\\:hover\\:font-extrabold:hover {\n    font-weight: 800;\n  }\n\n  .xl\\:hover\\:font-black:hover {\n    font-weight: 900;\n  }\n\n  .xl\\:h-1 {\n    height: .25rem;\n  }\n\n  .xl\\:h-2 {\n    height: .5rem;\n  }\n\n  .xl\\:h-3 {\n    height: .75rem;\n  }\n\n  .xl\\:h-4 {\n    height: 1rem;\n  }\n\n  .xl\\:h-6 {\n    height: 1.5rem;\n  }\n\n  .xl\\:h-8 {\n    height: 2rem;\n  }\n\n  .xl\\:h-10 {\n    height: 2.5rem;\n  }\n\n  .xl\\:h-12 {\n    height: 3rem;\n  }\n\n  .xl\\:h-16 {\n    height: 4rem;\n  }\n\n  .xl\\:h-24 {\n    height: 6rem;\n  }\n\n  .xl\\:h-32 {\n    height: 8rem;\n  }\n\n  .xl\\:h-48 {\n    height: 12rem;\n  }\n\n  .xl\\:h-64 {\n    height: 16rem;\n  }\n\n  .xl\\:h-auto {\n    height: auto;\n  }\n\n  .xl\\:h-px {\n    height: 1px;\n  }\n\n  .xl\\:h-full {\n    height: 100%;\n  }\n\n  .xl\\:h-screen {\n    height: 100vh;\n  }\n\n  .xl\\:leading-none {\n    line-height: 1;\n  }\n\n  .xl\\:leading-tight {\n    line-height: 1.25;\n  }\n\n  .xl\\:leading-normal {\n    line-height: 1.5;\n  }\n\n  .xl\\:leading-loose {\n    line-height: 2;\n  }\n\n  .xl\\:m-0 {\n    margin: 0;\n  }\n\n  .xl\\:m-1 {\n    margin: .25rem;\n  }\n\n  .xl\\:m-2 {\n    margin: .5rem;\n  }\n\n  .xl\\:m-3 {\n    margin: .75rem;\n  }\n\n  .xl\\:m-4 {\n    margin: 1rem;\n  }\n\n  .xl\\:m-6 {\n    margin: 1.5rem;\n  }\n\n  .xl\\:m-8 {\n    margin: 2rem;\n  }\n\n  .xl\\:m-auto {\n    margin: auto;\n  }\n\n  .xl\\:m-px {\n    margin: 1px;\n  }\n\n  .xl\\:my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .xl\\:mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .xl\\:my-1 {\n    margin-top: .25rem;\n    margin-bottom: .25rem;\n  }\n\n  .xl\\:mx-1 {\n    margin-left: .25rem;\n    margin-right: .25rem;\n  }\n\n  .xl\\:my-2 {\n    margin-top: .5rem;\n    margin-bottom: .5rem;\n  }\n\n  .xl\\:mx-2 {\n    margin-left: .5rem;\n    margin-right: .5rem;\n  }\n\n  .xl\\:my-3 {\n    margin-top: .75rem;\n    margin-bottom: .75rem;\n  }\n\n  .xl\\:mx-3 {\n    margin-left: .75rem;\n    margin-right: .75rem;\n  }\n\n  .xl\\:my-4 {\n    margin-top: 1rem;\n    margin-bottom: 1rem;\n  }\n\n  .xl\\:mx-4 {\n    margin-left: 1rem;\n    margin-right: 1rem;\n  }\n\n  .xl\\:my-6 {\n    margin-top: 1.5rem;\n    margin-bottom: 1.5rem;\n  }\n\n  .xl\\:mx-6 {\n    margin-left: 1.5rem;\n    margin-right: 1.5rem;\n  }\n\n  .xl\\:my-8 {\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n  }\n\n  .xl\\:mx-8 {\n    margin-left: 2rem;\n    margin-right: 2rem;\n  }\n\n  .xl\\:my-auto {\n    margin-top: auto;\n    margin-bottom: auto;\n  }\n\n  .xl\\:mx-auto {\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  .xl\\:my-px {\n    margin-top: 1px;\n    margin-bottom: 1px;\n  }\n\n  .xl\\:mx-px {\n    margin-left: 1px;\n    margin-right: 1px;\n  }\n\n  .xl\\:mt-0 {\n    margin-top: 0;\n  }\n\n  .xl\\:mr-0 {\n    margin-right: 0;\n  }\n\n  .xl\\:mb-0 {\n    margin-bottom: 0;\n  }\n\n  .xl\\:ml-0 {\n    margin-left: 0;\n  }\n\n  .xl\\:mt-1 {\n    margin-top: .25rem;\n  }\n\n  .xl\\:mr-1 {\n    margin-right: .25rem;\n  }\n\n  .xl\\:mb-1 {\n    margin-bottom: .25rem;\n  }\n\n  .xl\\:ml-1 {\n    margin-left: .25rem;\n  }\n\n  .xl\\:mt-2 {\n    margin-top: .5rem;\n  }\n\n  .xl\\:mr-2 {\n    margin-right: .5rem;\n  }\n\n  .xl\\:mb-2 {\n    margin-bottom: .5rem;\n  }\n\n  .xl\\:ml-2 {\n    margin-left: .5rem;\n  }\n\n  .xl\\:mt-3 {\n    margin-top: .75rem;\n  }\n\n  .xl\\:mr-3 {\n    margin-right: .75rem;\n  }\n\n  .xl\\:mb-3 {\n    margin-bottom: .75rem;\n  }\n\n  .xl\\:ml-3 {\n    margin-left: .75rem;\n  }\n\n  .xl\\:mt-4 {\n    margin-top: 1rem;\n  }\n\n  .xl\\:mr-4 {\n    margin-right: 1rem;\n  }\n\n  .xl\\:mb-4 {\n    margin-bottom: 1rem;\n  }\n\n  .xl\\:ml-4 {\n    margin-left: 1rem;\n  }\n\n  .xl\\:mt-6 {\n    margin-top: 1.5rem;\n  }\n\n  .xl\\:mr-6 {\n    margin-right: 1.5rem;\n  }\n\n  .xl\\:mb-6 {\n    margin-bottom: 1.5rem;\n  }\n\n  .xl\\:ml-6 {\n    margin-left: 1.5rem;\n  }\n\n  .xl\\:mt-8 {\n    margin-top: 2rem;\n  }\n\n  .xl\\:mr-8 {\n    margin-right: 2rem;\n  }\n\n  .xl\\:mb-8 {\n    margin-bottom: 2rem;\n  }\n\n  .xl\\:ml-8 {\n    margin-left: 2rem;\n  }\n\n  .xl\\:mt-auto {\n    margin-top: auto;\n  }\n\n  .xl\\:mr-auto {\n    margin-right: auto;\n  }\n\n  .xl\\:mb-auto {\n    margin-bottom: auto;\n  }\n\n  .xl\\:ml-auto {\n    margin-left: auto;\n  }\n\n  .xl\\:mt-px {\n    margin-top: 1px;\n  }\n\n  .xl\\:mr-px {\n    margin-right: 1px;\n  }\n\n  .xl\\:mb-px {\n    margin-bottom: 1px;\n  }\n\n  .xl\\:ml-px {\n    margin-left: 1px;\n  }\n\n  .xl\\:max-h-full {\n    max-height: 100%;\n  }\n\n  .xl\\:max-h-screen {\n    max-height: 100vh;\n  }\n\n  .xl\\:max-w-xs {\n    max-width: 20rem;\n  }\n\n  .xl\\:max-w-sm {\n    max-width: 30rem;\n  }\n\n  .xl\\:max-w-md {\n    max-width: 40rem;\n  }\n\n  .xl\\:max-w-lg {\n    max-width: 50rem;\n  }\n\n  .xl\\:max-w-xl {\n    max-width: 60rem;\n  }\n\n  .xl\\:max-w-2xl {\n    max-width: 70rem;\n  }\n\n  .xl\\:max-w-3xl {\n    max-width: 80rem;\n  }\n\n  .xl\\:max-w-4xl {\n    max-width: 90rem;\n  }\n\n  .xl\\:max-w-5xl {\n    max-width: 100rem;\n  }\n\n  .xl\\:max-w-full {\n    max-width: 100%;\n  }\n\n  .xl\\:min-h-0 {\n    min-height: 0;\n  }\n\n  .xl\\:min-h-full {\n    min-height: 100%;\n  }\n\n  .xl\\:min-h-screen {\n    min-height: 100vh;\n  }\n\n  .xl\\:min-w-0 {\n    min-width: 0;\n  }\n\n  .xl\\:min-w-full {\n    min-width: 100%;\n  }\n\n  .xl\\:-m-0 {\n    margin: 0;\n  }\n\n  .xl\\:-m-1 {\n    margin: -0.25rem;\n  }\n\n  .xl\\:-m-2 {\n    margin: -0.5rem;\n  }\n\n  .xl\\:-m-3 {\n    margin: -0.75rem;\n  }\n\n  .xl\\:-m-4 {\n    margin: -1rem;\n  }\n\n  .xl\\:-m-6 {\n    margin: -1.5rem;\n  }\n\n  .xl\\:-m-8 {\n    margin: -2rem;\n  }\n\n  .xl\\:-m-px {\n    margin: -1px;\n  }\n\n  .xl\\:-my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .xl\\:-mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .xl\\:-my-1 {\n    margin-top: -0.25rem;\n    margin-bottom: -0.25rem;\n  }\n\n  .xl\\:-mx-1 {\n    margin-left: -0.25rem;\n    margin-right: -0.25rem;\n  }\n\n  .xl\\:-my-2 {\n    margin-top: -0.5rem;\n    margin-bottom: -0.5rem;\n  }\n\n  .xl\\:-mx-2 {\n    margin-left: -0.5rem;\n    margin-right: -0.5rem;\n  }\n\n  .xl\\:-my-3 {\n    margin-top: -0.75rem;\n    margin-bottom: -0.75rem;\n  }\n\n  .xl\\:-mx-3 {\n    margin-left: -0.75rem;\n    margin-right: -0.75rem;\n  }\n\n  .xl\\:-my-4 {\n    margin-top: -1rem;\n    margin-bottom: -1rem;\n  }\n\n  .xl\\:-mx-4 {\n    margin-left: -1rem;\n    margin-right: -1rem;\n  }\n\n  .xl\\:-my-6 {\n    margin-top: -1.5rem;\n    margin-bottom: -1.5rem;\n  }\n\n  .xl\\:-mx-6 {\n    margin-left: -1.5rem;\n    margin-right: -1.5rem;\n  }\n\n  .xl\\:-my-8 {\n    margin-top: -2rem;\n    margin-bottom: -2rem;\n  }\n\n  .xl\\:-mx-8 {\n    margin-left: -2rem;\n    margin-right: -2rem;\n  }\n\n  .xl\\:-my-px {\n    margin-top: -1px;\n    margin-bottom: -1px;\n  }\n\n  .xl\\:-mx-px {\n    margin-left: -1px;\n    margin-right: -1px;\n  }\n\n  .xl\\:-mt-0 {\n    margin-top: 0;\n  }\n\n  .xl\\:-mr-0 {\n    margin-right: 0;\n  }\n\n  .xl\\:-mb-0 {\n    margin-bottom: 0;\n  }\n\n  .xl\\:-ml-0 {\n    margin-left: 0;\n  }\n\n  .xl\\:-mt-1 {\n    margin-top: -0.25rem;\n  }\n\n  .xl\\:-mr-1 {\n    margin-right: -0.25rem;\n  }\n\n  .xl\\:-mb-1 {\n    margin-bottom: -0.25rem;\n  }\n\n  .xl\\:-ml-1 {\n    margin-left: -0.25rem;\n  }\n\n  .xl\\:-mt-2 {\n    margin-top: -0.5rem;\n  }\n\n  .xl\\:-mr-2 {\n    margin-right: -0.5rem;\n  }\n\n  .xl\\:-mb-2 {\n    margin-bottom: -0.5rem;\n  }\n\n  .xl\\:-ml-2 {\n    margin-left: -0.5rem;\n  }\n\n  .xl\\:-mt-3 {\n    margin-top: -0.75rem;\n  }\n\n  .xl\\:-mr-3 {\n    margin-right: -0.75rem;\n  }\n\n  .xl\\:-mb-3 {\n    margin-bottom: -0.75rem;\n  }\n\n  .xl\\:-ml-3 {\n    margin-left: -0.75rem;\n  }\n\n  .xl\\:-mt-4 {\n    margin-top: -1rem;\n  }\n\n  .xl\\:-mr-4 {\n    margin-right: -1rem;\n  }\n\n  .xl\\:-mb-4 {\n    margin-bottom: -1rem;\n  }\n\n  .xl\\:-ml-4 {\n    margin-left: -1rem;\n  }\n\n  .xl\\:-mt-6 {\n    margin-top: -1.5rem;\n  }\n\n  .xl\\:-mr-6 {\n    margin-right: -1.5rem;\n  }\n\n  .xl\\:-mb-6 {\n    margin-bottom: -1.5rem;\n  }\n\n  .xl\\:-ml-6 {\n    margin-left: -1.5rem;\n  }\n\n  .xl\\:-mt-8 {\n    margin-top: -2rem;\n  }\n\n  .xl\\:-mr-8 {\n    margin-right: -2rem;\n  }\n\n  .xl\\:-mb-8 {\n    margin-bottom: -2rem;\n  }\n\n  .xl\\:-ml-8 {\n    margin-left: -2rem;\n  }\n\n  .xl\\:-mt-px {\n    margin-top: -1px;\n  }\n\n  .xl\\:-mr-px {\n    margin-right: -1px;\n  }\n\n  .xl\\:-mb-px {\n    margin-bottom: -1px;\n  }\n\n  .xl\\:-ml-px {\n    margin-left: -1px;\n  }\n\n  .xl\\:opacity-0 {\n    opacity: 0;\n  }\n\n  .xl\\:opacity-25 {\n    opacity: .25;\n  }\n\n  .xl\\:opacity-50 {\n    opacity: .5;\n  }\n\n  .xl\\:opacity-75 {\n    opacity: .75;\n  }\n\n  .xl\\:opacity-100 {\n    opacity: 1;\n  }\n\n  .xl\\:overflow-auto {\n    overflow: auto;\n  }\n\n  .xl\\:overflow-hidden {\n    overflow: hidden;\n  }\n\n  .xl\\:overflow-visible {\n    overflow: visible;\n  }\n\n  .xl\\:overflow-scroll {\n    overflow: scroll;\n  }\n\n  .xl\\:overflow-x-auto {\n    overflow-x: auto;\n  }\n\n  .xl\\:overflow-y-auto {\n    overflow-y: auto;\n  }\n\n  .xl\\:overflow-x-scroll {\n    overflow-x: scroll;\n  }\n\n  .xl\\:overflow-y-scroll {\n    overflow-y: scroll;\n  }\n\n  .xl\\:scrolling-touch {\n    -webkit-overflow-scrolling: touch;\n  }\n\n  .xl\\:scrolling-auto {\n    -webkit-overflow-scrolling: auto;\n  }\n\n  .xl\\:p-0 {\n    padding: 0;\n  }\n\n  .xl\\:p-1 {\n    padding: .25rem;\n  }\n\n  .xl\\:p-2 {\n    padding: .5rem;\n  }\n\n  .xl\\:p-3 {\n    padding: .75rem;\n  }\n\n  .xl\\:p-4 {\n    padding: 1rem;\n  }\n\n  .xl\\:p-6 {\n    padding: 1.5rem;\n  }\n\n  .xl\\:p-8 {\n    padding: 2rem;\n  }\n\n  .xl\\:p-px {\n    padding: 1px;\n  }\n\n  .xl\\:py-0 {\n    padding-top: 0;\n    padding-bottom: 0;\n  }\n\n  .xl\\:px-0 {\n    padding-left: 0;\n    padding-right: 0;\n  }\n\n  .xl\\:py-1 {\n    padding-top: .25rem;\n    padding-bottom: .25rem;\n  }\n\n  .xl\\:px-1 {\n    padding-left: .25rem;\n    padding-right: .25rem;\n  }\n\n  .xl\\:py-2 {\n    padding-top: .5rem;\n    padding-bottom: .5rem;\n  }\n\n  .xl\\:px-2 {\n    padding-left: .5rem;\n    padding-right: .5rem;\n  }\n\n  .xl\\:py-3 {\n    padding-top: .75rem;\n    padding-bottom: .75rem;\n  }\n\n  .xl\\:px-3 {\n    padding-left: .75rem;\n    padding-right: .75rem;\n  }\n\n  .xl\\:py-4 {\n    padding-top: 1rem;\n    padding-bottom: 1rem;\n  }\n\n  .xl\\:px-4 {\n    padding-left: 1rem;\n    padding-right: 1rem;\n  }\n\n  .xl\\:py-6 {\n    padding-top: 1.5rem;\n    padding-bottom: 1.5rem;\n  }\n\n  .xl\\:px-6 {\n    padding-left: 1.5rem;\n    padding-right: 1.5rem;\n  }\n\n  .xl\\:py-8 {\n    padding-top: 2rem;\n    padding-bottom: 2rem;\n  }\n\n  .xl\\:px-8 {\n    padding-left: 2rem;\n    padding-right: 2rem;\n  }\n\n  .xl\\:py-px {\n    padding-top: 1px;\n    padding-bottom: 1px;\n  }\n\n  .xl\\:px-px {\n    padding-left: 1px;\n    padding-right: 1px;\n  }\n\n  .xl\\:pt-0 {\n    padding-top: 0;\n  }\n\n  .xl\\:pr-0 {\n    padding-right: 0;\n  }\n\n  .xl\\:pb-0 {\n    padding-bottom: 0;\n  }\n\n  .xl\\:pl-0 {\n    padding-left: 0;\n  }\n\n  .xl\\:pt-1 {\n    padding-top: .25rem;\n  }\n\n  .xl\\:pr-1 {\n    padding-right: .25rem;\n  }\n\n  .xl\\:pb-1 {\n    padding-bottom: .25rem;\n  }\n\n  .xl\\:pl-1 {\n    padding-left: .25rem;\n  }\n\n  .xl\\:pt-2 {\n    padding-top: .5rem;\n  }\n\n  .xl\\:pr-2 {\n    padding-right: .5rem;\n  }\n\n  .xl\\:pb-2 {\n    padding-bottom: .5rem;\n  }\n\n  .xl\\:pl-2 {\n    padding-left: .5rem;\n  }\n\n  .xl\\:pt-3 {\n    padding-top: .75rem;\n  }\n\n  .xl\\:pr-3 {\n    padding-right: .75rem;\n  }\n\n  .xl\\:pb-3 {\n    padding-bottom: .75rem;\n  }\n\n  .xl\\:pl-3 {\n    padding-left: .75rem;\n  }\n\n  .xl\\:pt-4 {\n    padding-top: 1rem;\n  }\n\n  .xl\\:pr-4 {\n    padding-right: 1rem;\n  }\n\n  .xl\\:pb-4 {\n    padding-bottom: 1rem;\n  }\n\n  .xl\\:pl-4 {\n    padding-left: 1rem;\n  }\n\n  .xl\\:pt-6 {\n    padding-top: 1.5rem;\n  }\n\n  .xl\\:pr-6 {\n    padding-right: 1.5rem;\n  }\n\n  .xl\\:pb-6 {\n    padding-bottom: 1.5rem;\n  }\n\n  .xl\\:pl-6 {\n    padding-left: 1.5rem;\n  }\n\n  .xl\\:pt-8 {\n    padding-top: 2rem;\n  }\n\n  .xl\\:pr-8 {\n    padding-right: 2rem;\n  }\n\n  .xl\\:pb-8 {\n    padding-bottom: 2rem;\n  }\n\n  .xl\\:pl-8 {\n    padding-left: 2rem;\n  }\n\n  .xl\\:pt-px {\n    padding-top: 1px;\n  }\n\n  .xl\\:pr-px {\n    padding-right: 1px;\n  }\n\n  .xl\\:pb-px {\n    padding-bottom: 1px;\n  }\n\n  .xl\\:pl-px {\n    padding-left: 1px;\n  }\n\n  .xl\\:pointer-events-none {\n    pointer-events: none;\n  }\n\n  .xl\\:pointer-events-auto {\n    pointer-events: auto;\n  }\n\n  .xl\\:static {\n    position: static;\n  }\n\n  .xl\\:fixed {\n    position: fixed;\n  }\n\n  .xl\\:absolute {\n    position: absolute;\n  }\n\n  .xl\\:relative {\n    position: relative;\n  }\n\n  .xl\\:sticky {\n    position: -webkit-sticky;\n    position: sticky;\n  }\n\n  .xl\\:pin-none {\n    top: auto;\n    right: auto;\n    bottom: auto;\n    left: auto;\n  }\n\n  .xl\\:pin {\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n  }\n\n  .xl\\:pin-y {\n    top: 0;\n    bottom: 0;\n  }\n\n  .xl\\:pin-x {\n    right: 0;\n    left: 0;\n  }\n\n  .xl\\:pin-t {\n    top: 0;\n  }\n\n  .xl\\:pin-r {\n    right: 0;\n  }\n\n  .xl\\:pin-b {\n    bottom: 0;\n  }\n\n  .xl\\:pin-l {\n    left: 0;\n  }\n\n  .xl\\:resize-none {\n    resize: none;\n  }\n\n  .xl\\:resize-y {\n    resize: vertical;\n  }\n\n  .xl\\:resize-x {\n    resize: horizontal;\n  }\n\n  .xl\\:resize {\n    resize: both;\n  }\n\n  .xl\\:shadow {\n    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);\n  }\n\n  .xl\\:shadow-md {\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);\n  }\n\n  .xl\\:shadow-lg {\n    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);\n  }\n\n  .xl\\:shadow-inner {\n    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);\n  }\n\n  .xl\\:shadow-none {\n    box-shadow: none;\n  }\n\n  .xl\\:text-left {\n    text-align: left;\n  }\n\n  .xl\\:text-center {\n    text-align: center;\n  }\n\n  .xl\\:text-right {\n    text-align: right;\n  }\n\n  .xl\\:text-justify {\n    text-align: justify;\n  }\n\n  .xl\\:text-transparent {\n    color: transparent;\n  }\n\n  .xl\\:text-black {\n    color: #22292f;\n  }\n\n  .xl\\:text-grey-darkest {\n    color: #3d4852;\n  }\n\n  .xl\\:text-grey-darker {\n    color: #606f7b;\n  }\n\n  .xl\\:text-grey-dark {\n    color: #8795a1;\n  }\n\n  .xl\\:text-grey {\n    color: #b8c2cc;\n  }\n\n  .xl\\:text-grey-light {\n    color: #dae1e7;\n  }\n\n  .xl\\:text-grey-lighter {\n    color: #f1f5f8;\n  }\n\n  .xl\\:text-grey-lightest {\n    color: #f8fafc;\n  }\n\n  .xl\\:text-white {\n    color: #fff;\n  }\n\n  .xl\\:text-red-darkest {\n    color: #3b0d0c;\n  }\n\n  .xl\\:text-red-darker {\n    color: #621b18;\n  }\n\n  .xl\\:text-red-dark {\n    color: #cc1f1a;\n  }\n\n  .xl\\:text-red {\n    color: #e3342f;\n  }\n\n  .xl\\:text-red-light {\n    color: #ef5753;\n  }\n\n  .xl\\:text-red-lighter {\n    color: #f9acaa;\n  }\n\n  .xl\\:text-red-lightest {\n    color: #fcebea;\n  }\n\n  .xl\\:text-orange-darkest {\n    color: #462a16;\n  }\n\n  .xl\\:text-orange-darker {\n    color: #613b1f;\n  }\n\n  .xl\\:text-orange-dark {\n    color: #de751f;\n  }\n\n  .xl\\:text-orange {\n    color: #f6993f;\n  }\n\n  .xl\\:text-orange-light {\n    color: #faad63;\n  }\n\n  .xl\\:text-orange-lighter {\n    color: #fcd9b6;\n  }\n\n  .xl\\:text-orange-lightest {\n    color: #fff5eb;\n  }\n\n  .xl\\:text-yellow-darkest {\n    color: #453411;\n  }\n\n  .xl\\:text-yellow-darker {\n    color: #684f1d;\n  }\n\n  .xl\\:text-yellow-dark {\n    color: #f2d024;\n  }\n\n  .xl\\:text-yellow {\n    color: #ffed4a;\n  }\n\n  .xl\\:text-yellow-light {\n    color: #fff382;\n  }\n\n  .xl\\:text-yellow-lighter {\n    color: #fff9c2;\n  }\n\n  .xl\\:text-yellow-lightest {\n    color: #fcfbeb;\n  }\n\n  .xl\\:text-green-darkest {\n    color: #0f2f21;\n  }\n\n  .xl\\:text-green-darker {\n    color: #1a4731;\n  }\n\n  .xl\\:text-green-dark {\n    color: #1f9d55;\n  }\n\n  .xl\\:text-green {\n    color: #38c172;\n  }\n\n  .xl\\:text-green-light {\n    color: #51d88a;\n  }\n\n  .xl\\:text-green-lighter {\n    color: #a2f5bf;\n  }\n\n  .xl\\:text-green-lightest {\n    color: #e3fcec;\n  }\n\n  .xl\\:text-teal-darkest {\n    color: #0d3331;\n  }\n\n  .xl\\:text-teal-darker {\n    color: #20504f;\n  }\n\n  .xl\\:text-teal-dark {\n    color: #38a89d;\n  }\n\n  .xl\\:text-teal {\n    color: #4dc0b5;\n  }\n\n  .xl\\:text-teal-light {\n    color: #64d5ca;\n  }\n\n  .xl\\:text-teal-lighter {\n    color: #a0f0ed;\n  }\n\n  .xl\\:text-teal-lightest {\n    color: #e8fffe;\n  }\n\n  .xl\\:text-blue-darkest {\n    color: #12283a;\n  }\n\n  .xl\\:text-blue-darker {\n    color: #1c3d5a;\n  }\n\n  .xl\\:text-blue-dark {\n    color: #2779bd;\n  }\n\n  .xl\\:text-blue {\n    color: #3490dc;\n  }\n\n  .xl\\:text-blue-light {\n    color: #6cb2eb;\n  }\n\n  .xl\\:text-blue-lighter {\n    color: #bcdefa;\n  }\n\n  .xl\\:text-blue-lightest {\n    color: #eff8ff;\n  }\n\n  .xl\\:text-indigo-darkest {\n    color: #191e38;\n  }\n\n  .xl\\:text-indigo-darker {\n    color: #2f365f;\n  }\n\n  .xl\\:text-indigo-dark {\n    color: #5661b3;\n  }\n\n  .xl\\:text-indigo {\n    color: #6574cd;\n  }\n\n  .xl\\:text-indigo-light {\n    color: #7886d7;\n  }\n\n  .xl\\:text-indigo-lighter {\n    color: #b2b7ff;\n  }\n\n  .xl\\:text-indigo-lightest {\n    color: #e6e8ff;\n  }\n\n  .xl\\:text-purple-darkest {\n    color: #21183c;\n  }\n\n  .xl\\:text-purple-darker {\n    color: #382b5f;\n  }\n\n  .xl\\:text-purple-dark {\n    color: #794acf;\n  }\n\n  .xl\\:text-purple {\n    color: #9561e2;\n  }\n\n  .xl\\:text-purple-light {\n    color: #a779e9;\n  }\n\n  .xl\\:text-purple-lighter {\n    color: #d6bbfc;\n  }\n\n  .xl\\:text-purple-lightest {\n    color: #f3ebff;\n  }\n\n  .xl\\:text-pink-darkest {\n    color: #451225;\n  }\n\n  .xl\\:text-pink-darker {\n    color: #6f213f;\n  }\n\n  .xl\\:text-pink-dark {\n    color: #eb5286;\n  }\n\n  .xl\\:text-pink {\n    color: #f66d9b;\n  }\n\n  .xl\\:text-pink-light {\n    color: #fa7ea8;\n  }\n\n  .xl\\:text-pink-lighter {\n    color: #ffbbca;\n  }\n\n  .xl\\:text-pink-lightest {\n    color: #ffebef;\n  }\n\n  .xl\\:hover\\:text-transparent:hover {\n    color: transparent;\n  }\n\n  .xl\\:hover\\:text-black:hover {\n    color: #22292f;\n  }\n\n  .xl\\:hover\\:text-grey-darkest:hover {\n    color: #3d4852;\n  }\n\n  .xl\\:hover\\:text-grey-darker:hover {\n    color: #606f7b;\n  }\n\n  .xl\\:hover\\:text-grey-dark:hover {\n    color: #8795a1;\n  }\n\n  .xl\\:hover\\:text-grey:hover {\n    color: #b8c2cc;\n  }\n\n  .xl\\:hover\\:text-grey-light:hover {\n    color: #dae1e7;\n  }\n\n  .xl\\:hover\\:text-grey-lighter:hover {\n    color: #f1f5f8;\n  }\n\n  .xl\\:hover\\:text-grey-lightest:hover {\n    color: #f8fafc;\n  }\n\n  .xl\\:hover\\:text-white:hover {\n    color: #fff;\n  }\n\n  .xl\\:hover\\:text-red-darkest:hover {\n    color: #3b0d0c;\n  }\n\n  .xl\\:hover\\:text-red-darker:hover {\n    color: #621b18;\n  }\n\n  .xl\\:hover\\:text-red-dark:hover {\n    color: #cc1f1a;\n  }\n\n  .xl\\:hover\\:text-red:hover {\n    color: #e3342f;\n  }\n\n  .xl\\:hover\\:text-red-light:hover {\n    color: #ef5753;\n  }\n\n  .xl\\:hover\\:text-red-lighter:hover {\n    color: #f9acaa;\n  }\n\n  .xl\\:hover\\:text-red-lightest:hover {\n    color: #fcebea;\n  }\n\n  .xl\\:hover\\:text-orange-darkest:hover {\n    color: #462a16;\n  }\n\n  .xl\\:hover\\:text-orange-darker:hover {\n    color: #613b1f;\n  }\n\n  .xl\\:hover\\:text-orange-dark:hover {\n    color: #de751f;\n  }\n\n  .xl\\:hover\\:text-orange:hover {\n    color: #f6993f;\n  }\n\n  .xl\\:hover\\:text-orange-light:hover {\n    color: #faad63;\n  }\n\n  .xl\\:hover\\:text-orange-lighter:hover {\n    color: #fcd9b6;\n  }\n\n  .xl\\:hover\\:text-orange-lightest:hover {\n    color: #fff5eb;\n  }\n\n  .xl\\:hover\\:text-yellow-darkest:hover {\n    color: #453411;\n  }\n\n  .xl\\:hover\\:text-yellow-darker:hover {\n    color: #684f1d;\n  }\n\n  .xl\\:hover\\:text-yellow-dark:hover {\n    color: #f2d024;\n  }\n\n  .xl\\:hover\\:text-yellow:hover {\n    color: #ffed4a;\n  }\n\n  .xl\\:hover\\:text-yellow-light:hover {\n    color: #fff382;\n  }\n\n  .xl\\:hover\\:text-yellow-lighter:hover {\n    color: #fff9c2;\n  }\n\n  .xl\\:hover\\:text-yellow-lightest:hover {\n    color: #fcfbeb;\n  }\n\n  .xl\\:hover\\:text-green-darkest:hover {\n    color: #0f2f21;\n  }\n\n  .xl\\:hover\\:text-green-darker:hover {\n    color: #1a4731;\n  }\n\n  .xl\\:hover\\:text-green-dark:hover {\n    color: #1f9d55;\n  }\n\n  .xl\\:hover\\:text-green:hover {\n    color: #38c172;\n  }\n\n  .xl\\:hover\\:text-green-light:hover {\n    color: #51d88a;\n  }\n\n  .xl\\:hover\\:text-green-lighter:hover {\n    color: #a2f5bf;\n  }\n\n  .xl\\:hover\\:text-green-lightest:hover {\n    color: #e3fcec;\n  }\n\n  .xl\\:hover\\:text-teal-darkest:hover {\n    color: #0d3331;\n  }\n\n  .xl\\:hover\\:text-teal-darker:hover {\n    color: #20504f;\n  }\n\n  .xl\\:hover\\:text-teal-dark:hover {\n    color: #38a89d;\n  }\n\n  .xl\\:hover\\:text-teal:hover {\n    color: #4dc0b5;\n  }\n\n  .xl\\:hover\\:text-teal-light:hover {\n    color: #64d5ca;\n  }\n\n  .xl\\:hover\\:text-teal-lighter:hover {\n    color: #a0f0ed;\n  }\n\n  .xl\\:hover\\:text-teal-lightest:hover {\n    color: #e8fffe;\n  }\n\n  .xl\\:hover\\:text-blue-darkest:hover {\n    color: #12283a;\n  }\n\n  .xl\\:hover\\:text-blue-darker:hover {\n    color: #1c3d5a;\n  }\n\n  .xl\\:hover\\:text-blue-dark:hover {\n    color: #2779bd;\n  }\n\n  .xl\\:hover\\:text-blue:hover {\n    color: #3490dc;\n  }\n\n  .xl\\:hover\\:text-blue-light:hover {\n    color: #6cb2eb;\n  }\n\n  .xl\\:hover\\:text-blue-lighter:hover {\n    color: #bcdefa;\n  }\n\n  .xl\\:hover\\:text-blue-lightest:hover {\n    color: #eff8ff;\n  }\n\n  .xl\\:hover\\:text-indigo-darkest:hover {\n    color: #191e38;\n  }\n\n  .xl\\:hover\\:text-indigo-darker:hover {\n    color: #2f365f;\n  }\n\n  .xl\\:hover\\:text-indigo-dark:hover {\n    color: #5661b3;\n  }\n\n  .xl\\:hover\\:text-indigo:hover {\n    color: #6574cd;\n  }\n\n  .xl\\:hover\\:text-indigo-light:hover {\n    color: #7886d7;\n  }\n\n  .xl\\:hover\\:text-indigo-lighter:hover {\n    color: #b2b7ff;\n  }\n\n  .xl\\:hover\\:text-indigo-lightest:hover {\n    color: #e6e8ff;\n  }\n\n  .xl\\:hover\\:text-purple-darkest:hover {\n    color: #21183c;\n  }\n\n  .xl\\:hover\\:text-purple-darker:hover {\n    color: #382b5f;\n  }\n\n  .xl\\:hover\\:text-purple-dark:hover {\n    color: #794acf;\n  }\n\n  .xl\\:hover\\:text-purple:hover {\n    color: #9561e2;\n  }\n\n  .xl\\:hover\\:text-purple-light:hover {\n    color: #a779e9;\n  }\n\n  .xl\\:hover\\:text-purple-lighter:hover {\n    color: #d6bbfc;\n  }\n\n  .xl\\:hover\\:text-purple-lightest:hover {\n    color: #f3ebff;\n  }\n\n  .xl\\:hover\\:text-pink-darkest:hover {\n    color: #451225;\n  }\n\n  .xl\\:hover\\:text-pink-darker:hover {\n    color: #6f213f;\n  }\n\n  .xl\\:hover\\:text-pink-dark:hover {\n    color: #eb5286;\n  }\n\n  .xl\\:hover\\:text-pink:hover {\n    color: #f66d9b;\n  }\n\n  .xl\\:hover\\:text-pink-light:hover {\n    color: #fa7ea8;\n  }\n\n  .xl\\:hover\\:text-pink-lighter:hover {\n    color: #ffbbca;\n  }\n\n  .xl\\:hover\\:text-pink-lightest:hover {\n    color: #ffebef;\n  }\n\n  .xl\\:text-xs {\n    font-size: .75rem;\n  }\n\n  .xl\\:text-sm {\n    font-size: .875rem;\n  }\n\n  .xl\\:text-base {\n    font-size: 1rem;\n  }\n\n  .xl\\:text-lg {\n    font-size: 1.125rem;\n  }\n\n  .xl\\:text-xl {\n    font-size: 1.25rem;\n  }\n\n  .xl\\:text-2xl {\n    font-size: 1.5rem;\n  }\n\n  .xl\\:text-3xl {\n    font-size: 1.875rem;\n  }\n\n  .xl\\:text-4xl {\n    font-size: 2.25rem;\n  }\n\n  .xl\\:text-5xl {\n    font-size: 3rem;\n  }\n\n  .xl\\:italic {\n    font-style: italic;\n  }\n\n  .xl\\:roman {\n    font-style: normal;\n  }\n\n  .xl\\:uppercase {\n    text-transform: uppercase;\n  }\n\n  .xl\\:lowercase {\n    text-transform: lowercase;\n  }\n\n  .xl\\:capitalize {\n    text-transform: capitalize;\n  }\n\n  .xl\\:normal-case {\n    text-transform: none;\n  }\n\n  .xl\\:underline {\n    text-decoration: underline;\n  }\n\n  .xl\\:line-through {\n    text-decoration: line-through;\n  }\n\n  .xl\\:no-underline {\n    text-decoration: none;\n  }\n\n  .xl\\:antialiased {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .xl\\:subpixel-antialiased {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .xl\\:hover\\:italic:hover {\n    font-style: italic;\n  }\n\n  .xl\\:hover\\:roman:hover {\n    font-style: normal;\n  }\n\n  .xl\\:hover\\:uppercase:hover {\n    text-transform: uppercase;\n  }\n\n  .xl\\:hover\\:lowercase:hover {\n    text-transform: lowercase;\n  }\n\n  .xl\\:hover\\:capitalize:hover {\n    text-transform: capitalize;\n  }\n\n  .xl\\:hover\\:normal-case:hover {\n    text-transform: none;\n  }\n\n  .xl\\:hover\\:underline:hover {\n    text-decoration: underline;\n  }\n\n  .xl\\:hover\\:line-through:hover {\n    text-decoration: line-through;\n  }\n\n  .xl\\:hover\\:no-underline:hover {\n    text-decoration: none;\n  }\n\n  .xl\\:hover\\:antialiased:hover {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .xl\\:hover\\:subpixel-antialiased:hover {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .xl\\:tracking-tight {\n    letter-spacing: -0.05em;\n  }\n\n  .xl\\:tracking-normal {\n    letter-spacing: 0;\n  }\n\n  .xl\\:tracking-wide {\n    letter-spacing: .05em;\n  }\n\n  .xl\\:select-none {\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n  }\n\n  .xl\\:select-text {\n    -webkit-user-select: text;\n       -moz-user-select: text;\n        -ms-user-select: text;\n            user-select: text;\n  }\n\n  .xl\\:align-baseline {\n    vertical-align: baseline;\n  }\n\n  .xl\\:align-top {\n    vertical-align: top;\n  }\n\n  .xl\\:align-middle {\n    vertical-align: middle;\n  }\n\n  .xl\\:align-bottom {\n    vertical-align: bottom;\n  }\n\n  .xl\\:align-text-top {\n    vertical-align: text-top;\n  }\n\n  .xl\\:align-text-bottom {\n    vertical-align: text-bottom;\n  }\n\n  .xl\\:visible {\n    visibility: visible;\n  }\n\n  .xl\\:invisible {\n    visibility: hidden;\n  }\n\n  .xl\\:whitespace-normal {\n    white-space: normal;\n  }\n\n  .xl\\:whitespace-no-wrap {\n    white-space: nowrap;\n  }\n\n  .xl\\:whitespace-pre {\n    white-space: pre;\n  }\n\n  .xl\\:whitespace-pre-line {\n    white-space: pre-line;\n  }\n\n  .xl\\:whitespace-pre-wrap {\n    white-space: pre-wrap;\n  }\n\n  .xl\\:break-words {\n    word-wrap: break-word;\n  }\n\n  .xl\\:break-normal {\n    word-wrap: normal;\n  }\n\n  .xl\\:truncate {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .xl\\:w-1 {\n    width: .25rem;\n  }\n\n  .xl\\:w-2 {\n    width: .5rem;\n  }\n\n  .xl\\:w-3 {\n    width: .75rem;\n  }\n\n  .xl\\:w-4 {\n    width: 1rem;\n  }\n\n  .xl\\:w-6 {\n    width: 1.5rem;\n  }\n\n  .xl\\:w-8 {\n    width: 2rem;\n  }\n\n  .xl\\:w-10 {\n    width: 2.5rem;\n  }\n\n  .xl\\:w-12 {\n    width: 3rem;\n  }\n\n  .xl\\:w-16 {\n    width: 4rem;\n  }\n\n  .xl\\:w-24 {\n    width: 6rem;\n  }\n\n  .xl\\:w-32 {\n    width: 8rem;\n  }\n\n  .xl\\:w-48 {\n    width: 12rem;\n  }\n\n  .xl\\:w-64 {\n    width: 16rem;\n  }\n\n  .xl\\:w-auto {\n    width: auto;\n  }\n\n  .xl\\:w-px {\n    width: 1px;\n  }\n\n  .xl\\:w-1\\/2 {\n    width: 50%;\n  }\n\n  .xl\\:w-1\\/3 {\n    width: 33.33333%;\n  }\n\n  .xl\\:w-2\\/3 {\n    width: 66.66667%;\n  }\n\n  .xl\\:w-1\\/4 {\n    width: 25%;\n  }\n\n  .xl\\:w-3\\/4 {\n    width: 75%;\n  }\n\n  .xl\\:w-1\\/5 {\n    width: 20%;\n  }\n\n  .xl\\:w-2\\/5 {\n    width: 40%;\n  }\n\n  .xl\\:w-3\\/5 {\n    width: 60%;\n  }\n\n  .xl\\:w-4\\/5 {\n    width: 80%;\n  }\n\n  .xl\\:w-1\\/6 {\n    width: 16.66667%;\n  }\n\n  .xl\\:w-5\\/6 {\n    width: 83.33333%;\n  }\n\n  .xl\\:w-full {\n    width: 100%;\n  }\n\n  .xl\\:w-screen {\n    width: 100vw;\n  }\n\n  .xl\\:z-0 {\n    z-index: 0;\n  }\n\n  .xl\\:z-10 {\n    z-index: 10;\n  }\n\n  .xl\\:z-20 {\n    z-index: 20;\n  }\n\n  .xl\\:z-30 {\n    z-index: 30;\n  }\n\n  .xl\\:z-40 {\n    z-index: 40;\n  }\n\n  .xl\\:z-50 {\n    z-index: 50;\n  }\n\n  .xl\\:z-auto {\n    z-index: auto;\n  }\n}\n", ""]);
+exports.push([module.i, "html,\nbody {\n  background-color: #f8fafc;\n}\n\n/**\n * This injects Tailwind's base styles, which is a combination of\n * Normalize.css and some additional base styles.\n *\n * You can see the styles here:\n * https://github.com/tailwindcss/tailwindcss/blob/master/css/preflight.css\n */\n\n/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */\n\n/* Document\n   ========================================================================== */\n\n/**\n * 1. Correct the line height in all browsers.\n * 2. Prevent adjustments of font size after orientation changes in\n *    IE on Windows Phone and in iOS.\n */\n\nhtml {\n  line-height: 1.15; /* 1 */\n      -ms-text-size-adjust: 100%; /* 2 */\n  -webkit-text-size-adjust: 100%; /* 2 */\n}\n\n/* Sections\n   ========================================================================== */\n\n/**\n * Remove the margin in all browsers (opinionated).\n */\n\nbody {\n  margin: 0;\n}\n\n/**\n * Add the correct display in IE 9-.\n */\n\narticle,\naside,\nfooter,\nheader,\nnav,\nsection {\n  display: block;\n}\n\n/**\n * Correct the font size and margin on `h1` elements within `section` and\n * `article` contexts in Chrome, Firefox, and Safari.\n */\n\nh1 {\n  font-size: 2em;\n  margin: .67em 0;\n}\n\n/* Grouping content\n   ========================================================================== */\n\n/**\n * Add the correct display in IE 9-.\n * 1. Add the correct display in IE.\n */\n\nfigcaption,\nfigure,\nmain {\n  /* 1 */\n  display: block;\n}\n\n/**\n * Add the correct margin in IE 8.\n */\n\nfigure {\n  margin: 1em 40px;\n}\n\n/**\n * 1. Add the correct box sizing in Firefox.\n * 2. Show the overflow in Edge and IE.\n */\n\nhr {\n  box-sizing: content-box; /* 1 */\n  height: 0; /* 1 */\n  overflow: visible; /* 2 */\n}\n\n/**\n * 1. Correct the inheritance and scaling of font size in all browsers.\n * 2. Correct the odd `em` font sizing in all browsers.\n */\n\npre {\n  font-family: monospace, monospace; /* 1 */\n  font-size: 1em; /* 2 */\n}\n\n/* Text-level semantics\n   ========================================================================== */\n\n/**\n * 1. Remove the gray background on active links in IE 10.\n * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.\n */\n\na {\n  background-color: transparent; /* 1 */\n  -webkit-text-decoration-skip: objects; /* 2 */\n}\n\n/**\n * 1. Remove the bottom border in Chrome 57- and Firefox 39-.\n * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.\n */\n\nabbr[title] {\n  border-bottom: none; /* 1 */\n  text-decoration: underline; /* 2 */\n  text-decoration: underline dotted; /* 2 */\n}\n\n/**\n * Prevent the duplicate application of `bolder` by the next rule in Safari 6.\n */\n\nb,\nstrong {\n  font-weight: inherit;\n}\n\n/**\n * Add the correct font weight in Chrome, Edge, and Safari.\n */\n\nb,\nstrong {\n  font-weight: bolder;\n}\n\n/**\n * 1. Correct the inheritance and scaling of font size in all browsers.\n * 2. Correct the odd `em` font sizing in all browsers.\n */\n\ncode,\nkbd,\nsamp {\n  font-family: monospace, monospace; /* 1 */\n  font-size: 1em; /* 2 */\n}\n\n/**\n * Add the correct font style in Android 4.3-.\n */\n\ndfn {\n  font-style: italic;\n}\n\n/**\n * Add the correct background and color in IE 9-.\n */\n\nmark {\n  background-color: #ff0;\n  color: #000;\n}\n\n/**\n * Add the correct font size in all browsers.\n */\n\nsmall {\n  font-size: 80%;\n}\n\n/**\n * Prevent `sub` and `sup` elements from affecting the line height in\n * all browsers.\n */\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\nsup {\n  top: -0.5em;\n}\n\n/* Embedded content\n   ========================================================================== */\n\n/**\n * Add the correct display in IE 9-.\n */\n\naudio,\nvideo {\n  display: inline-block;\n}\n\n/**\n * Add the correct display in iOS 4-7.\n */\n\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n\n/**\n * Remove the border on images inside links in IE 10-.\n */\n\nimg {\n  border-style: none;\n}\n\n/**\n * Hide the overflow in IE.\n */\n\nsvg:not(:root) {\n  overflow: hidden;\n}\n\n/* Forms\n   ========================================================================== */\n\n/**\n * 1. Change the font styles in all browsers (opinionated).\n * 2. Remove the margin in Firefox and Safari.\n */\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: sans-serif; /* 1 */\n  font-size: 100%; /* 1 */\n  line-height: 1.15; /* 1 */\n  margin: 0; /* 2 */\n}\n\n/**\n * Show the overflow in IE.\n * 1. Show the overflow in Edge.\n */\n\nbutton,\ninput {\n  /* 1 */\n  overflow: visible;\n}\n\n/**\n * Remove the inheritance of text transform in Edge, Firefox, and IE.\n * 1. Remove the inheritance of text transform in Firefox.\n */\n\nbutton,\nselect {\n  /* 1 */\n  text-transform: none;\n}\n\n/**\n * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`\n *    controls in Android 4.\n * 2. Correct the inability to style clickable types in iOS and Safari.\n */\n\nbutton,\nhtml [type=\"button\"],\n/* 1 */\n[type=\"reset\"],\n[type=\"submit\"] {\n  -webkit-appearance: button; /* 2 */\n}\n\n/**\n * Remove the inner border and padding in Firefox.\n */\n\nbutton::-moz-focus-inner,\n[type=\"button\"]::-moz-focus-inner,\n[type=\"reset\"]::-moz-focus-inner,\n[type=\"submit\"]::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\n\n/**\n * Restore the focus styles unset by the previous rule.\n */\n\nbutton:-moz-focusring,\n[type=\"button\"]:-moz-focusring,\n[type=\"reset\"]:-moz-focusring,\n[type=\"submit\"]:-moz-focusring {\n  outline: 1px dotted ButtonText;\n}\n\n/**\n * Correct the padding in Firefox.\n */\n\nfieldset {\n  padding: .35em .75em .625em;\n}\n\n/**\n * 1. Correct the text wrapping in Edge and IE.\n * 2. Correct the color inheritance from `fieldset` elements in IE.\n * 3. Remove the padding so developers are not caught out when they zero out\n *    `fieldset` elements in all browsers.\n */\n\nlegend {\n  box-sizing: border-box; /* 1 */\n  color: inherit; /* 2 */\n  display: table; /* 1 */\n  max-width: 100%; /* 1 */\n  padding: 0; /* 3 */\n  white-space: normal; /* 1 */\n}\n\n/**\n * 1. Add the correct display in IE 9-.\n * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.\n */\n\nprogress {\n  display: inline-block; /* 1 */\n  vertical-align: baseline; /* 2 */\n}\n\n/**\n * Remove the default vertical scrollbar in IE.\n */\n\ntextarea {\n  overflow: auto;\n}\n\n/**\n * 1. Add the correct box sizing in IE 10-.\n * 2. Remove the padding in IE 10-.\n */\n\n[type=\"checkbox\"],\n[type=\"radio\"] {\n  box-sizing: border-box; /* 1 */\n  padding: 0; /* 2 */\n}\n\n/**\n * Correct the cursor style of increment and decrement buttons in Chrome.\n */\n\n[type=\"number\"]::-webkit-inner-spin-button,\n[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/**\n * 1. Correct the odd appearance in Chrome and Safari.\n * 2. Correct the outline style in Safari.\n */\n\n[type=\"search\"] {\n  -webkit-appearance: textfield; /* 1 */\n  outline-offset: -2px; /* 2 */\n}\n\n/**\n * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.\n */\n\n[type=\"search\"]::-webkit-search-cancel-button,\n[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/**\n * 1. Correct the inability to style clickable types in iOS and Safari.\n * 2. Change font properties to `inherit` in Safari.\n */\n\n::-webkit-file-upload-button {\n  -webkit-appearance: button; /* 1 */\n  font: inherit; /* 2 */\n}\n\n/* Interactive\n   ========================================================================== */\n\n/*\n * Add the correct display in IE 9-.\n * 1. Add the correct display in Edge, IE, and Firefox.\n */\n\ndetails,\n/* 1 */\nmenu {\n  display: block;\n}\n\n/*\n * Add the correct display in all browsers.\n */\n\nsummary {\n  display: list-item;\n}\n\n/* Scripting\n   ========================================================================== */\n\n/**\n * Add the correct display in IE 9-.\n */\n\ncanvas {\n  display: inline-block;\n}\n\n/**\n * Add the correct display in IE.\n */\n\ntemplate {\n  display: none;\n}\n\n/* Hidden\n   ========================================================================== */\n\n/**\n * Add the correct display in IE 10-.\n */\n\n[hidden] {\n  display: none;\n}\n\n/**\n * Manually forked from SUIT CSS Base: https://github.com/suitcss/base\n * A thin layer on top of normalize.css that provides a starting point more\n * suitable for web applications.\n */\n\n/**\n * 1. Prevent padding and border from affecting element width\n * https://goo.gl/pYtbK7\n * 2. Change the default font family in all browsers (opinionated)\n */\n\nhtml {\n  box-sizing: border-box; /* 1 */\n  font-family: sans-serif; /* 2 */\n}\n\n*,\n*::before,\n*::after {\n  box-sizing: inherit;\n}\n\n/**\n * Removes the default spacing and border for appropriate elements.\n */\n\nblockquote,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nfigure,\np,\npre {\n  margin: 0;\n}\n\nbutton {\n  background: transparent;\n  padding: 0;\n}\n\n/**\n * Work around a Firefox/IE bug where the transparent `button` background\n * results in a loss of the default `button` focus styles.\n */\n\nbutton:focus {\n  outline: 1px dotted;\n  outline: 5px auto -webkit-focus-ring-color;\n}\n\nfieldset {\n  margin: 0;\n  padding: 0;\n}\n\nol,\nul {\n  margin: 0;\n}\n\n/**\n * Suppress the focus outline on elements that cannot be accessed via keyboard.\n * This prevents an unwanted focus outline from appearing around elements that\n * might still respond to pointer events.\n */\n\n[tabindex=\"-1\"]:focus {\n  outline: none !important;\n}\n\n/**\n * Tailwind custom reset styles\n */\n\n/**\n * Allow adding a border to an element by just adding a border-width.\n *\n * By default, the way the browser specifies that an element should have no\n * border is by setting it's border-style to `none` in the user-agent\n * stylesheet.\n *\n * In order to easily add borders to elements by just setting the `border-width`\n * property, we change the default border-style for all elements to `solid`, and\n * use border-width to hide them instead. This way our `border` utilities only\n * need to set the `border-width` property instead of the entire `border`\n * shorthand, making our border utilities much more straightforward to compose.\n *\n * https://github.com/tailwindcss/tailwindcss/pull/116\n */\n\n*,\n*::before,\n*::after {\n  border-width: 0;\n  border-style: solid;\n  border-color: #dae1e7;\n}\n\n/**\n * Undo the `border-style: none` reset that Normalize applies to images so that\n * our `border-{width}` utilities have the expected effect.\n *\n * The Normalize reset is unnecessary for us since we default the border-width\n * to 0 on all elements.\n *\n * https://github.com/tailwindcss/tailwindcss/issues/362\n */\n\nimg {\n  border-style: solid;\n}\n\n/**\n * Temporary reset for a change introduced in Chrome 62 but now reverted.\n *\n * We can remove this when the reversion is in a normal Chrome release.\n */\n\nbutton,\n[type=\"button\"],\n[type=\"reset\"],\n[type=\"submit\"] {\n  border-radius: 0;\n}\n\ntextarea {\n  resize: vertical;\n}\n\nimg {\n  max-width: 100%;\n}\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: inherit;\n}\n\ninput::-webkit-input-placeholder,\ntextarea::-webkit-input-placeholder {\n  color: inherit;\n  opacity: .5;\n}\n\ninput:-ms-input-placeholder,\ntextarea:-ms-input-placeholder {\n  color: inherit;\n  opacity: .5;\n}\n\ninput::placeholder,\ntextarea::placeholder {\n  color: inherit;\n  opacity: .5;\n}\n\nbutton,\n[role=button] {\n  cursor: pointer;\n}\n\n/**\n  * Here you would add any of your custom component classes; stuff that you'd\n  * want loaded *before* the utilities so that the utilities could still\n  * override them.\n  *\n  * Example:\n  * \n  * .btn { ... }\n  * .form-input { ... }\n  *\n  * Or if using a preprocessor:\n  * \n  * @import \"components/buttons\";\n  * @import \"components/forms\";\n  */\n\n/**\n  * This injects all of Tailwind's utility classes, generated based on your\n  * config file.\n  */\n\n.list-reset {\n  list-style: none;\n  padding: 0;\n}\n\n.appearance-none {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n}\n\n.bg-fixed {\n  background-attachment: fixed;\n}\n\n.bg-local {\n  background-attachment: local;\n}\n\n.bg-scroll {\n  background-attachment: scroll;\n}\n\n.bg-transparent {\n  background-color: transparent;\n}\n\n.bg-black {\n  background-color: #22292f;\n}\n\n.bg-grey-darkest {\n  background-color: #3d4852;\n}\n\n.bg-grey-darker {\n  background-color: #606f7b;\n}\n\n.bg-grey-dark {\n  background-color: #8795a1;\n}\n\n.bg-grey {\n  background-color: #b8c2cc;\n}\n\n.bg-grey-light {\n  background-color: #dae1e7;\n}\n\n.bg-grey-lighter {\n  background-color: #f1f5f8;\n}\n\n.bg-grey-lightest {\n  background-color: #f8fafc;\n}\n\n.bg-white {\n  background-color: #fff;\n}\n\n.bg-red-darkest {\n  background-color: #3b0d0c;\n}\n\n.bg-red-darker {\n  background-color: #621b18;\n}\n\n.bg-red-dark {\n  background-color: #cc1f1a;\n}\n\n.bg-red {\n  background-color: #e3342f;\n}\n\n.bg-red-light {\n  background-color: #ef5753;\n}\n\n.bg-red-lighter {\n  background-color: #f9acaa;\n}\n\n.bg-red-lightest {\n  background-color: #fcebea;\n}\n\n.bg-orange-darkest {\n  background-color: #462a16;\n}\n\n.bg-orange-darker {\n  background-color: #613b1f;\n}\n\n.bg-orange-dark {\n  background-color: #de751f;\n}\n\n.bg-orange {\n  background-color: #f6993f;\n}\n\n.bg-orange-light {\n  background-color: #faad63;\n}\n\n.bg-orange-lighter {\n  background-color: #fcd9b6;\n}\n\n.bg-orange-lightest {\n  background-color: #fff5eb;\n}\n\n.bg-yellow-darkest {\n  background-color: #453411;\n}\n\n.bg-yellow-darker {\n  background-color: #684f1d;\n}\n\n.bg-yellow-dark {\n  background-color: #f2d024;\n}\n\n.bg-yellow {\n  background-color: #ffed4a;\n}\n\n.bg-yellow-light {\n  background-color: #fff382;\n}\n\n.bg-yellow-lighter {\n  background-color: #fff9c2;\n}\n\n.bg-yellow-lightest {\n  background-color: #fcfbeb;\n}\n\n.bg-green-darkest {\n  background-color: #0f2f21;\n}\n\n.bg-green-darker {\n  background-color: #1a4731;\n}\n\n.bg-green-dark {\n  background-color: #1f9d55;\n}\n\n.bg-green {\n  background-color: #38c172;\n}\n\n.bg-green-light {\n  background-color: #51d88a;\n}\n\n.bg-green-lighter {\n  background-color: #a2f5bf;\n}\n\n.bg-green-lightest {\n  background-color: #e3fcec;\n}\n\n.bg-teal-darkest {\n  background-color: #0d3331;\n}\n\n.bg-teal-darker {\n  background-color: #20504f;\n}\n\n.bg-teal-dark {\n  background-color: #38a89d;\n}\n\n.bg-teal {\n  background-color: #4dc0b5;\n}\n\n.bg-teal-light {\n  background-color: #64d5ca;\n}\n\n.bg-teal-lighter {\n  background-color: #a0f0ed;\n}\n\n.bg-teal-lightest {\n  background-color: #e8fffe;\n}\n\n.bg-blue-darkest {\n  background-color: #12283a;\n}\n\n.bg-blue-darker {\n  background-color: #1c3d5a;\n}\n\n.bg-blue-dark {\n  background-color: #2779bd;\n}\n\n.bg-blue {\n  background-color: #3490dc;\n}\n\n.bg-blue-light {\n  background-color: #6cb2eb;\n}\n\n.bg-blue-lighter {\n  background-color: #bcdefa;\n}\n\n.bg-blue-lightest {\n  background-color: #eff8ff;\n}\n\n.bg-indigo-darkest {\n  background-color: #191e38;\n}\n\n.bg-indigo-darker {\n  background-color: #2f365f;\n}\n\n.bg-indigo-dark {\n  background-color: #5661b3;\n}\n\n.bg-indigo {\n  background-color: #6574cd;\n}\n\n.bg-indigo-light {\n  background-color: #7886d7;\n}\n\n.bg-indigo-lighter {\n  background-color: #b2b7ff;\n}\n\n.bg-indigo-lightest {\n  background-color: #e6e8ff;\n}\n\n.bg-purple-darkest {\n  background-color: #21183c;\n}\n\n.bg-purple-darker {\n  background-color: #382b5f;\n}\n\n.bg-purple-dark {\n  background-color: #794acf;\n}\n\n.bg-purple {\n  background-color: #9561e2;\n}\n\n.bg-purple-light {\n  background-color: #a779e9;\n}\n\n.bg-purple-lighter {\n  background-color: #d6bbfc;\n}\n\n.bg-purple-lightest {\n  background-color: #f3ebff;\n}\n\n.bg-pink-darkest {\n  background-color: #451225;\n}\n\n.bg-pink-darker {\n  background-color: #6f213f;\n}\n\n.bg-pink-dark {\n  background-color: #eb5286;\n}\n\n.bg-pink {\n  background-color: #f66d9b;\n}\n\n.bg-pink-light {\n  background-color: #fa7ea8;\n}\n\n.bg-pink-lighter {\n  background-color: #ffbbca;\n}\n\n.bg-pink-lightest {\n  background-color: #ffebef;\n}\n\n.hover\\:bg-transparent:hover {\n  background-color: transparent;\n}\n\n.hover\\:bg-black:hover {\n  background-color: #22292f;\n}\n\n.hover\\:bg-grey-darkest:hover {\n  background-color: #3d4852;\n}\n\n.hover\\:bg-grey-darker:hover {\n  background-color: #606f7b;\n}\n\n.hover\\:bg-grey-dark:hover {\n  background-color: #8795a1;\n}\n\n.hover\\:bg-grey:hover {\n  background-color: #b8c2cc;\n}\n\n.hover\\:bg-grey-light:hover {\n  background-color: #dae1e7;\n}\n\n.hover\\:bg-grey-lighter:hover {\n  background-color: #f1f5f8;\n}\n\n.hover\\:bg-grey-lightest:hover {\n  background-color: #f8fafc;\n}\n\n.hover\\:bg-white:hover {\n  background-color: #fff;\n}\n\n.hover\\:bg-red-darkest:hover {\n  background-color: #3b0d0c;\n}\n\n.hover\\:bg-red-darker:hover {\n  background-color: #621b18;\n}\n\n.hover\\:bg-red-dark:hover {\n  background-color: #cc1f1a;\n}\n\n.hover\\:bg-red:hover {\n  background-color: #e3342f;\n}\n\n.hover\\:bg-red-light:hover {\n  background-color: #ef5753;\n}\n\n.hover\\:bg-red-lighter:hover {\n  background-color: #f9acaa;\n}\n\n.hover\\:bg-red-lightest:hover {\n  background-color: #fcebea;\n}\n\n.hover\\:bg-orange-darkest:hover {\n  background-color: #462a16;\n}\n\n.hover\\:bg-orange-darker:hover {\n  background-color: #613b1f;\n}\n\n.hover\\:bg-orange-dark:hover {\n  background-color: #de751f;\n}\n\n.hover\\:bg-orange:hover {\n  background-color: #f6993f;\n}\n\n.hover\\:bg-orange-light:hover {\n  background-color: #faad63;\n}\n\n.hover\\:bg-orange-lighter:hover {\n  background-color: #fcd9b6;\n}\n\n.hover\\:bg-orange-lightest:hover {\n  background-color: #fff5eb;\n}\n\n.hover\\:bg-yellow-darkest:hover {\n  background-color: #453411;\n}\n\n.hover\\:bg-yellow-darker:hover {\n  background-color: #684f1d;\n}\n\n.hover\\:bg-yellow-dark:hover {\n  background-color: #f2d024;\n}\n\n.hover\\:bg-yellow:hover {\n  background-color: #ffed4a;\n}\n\n.hover\\:bg-yellow-light:hover {\n  background-color: #fff382;\n}\n\n.hover\\:bg-yellow-lighter:hover {\n  background-color: #fff9c2;\n}\n\n.hover\\:bg-yellow-lightest:hover {\n  background-color: #fcfbeb;\n}\n\n.hover\\:bg-green-darkest:hover {\n  background-color: #0f2f21;\n}\n\n.hover\\:bg-green-darker:hover {\n  background-color: #1a4731;\n}\n\n.hover\\:bg-green-dark:hover {\n  background-color: #1f9d55;\n}\n\n.hover\\:bg-green:hover {\n  background-color: #38c172;\n}\n\n.hover\\:bg-green-light:hover {\n  background-color: #51d88a;\n}\n\n.hover\\:bg-green-lighter:hover {\n  background-color: #a2f5bf;\n}\n\n.hover\\:bg-green-lightest:hover {\n  background-color: #e3fcec;\n}\n\n.hover\\:bg-teal-darkest:hover {\n  background-color: #0d3331;\n}\n\n.hover\\:bg-teal-darker:hover {\n  background-color: #20504f;\n}\n\n.hover\\:bg-teal-dark:hover {\n  background-color: #38a89d;\n}\n\n.hover\\:bg-teal:hover {\n  background-color: #4dc0b5;\n}\n\n.hover\\:bg-teal-light:hover {\n  background-color: #64d5ca;\n}\n\n.hover\\:bg-teal-lighter:hover {\n  background-color: #a0f0ed;\n}\n\n.hover\\:bg-teal-lightest:hover {\n  background-color: #e8fffe;\n}\n\n.hover\\:bg-blue-darkest:hover {\n  background-color: #12283a;\n}\n\n.hover\\:bg-blue-darker:hover {\n  background-color: #1c3d5a;\n}\n\n.hover\\:bg-blue-dark:hover {\n  background-color: #2779bd;\n}\n\n.hover\\:bg-blue:hover {\n  background-color: #3490dc;\n}\n\n.hover\\:bg-blue-light:hover {\n  background-color: #6cb2eb;\n}\n\n.hover\\:bg-blue-lighter:hover {\n  background-color: #bcdefa;\n}\n\n.hover\\:bg-blue-lightest:hover {\n  background-color: #eff8ff;\n}\n\n.hover\\:bg-indigo-darkest:hover {\n  background-color: #191e38;\n}\n\n.hover\\:bg-indigo-darker:hover {\n  background-color: #2f365f;\n}\n\n.hover\\:bg-indigo-dark:hover {\n  background-color: #5661b3;\n}\n\n.hover\\:bg-indigo:hover {\n  background-color: #6574cd;\n}\n\n.hover\\:bg-indigo-light:hover {\n  background-color: #7886d7;\n}\n\n.hover\\:bg-indigo-lighter:hover {\n  background-color: #b2b7ff;\n}\n\n.hover\\:bg-indigo-lightest:hover {\n  background-color: #e6e8ff;\n}\n\n.hover\\:bg-purple-darkest:hover {\n  background-color: #21183c;\n}\n\n.hover\\:bg-purple-darker:hover {\n  background-color: #382b5f;\n}\n\n.hover\\:bg-purple-dark:hover {\n  background-color: #794acf;\n}\n\n.hover\\:bg-purple:hover {\n  background-color: #9561e2;\n}\n\n.hover\\:bg-purple-light:hover {\n  background-color: #a779e9;\n}\n\n.hover\\:bg-purple-lighter:hover {\n  background-color: #d6bbfc;\n}\n\n.hover\\:bg-purple-lightest:hover {\n  background-color: #f3ebff;\n}\n\n.hover\\:bg-pink-darkest:hover {\n  background-color: #451225;\n}\n\n.hover\\:bg-pink-darker:hover {\n  background-color: #6f213f;\n}\n\n.hover\\:bg-pink-dark:hover {\n  background-color: #eb5286;\n}\n\n.hover\\:bg-pink:hover {\n  background-color: #f66d9b;\n}\n\n.hover\\:bg-pink-light:hover {\n  background-color: #fa7ea8;\n}\n\n.hover\\:bg-pink-lighter:hover {\n  background-color: #ffbbca;\n}\n\n.hover\\:bg-pink-lightest:hover {\n  background-color: #ffebef;\n}\n\n.bg-bottom {\n  background-position: bottom;\n}\n\n.bg-center {\n  background-position: center;\n}\n\n.bg-left {\n  background-position: left;\n}\n\n.bg-left-bottom {\n  background-position: left bottom;\n}\n\n.bg-left-top {\n  background-position: left top;\n}\n\n.bg-right {\n  background-position: right;\n}\n\n.bg-right-bottom {\n  background-position: right bottom;\n}\n\n.bg-right-top {\n  background-position: right top;\n}\n\n.bg-top {\n  background-position: top;\n}\n\n.bg-repeat {\n  background-repeat: repeat;\n}\n\n.bg-no-repeat {\n  background-repeat: no-repeat;\n}\n\n.bg-repeat-x {\n  background-repeat: repeat-x;\n}\n\n.bg-repeat-y {\n  background-repeat: repeat-y;\n}\n\n.bg-auto {\n  background-size: auto;\n}\n\n.bg-cover {\n  background-size: cover;\n}\n\n.bg-contain {\n  background-size: contain;\n}\n\n.border-transparent {\n  border-color: transparent;\n}\n\n.border-black {\n  border-color: #22292f;\n}\n\n.border-grey-darkest {\n  border-color: #3d4852;\n}\n\n.border-grey-darker {\n  border-color: #606f7b;\n}\n\n.border-grey-dark {\n  border-color: #8795a1;\n}\n\n.border-grey {\n  border-color: #b8c2cc;\n}\n\n.border-grey-light {\n  border-color: #dae1e7;\n}\n\n.border-grey-lighter {\n  border-color: #f1f5f8;\n}\n\n.border-grey-lightest {\n  border-color: #f8fafc;\n}\n\n.border-white {\n  border-color: #fff;\n}\n\n.border-red-darkest {\n  border-color: #3b0d0c;\n}\n\n.border-red-darker {\n  border-color: #621b18;\n}\n\n.border-red-dark {\n  border-color: #cc1f1a;\n}\n\n.border-red {\n  border-color: #e3342f;\n}\n\n.border-red-light {\n  border-color: #ef5753;\n}\n\n.border-red-lighter {\n  border-color: #f9acaa;\n}\n\n.border-red-lightest {\n  border-color: #fcebea;\n}\n\n.border-orange-darkest {\n  border-color: #462a16;\n}\n\n.border-orange-darker {\n  border-color: #613b1f;\n}\n\n.border-orange-dark {\n  border-color: #de751f;\n}\n\n.border-orange {\n  border-color: #f6993f;\n}\n\n.border-orange-light {\n  border-color: #faad63;\n}\n\n.border-orange-lighter {\n  border-color: #fcd9b6;\n}\n\n.border-orange-lightest {\n  border-color: #fff5eb;\n}\n\n.border-yellow-darkest {\n  border-color: #453411;\n}\n\n.border-yellow-darker {\n  border-color: #684f1d;\n}\n\n.border-yellow-dark {\n  border-color: #f2d024;\n}\n\n.border-yellow {\n  border-color: #ffed4a;\n}\n\n.border-yellow-light {\n  border-color: #fff382;\n}\n\n.border-yellow-lighter {\n  border-color: #fff9c2;\n}\n\n.border-yellow-lightest {\n  border-color: #fcfbeb;\n}\n\n.border-green-darkest {\n  border-color: #0f2f21;\n}\n\n.border-green-darker {\n  border-color: #1a4731;\n}\n\n.border-green-dark {\n  border-color: #1f9d55;\n}\n\n.border-green {\n  border-color: #38c172;\n}\n\n.border-green-light {\n  border-color: #51d88a;\n}\n\n.border-green-lighter {\n  border-color: #a2f5bf;\n}\n\n.border-green-lightest {\n  border-color: #e3fcec;\n}\n\n.border-teal-darkest {\n  border-color: #0d3331;\n}\n\n.border-teal-darker {\n  border-color: #20504f;\n}\n\n.border-teal-dark {\n  border-color: #38a89d;\n}\n\n.border-teal {\n  border-color: #4dc0b5;\n}\n\n.border-teal-light {\n  border-color: #64d5ca;\n}\n\n.border-teal-lighter {\n  border-color: #a0f0ed;\n}\n\n.border-teal-lightest {\n  border-color: #e8fffe;\n}\n\n.border-blue-darkest {\n  border-color: #12283a;\n}\n\n.border-blue-darker {\n  border-color: #1c3d5a;\n}\n\n.border-blue-dark {\n  border-color: #2779bd;\n}\n\n.border-blue {\n  border-color: #3490dc;\n}\n\n.border-blue-light {\n  border-color: #6cb2eb;\n}\n\n.border-blue-lighter {\n  border-color: #bcdefa;\n}\n\n.border-blue-lightest {\n  border-color: #eff8ff;\n}\n\n.border-indigo-darkest {\n  border-color: #191e38;\n}\n\n.border-indigo-darker {\n  border-color: #2f365f;\n}\n\n.border-indigo-dark {\n  border-color: #5661b3;\n}\n\n.border-indigo {\n  border-color: #6574cd;\n}\n\n.border-indigo-light {\n  border-color: #7886d7;\n}\n\n.border-indigo-lighter {\n  border-color: #b2b7ff;\n}\n\n.border-indigo-lightest {\n  border-color: #e6e8ff;\n}\n\n.border-purple-darkest {\n  border-color: #21183c;\n}\n\n.border-purple-darker {\n  border-color: #382b5f;\n}\n\n.border-purple-dark {\n  border-color: #794acf;\n}\n\n.border-purple {\n  border-color: #9561e2;\n}\n\n.border-purple-light {\n  border-color: #a779e9;\n}\n\n.border-purple-lighter {\n  border-color: #d6bbfc;\n}\n\n.border-purple-lightest {\n  border-color: #f3ebff;\n}\n\n.border-pink-darkest {\n  border-color: #451225;\n}\n\n.border-pink-darker {\n  border-color: #6f213f;\n}\n\n.border-pink-dark {\n  border-color: #eb5286;\n}\n\n.border-pink {\n  border-color: #f66d9b;\n}\n\n.border-pink-light {\n  border-color: #fa7ea8;\n}\n\n.border-pink-lighter {\n  border-color: #ffbbca;\n}\n\n.border-pink-lightest {\n  border-color: #ffebef;\n}\n\n.hover\\:border-transparent:hover {\n  border-color: transparent;\n}\n\n.hover\\:border-black:hover {\n  border-color: #22292f;\n}\n\n.hover\\:border-grey-darkest:hover {\n  border-color: #3d4852;\n}\n\n.hover\\:border-grey-darker:hover {\n  border-color: #606f7b;\n}\n\n.hover\\:border-grey-dark:hover {\n  border-color: #8795a1;\n}\n\n.hover\\:border-grey:hover {\n  border-color: #b8c2cc;\n}\n\n.hover\\:border-grey-light:hover {\n  border-color: #dae1e7;\n}\n\n.hover\\:border-grey-lighter:hover {\n  border-color: #f1f5f8;\n}\n\n.hover\\:border-grey-lightest:hover {\n  border-color: #f8fafc;\n}\n\n.hover\\:border-white:hover {\n  border-color: #fff;\n}\n\n.hover\\:border-red-darkest:hover {\n  border-color: #3b0d0c;\n}\n\n.hover\\:border-red-darker:hover {\n  border-color: #621b18;\n}\n\n.hover\\:border-red-dark:hover {\n  border-color: #cc1f1a;\n}\n\n.hover\\:border-red:hover {\n  border-color: #e3342f;\n}\n\n.hover\\:border-red-light:hover {\n  border-color: #ef5753;\n}\n\n.hover\\:border-red-lighter:hover {\n  border-color: #f9acaa;\n}\n\n.hover\\:border-red-lightest:hover {\n  border-color: #fcebea;\n}\n\n.hover\\:border-orange-darkest:hover {\n  border-color: #462a16;\n}\n\n.hover\\:border-orange-darker:hover {\n  border-color: #613b1f;\n}\n\n.hover\\:border-orange-dark:hover {\n  border-color: #de751f;\n}\n\n.hover\\:border-orange:hover {\n  border-color: #f6993f;\n}\n\n.hover\\:border-orange-light:hover {\n  border-color: #faad63;\n}\n\n.hover\\:border-orange-lighter:hover {\n  border-color: #fcd9b6;\n}\n\n.hover\\:border-orange-lightest:hover {\n  border-color: #fff5eb;\n}\n\n.hover\\:border-yellow-darkest:hover {\n  border-color: #453411;\n}\n\n.hover\\:border-yellow-darker:hover {\n  border-color: #684f1d;\n}\n\n.hover\\:border-yellow-dark:hover {\n  border-color: #f2d024;\n}\n\n.hover\\:border-yellow:hover {\n  border-color: #ffed4a;\n}\n\n.hover\\:border-yellow-light:hover {\n  border-color: #fff382;\n}\n\n.hover\\:border-yellow-lighter:hover {\n  border-color: #fff9c2;\n}\n\n.hover\\:border-yellow-lightest:hover {\n  border-color: #fcfbeb;\n}\n\n.hover\\:border-green-darkest:hover {\n  border-color: #0f2f21;\n}\n\n.hover\\:border-green-darker:hover {\n  border-color: #1a4731;\n}\n\n.hover\\:border-green-dark:hover {\n  border-color: #1f9d55;\n}\n\n.hover\\:border-green:hover {\n  border-color: #38c172;\n}\n\n.hover\\:border-green-light:hover {\n  border-color: #51d88a;\n}\n\n.hover\\:border-green-lighter:hover {\n  border-color: #a2f5bf;\n}\n\n.hover\\:border-green-lightest:hover {\n  border-color: #e3fcec;\n}\n\n.hover\\:border-teal-darkest:hover {\n  border-color: #0d3331;\n}\n\n.hover\\:border-teal-darker:hover {\n  border-color: #20504f;\n}\n\n.hover\\:border-teal-dark:hover {\n  border-color: #38a89d;\n}\n\n.hover\\:border-teal:hover {\n  border-color: #4dc0b5;\n}\n\n.hover\\:border-teal-light:hover {\n  border-color: #64d5ca;\n}\n\n.hover\\:border-teal-lighter:hover {\n  border-color: #a0f0ed;\n}\n\n.hover\\:border-teal-lightest:hover {\n  border-color: #e8fffe;\n}\n\n.hover\\:border-blue-darkest:hover {\n  border-color: #12283a;\n}\n\n.hover\\:border-blue-darker:hover {\n  border-color: #1c3d5a;\n}\n\n.hover\\:border-blue-dark:hover {\n  border-color: #2779bd;\n}\n\n.hover\\:border-blue:hover {\n  border-color: #3490dc;\n}\n\n.hover\\:border-blue-light:hover {\n  border-color: #6cb2eb;\n}\n\n.hover\\:border-blue-lighter:hover {\n  border-color: #bcdefa;\n}\n\n.hover\\:border-blue-lightest:hover {\n  border-color: #eff8ff;\n}\n\n.hover\\:border-indigo-darkest:hover {\n  border-color: #191e38;\n}\n\n.hover\\:border-indigo-darker:hover {\n  border-color: #2f365f;\n}\n\n.hover\\:border-indigo-dark:hover {\n  border-color: #5661b3;\n}\n\n.hover\\:border-indigo:hover {\n  border-color: #6574cd;\n}\n\n.hover\\:border-indigo-light:hover {\n  border-color: #7886d7;\n}\n\n.hover\\:border-indigo-lighter:hover {\n  border-color: #b2b7ff;\n}\n\n.hover\\:border-indigo-lightest:hover {\n  border-color: #e6e8ff;\n}\n\n.hover\\:border-purple-darkest:hover {\n  border-color: #21183c;\n}\n\n.hover\\:border-purple-darker:hover {\n  border-color: #382b5f;\n}\n\n.hover\\:border-purple-dark:hover {\n  border-color: #794acf;\n}\n\n.hover\\:border-purple:hover {\n  border-color: #9561e2;\n}\n\n.hover\\:border-purple-light:hover {\n  border-color: #a779e9;\n}\n\n.hover\\:border-purple-lighter:hover {\n  border-color: #d6bbfc;\n}\n\n.hover\\:border-purple-lightest:hover {\n  border-color: #f3ebff;\n}\n\n.hover\\:border-pink-darkest:hover {\n  border-color: #451225;\n}\n\n.hover\\:border-pink-darker:hover {\n  border-color: #6f213f;\n}\n\n.hover\\:border-pink-dark:hover {\n  border-color: #eb5286;\n}\n\n.hover\\:border-pink:hover {\n  border-color: #f66d9b;\n}\n\n.hover\\:border-pink-light:hover {\n  border-color: #fa7ea8;\n}\n\n.hover\\:border-pink-lighter:hover {\n  border-color: #ffbbca;\n}\n\n.hover\\:border-pink-lightest:hover {\n  border-color: #ffebef;\n}\n\n.rounded-none {\n  border-radius: 0;\n}\n\n.rounded-sm {\n  border-radius: .125rem;\n}\n\n.rounded {\n  border-radius: .25rem;\n}\n\n.rounded-lg {\n  border-radius: .5rem;\n}\n\n.rounded-full {\n  border-radius: 9999px;\n}\n\n.rounded-t-none {\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}\n\n.rounded-r-none {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0;\n}\n\n.rounded-b-none {\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n}\n\n.rounded-l-none {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n\n.rounded-t-sm {\n  border-top-left-radius: .125rem;\n  border-top-right-radius: .125rem;\n}\n\n.rounded-r-sm {\n  border-top-right-radius: .125rem;\n  border-bottom-right-radius: .125rem;\n}\n\n.rounded-b-sm {\n  border-bottom-right-radius: .125rem;\n  border-bottom-left-radius: .125rem;\n}\n\n.rounded-l-sm {\n  border-top-left-radius: .125rem;\n  border-bottom-left-radius: .125rem;\n}\n\n.rounded-t {\n  border-top-left-radius: .25rem;\n  border-top-right-radius: .25rem;\n}\n\n.rounded-r {\n  border-top-right-radius: .25rem;\n  border-bottom-right-radius: .25rem;\n}\n\n.rounded-b {\n  border-bottom-right-radius: .25rem;\n  border-bottom-left-radius: .25rem;\n}\n\n.rounded-l {\n  border-top-left-radius: .25rem;\n  border-bottom-left-radius: .25rem;\n}\n\n.rounded-t-lg {\n  border-top-left-radius: .5rem;\n  border-top-right-radius: .5rem;\n}\n\n.rounded-r-lg {\n  border-top-right-radius: .5rem;\n  border-bottom-right-radius: .5rem;\n}\n\n.rounded-b-lg {\n  border-bottom-right-radius: .5rem;\n  border-bottom-left-radius: .5rem;\n}\n\n.rounded-l-lg {\n  border-top-left-radius: .5rem;\n  border-bottom-left-radius: .5rem;\n}\n\n.rounded-t-full {\n  border-top-left-radius: 9999px;\n  border-top-right-radius: 9999px;\n}\n\n.rounded-r-full {\n  border-top-right-radius: 9999px;\n  border-bottom-right-radius: 9999px;\n}\n\n.rounded-b-full {\n  border-bottom-right-radius: 9999px;\n  border-bottom-left-radius: 9999px;\n}\n\n.rounded-l-full {\n  border-top-left-radius: 9999px;\n  border-bottom-left-radius: 9999px;\n}\n\n.rounded-tl-none {\n  border-top-left-radius: 0;\n}\n\n.rounded-tr-none {\n  border-top-right-radius: 0;\n}\n\n.rounded-br-none {\n  border-bottom-right-radius: 0;\n}\n\n.rounded-bl-none {\n  border-bottom-left-radius: 0;\n}\n\n.rounded-tl-sm {\n  border-top-left-radius: .125rem;\n}\n\n.rounded-tr-sm {\n  border-top-right-radius: .125rem;\n}\n\n.rounded-br-sm {\n  border-bottom-right-radius: .125rem;\n}\n\n.rounded-bl-sm {\n  border-bottom-left-radius: .125rem;\n}\n\n.rounded-tl {\n  border-top-left-radius: .25rem;\n}\n\n.rounded-tr {\n  border-top-right-radius: .25rem;\n}\n\n.rounded-br {\n  border-bottom-right-radius: .25rem;\n}\n\n.rounded-bl {\n  border-bottom-left-radius: .25rem;\n}\n\n.rounded-tl-lg {\n  border-top-left-radius: .5rem;\n}\n\n.rounded-tr-lg {\n  border-top-right-radius: .5rem;\n}\n\n.rounded-br-lg {\n  border-bottom-right-radius: .5rem;\n}\n\n.rounded-bl-lg {\n  border-bottom-left-radius: .5rem;\n}\n\n.rounded-tl-full {\n  border-top-left-radius: 9999px;\n}\n\n.rounded-tr-full {\n  border-top-right-radius: 9999px;\n}\n\n.rounded-br-full {\n  border-bottom-right-radius: 9999px;\n}\n\n.rounded-bl-full {\n  border-bottom-left-radius: 9999px;\n}\n\n.border-solid {\n  border-style: solid;\n}\n\n.border-dashed {\n  border-style: dashed;\n}\n\n.border-dotted {\n  border-style: dotted;\n}\n\n.border-none {\n  border-style: none;\n}\n\n.border-0 {\n  border-width: 0;\n}\n\n.border-2 {\n  border-width: 2px;\n}\n\n.border-4 {\n  border-width: 4px;\n}\n\n.border-8 {\n  border-width: 8px;\n}\n\n.border {\n  border-width: 1px;\n}\n\n.border-t-0 {\n  border-top-width: 0;\n}\n\n.border-r-0 {\n  border-right-width: 0;\n}\n\n.border-b-0 {\n  border-bottom-width: 0;\n}\n\n.border-l-0 {\n  border-left-width: 0;\n}\n\n.border-t-2 {\n  border-top-width: 2px;\n}\n\n.border-r-2 {\n  border-right-width: 2px;\n}\n\n.border-b-2 {\n  border-bottom-width: 2px;\n}\n\n.border-l-2 {\n  border-left-width: 2px;\n}\n\n.border-t-4 {\n  border-top-width: 4px;\n}\n\n.border-r-4 {\n  border-right-width: 4px;\n}\n\n.border-b-4 {\n  border-bottom-width: 4px;\n}\n\n.border-l-4 {\n  border-left-width: 4px;\n}\n\n.border-t-8 {\n  border-top-width: 8px;\n}\n\n.border-r-8 {\n  border-right-width: 8px;\n}\n\n.border-b-8 {\n  border-bottom-width: 8px;\n}\n\n.border-l-8 {\n  border-left-width: 8px;\n}\n\n.border-t {\n  border-top-width: 1px;\n}\n\n.border-r {\n  border-right-width: 1px;\n}\n\n.border-b {\n  border-bottom-width: 1px;\n}\n\n.border-l {\n  border-left-width: 1px;\n}\n\n.cursor-auto {\n  cursor: auto;\n}\n\n.cursor-default {\n  cursor: default;\n}\n\n.cursor-pointer {\n  cursor: pointer;\n}\n\n.cursor-wait {\n  cursor: wait;\n}\n\n.cursor-move {\n  cursor: move;\n}\n\n.cursor-not-allowed {\n  cursor: not-allowed;\n}\n\n.block {\n  display: block;\n}\n\n.inline-block {\n  display: inline-block;\n}\n\n.inline {\n  display: inline;\n}\n\n.table {\n  display: table;\n}\n\n.table-row {\n  display: table-row;\n}\n\n.table-cell {\n  display: table-cell;\n}\n\n.hidden {\n  display: none;\n}\n\n.flex {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\n.inline-flex {\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n}\n\n.flex-row {\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n}\n\n.flex-row-reverse {\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: reverse;\n      -ms-flex-direction: row-reverse;\n          flex-direction: row-reverse;\n}\n\n.flex-col {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n\n.flex-col-reverse {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: reverse;\n      -ms-flex-direction: column-reverse;\n          flex-direction: column-reverse;\n}\n\n.flex-wrap {\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n\n.flex-wrap-reverse {\n  -ms-flex-wrap: wrap-reverse;\n      flex-wrap: wrap-reverse;\n}\n\n.flex-no-wrap {\n  -ms-flex-wrap: nowrap;\n      flex-wrap: nowrap;\n}\n\n.items-start {\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n}\n\n.items-end {\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n}\n\n.items-center {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.items-baseline {\n  -webkit-box-align: baseline;\n      -ms-flex-align: baseline;\n          align-items: baseline;\n}\n\n.items-stretch {\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n}\n\n.self-auto {\n  -ms-flex-item-align: auto;\n      -ms-grid-row-align: auto;\n      align-self: auto;\n}\n\n.self-start {\n  -ms-flex-item-align: start;\n      align-self: flex-start;\n}\n\n.self-end {\n  -ms-flex-item-align: end;\n      align-self: flex-end;\n}\n\n.self-center {\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center;\n}\n\n.self-stretch {\n  -ms-flex-item-align: stretch;\n      -ms-grid-row-align: stretch;\n      align-self: stretch;\n}\n\n.justify-start {\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n\n.justify-end {\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n}\n\n.justify-center {\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.justify-between {\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.justify-around {\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.content-center {\n  -ms-flex-line-pack: center;\n      align-content: center;\n}\n\n.content-start {\n  -ms-flex-line-pack: start;\n      align-content: flex-start;\n}\n\n.content-end {\n  -ms-flex-line-pack: end;\n      align-content: flex-end;\n}\n\n.content-between {\n  -ms-flex-line-pack: justify;\n      align-content: space-between;\n}\n\n.content-around {\n  -ms-flex-line-pack: distribute;\n      align-content: space-around;\n}\n\n.flex-1 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n}\n\n.flex-auto {\n  -webkit-box-flex: 1;\n      -ms-flex: auto;\n          flex: auto;\n}\n\n.flex-initial {\n  -webkit-box-flex: initial;\n      -ms-flex: initial;\n          flex: initial;\n}\n\n.flex-none {\n  -webkit-box-flex: 0;\n      -ms-flex: none;\n          flex: none;\n}\n\n.flex-grow {\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n\n.flex-shrink {\n  -ms-flex-negative: 1;\n      flex-shrink: 1;\n}\n\n.flex-no-grow {\n  -webkit-box-flex: 0;\n      -ms-flex-positive: 0;\n          flex-grow: 0;\n}\n\n.flex-no-shrink {\n  -ms-flex-negative: 0;\n      flex-shrink: 0;\n}\n\n.float-right {\n  float: right;\n}\n\n.float-left {\n  float: left;\n}\n\n.float-none {\n  float: none;\n}\n\n.clearfix:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.font-sans {\n  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;\n}\n\n.font-serif {\n  font-family: Constantia, Lucida Bright, Lucidabright, Lucida Serif, Lucida, DejaVu Serif, Bitstream Vera Serif, Liberation Serif, Georgia, serif;\n}\n\n.font-mono {\n  font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;\n}\n\n.font-hairline {\n  font-weight: 100;\n}\n\n.font-thin {\n  font-weight: 200;\n}\n\n.font-light {\n  font-weight: 300;\n}\n\n.font-normal {\n  font-weight: 400;\n}\n\n.font-medium {\n  font-weight: 500;\n}\n\n.font-semibold {\n  font-weight: 600;\n}\n\n.font-bold {\n  font-weight: 700;\n}\n\n.font-extrabold {\n  font-weight: 800;\n}\n\n.font-black {\n  font-weight: 900;\n}\n\n.hover\\:font-hairline:hover {\n  font-weight: 100;\n}\n\n.hover\\:font-thin:hover {\n  font-weight: 200;\n}\n\n.hover\\:font-light:hover {\n  font-weight: 300;\n}\n\n.hover\\:font-normal:hover {\n  font-weight: 400;\n}\n\n.hover\\:font-medium:hover {\n  font-weight: 500;\n}\n\n.hover\\:font-semibold:hover {\n  font-weight: 600;\n}\n\n.hover\\:font-bold:hover {\n  font-weight: 700;\n}\n\n.hover\\:font-extrabold:hover {\n  font-weight: 800;\n}\n\n.hover\\:font-black:hover {\n  font-weight: 900;\n}\n\n.h-1 {\n  height: .25rem;\n}\n\n.h-2 {\n  height: .5rem;\n}\n\n.h-3 {\n  height: .75rem;\n}\n\n.h-4 {\n  height: 1rem;\n}\n\n.h-6 {\n  height: 1.5rem;\n}\n\n.h-8 {\n  height: 2rem;\n}\n\n.h-10 {\n  height: 2.5rem;\n}\n\n.h-12 {\n  height: 3rem;\n}\n\n.h-16 {\n  height: 4rem;\n}\n\n.h-24 {\n  height: 6rem;\n}\n\n.h-32 {\n  height: 8rem;\n}\n\n.h-48 {\n  height: 12rem;\n}\n\n.h-64 {\n  height: 16rem;\n}\n\n.h-auto {\n  height: auto;\n}\n\n.h-px {\n  height: 1px;\n}\n\n.h-full {\n  height: 100%;\n}\n\n.h-screen {\n  height: 100vh;\n}\n\n.leading-none {\n  line-height: 1;\n}\n\n.leading-tight {\n  line-height: 1.25;\n}\n\n.leading-normal {\n  line-height: 1.5;\n}\n\n.leading-loose {\n  line-height: 2;\n}\n\n.m-0 {\n  margin: 0;\n}\n\n.m-1 {\n  margin: .25rem;\n}\n\n.m-2 {\n  margin: .5rem;\n}\n\n.m-3 {\n  margin: .75rem;\n}\n\n.m-4 {\n  margin: 1rem;\n}\n\n.m-6 {\n  margin: 1.5rem;\n}\n\n.m-8 {\n  margin: 2rem;\n}\n\n.m-auto {\n  margin: auto;\n}\n\n.m-px {\n  margin: 1px;\n}\n\n.my-0 {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.mx-0 {\n  margin-left: 0;\n  margin-right: 0;\n}\n\n.my-1 {\n  margin-top: .25rem;\n  margin-bottom: .25rem;\n}\n\n.mx-1 {\n  margin-left: .25rem;\n  margin-right: .25rem;\n}\n\n.my-2 {\n  margin-top: .5rem;\n  margin-bottom: .5rem;\n}\n\n.mx-2 {\n  margin-left: .5rem;\n  margin-right: .5rem;\n}\n\n.my-3 {\n  margin-top: .75rem;\n  margin-bottom: .75rem;\n}\n\n.mx-3 {\n  margin-left: .75rem;\n  margin-right: .75rem;\n}\n\n.my-4 {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.mx-4 {\n  margin-left: 1rem;\n  margin-right: 1rem;\n}\n\n.my-6 {\n  margin-top: 1.5rem;\n  margin-bottom: 1.5rem;\n}\n\n.mx-6 {\n  margin-left: 1.5rem;\n  margin-right: 1.5rem;\n}\n\n.my-8 {\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.mx-8 {\n  margin-left: 2rem;\n  margin-right: 2rem;\n}\n\n.my-auto {\n  margin-top: auto;\n  margin-bottom: auto;\n}\n\n.mx-auto {\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.my-px {\n  margin-top: 1px;\n  margin-bottom: 1px;\n}\n\n.mx-px {\n  margin-left: 1px;\n  margin-right: 1px;\n}\n\n.mt-0 {\n  margin-top: 0;\n}\n\n.mr-0 {\n  margin-right: 0;\n}\n\n.mb-0 {\n  margin-bottom: 0;\n}\n\n.ml-0 {\n  margin-left: 0;\n}\n\n.mt-1 {\n  margin-top: .25rem;\n}\n\n.mr-1 {\n  margin-right: .25rem;\n}\n\n.mb-1 {\n  margin-bottom: .25rem;\n}\n\n.ml-1 {\n  margin-left: .25rem;\n}\n\n.mt-2 {\n  margin-top: .5rem;\n}\n\n.mr-2 {\n  margin-right: .5rem;\n}\n\n.mb-2 {\n  margin-bottom: .5rem;\n}\n\n.ml-2 {\n  margin-left: .5rem;\n}\n\n.mt-3 {\n  margin-top: .75rem;\n}\n\n.mr-3 {\n  margin-right: .75rem;\n}\n\n.mb-3 {\n  margin-bottom: .75rem;\n}\n\n.ml-3 {\n  margin-left: .75rem;\n}\n\n.mt-4 {\n  margin-top: 1rem;\n}\n\n.mr-4 {\n  margin-right: 1rem;\n}\n\n.mb-4 {\n  margin-bottom: 1rem;\n}\n\n.ml-4 {\n  margin-left: 1rem;\n}\n\n.mt-6 {\n  margin-top: 1.5rem;\n}\n\n.mr-6 {\n  margin-right: 1.5rem;\n}\n\n.mb-6 {\n  margin-bottom: 1.5rem;\n}\n\n.ml-6 {\n  margin-left: 1.5rem;\n}\n\n.mt-8 {\n  margin-top: 2rem;\n}\n\n.mr-8 {\n  margin-right: 2rem;\n}\n\n.mb-8 {\n  margin-bottom: 2rem;\n}\n\n.ml-8 {\n  margin-left: 2rem;\n}\n\n.mt-auto {\n  margin-top: auto;\n}\n\n.mr-auto {\n  margin-right: auto;\n}\n\n.mb-auto {\n  margin-bottom: auto;\n}\n\n.ml-auto {\n  margin-left: auto;\n}\n\n.mt-px {\n  margin-top: 1px;\n}\n\n.mr-px {\n  margin-right: 1px;\n}\n\n.mb-px {\n  margin-bottom: 1px;\n}\n\n.ml-px {\n  margin-left: 1px;\n}\n\n.max-h-full {\n  max-height: 100%;\n}\n\n.max-h-screen {\n  max-height: 100vh;\n}\n\n.max-w-xs {\n  max-width: 20rem;\n}\n\n.max-w-sm {\n  max-width: 30rem;\n}\n\n.max-w-md {\n  max-width: 40rem;\n}\n\n.max-w-lg {\n  max-width: 50rem;\n}\n\n.max-w-xl {\n  max-width: 60rem;\n}\n\n.max-w-2xl {\n  max-width: 70rem;\n}\n\n.max-w-3xl {\n  max-width: 80rem;\n}\n\n.max-w-4xl {\n  max-width: 90rem;\n}\n\n.max-w-5xl {\n  max-width: 100rem;\n}\n\n.max-w-full {\n  max-width: 100%;\n}\n\n.min-h-0 {\n  min-height: 0;\n}\n\n.min-h-full {\n  min-height: 100%;\n}\n\n.min-h-screen {\n  min-height: 100vh;\n}\n\n.min-w-0 {\n  min-width: 0;\n}\n\n.min-w-full {\n  min-width: 100%;\n}\n\n.-m-0 {\n  margin: 0;\n}\n\n.-m-1 {\n  margin: -0.25rem;\n}\n\n.-m-2 {\n  margin: -0.5rem;\n}\n\n.-m-3 {\n  margin: -0.75rem;\n}\n\n.-m-4 {\n  margin: -1rem;\n}\n\n.-m-6 {\n  margin: -1.5rem;\n}\n\n.-m-8 {\n  margin: -2rem;\n}\n\n.-m-px {\n  margin: -1px;\n}\n\n.-my-0 {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.-mx-0 {\n  margin-left: 0;\n  margin-right: 0;\n}\n\n.-my-1 {\n  margin-top: -0.25rem;\n  margin-bottom: -0.25rem;\n}\n\n.-mx-1 {\n  margin-left: -0.25rem;\n  margin-right: -0.25rem;\n}\n\n.-my-2 {\n  margin-top: -0.5rem;\n  margin-bottom: -0.5rem;\n}\n\n.-mx-2 {\n  margin-left: -0.5rem;\n  margin-right: -0.5rem;\n}\n\n.-my-3 {\n  margin-top: -0.75rem;\n  margin-bottom: -0.75rem;\n}\n\n.-mx-3 {\n  margin-left: -0.75rem;\n  margin-right: -0.75rem;\n}\n\n.-my-4 {\n  margin-top: -1rem;\n  margin-bottom: -1rem;\n}\n\n.-mx-4 {\n  margin-left: -1rem;\n  margin-right: -1rem;\n}\n\n.-my-6 {\n  margin-top: -1.5rem;\n  margin-bottom: -1.5rem;\n}\n\n.-mx-6 {\n  margin-left: -1.5rem;\n  margin-right: -1.5rem;\n}\n\n.-my-8 {\n  margin-top: -2rem;\n  margin-bottom: -2rem;\n}\n\n.-mx-8 {\n  margin-left: -2rem;\n  margin-right: -2rem;\n}\n\n.-my-px {\n  margin-top: -1px;\n  margin-bottom: -1px;\n}\n\n.-mx-px {\n  margin-left: -1px;\n  margin-right: -1px;\n}\n\n.-mt-0 {\n  margin-top: 0;\n}\n\n.-mr-0 {\n  margin-right: 0;\n}\n\n.-mb-0 {\n  margin-bottom: 0;\n}\n\n.-ml-0 {\n  margin-left: 0;\n}\n\n.-mt-1 {\n  margin-top: -0.25rem;\n}\n\n.-mr-1 {\n  margin-right: -0.25rem;\n}\n\n.-mb-1 {\n  margin-bottom: -0.25rem;\n}\n\n.-ml-1 {\n  margin-left: -0.25rem;\n}\n\n.-mt-2 {\n  margin-top: -0.5rem;\n}\n\n.-mr-2 {\n  margin-right: -0.5rem;\n}\n\n.-mb-2 {\n  margin-bottom: -0.5rem;\n}\n\n.-ml-2 {\n  margin-left: -0.5rem;\n}\n\n.-mt-3 {\n  margin-top: -0.75rem;\n}\n\n.-mr-3 {\n  margin-right: -0.75rem;\n}\n\n.-mb-3 {\n  margin-bottom: -0.75rem;\n}\n\n.-ml-3 {\n  margin-left: -0.75rem;\n}\n\n.-mt-4 {\n  margin-top: -1rem;\n}\n\n.-mr-4 {\n  margin-right: -1rem;\n}\n\n.-mb-4 {\n  margin-bottom: -1rem;\n}\n\n.-ml-4 {\n  margin-left: -1rem;\n}\n\n.-mt-6 {\n  margin-top: -1.5rem;\n}\n\n.-mr-6 {\n  margin-right: -1.5rem;\n}\n\n.-mb-6 {\n  margin-bottom: -1.5rem;\n}\n\n.-ml-6 {\n  margin-left: -1.5rem;\n}\n\n.-mt-8 {\n  margin-top: -2rem;\n}\n\n.-mr-8 {\n  margin-right: -2rem;\n}\n\n.-mb-8 {\n  margin-bottom: -2rem;\n}\n\n.-ml-8 {\n  margin-left: -2rem;\n}\n\n.-mt-px {\n  margin-top: -1px;\n}\n\n.-mr-px {\n  margin-right: -1px;\n}\n\n.-mb-px {\n  margin-bottom: -1px;\n}\n\n.-ml-px {\n  margin-left: -1px;\n}\n\n.opacity-0 {\n  opacity: 0;\n}\n\n.opacity-25 {\n  opacity: .25;\n}\n\n.opacity-50 {\n  opacity: .5;\n}\n\n.opacity-75 {\n  opacity: .75;\n}\n\n.opacity-100 {\n  opacity: 1;\n}\n\n.overflow-auto {\n  overflow: auto;\n}\n\n.overflow-hidden {\n  overflow: hidden;\n}\n\n.overflow-visible {\n  overflow: visible;\n}\n\n.overflow-scroll {\n  overflow: scroll;\n}\n\n.overflow-x-auto {\n  overflow-x: auto;\n}\n\n.overflow-y-auto {\n  overflow-y: auto;\n}\n\n.overflow-x-scroll {\n  overflow-x: scroll;\n}\n\n.overflow-y-scroll {\n  overflow-y: scroll;\n}\n\n.scrolling-touch {\n  -webkit-overflow-scrolling: touch;\n}\n\n.scrolling-auto {\n  -webkit-overflow-scrolling: auto;\n}\n\n.p-0 {\n  padding: 0;\n}\n\n.p-1 {\n  padding: .25rem;\n}\n\n.p-2 {\n  padding: .5rem;\n}\n\n.p-3 {\n  padding: .75rem;\n}\n\n.p-4 {\n  padding: 1rem;\n}\n\n.p-6 {\n  padding: 1.5rem;\n}\n\n.p-8 {\n  padding: 2rem;\n}\n\n.p-px {\n  padding: 1px;\n}\n\n.py-0 {\n  padding-top: 0;\n  padding-bottom: 0;\n}\n\n.px-0 {\n  padding-left: 0;\n  padding-right: 0;\n}\n\n.py-1 {\n  padding-top: .25rem;\n  padding-bottom: .25rem;\n}\n\n.px-1 {\n  padding-left: .25rem;\n  padding-right: .25rem;\n}\n\n.py-2 {\n  padding-top: .5rem;\n  padding-bottom: .5rem;\n}\n\n.px-2 {\n  padding-left: .5rem;\n  padding-right: .5rem;\n}\n\n.py-3 {\n  padding-top: .75rem;\n  padding-bottom: .75rem;\n}\n\n.px-3 {\n  padding-left: .75rem;\n  padding-right: .75rem;\n}\n\n.py-4 {\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n\n.px-4 {\n  padding-left: 1rem;\n  padding-right: 1rem;\n}\n\n.py-6 {\n  padding-top: 1.5rem;\n  padding-bottom: 1.5rem;\n}\n\n.px-6 {\n  padding-left: 1.5rem;\n  padding-right: 1.5rem;\n}\n\n.py-8 {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n\n.px-8 {\n  padding-left: 2rem;\n  padding-right: 2rem;\n}\n\n.py-px {\n  padding-top: 1px;\n  padding-bottom: 1px;\n}\n\n.px-px {\n  padding-left: 1px;\n  padding-right: 1px;\n}\n\n.pt-0 {\n  padding-top: 0;\n}\n\n.pr-0 {\n  padding-right: 0;\n}\n\n.pb-0 {\n  padding-bottom: 0;\n}\n\n.pl-0 {\n  padding-left: 0;\n}\n\n.pt-1 {\n  padding-top: .25rem;\n}\n\n.pr-1 {\n  padding-right: .25rem;\n}\n\n.pb-1 {\n  padding-bottom: .25rem;\n}\n\n.pl-1 {\n  padding-left: .25rem;\n}\n\n.pt-2 {\n  padding-top: .5rem;\n}\n\n.pr-2 {\n  padding-right: .5rem;\n}\n\n.pb-2 {\n  padding-bottom: .5rem;\n}\n\n.pl-2 {\n  padding-left: .5rem;\n}\n\n.pt-3 {\n  padding-top: .75rem;\n}\n\n.pr-3 {\n  padding-right: .75rem;\n}\n\n.pb-3 {\n  padding-bottom: .75rem;\n}\n\n.pl-3 {\n  padding-left: .75rem;\n}\n\n.pt-4 {\n  padding-top: 1rem;\n}\n\n.pr-4 {\n  padding-right: 1rem;\n}\n\n.pb-4 {\n  padding-bottom: 1rem;\n}\n\n.pl-4 {\n  padding-left: 1rem;\n}\n\n.pt-6 {\n  padding-top: 1.5rem;\n}\n\n.pr-6 {\n  padding-right: 1.5rem;\n}\n\n.pb-6 {\n  padding-bottom: 1.5rem;\n}\n\n.pl-6 {\n  padding-left: 1.5rem;\n}\n\n.pt-8 {\n  padding-top: 2rem;\n}\n\n.pr-8 {\n  padding-right: 2rem;\n}\n\n.pb-8 {\n  padding-bottom: 2rem;\n}\n\n.pl-8 {\n  padding-left: 2rem;\n}\n\n.pt-px {\n  padding-top: 1px;\n}\n\n.pr-px {\n  padding-right: 1px;\n}\n\n.pb-px {\n  padding-bottom: 1px;\n}\n\n.pl-px {\n  padding-left: 1px;\n}\n\n.pointer-events-none {\n  pointer-events: none;\n}\n\n.pointer-events-auto {\n  pointer-events: auto;\n}\n\n.static {\n  position: static;\n}\n\n.fixed {\n  position: fixed;\n}\n\n.absolute {\n  position: absolute;\n}\n\n.relative {\n  position: relative;\n}\n\n.sticky {\n  position: -webkit-sticky;\n  position: sticky;\n}\n\n.pin-none {\n  top: auto;\n  right: auto;\n  bottom: auto;\n  left: auto;\n}\n\n.pin {\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n\n.pin-y {\n  top: 0;\n  bottom: 0;\n}\n\n.pin-x {\n  right: 0;\n  left: 0;\n}\n\n.pin-t {\n  top: 0;\n}\n\n.pin-r {\n  right: 0;\n}\n\n.pin-b {\n  bottom: 0;\n}\n\n.pin-l {\n  left: 0;\n}\n\n.resize-none {\n  resize: none;\n}\n\n.resize-y {\n  resize: vertical;\n}\n\n.resize-x {\n  resize: horizontal;\n}\n\n.resize {\n  resize: both;\n}\n\n.shadow {\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);\n}\n\n.shadow-md {\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);\n}\n\n.shadow-lg {\n  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);\n}\n\n.shadow-inner {\n  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);\n}\n\n.shadow-none {\n  box-shadow: none;\n}\n\n.fill-current {\n  fill: currentColor;\n}\n\n.stroke-current {\n  stroke: currentColor;\n}\n\n.text-left {\n  text-align: left;\n}\n\n.text-center {\n  text-align: center;\n}\n\n.text-right {\n  text-align: right;\n}\n\n.text-justify {\n  text-align: justify;\n}\n\n.text-transparent {\n  color: transparent;\n}\n\n.text-black {\n  color: #22292f;\n}\n\n.text-grey-darkest {\n  color: #3d4852;\n}\n\n.text-grey-darker {\n  color: #606f7b;\n}\n\n.text-grey-dark {\n  color: #8795a1;\n}\n\n.text-grey {\n  color: #b8c2cc;\n}\n\n.text-grey-light {\n  color: #dae1e7;\n}\n\n.text-grey-lighter {\n  color: #f1f5f8;\n}\n\n.text-grey-lightest {\n  color: #f8fafc;\n}\n\n.text-white {\n  color: #fff;\n}\n\n.text-red-darkest {\n  color: #3b0d0c;\n}\n\n.text-red-darker {\n  color: #621b18;\n}\n\n.text-red-dark {\n  color: #cc1f1a;\n}\n\n.text-red {\n  color: #e3342f;\n}\n\n.text-red-light {\n  color: #ef5753;\n}\n\n.text-red-lighter {\n  color: #f9acaa;\n}\n\n.text-red-lightest {\n  color: #fcebea;\n}\n\n.text-orange-darkest {\n  color: #462a16;\n}\n\n.text-orange-darker {\n  color: #613b1f;\n}\n\n.text-orange-dark {\n  color: #de751f;\n}\n\n.text-orange {\n  color: #f6993f;\n}\n\n.text-orange-light {\n  color: #faad63;\n}\n\n.text-orange-lighter {\n  color: #fcd9b6;\n}\n\n.text-orange-lightest {\n  color: #fff5eb;\n}\n\n.text-yellow-darkest {\n  color: #453411;\n}\n\n.text-yellow-darker {\n  color: #684f1d;\n}\n\n.text-yellow-dark {\n  color: #f2d024;\n}\n\n.text-yellow {\n  color: #ffed4a;\n}\n\n.text-yellow-light {\n  color: #fff382;\n}\n\n.text-yellow-lighter {\n  color: #fff9c2;\n}\n\n.text-yellow-lightest {\n  color: #fcfbeb;\n}\n\n.text-green-darkest {\n  color: #0f2f21;\n}\n\n.text-green-darker {\n  color: #1a4731;\n}\n\n.text-green-dark {\n  color: #1f9d55;\n}\n\n.text-green {\n  color: #38c172;\n}\n\n.text-green-light {\n  color: #51d88a;\n}\n\n.text-green-lighter {\n  color: #a2f5bf;\n}\n\n.text-green-lightest {\n  color: #e3fcec;\n}\n\n.text-teal-darkest {\n  color: #0d3331;\n}\n\n.text-teal-darker {\n  color: #20504f;\n}\n\n.text-teal-dark {\n  color: #38a89d;\n}\n\n.text-teal {\n  color: #4dc0b5;\n}\n\n.text-teal-light {\n  color: #64d5ca;\n}\n\n.text-teal-lighter {\n  color: #a0f0ed;\n}\n\n.text-teal-lightest {\n  color: #e8fffe;\n}\n\n.text-blue-darkest {\n  color: #12283a;\n}\n\n.text-blue-darker {\n  color: #1c3d5a;\n}\n\n.text-blue-dark {\n  color: #2779bd;\n}\n\n.text-blue {\n  color: #3490dc;\n}\n\n.text-blue-light {\n  color: #6cb2eb;\n}\n\n.text-blue-lighter {\n  color: #bcdefa;\n}\n\n.text-blue-lightest {\n  color: #eff8ff;\n}\n\n.text-indigo-darkest {\n  color: #191e38;\n}\n\n.text-indigo-darker {\n  color: #2f365f;\n}\n\n.text-indigo-dark {\n  color: #5661b3;\n}\n\n.text-indigo {\n  color: #6574cd;\n}\n\n.text-indigo-light {\n  color: #7886d7;\n}\n\n.text-indigo-lighter {\n  color: #b2b7ff;\n}\n\n.text-indigo-lightest {\n  color: #e6e8ff;\n}\n\n.text-purple-darkest {\n  color: #21183c;\n}\n\n.text-purple-darker {\n  color: #382b5f;\n}\n\n.text-purple-dark {\n  color: #794acf;\n}\n\n.text-purple {\n  color: #9561e2;\n}\n\n.text-purple-light {\n  color: #a779e9;\n}\n\n.text-purple-lighter {\n  color: #d6bbfc;\n}\n\n.text-purple-lightest {\n  color: #f3ebff;\n}\n\n.text-pink-darkest {\n  color: #451225;\n}\n\n.text-pink-darker {\n  color: #6f213f;\n}\n\n.text-pink-dark {\n  color: #eb5286;\n}\n\n.text-pink {\n  color: #f66d9b;\n}\n\n.text-pink-light {\n  color: #fa7ea8;\n}\n\n.text-pink-lighter {\n  color: #ffbbca;\n}\n\n.text-pink-lightest {\n  color: #ffebef;\n}\n\n.hover\\:text-transparent:hover {\n  color: transparent;\n}\n\n.hover\\:text-black:hover {\n  color: #22292f;\n}\n\n.hover\\:text-grey-darkest:hover {\n  color: #3d4852;\n}\n\n.hover\\:text-grey-darker:hover {\n  color: #606f7b;\n}\n\n.hover\\:text-grey-dark:hover {\n  color: #8795a1;\n}\n\n.hover\\:text-grey:hover {\n  color: #b8c2cc;\n}\n\n.hover\\:text-grey-light:hover {\n  color: #dae1e7;\n}\n\n.hover\\:text-grey-lighter:hover {\n  color: #f1f5f8;\n}\n\n.hover\\:text-grey-lightest:hover {\n  color: #f8fafc;\n}\n\n.hover\\:text-white:hover {\n  color: #fff;\n}\n\n.hover\\:text-red-darkest:hover {\n  color: #3b0d0c;\n}\n\n.hover\\:text-red-darker:hover {\n  color: #621b18;\n}\n\n.hover\\:text-red-dark:hover {\n  color: #cc1f1a;\n}\n\n.hover\\:text-red:hover {\n  color: #e3342f;\n}\n\n.hover\\:text-red-light:hover {\n  color: #ef5753;\n}\n\n.hover\\:text-red-lighter:hover {\n  color: #f9acaa;\n}\n\n.hover\\:text-red-lightest:hover {\n  color: #fcebea;\n}\n\n.hover\\:text-orange-darkest:hover {\n  color: #462a16;\n}\n\n.hover\\:text-orange-darker:hover {\n  color: #613b1f;\n}\n\n.hover\\:text-orange-dark:hover {\n  color: #de751f;\n}\n\n.hover\\:text-orange:hover {\n  color: #f6993f;\n}\n\n.hover\\:text-orange-light:hover {\n  color: #faad63;\n}\n\n.hover\\:text-orange-lighter:hover {\n  color: #fcd9b6;\n}\n\n.hover\\:text-orange-lightest:hover {\n  color: #fff5eb;\n}\n\n.hover\\:text-yellow-darkest:hover {\n  color: #453411;\n}\n\n.hover\\:text-yellow-darker:hover {\n  color: #684f1d;\n}\n\n.hover\\:text-yellow-dark:hover {\n  color: #f2d024;\n}\n\n.hover\\:text-yellow:hover {\n  color: #ffed4a;\n}\n\n.hover\\:text-yellow-light:hover {\n  color: #fff382;\n}\n\n.hover\\:text-yellow-lighter:hover {\n  color: #fff9c2;\n}\n\n.hover\\:text-yellow-lightest:hover {\n  color: #fcfbeb;\n}\n\n.hover\\:text-green-darkest:hover {\n  color: #0f2f21;\n}\n\n.hover\\:text-green-darker:hover {\n  color: #1a4731;\n}\n\n.hover\\:text-green-dark:hover {\n  color: #1f9d55;\n}\n\n.hover\\:text-green:hover {\n  color: #38c172;\n}\n\n.hover\\:text-green-light:hover {\n  color: #51d88a;\n}\n\n.hover\\:text-green-lighter:hover {\n  color: #a2f5bf;\n}\n\n.hover\\:text-green-lightest:hover {\n  color: #e3fcec;\n}\n\n.hover\\:text-teal-darkest:hover {\n  color: #0d3331;\n}\n\n.hover\\:text-teal-darker:hover {\n  color: #20504f;\n}\n\n.hover\\:text-teal-dark:hover {\n  color: #38a89d;\n}\n\n.hover\\:text-teal:hover {\n  color: #4dc0b5;\n}\n\n.hover\\:text-teal-light:hover {\n  color: #64d5ca;\n}\n\n.hover\\:text-teal-lighter:hover {\n  color: #a0f0ed;\n}\n\n.hover\\:text-teal-lightest:hover {\n  color: #e8fffe;\n}\n\n.hover\\:text-blue-darkest:hover {\n  color: #12283a;\n}\n\n.hover\\:text-blue-darker:hover {\n  color: #1c3d5a;\n}\n\n.hover\\:text-blue-dark:hover {\n  color: #2779bd;\n}\n\n.hover\\:text-blue:hover {\n  color: #3490dc;\n}\n\n.hover\\:text-blue-light:hover {\n  color: #6cb2eb;\n}\n\n.hover\\:text-blue-lighter:hover {\n  color: #bcdefa;\n}\n\n.hover\\:text-blue-lightest:hover {\n  color: #eff8ff;\n}\n\n.hover\\:text-indigo-darkest:hover {\n  color: #191e38;\n}\n\n.hover\\:text-indigo-darker:hover {\n  color: #2f365f;\n}\n\n.hover\\:text-indigo-dark:hover {\n  color: #5661b3;\n}\n\n.hover\\:text-indigo:hover {\n  color: #6574cd;\n}\n\n.hover\\:text-indigo-light:hover {\n  color: #7886d7;\n}\n\n.hover\\:text-indigo-lighter:hover {\n  color: #b2b7ff;\n}\n\n.hover\\:text-indigo-lightest:hover {\n  color: #e6e8ff;\n}\n\n.hover\\:text-purple-darkest:hover {\n  color: #21183c;\n}\n\n.hover\\:text-purple-darker:hover {\n  color: #382b5f;\n}\n\n.hover\\:text-purple-dark:hover {\n  color: #794acf;\n}\n\n.hover\\:text-purple:hover {\n  color: #9561e2;\n}\n\n.hover\\:text-purple-light:hover {\n  color: #a779e9;\n}\n\n.hover\\:text-purple-lighter:hover {\n  color: #d6bbfc;\n}\n\n.hover\\:text-purple-lightest:hover {\n  color: #f3ebff;\n}\n\n.hover\\:text-pink-darkest:hover {\n  color: #451225;\n}\n\n.hover\\:text-pink-darker:hover {\n  color: #6f213f;\n}\n\n.hover\\:text-pink-dark:hover {\n  color: #eb5286;\n}\n\n.hover\\:text-pink:hover {\n  color: #f66d9b;\n}\n\n.hover\\:text-pink-light:hover {\n  color: #fa7ea8;\n}\n\n.hover\\:text-pink-lighter:hover {\n  color: #ffbbca;\n}\n\n.hover\\:text-pink-lightest:hover {\n  color: #ffebef;\n}\n\n.text-xs {\n  font-size: .75rem;\n}\n\n.text-sm {\n  font-size: .875rem;\n}\n\n.text-base {\n  font-size: 1rem;\n}\n\n.text-lg {\n  font-size: 1.125rem;\n}\n\n.text-xl {\n  font-size: 1.25rem;\n}\n\n.text-2xl {\n  font-size: 1.5rem;\n}\n\n.text-3xl {\n  font-size: 1.875rem;\n}\n\n.text-4xl {\n  font-size: 2.25rem;\n}\n\n.text-5xl {\n  font-size: 3rem;\n}\n\n.italic {\n  font-style: italic;\n}\n\n.roman {\n  font-style: normal;\n}\n\n.uppercase {\n  text-transform: uppercase;\n}\n\n.lowercase {\n  text-transform: lowercase;\n}\n\n.capitalize {\n  text-transform: capitalize;\n}\n\n.normal-case {\n  text-transform: none;\n}\n\n.underline {\n  text-decoration: underline;\n}\n\n.line-through {\n  text-decoration: line-through;\n}\n\n.no-underline {\n  text-decoration: none;\n}\n\n.antialiased {\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n.subpixel-antialiased {\n  -webkit-font-smoothing: auto;\n  -moz-osx-font-smoothing: auto;\n}\n\n.hover\\:italic:hover {\n  font-style: italic;\n}\n\n.hover\\:roman:hover {\n  font-style: normal;\n}\n\n.hover\\:uppercase:hover {\n  text-transform: uppercase;\n}\n\n.hover\\:lowercase:hover {\n  text-transform: lowercase;\n}\n\n.hover\\:capitalize:hover {\n  text-transform: capitalize;\n}\n\n.hover\\:normal-case:hover {\n  text-transform: none;\n}\n\n.hover\\:underline:hover {\n  text-decoration: underline;\n}\n\n.hover\\:line-through:hover {\n  text-decoration: line-through;\n}\n\n.hover\\:no-underline:hover {\n  text-decoration: none;\n}\n\n.hover\\:antialiased:hover {\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n.hover\\:subpixel-antialiased:hover {\n  -webkit-font-smoothing: auto;\n  -moz-osx-font-smoothing: auto;\n}\n\n.tracking-tight {\n  letter-spacing: -0.05em;\n}\n\n.tracking-normal {\n  letter-spacing: 0;\n}\n\n.tracking-wide {\n  letter-spacing: .05em;\n}\n\n.select-none {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.select-text {\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n}\n\n.align-baseline {\n  vertical-align: baseline;\n}\n\n.align-top {\n  vertical-align: top;\n}\n\n.align-middle {\n  vertical-align: middle;\n}\n\n.align-bottom {\n  vertical-align: bottom;\n}\n\n.align-text-top {\n  vertical-align: text-top;\n}\n\n.align-text-bottom {\n  vertical-align: text-bottom;\n}\n\n.visible {\n  visibility: visible;\n}\n\n.invisible {\n  visibility: hidden;\n}\n\n.whitespace-normal {\n  white-space: normal;\n}\n\n.whitespace-no-wrap {\n  white-space: nowrap;\n}\n\n.whitespace-pre {\n  white-space: pre;\n}\n\n.whitespace-pre-line {\n  white-space: pre-line;\n}\n\n.whitespace-pre-wrap {\n  white-space: pre-wrap;\n}\n\n.break-words {\n  word-wrap: break-word;\n}\n\n.break-normal {\n  word-wrap: normal;\n}\n\n.truncate {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.w-1 {\n  width: .25rem;\n}\n\n.w-2 {\n  width: .5rem;\n}\n\n.w-3 {\n  width: .75rem;\n}\n\n.w-4 {\n  width: 1rem;\n}\n\n.w-6 {\n  width: 1.5rem;\n}\n\n.w-8 {\n  width: 2rem;\n}\n\n.w-10 {\n  width: 2.5rem;\n}\n\n.w-12 {\n  width: 3rem;\n}\n\n.w-16 {\n  width: 4rem;\n}\n\n.w-24 {\n  width: 6rem;\n}\n\n.w-32 {\n  width: 8rem;\n}\n\n.w-48 {\n  width: 12rem;\n}\n\n.w-64 {\n  width: 16rem;\n}\n\n.w-auto {\n  width: auto;\n}\n\n.w-px {\n  width: 1px;\n}\n\n.w-1\\/2 {\n  width: 50%;\n}\n\n.w-1\\/3 {\n  width: 33.33333%;\n}\n\n.w-2\\/3 {\n  width: 66.66667%;\n}\n\n.w-1\\/4 {\n  width: 25%;\n}\n\n.w-3\\/4 {\n  width: 75%;\n}\n\n.w-1\\/5 {\n  width: 20%;\n}\n\n.w-2\\/5 {\n  width: 40%;\n}\n\n.w-3\\/5 {\n  width: 60%;\n}\n\n.w-4\\/5 {\n  width: 80%;\n}\n\n.w-1\\/6 {\n  width: 16.66667%;\n}\n\n.w-5\\/6 {\n  width: 83.33333%;\n}\n\n.w-full {\n  width: 100%;\n}\n\n.w-screen {\n  width: 100vw;\n}\n\n.z-0 {\n  z-index: 0;\n}\n\n.z-10 {\n  z-index: 10;\n}\n\n.z-20 {\n  z-index: 20;\n}\n\n.z-30 {\n  z-index: 30;\n}\n\n.z-40 {\n  z-index: 40;\n}\n\n.z-50 {\n  z-index: 50;\n}\n\n.z-auto {\n  z-index: auto;\n}\n\n/**\n  * Here you would add any custom utilities you need that don't come out of the\n  * box with Tailwind.\n  *\n  * Example :\n  *\n  * .bg-pattern-graph-paper { ... }\n  * .skew-45 { ... }\n  *\n  * Or if using a preprocessor..\n  * \n  * @import \"utilities/backgrond-patterns\";\n  * @import \"utilities/skew-transforms\";\n  */\n\n.tooltip {\n  display: block !important;\n  z-index: 10000;\n}\n\n.tooltip .tooltip-inner {\n  background: black;\n  color: white;\n  border-radius: 16px;\n  padding: 5px 10px 4px;\n  font-size: 12px;\n}\n\n.tooltip .tooltip-arrow {\n  width: 0;\n  height: 0;\n  border-style: solid;\n  position: absolute;\n  margin: 5px;\n  border-color: black;\n  z-index: 1;\n}\n\n.tooltip[x-placement^=\"top\"] {\n  margin-bottom: 5px;\n}\n\n.tooltip[x-placement^=\"top\"] .tooltip-arrow {\n  border-width: 5px 5px 0 5px;\n  border-left-color: transparent !important;\n  border-right-color: transparent !important;\n  border-bottom-color: transparent !important;\n  bottom: -5px;\n  left: calc(50% - 5px);\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.tooltip[x-placement^=\"bottom\"] {\n  margin-top: 5px;\n}\n\n.tooltip[x-placement^=\"bottom\"] .tooltip-arrow {\n  border-width: 0 5px 5px 5px;\n  border-left-color: transparent !important;\n  border-right-color: transparent !important;\n  border-top-color: transparent !important;\n  top: -5px;\n  left: calc(50% - 5px);\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.tooltip[x-placement^=\"right\"] {\n  margin-left: 5px;\n}\n\n.tooltip[x-placement^=\"right\"] .tooltip-arrow {\n  border-width: 5px 5px 5px 0;\n  border-left-color: transparent !important;\n  border-top-color: transparent !important;\n  border-bottom-color: transparent !important;\n  left: -5px;\n  top: calc(50% - 5px);\n  margin-left: 0;\n  margin-right: 0;\n}\n\n.tooltip[x-placement^=\"left\"] {\n  margin-right: 5px;\n}\n\n.tooltip[x-placement^=\"left\"] .tooltip-arrow {\n  border-width: 5px 0 5px 5px;\n  border-top-color: transparent !important;\n  border-right-color: transparent !important;\n  border-bottom-color: transparent !important;\n  right: -5px;\n  top: calc(50% - 5px);\n  margin-left: 0;\n  margin-right: 0;\n}\n\n.tooltip.popover .popover-inner {\n  background: #f9f9f9;\n  color: black;\n  padding: 24px;\n  border-radius: 5px;\n  box-shadow: 0 5px 30px rgba(0, 0, 0, .1);\n}\n\n.tooltip.popover .popover-arrow {\n  border-color: #f9f9f9;\n}\n\n.tooltip[aria-hidden='true'] {\n  visibility: hidden;\n  opacity: 0;\n  transition: opacity .15s, visibility .15s;\n}\n\n.tooltip[aria-hidden='false'] {\n  visibility: visible;\n  opacity: 1;\n  transition: opacity .15s;\n}\n\n.gu-mirror {\n  position: fixed !important;\n  margin: 0 !important;\n  z-index: 9999 !important;\n  opacity: .8;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)\";\n      filter: alpha(opacity=80);\n}\n\n.gu-hide {\n  display: none !important;\n}\n\n.gu-unselectable {\n  -webkit-user-select: none !important;\n     -moz-user-select: none !important;\n      -ms-user-select: none !important;\n          user-select: none !important;\n}\n\n.gu-transit {\n  opacity: .2;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)\";\n      filter: alpha(opacity=20);\n}\n\n.vue-notification {\n  padding: 10px;\n  margin: 0 5px 5px;\n  font-size: 12px;\n  color: #fff;\n  background: #44a4fc;\n  border-left: 5px solid #187fe7;\n}\n\n.vue-notification.warn {\n  background: #ffb648;\n  border-left-color: #f48a06;\n}\n\n.vue-notification.error {\n  background: #e54d42;\n  border-left-color: #b82e24;\n}\n\n.vue-notification.success {\n  background: #68cd86;\n  border-left-color: #42a85f;\n}\n\n.label {\n  display: block;\n  color: #606f7b;\n  font-size: .875rem;\n  font-weight: 700;\n  margin-bottom: .5rem;\n}\n\n.form-control {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  display: block;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);\n  border-width: 1px;\n  border-radius: 0;\n  width: 100%;\n  padding-top: .5rem;\n  padding-bottom: .5rem;\n  padding-left: .75rem;\n  padding-right: .75rem;\n  color: #606f7b;\n  background-color: #fff;\n}\n\nselect.form-control:after {\n  content: 'arrow_drop_down';\n  font-family: 'Material Icons';\n}\n\n.btn-default {\n  margin-right: .25rem;\n  padding: .5rem;\n  background-color: #606f7b;\n  color: #fff;\n  font-size: .75rem;\n  font-weight: 700;\n  text-transform: uppercase;\n}\n\n.btn-default:hover {\n  background-color: #8795a1;\n}\n\n.btn-primary {\n  margin-top: 1rem;\n  margin-right: .25rem;\n  padding: .5rem;\n  background-color: #3490dc;\n  color: #fff;\n  font-size: .75rem;\n  font-weight: 700;\n  text-transform: uppercase;\n}\n\n.btn-primary:hover {\n  background-color: #6cb2eb;\n}\n\n.btn-default > i {\n  float: left;\n  margin-top: -2px;\n}\n\n.modal__header,\n.modal__content,\n.modal__footer {\n  display: block;\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n  padding-left: 1rem;\n  padding-right: 1rem;\n}\n\n.modal__header {\n  background-color: #f1f5f8;\n}\n\n.modal__footer {\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  background-color: #f1f5f8;\n}\n\n.modal__title {\n  color: #606f7b;\n}\n\n.modal__close,\n.modal__close:active,\n.modal__close:focus {\n  outline: 0;\n  margin-top: -0.25rem;\n  color: #606f7b;\n}\n\n.modal__close:hover {\n  color: #b8c2cc;\n}\n\n.toolbar {\n  margin-top: 48px;\n  position: fixed;\n  background-color: #f1f5f8;\n  border-width: 1px;\n  border-color: #dae1e7;\n  top: 0;\n  bottom: 0;\n}\n\n.toolbar-left {\n  left: 0;\n  border-left-width: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\n.toolbar-right {\n  width: 250px;\n  right: 0;\n  border-right-width: 0;\n}\n\n.toolbar-tabs {\n  height: 100%;\n  background-color: #3d4852;\n}\n\n.toolbar-content {\n  width: 250px;\n  padding: 1rem;\n}\n\n.toolbar-tabs a {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  position: relative;\n  box-sizing: border-box;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  font-size: 10px;\n  padding-left: .75rem;\n  padding-right: .75rem;\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n  color: #b8c2cc;\n  font-weight: 300;\n  text-transform: uppercase;\n}\n\n.toolbar-tabs a > i {\n  margin-bottom: .5rem;\n}\n\n.toolbar-tabs a:hover,\n.toolbar-tabs a.active {\n  cursor: pointer;\n  background-color: #22292f;\n  color: #dae1e7;\n}\n\n.toolbar-tabs a.active:before {\n  content: ' ';\n  top: 0;\n  left: 0;\n  bottom: 0;\n  width: 1px;\n  position: absolute;\n  border-left-width: 4px;\n  border-color: #3490dc;\n}\n\n.toolbar h5 {\n  margin-bottom: 1rem;\n  font-weight: 400;\n  color: #8795a1;\n}\n\n.toolbar hr {\n  border-width: 0;\n  border-top-width: 1px;\n  border-color: #dae1e7;\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  display: block;\n  height: 1px;\n}\n\n.toolbar__button,\n.toolbar__button:active,\n.toolbar__button:focus,\n.toolbar__button:disabled:hover {\n  outline: 0;\n  background-color: #fff;\n  border-width: 1px;\n  border-color: #dae1e7;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: .25rem;\n  margin-top: .25rem;\n  margin-bottom: .25rem;\n  font-size: .75rem;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\n.toolbar__button:disabled:hover {\n  color: #606f7b;\n  cursor: not-allowed;\n}\n\n.toolbar__button:hover {\n  background-color: #22292f;\n  border-color: #606f7b;\n  color: #fff;\n}\n\n.toolbar__button > i {\n  margin-right: .25rem;\n}\n\n.toolbar-right h5 {\n  margin-bottom: .25rem;\n  margin-top: 1rem;\n  color: #606f7b;\n  font-size: .75rem;\n  text-transform: uppercase;\n}\n\n.toolbar-right h5:first-child {\n  margin-bottom: .25rem;\n  margin-top: 0;\n}\n\n.toolbar label {\n  font-size: .75rem;\n  color: #b8c2cc;\n}\n\n.toolbar input,\n.toolbar input.form-control,\n.toolbar input:focus,\n.toolbar input:active {\n  outline: none;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-color: transparent;\n  border-bottom-width: 1px;\n  border-color: #dae1e7;\n  width: 100%;\n  color: #606f7b;\n  font-size: .875rem;\n  box-shadow: none;\n}\n\n.toolbar .checkbox {\n  display: inline;\n}\n\n.toolbar .checkbox .material-icons {\n  font-size: 1.25rem;\n  color: #b8c2cc;\n}\n\n.toolbar .checkbox label {\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  cursor: pointer;\n}\n\n.toolbar .checkbox label:hover i,\n.toolbar .checkbox .material-icons:hover {\n  color: #6cb2eb;\n  cursor: pointer;\n}\n\n.toolbar .checkbox input:checked ~ i {\n  color: #3490dc;\n}\n\n.toolbar .checkbox input[type=\"checkbox\"] {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  border-style: none;\n  width: auto;\n}\n\n.dropdown_menu > ul {\n  position: absolute;\n  display: none;\n  background-color: #22292f;\n  padding: 0;\n  margin: 0;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);\n  z-index: 99;\n}\n\n.dropdown_menu > ul > li {\n  display: block;\n  margin: 0;\n  color: #e1e1e1;\n  padding: 6px 3px;\n  padding-right: 6px;\n  cursor: pointer;\n  font-size: 12px;\n  min-width: 80px;\n}\n\n.dropdown_menu > ul > li > i {\n  font-size: 16px;\n  float: left;\n  margin-top: -1px;\n  margin-right: 3px;\n}\n\n.dropdown_menu > ul > li:hover {\n  cursor: pointer;\n  background-color: #333;\n}\n\n.dropdown_menu__button {\n  display: inline-block;\n  padding: 2px;\n}\n\n.dropdown_menu:hover > .dropdown_menu__button {\n  background-color: #e9e9e9;\n  cursor: pointer;\n}\n\n.dropdown_menu:hover .document__page_number {\n  color: #333;\n}\n\n.dropdown_menu:hover > ul {\n  display: block;\n}\n\n@media print {\n  @page {\n    size: 210mm 297mm;\n    margin: 0;\n  }\n\n  body {\n    background-color: #fff;\n  }\n\n  body * {\n    visibility: hidden;\n  }\n\n  .document {\n    border: 0 !important;\n    margin: 0 !important;\n    padding: 0 !important;\n  }\n\n  .document__page-container {\n    background-color: #fff;\n  }\n\n  .document__page {\n    page-break-before: always;\n  }\n\n  .document__page,\n  .document__page > div {\n    margin: 0 !important;\n    padding: 0 !important;\n    border: 0 !important;\n  }\n\n  .document__page,\n  .document__page * {\n    visibility: visible;\n  }\n\n  .document__page-element.hovering::before,\n  .document__page-element.selected::before {\n    display: none;\n  }\n}\n\n.d-table {\n  width: 100%;\n  max-width: 100%;\n  border-spacing: 0;\n  table-layout: fixed;\n  border-collapse: collapse;\n}\n\n.d-table td {\n  height: 15px;\n}\n\n.editMode .d-table td.selected.resizable:before {\n  content: ' ';\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 8px;\n  height: 100%;\n  z-index: 100;\n  cursor: ew-resize;\n}\n\n.d-table td,\n.d-table th {\n  white-space: normal;\n  /* Only needed when it's set differntly somewhere else */\n  word-wrap: break-word;\n}\n\n.progress {\n  color: #b8c2cc;\n  font-size: .75rem;\n}\n\n.progress:after {\n  content: '.';\n  -webkit-animation: dots 1s steps(5, end) infinite;\n          animation: dots 1s steps(5, end) infinite;\n}\n\n.loading {\n  position: absolute;\n  top: 40%;\n  width: 100px;\n  border: 1px solid #333;\n  padding: 6px 5px;\n  left: calc(50% - 53px);\n  text-align: center;\n}\n\n@-webkit-keyframes dots {\n  0%,\n  20% {\n    color: #333;\n    text-shadow: .25em 0 0 transparent, .5em 0 0 transparent;\n  }\n\n  40% {\n    color: #b8c2cc;\n    text-shadow: .25em 0 0 transparent, .5em 0 0 transparent;\n  }\n\n  60% {\n    text-shadow: .25em 0 0 #e4e4e4, .5em 0 0 transparent;\n  }\n\n  80%,\n  100% {\n    text-shadow: .25em 0 0 #e4e4e4, .5em 0 0 #e4e4e4;\n  }\n}\n\n@keyframes dots {\n  0%,\n  20% {\n    color: #333;\n    text-shadow: .25em 0 0 transparent, .5em 0 0 transparent;\n  }\n\n  40% {\n    color: #b8c2cc;\n    text-shadow: .25em 0 0 transparent, .5em 0 0 transparent;\n  }\n\n  60% {\n    text-shadow: .25em 0 0 #e4e4e4, .5em 0 0 transparent;\n  }\n\n  80%,\n  100% {\n    text-shadow: .25em 0 0 #e4e4e4, .5em 0 0 #e4e4e4;\n  }\n}\n\n.boot-error {\n  position: absolute;\n  margin: 50px;\n  left: calc(50% - 250px);\n  padding: 25px;\n  width: 400px;\n  display: inline-block;\n  border: 1px solid maroon;\n}\n\n.boot-error > h3 {\n  color: maroon;\n  margin-bottom: 20px;\n}\n\n.material-icons {\n  font-size: 16px;\n}\n\n.text-center {\n  text-align: center;\n}\n\n.document {\n  margin-top: 80px;\n}\n\n.editMode .document {\n  margin-left: 330px;\n}\n\n.document h2 {\n  margin-bottom: 0;\n}\n\n.document__page {\n  overflow: hidden;\n  background-color: #fff;\n  border-width: 1px;\n  margin-bottom: 10mm;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.document__page_number {\n  color: #b4b4b4;\n  font-size: 12px;\n  padding-bottom: 4px;\n  padding-top: 4px;\n  padding-right: 6px;\n  clear: both;\n}\n\n.document__page_number > i {\n  font-size: 16px;\n  margin-right: 3px;\n  margin-top: -1px;\n  float: left;\n}\n\n.document__page > div > .document__page-container {\n  min-height: 100%;\n}\n\n.document__page-element {\n  z-index: 5;\n  position: relative;\n}\n\n.document__page-element:hover {\n  cursor: pointer;\n}\n\n.editMode .document__page-element.hovering:after,\n.editMode .document__page-element.selected:after {\n  content: \" \";\n  position: absolute;\n  display: block;\n  z-index: 1;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  border: 1px dashed #65b1c9;\n  background-color: transparent;\n}\n\n.editMode tr.document__page-element.selected:after {\n  content: none !important;\n}\n\n.editMode tr.document__page-element.selected > td:after {\n  content: ' ';\n  position: absolute;\n  display: block;\n  z-index: 100;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  -webkit-animation: glowing 1000ms infinite;\n          animation: glowing 1000ms infinite;\n  background-color: rgba(189, 238, 255, .2);\n}\n\n@-webkit-keyframes glowing {\n  0% {\n    background-color: rgba(189, 238, 255, .2);\n  }\n\n  10% {\n    background-color: rgba(189, 238, 255, .3);\n  }\n\n  50% {\n    background-color: rgba(189, 238, 255, .4);\n  }\n\n  80% {\n    background-color: rgba(189, 238, 255, .3);\n  }\n\n  100% {\n    background-color: rgba(189, 238, 255, .2);\n  }\n}\n\n@keyframes glowing {\n  0% {\n    background-color: rgba(189, 238, 255, .2);\n  }\n\n  10% {\n    background-color: rgba(189, 238, 255, .3);\n  }\n\n  50% {\n    background-color: rgba(189, 238, 255, .4);\n  }\n\n  80% {\n    background-color: rgba(189, 238, 255, .3);\n  }\n\n  100% {\n    background-color: rgba(189, 238, 255, .2);\n  }\n}\n\n.editMode .document__page-element.selected:after {\n  border: 1px solid #65b1c9;\n}\n\n.element__photo {\n  text-align: center;\n}\n\nbutton:active,\nbutton:focus {\n  outline: none;\n}\n\n@media (min-width: 576px) {\n  .sm\\:list-reset {\n    list-style: none;\n    padding: 0;\n  }\n\n  .sm\\:appearance-none {\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n  }\n\n  .sm\\:bg-fixed {\n    background-attachment: fixed;\n  }\n\n  .sm\\:bg-local {\n    background-attachment: local;\n  }\n\n  .sm\\:bg-scroll {\n    background-attachment: scroll;\n  }\n\n  .sm\\:bg-transparent {\n    background-color: transparent;\n  }\n\n  .sm\\:bg-black {\n    background-color: #22292f;\n  }\n\n  .sm\\:bg-grey-darkest {\n    background-color: #3d4852;\n  }\n\n  .sm\\:bg-grey-darker {\n    background-color: #606f7b;\n  }\n\n  .sm\\:bg-grey-dark {\n    background-color: #8795a1;\n  }\n\n  .sm\\:bg-grey {\n    background-color: #b8c2cc;\n  }\n\n  .sm\\:bg-grey-light {\n    background-color: #dae1e7;\n  }\n\n  .sm\\:bg-grey-lighter {\n    background-color: #f1f5f8;\n  }\n\n  .sm\\:bg-grey-lightest {\n    background-color: #f8fafc;\n  }\n\n  .sm\\:bg-white {\n    background-color: #fff;\n  }\n\n  .sm\\:bg-red-darkest {\n    background-color: #3b0d0c;\n  }\n\n  .sm\\:bg-red-darker {\n    background-color: #621b18;\n  }\n\n  .sm\\:bg-red-dark {\n    background-color: #cc1f1a;\n  }\n\n  .sm\\:bg-red {\n    background-color: #e3342f;\n  }\n\n  .sm\\:bg-red-light {\n    background-color: #ef5753;\n  }\n\n  .sm\\:bg-red-lighter {\n    background-color: #f9acaa;\n  }\n\n  .sm\\:bg-red-lightest {\n    background-color: #fcebea;\n  }\n\n  .sm\\:bg-orange-darkest {\n    background-color: #462a16;\n  }\n\n  .sm\\:bg-orange-darker {\n    background-color: #613b1f;\n  }\n\n  .sm\\:bg-orange-dark {\n    background-color: #de751f;\n  }\n\n  .sm\\:bg-orange {\n    background-color: #f6993f;\n  }\n\n  .sm\\:bg-orange-light {\n    background-color: #faad63;\n  }\n\n  .sm\\:bg-orange-lighter {\n    background-color: #fcd9b6;\n  }\n\n  .sm\\:bg-orange-lightest {\n    background-color: #fff5eb;\n  }\n\n  .sm\\:bg-yellow-darkest {\n    background-color: #453411;\n  }\n\n  .sm\\:bg-yellow-darker {\n    background-color: #684f1d;\n  }\n\n  .sm\\:bg-yellow-dark {\n    background-color: #f2d024;\n  }\n\n  .sm\\:bg-yellow {\n    background-color: #ffed4a;\n  }\n\n  .sm\\:bg-yellow-light {\n    background-color: #fff382;\n  }\n\n  .sm\\:bg-yellow-lighter {\n    background-color: #fff9c2;\n  }\n\n  .sm\\:bg-yellow-lightest {\n    background-color: #fcfbeb;\n  }\n\n  .sm\\:bg-green-darkest {\n    background-color: #0f2f21;\n  }\n\n  .sm\\:bg-green-darker {\n    background-color: #1a4731;\n  }\n\n  .sm\\:bg-green-dark {\n    background-color: #1f9d55;\n  }\n\n  .sm\\:bg-green {\n    background-color: #38c172;\n  }\n\n  .sm\\:bg-green-light {\n    background-color: #51d88a;\n  }\n\n  .sm\\:bg-green-lighter {\n    background-color: #a2f5bf;\n  }\n\n  .sm\\:bg-green-lightest {\n    background-color: #e3fcec;\n  }\n\n  .sm\\:bg-teal-darkest {\n    background-color: #0d3331;\n  }\n\n  .sm\\:bg-teal-darker {\n    background-color: #20504f;\n  }\n\n  .sm\\:bg-teal-dark {\n    background-color: #38a89d;\n  }\n\n  .sm\\:bg-teal {\n    background-color: #4dc0b5;\n  }\n\n  .sm\\:bg-teal-light {\n    background-color: #64d5ca;\n  }\n\n  .sm\\:bg-teal-lighter {\n    background-color: #a0f0ed;\n  }\n\n  .sm\\:bg-teal-lightest {\n    background-color: #e8fffe;\n  }\n\n  .sm\\:bg-blue-darkest {\n    background-color: #12283a;\n  }\n\n  .sm\\:bg-blue-darker {\n    background-color: #1c3d5a;\n  }\n\n  .sm\\:bg-blue-dark {\n    background-color: #2779bd;\n  }\n\n  .sm\\:bg-blue {\n    background-color: #3490dc;\n  }\n\n  .sm\\:bg-blue-light {\n    background-color: #6cb2eb;\n  }\n\n  .sm\\:bg-blue-lighter {\n    background-color: #bcdefa;\n  }\n\n  .sm\\:bg-blue-lightest {\n    background-color: #eff8ff;\n  }\n\n  .sm\\:bg-indigo-darkest {\n    background-color: #191e38;\n  }\n\n  .sm\\:bg-indigo-darker {\n    background-color: #2f365f;\n  }\n\n  .sm\\:bg-indigo-dark {\n    background-color: #5661b3;\n  }\n\n  .sm\\:bg-indigo {\n    background-color: #6574cd;\n  }\n\n  .sm\\:bg-indigo-light {\n    background-color: #7886d7;\n  }\n\n  .sm\\:bg-indigo-lighter {\n    background-color: #b2b7ff;\n  }\n\n  .sm\\:bg-indigo-lightest {\n    background-color: #e6e8ff;\n  }\n\n  .sm\\:bg-purple-darkest {\n    background-color: #21183c;\n  }\n\n  .sm\\:bg-purple-darker {\n    background-color: #382b5f;\n  }\n\n  .sm\\:bg-purple-dark {\n    background-color: #794acf;\n  }\n\n  .sm\\:bg-purple {\n    background-color: #9561e2;\n  }\n\n  .sm\\:bg-purple-light {\n    background-color: #a779e9;\n  }\n\n  .sm\\:bg-purple-lighter {\n    background-color: #d6bbfc;\n  }\n\n  .sm\\:bg-purple-lightest {\n    background-color: #f3ebff;\n  }\n\n  .sm\\:bg-pink-darkest {\n    background-color: #451225;\n  }\n\n  .sm\\:bg-pink-darker {\n    background-color: #6f213f;\n  }\n\n  .sm\\:bg-pink-dark {\n    background-color: #eb5286;\n  }\n\n  .sm\\:bg-pink {\n    background-color: #f66d9b;\n  }\n\n  .sm\\:bg-pink-light {\n    background-color: #fa7ea8;\n  }\n\n  .sm\\:bg-pink-lighter {\n    background-color: #ffbbca;\n  }\n\n  .sm\\:bg-pink-lightest {\n    background-color: #ffebef;\n  }\n\n  .sm\\:hover\\:bg-transparent:hover {\n    background-color: transparent;\n  }\n\n  .sm\\:hover\\:bg-black:hover {\n    background-color: #22292f;\n  }\n\n  .sm\\:hover\\:bg-grey-darkest:hover {\n    background-color: #3d4852;\n  }\n\n  .sm\\:hover\\:bg-grey-darker:hover {\n    background-color: #606f7b;\n  }\n\n  .sm\\:hover\\:bg-grey-dark:hover {\n    background-color: #8795a1;\n  }\n\n  .sm\\:hover\\:bg-grey:hover {\n    background-color: #b8c2cc;\n  }\n\n  .sm\\:hover\\:bg-grey-light:hover {\n    background-color: #dae1e7;\n  }\n\n  .sm\\:hover\\:bg-grey-lighter:hover {\n    background-color: #f1f5f8;\n  }\n\n  .sm\\:hover\\:bg-grey-lightest:hover {\n    background-color: #f8fafc;\n  }\n\n  .sm\\:hover\\:bg-white:hover {\n    background-color: #fff;\n  }\n\n  .sm\\:hover\\:bg-red-darkest:hover {\n    background-color: #3b0d0c;\n  }\n\n  .sm\\:hover\\:bg-red-darker:hover {\n    background-color: #621b18;\n  }\n\n  .sm\\:hover\\:bg-red-dark:hover {\n    background-color: #cc1f1a;\n  }\n\n  .sm\\:hover\\:bg-red:hover {\n    background-color: #e3342f;\n  }\n\n  .sm\\:hover\\:bg-red-light:hover {\n    background-color: #ef5753;\n  }\n\n  .sm\\:hover\\:bg-red-lighter:hover {\n    background-color: #f9acaa;\n  }\n\n  .sm\\:hover\\:bg-red-lightest:hover {\n    background-color: #fcebea;\n  }\n\n  .sm\\:hover\\:bg-orange-darkest:hover {\n    background-color: #462a16;\n  }\n\n  .sm\\:hover\\:bg-orange-darker:hover {\n    background-color: #613b1f;\n  }\n\n  .sm\\:hover\\:bg-orange-dark:hover {\n    background-color: #de751f;\n  }\n\n  .sm\\:hover\\:bg-orange:hover {\n    background-color: #f6993f;\n  }\n\n  .sm\\:hover\\:bg-orange-light:hover {\n    background-color: #faad63;\n  }\n\n  .sm\\:hover\\:bg-orange-lighter:hover {\n    background-color: #fcd9b6;\n  }\n\n  .sm\\:hover\\:bg-orange-lightest:hover {\n    background-color: #fff5eb;\n  }\n\n  .sm\\:hover\\:bg-yellow-darkest:hover {\n    background-color: #453411;\n  }\n\n  .sm\\:hover\\:bg-yellow-darker:hover {\n    background-color: #684f1d;\n  }\n\n  .sm\\:hover\\:bg-yellow-dark:hover {\n    background-color: #f2d024;\n  }\n\n  .sm\\:hover\\:bg-yellow:hover {\n    background-color: #ffed4a;\n  }\n\n  .sm\\:hover\\:bg-yellow-light:hover {\n    background-color: #fff382;\n  }\n\n  .sm\\:hover\\:bg-yellow-lighter:hover {\n    background-color: #fff9c2;\n  }\n\n  .sm\\:hover\\:bg-yellow-lightest:hover {\n    background-color: #fcfbeb;\n  }\n\n  .sm\\:hover\\:bg-green-darkest:hover {\n    background-color: #0f2f21;\n  }\n\n  .sm\\:hover\\:bg-green-darker:hover {\n    background-color: #1a4731;\n  }\n\n  .sm\\:hover\\:bg-green-dark:hover {\n    background-color: #1f9d55;\n  }\n\n  .sm\\:hover\\:bg-green:hover {\n    background-color: #38c172;\n  }\n\n  .sm\\:hover\\:bg-green-light:hover {\n    background-color: #51d88a;\n  }\n\n  .sm\\:hover\\:bg-green-lighter:hover {\n    background-color: #a2f5bf;\n  }\n\n  .sm\\:hover\\:bg-green-lightest:hover {\n    background-color: #e3fcec;\n  }\n\n  .sm\\:hover\\:bg-teal-darkest:hover {\n    background-color: #0d3331;\n  }\n\n  .sm\\:hover\\:bg-teal-darker:hover {\n    background-color: #20504f;\n  }\n\n  .sm\\:hover\\:bg-teal-dark:hover {\n    background-color: #38a89d;\n  }\n\n  .sm\\:hover\\:bg-teal:hover {\n    background-color: #4dc0b5;\n  }\n\n  .sm\\:hover\\:bg-teal-light:hover {\n    background-color: #64d5ca;\n  }\n\n  .sm\\:hover\\:bg-teal-lighter:hover {\n    background-color: #a0f0ed;\n  }\n\n  .sm\\:hover\\:bg-teal-lightest:hover {\n    background-color: #e8fffe;\n  }\n\n  .sm\\:hover\\:bg-blue-darkest:hover {\n    background-color: #12283a;\n  }\n\n  .sm\\:hover\\:bg-blue-darker:hover {\n    background-color: #1c3d5a;\n  }\n\n  .sm\\:hover\\:bg-blue-dark:hover {\n    background-color: #2779bd;\n  }\n\n  .sm\\:hover\\:bg-blue:hover {\n    background-color: #3490dc;\n  }\n\n  .sm\\:hover\\:bg-blue-light:hover {\n    background-color: #6cb2eb;\n  }\n\n  .sm\\:hover\\:bg-blue-lighter:hover {\n    background-color: #bcdefa;\n  }\n\n  .sm\\:hover\\:bg-blue-lightest:hover {\n    background-color: #eff8ff;\n  }\n\n  .sm\\:hover\\:bg-indigo-darkest:hover {\n    background-color: #191e38;\n  }\n\n  .sm\\:hover\\:bg-indigo-darker:hover {\n    background-color: #2f365f;\n  }\n\n  .sm\\:hover\\:bg-indigo-dark:hover {\n    background-color: #5661b3;\n  }\n\n  .sm\\:hover\\:bg-indigo:hover {\n    background-color: #6574cd;\n  }\n\n  .sm\\:hover\\:bg-indigo-light:hover {\n    background-color: #7886d7;\n  }\n\n  .sm\\:hover\\:bg-indigo-lighter:hover {\n    background-color: #b2b7ff;\n  }\n\n  .sm\\:hover\\:bg-indigo-lightest:hover {\n    background-color: #e6e8ff;\n  }\n\n  .sm\\:hover\\:bg-purple-darkest:hover {\n    background-color: #21183c;\n  }\n\n  .sm\\:hover\\:bg-purple-darker:hover {\n    background-color: #382b5f;\n  }\n\n  .sm\\:hover\\:bg-purple-dark:hover {\n    background-color: #794acf;\n  }\n\n  .sm\\:hover\\:bg-purple:hover {\n    background-color: #9561e2;\n  }\n\n  .sm\\:hover\\:bg-purple-light:hover {\n    background-color: #a779e9;\n  }\n\n  .sm\\:hover\\:bg-purple-lighter:hover {\n    background-color: #d6bbfc;\n  }\n\n  .sm\\:hover\\:bg-purple-lightest:hover {\n    background-color: #f3ebff;\n  }\n\n  .sm\\:hover\\:bg-pink-darkest:hover {\n    background-color: #451225;\n  }\n\n  .sm\\:hover\\:bg-pink-darker:hover {\n    background-color: #6f213f;\n  }\n\n  .sm\\:hover\\:bg-pink-dark:hover {\n    background-color: #eb5286;\n  }\n\n  .sm\\:hover\\:bg-pink:hover {\n    background-color: #f66d9b;\n  }\n\n  .sm\\:hover\\:bg-pink-light:hover {\n    background-color: #fa7ea8;\n  }\n\n  .sm\\:hover\\:bg-pink-lighter:hover {\n    background-color: #ffbbca;\n  }\n\n  .sm\\:hover\\:bg-pink-lightest:hover {\n    background-color: #ffebef;\n  }\n\n  .sm\\:bg-bottom {\n    background-position: bottom;\n  }\n\n  .sm\\:bg-center {\n    background-position: center;\n  }\n\n  .sm\\:bg-left {\n    background-position: left;\n  }\n\n  .sm\\:bg-left-bottom {\n    background-position: left bottom;\n  }\n\n  .sm\\:bg-left-top {\n    background-position: left top;\n  }\n\n  .sm\\:bg-right {\n    background-position: right;\n  }\n\n  .sm\\:bg-right-bottom {\n    background-position: right bottom;\n  }\n\n  .sm\\:bg-right-top {\n    background-position: right top;\n  }\n\n  .sm\\:bg-top {\n    background-position: top;\n  }\n\n  .sm\\:bg-repeat {\n    background-repeat: repeat;\n  }\n\n  .sm\\:bg-no-repeat {\n    background-repeat: no-repeat;\n  }\n\n  .sm\\:bg-repeat-x {\n    background-repeat: repeat-x;\n  }\n\n  .sm\\:bg-repeat-y {\n    background-repeat: repeat-y;\n  }\n\n  .sm\\:bg-auto {\n    background-size: auto;\n  }\n\n  .sm\\:bg-cover {\n    background-size: cover;\n  }\n\n  .sm\\:bg-contain {\n    background-size: contain;\n  }\n\n  .sm\\:border-transparent {\n    border-color: transparent;\n  }\n\n  .sm\\:border-black {\n    border-color: #22292f;\n  }\n\n  .sm\\:border-grey-darkest {\n    border-color: #3d4852;\n  }\n\n  .sm\\:border-grey-darker {\n    border-color: #606f7b;\n  }\n\n  .sm\\:border-grey-dark {\n    border-color: #8795a1;\n  }\n\n  .sm\\:border-grey {\n    border-color: #b8c2cc;\n  }\n\n  .sm\\:border-grey-light {\n    border-color: #dae1e7;\n  }\n\n  .sm\\:border-grey-lighter {\n    border-color: #f1f5f8;\n  }\n\n  .sm\\:border-grey-lightest {\n    border-color: #f8fafc;\n  }\n\n  .sm\\:border-white {\n    border-color: #fff;\n  }\n\n  .sm\\:border-red-darkest {\n    border-color: #3b0d0c;\n  }\n\n  .sm\\:border-red-darker {\n    border-color: #621b18;\n  }\n\n  .sm\\:border-red-dark {\n    border-color: #cc1f1a;\n  }\n\n  .sm\\:border-red {\n    border-color: #e3342f;\n  }\n\n  .sm\\:border-red-light {\n    border-color: #ef5753;\n  }\n\n  .sm\\:border-red-lighter {\n    border-color: #f9acaa;\n  }\n\n  .sm\\:border-red-lightest {\n    border-color: #fcebea;\n  }\n\n  .sm\\:border-orange-darkest {\n    border-color: #462a16;\n  }\n\n  .sm\\:border-orange-darker {\n    border-color: #613b1f;\n  }\n\n  .sm\\:border-orange-dark {\n    border-color: #de751f;\n  }\n\n  .sm\\:border-orange {\n    border-color: #f6993f;\n  }\n\n  .sm\\:border-orange-light {\n    border-color: #faad63;\n  }\n\n  .sm\\:border-orange-lighter {\n    border-color: #fcd9b6;\n  }\n\n  .sm\\:border-orange-lightest {\n    border-color: #fff5eb;\n  }\n\n  .sm\\:border-yellow-darkest {\n    border-color: #453411;\n  }\n\n  .sm\\:border-yellow-darker {\n    border-color: #684f1d;\n  }\n\n  .sm\\:border-yellow-dark {\n    border-color: #f2d024;\n  }\n\n  .sm\\:border-yellow {\n    border-color: #ffed4a;\n  }\n\n  .sm\\:border-yellow-light {\n    border-color: #fff382;\n  }\n\n  .sm\\:border-yellow-lighter {\n    border-color: #fff9c2;\n  }\n\n  .sm\\:border-yellow-lightest {\n    border-color: #fcfbeb;\n  }\n\n  .sm\\:border-green-darkest {\n    border-color: #0f2f21;\n  }\n\n  .sm\\:border-green-darker {\n    border-color: #1a4731;\n  }\n\n  .sm\\:border-green-dark {\n    border-color: #1f9d55;\n  }\n\n  .sm\\:border-green {\n    border-color: #38c172;\n  }\n\n  .sm\\:border-green-light {\n    border-color: #51d88a;\n  }\n\n  .sm\\:border-green-lighter {\n    border-color: #a2f5bf;\n  }\n\n  .sm\\:border-green-lightest {\n    border-color: #e3fcec;\n  }\n\n  .sm\\:border-teal-darkest {\n    border-color: #0d3331;\n  }\n\n  .sm\\:border-teal-darker {\n    border-color: #20504f;\n  }\n\n  .sm\\:border-teal-dark {\n    border-color: #38a89d;\n  }\n\n  .sm\\:border-teal {\n    border-color: #4dc0b5;\n  }\n\n  .sm\\:border-teal-light {\n    border-color: #64d5ca;\n  }\n\n  .sm\\:border-teal-lighter {\n    border-color: #a0f0ed;\n  }\n\n  .sm\\:border-teal-lightest {\n    border-color: #e8fffe;\n  }\n\n  .sm\\:border-blue-darkest {\n    border-color: #12283a;\n  }\n\n  .sm\\:border-blue-darker {\n    border-color: #1c3d5a;\n  }\n\n  .sm\\:border-blue-dark {\n    border-color: #2779bd;\n  }\n\n  .sm\\:border-blue {\n    border-color: #3490dc;\n  }\n\n  .sm\\:border-blue-light {\n    border-color: #6cb2eb;\n  }\n\n  .sm\\:border-blue-lighter {\n    border-color: #bcdefa;\n  }\n\n  .sm\\:border-blue-lightest {\n    border-color: #eff8ff;\n  }\n\n  .sm\\:border-indigo-darkest {\n    border-color: #191e38;\n  }\n\n  .sm\\:border-indigo-darker {\n    border-color: #2f365f;\n  }\n\n  .sm\\:border-indigo-dark {\n    border-color: #5661b3;\n  }\n\n  .sm\\:border-indigo {\n    border-color: #6574cd;\n  }\n\n  .sm\\:border-indigo-light {\n    border-color: #7886d7;\n  }\n\n  .sm\\:border-indigo-lighter {\n    border-color: #b2b7ff;\n  }\n\n  .sm\\:border-indigo-lightest {\n    border-color: #e6e8ff;\n  }\n\n  .sm\\:border-purple-darkest {\n    border-color: #21183c;\n  }\n\n  .sm\\:border-purple-darker {\n    border-color: #382b5f;\n  }\n\n  .sm\\:border-purple-dark {\n    border-color: #794acf;\n  }\n\n  .sm\\:border-purple {\n    border-color: #9561e2;\n  }\n\n  .sm\\:border-purple-light {\n    border-color: #a779e9;\n  }\n\n  .sm\\:border-purple-lighter {\n    border-color: #d6bbfc;\n  }\n\n  .sm\\:border-purple-lightest {\n    border-color: #f3ebff;\n  }\n\n  .sm\\:border-pink-darkest {\n    border-color: #451225;\n  }\n\n  .sm\\:border-pink-darker {\n    border-color: #6f213f;\n  }\n\n  .sm\\:border-pink-dark {\n    border-color: #eb5286;\n  }\n\n  .sm\\:border-pink {\n    border-color: #f66d9b;\n  }\n\n  .sm\\:border-pink-light {\n    border-color: #fa7ea8;\n  }\n\n  .sm\\:border-pink-lighter {\n    border-color: #ffbbca;\n  }\n\n  .sm\\:border-pink-lightest {\n    border-color: #ffebef;\n  }\n\n  .sm\\:hover\\:border-transparent:hover {\n    border-color: transparent;\n  }\n\n  .sm\\:hover\\:border-black:hover {\n    border-color: #22292f;\n  }\n\n  .sm\\:hover\\:border-grey-darkest:hover {\n    border-color: #3d4852;\n  }\n\n  .sm\\:hover\\:border-grey-darker:hover {\n    border-color: #606f7b;\n  }\n\n  .sm\\:hover\\:border-grey-dark:hover {\n    border-color: #8795a1;\n  }\n\n  .sm\\:hover\\:border-grey:hover {\n    border-color: #b8c2cc;\n  }\n\n  .sm\\:hover\\:border-grey-light:hover {\n    border-color: #dae1e7;\n  }\n\n  .sm\\:hover\\:border-grey-lighter:hover {\n    border-color: #f1f5f8;\n  }\n\n  .sm\\:hover\\:border-grey-lightest:hover {\n    border-color: #f8fafc;\n  }\n\n  .sm\\:hover\\:border-white:hover {\n    border-color: #fff;\n  }\n\n  .sm\\:hover\\:border-red-darkest:hover {\n    border-color: #3b0d0c;\n  }\n\n  .sm\\:hover\\:border-red-darker:hover {\n    border-color: #621b18;\n  }\n\n  .sm\\:hover\\:border-red-dark:hover {\n    border-color: #cc1f1a;\n  }\n\n  .sm\\:hover\\:border-red:hover {\n    border-color: #e3342f;\n  }\n\n  .sm\\:hover\\:border-red-light:hover {\n    border-color: #ef5753;\n  }\n\n  .sm\\:hover\\:border-red-lighter:hover {\n    border-color: #f9acaa;\n  }\n\n  .sm\\:hover\\:border-red-lightest:hover {\n    border-color: #fcebea;\n  }\n\n  .sm\\:hover\\:border-orange-darkest:hover {\n    border-color: #462a16;\n  }\n\n  .sm\\:hover\\:border-orange-darker:hover {\n    border-color: #613b1f;\n  }\n\n  .sm\\:hover\\:border-orange-dark:hover {\n    border-color: #de751f;\n  }\n\n  .sm\\:hover\\:border-orange:hover {\n    border-color: #f6993f;\n  }\n\n  .sm\\:hover\\:border-orange-light:hover {\n    border-color: #faad63;\n  }\n\n  .sm\\:hover\\:border-orange-lighter:hover {\n    border-color: #fcd9b6;\n  }\n\n  .sm\\:hover\\:border-orange-lightest:hover {\n    border-color: #fff5eb;\n  }\n\n  .sm\\:hover\\:border-yellow-darkest:hover {\n    border-color: #453411;\n  }\n\n  .sm\\:hover\\:border-yellow-darker:hover {\n    border-color: #684f1d;\n  }\n\n  .sm\\:hover\\:border-yellow-dark:hover {\n    border-color: #f2d024;\n  }\n\n  .sm\\:hover\\:border-yellow:hover {\n    border-color: #ffed4a;\n  }\n\n  .sm\\:hover\\:border-yellow-light:hover {\n    border-color: #fff382;\n  }\n\n  .sm\\:hover\\:border-yellow-lighter:hover {\n    border-color: #fff9c2;\n  }\n\n  .sm\\:hover\\:border-yellow-lightest:hover {\n    border-color: #fcfbeb;\n  }\n\n  .sm\\:hover\\:border-green-darkest:hover {\n    border-color: #0f2f21;\n  }\n\n  .sm\\:hover\\:border-green-darker:hover {\n    border-color: #1a4731;\n  }\n\n  .sm\\:hover\\:border-green-dark:hover {\n    border-color: #1f9d55;\n  }\n\n  .sm\\:hover\\:border-green:hover {\n    border-color: #38c172;\n  }\n\n  .sm\\:hover\\:border-green-light:hover {\n    border-color: #51d88a;\n  }\n\n  .sm\\:hover\\:border-green-lighter:hover {\n    border-color: #a2f5bf;\n  }\n\n  .sm\\:hover\\:border-green-lightest:hover {\n    border-color: #e3fcec;\n  }\n\n  .sm\\:hover\\:border-teal-darkest:hover {\n    border-color: #0d3331;\n  }\n\n  .sm\\:hover\\:border-teal-darker:hover {\n    border-color: #20504f;\n  }\n\n  .sm\\:hover\\:border-teal-dark:hover {\n    border-color: #38a89d;\n  }\n\n  .sm\\:hover\\:border-teal:hover {\n    border-color: #4dc0b5;\n  }\n\n  .sm\\:hover\\:border-teal-light:hover {\n    border-color: #64d5ca;\n  }\n\n  .sm\\:hover\\:border-teal-lighter:hover {\n    border-color: #a0f0ed;\n  }\n\n  .sm\\:hover\\:border-teal-lightest:hover {\n    border-color: #e8fffe;\n  }\n\n  .sm\\:hover\\:border-blue-darkest:hover {\n    border-color: #12283a;\n  }\n\n  .sm\\:hover\\:border-blue-darker:hover {\n    border-color: #1c3d5a;\n  }\n\n  .sm\\:hover\\:border-blue-dark:hover {\n    border-color: #2779bd;\n  }\n\n  .sm\\:hover\\:border-blue:hover {\n    border-color: #3490dc;\n  }\n\n  .sm\\:hover\\:border-blue-light:hover {\n    border-color: #6cb2eb;\n  }\n\n  .sm\\:hover\\:border-blue-lighter:hover {\n    border-color: #bcdefa;\n  }\n\n  .sm\\:hover\\:border-blue-lightest:hover {\n    border-color: #eff8ff;\n  }\n\n  .sm\\:hover\\:border-indigo-darkest:hover {\n    border-color: #191e38;\n  }\n\n  .sm\\:hover\\:border-indigo-darker:hover {\n    border-color: #2f365f;\n  }\n\n  .sm\\:hover\\:border-indigo-dark:hover {\n    border-color: #5661b3;\n  }\n\n  .sm\\:hover\\:border-indigo:hover {\n    border-color: #6574cd;\n  }\n\n  .sm\\:hover\\:border-indigo-light:hover {\n    border-color: #7886d7;\n  }\n\n  .sm\\:hover\\:border-indigo-lighter:hover {\n    border-color: #b2b7ff;\n  }\n\n  .sm\\:hover\\:border-indigo-lightest:hover {\n    border-color: #e6e8ff;\n  }\n\n  .sm\\:hover\\:border-purple-darkest:hover {\n    border-color: #21183c;\n  }\n\n  .sm\\:hover\\:border-purple-darker:hover {\n    border-color: #382b5f;\n  }\n\n  .sm\\:hover\\:border-purple-dark:hover {\n    border-color: #794acf;\n  }\n\n  .sm\\:hover\\:border-purple:hover {\n    border-color: #9561e2;\n  }\n\n  .sm\\:hover\\:border-purple-light:hover {\n    border-color: #a779e9;\n  }\n\n  .sm\\:hover\\:border-purple-lighter:hover {\n    border-color: #d6bbfc;\n  }\n\n  .sm\\:hover\\:border-purple-lightest:hover {\n    border-color: #f3ebff;\n  }\n\n  .sm\\:hover\\:border-pink-darkest:hover {\n    border-color: #451225;\n  }\n\n  .sm\\:hover\\:border-pink-darker:hover {\n    border-color: #6f213f;\n  }\n\n  .sm\\:hover\\:border-pink-dark:hover {\n    border-color: #eb5286;\n  }\n\n  .sm\\:hover\\:border-pink:hover {\n    border-color: #f66d9b;\n  }\n\n  .sm\\:hover\\:border-pink-light:hover {\n    border-color: #fa7ea8;\n  }\n\n  .sm\\:hover\\:border-pink-lighter:hover {\n    border-color: #ffbbca;\n  }\n\n  .sm\\:hover\\:border-pink-lightest:hover {\n    border-color: #ffebef;\n  }\n\n  .sm\\:rounded-none {\n    border-radius: 0;\n  }\n\n  .sm\\:rounded-sm {\n    border-radius: .125rem;\n  }\n\n  .sm\\:rounded {\n    border-radius: .25rem;\n  }\n\n  .sm\\:rounded-lg {\n    border-radius: .5rem;\n  }\n\n  .sm\\:rounded-full {\n    border-radius: 9999px;\n  }\n\n  .sm\\:rounded-t-none {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n  }\n\n  .sm\\:rounded-r-none {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n  }\n\n  .sm\\:rounded-b-none {\n    border-bottom-right-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .sm\\:rounded-l-none {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .sm\\:rounded-t-sm {\n    border-top-left-radius: .125rem;\n    border-top-right-radius: .125rem;\n  }\n\n  .sm\\:rounded-r-sm {\n    border-top-right-radius: .125rem;\n    border-bottom-right-radius: .125rem;\n  }\n\n  .sm\\:rounded-b-sm {\n    border-bottom-right-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .sm\\:rounded-l-sm {\n    border-top-left-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .sm\\:rounded-t {\n    border-top-left-radius: .25rem;\n    border-top-right-radius: .25rem;\n  }\n\n  .sm\\:rounded-r {\n    border-top-right-radius: .25rem;\n    border-bottom-right-radius: .25rem;\n  }\n\n  .sm\\:rounded-b {\n    border-bottom-right-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .sm\\:rounded-l {\n    border-top-left-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .sm\\:rounded-t-lg {\n    border-top-left-radius: .5rem;\n    border-top-right-radius: .5rem;\n  }\n\n  .sm\\:rounded-r-lg {\n    border-top-right-radius: .5rem;\n    border-bottom-right-radius: .5rem;\n  }\n\n  .sm\\:rounded-b-lg {\n    border-bottom-right-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .sm\\:rounded-l-lg {\n    border-top-left-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .sm\\:rounded-t-full {\n    border-top-left-radius: 9999px;\n    border-top-right-radius: 9999px;\n  }\n\n  .sm\\:rounded-r-full {\n    border-top-right-radius: 9999px;\n    border-bottom-right-radius: 9999px;\n  }\n\n  .sm\\:rounded-b-full {\n    border-bottom-right-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .sm\\:rounded-l-full {\n    border-top-left-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .sm\\:rounded-tl-none {\n    border-top-left-radius: 0;\n  }\n\n  .sm\\:rounded-tr-none {\n    border-top-right-radius: 0;\n  }\n\n  .sm\\:rounded-br-none {\n    border-bottom-right-radius: 0;\n  }\n\n  .sm\\:rounded-bl-none {\n    border-bottom-left-radius: 0;\n  }\n\n  .sm\\:rounded-tl-sm {\n    border-top-left-radius: .125rem;\n  }\n\n  .sm\\:rounded-tr-sm {\n    border-top-right-radius: .125rem;\n  }\n\n  .sm\\:rounded-br-sm {\n    border-bottom-right-radius: .125rem;\n  }\n\n  .sm\\:rounded-bl-sm {\n    border-bottom-left-radius: .125rem;\n  }\n\n  .sm\\:rounded-tl {\n    border-top-left-radius: .25rem;\n  }\n\n  .sm\\:rounded-tr {\n    border-top-right-radius: .25rem;\n  }\n\n  .sm\\:rounded-br {\n    border-bottom-right-radius: .25rem;\n  }\n\n  .sm\\:rounded-bl {\n    border-bottom-left-radius: .25rem;\n  }\n\n  .sm\\:rounded-tl-lg {\n    border-top-left-radius: .5rem;\n  }\n\n  .sm\\:rounded-tr-lg {\n    border-top-right-radius: .5rem;\n  }\n\n  .sm\\:rounded-br-lg {\n    border-bottom-right-radius: .5rem;\n  }\n\n  .sm\\:rounded-bl-lg {\n    border-bottom-left-radius: .5rem;\n  }\n\n  .sm\\:rounded-tl-full {\n    border-top-left-radius: 9999px;\n  }\n\n  .sm\\:rounded-tr-full {\n    border-top-right-radius: 9999px;\n  }\n\n  .sm\\:rounded-br-full {\n    border-bottom-right-radius: 9999px;\n  }\n\n  .sm\\:rounded-bl-full {\n    border-bottom-left-radius: 9999px;\n  }\n\n  .sm\\:border-solid {\n    border-style: solid;\n  }\n\n  .sm\\:border-dashed {\n    border-style: dashed;\n  }\n\n  .sm\\:border-dotted {\n    border-style: dotted;\n  }\n\n  .sm\\:border-none {\n    border-style: none;\n  }\n\n  .sm\\:border-0 {\n    border-width: 0;\n  }\n\n  .sm\\:border-2 {\n    border-width: 2px;\n  }\n\n  .sm\\:border-4 {\n    border-width: 4px;\n  }\n\n  .sm\\:border-8 {\n    border-width: 8px;\n  }\n\n  .sm\\:border {\n    border-width: 1px;\n  }\n\n  .sm\\:border-t-0 {\n    border-top-width: 0;\n  }\n\n  .sm\\:border-r-0 {\n    border-right-width: 0;\n  }\n\n  .sm\\:border-b-0 {\n    border-bottom-width: 0;\n  }\n\n  .sm\\:border-l-0 {\n    border-left-width: 0;\n  }\n\n  .sm\\:border-t-2 {\n    border-top-width: 2px;\n  }\n\n  .sm\\:border-r-2 {\n    border-right-width: 2px;\n  }\n\n  .sm\\:border-b-2 {\n    border-bottom-width: 2px;\n  }\n\n  .sm\\:border-l-2 {\n    border-left-width: 2px;\n  }\n\n  .sm\\:border-t-4 {\n    border-top-width: 4px;\n  }\n\n  .sm\\:border-r-4 {\n    border-right-width: 4px;\n  }\n\n  .sm\\:border-b-4 {\n    border-bottom-width: 4px;\n  }\n\n  .sm\\:border-l-4 {\n    border-left-width: 4px;\n  }\n\n  .sm\\:border-t-8 {\n    border-top-width: 8px;\n  }\n\n  .sm\\:border-r-8 {\n    border-right-width: 8px;\n  }\n\n  .sm\\:border-b-8 {\n    border-bottom-width: 8px;\n  }\n\n  .sm\\:border-l-8 {\n    border-left-width: 8px;\n  }\n\n  .sm\\:border-t {\n    border-top-width: 1px;\n  }\n\n  .sm\\:border-r {\n    border-right-width: 1px;\n  }\n\n  .sm\\:border-b {\n    border-bottom-width: 1px;\n  }\n\n  .sm\\:border-l {\n    border-left-width: 1px;\n  }\n\n  .sm\\:cursor-auto {\n    cursor: auto;\n  }\n\n  .sm\\:cursor-default {\n    cursor: default;\n  }\n\n  .sm\\:cursor-pointer {\n    cursor: pointer;\n  }\n\n  .sm\\:cursor-wait {\n    cursor: wait;\n  }\n\n  .sm\\:cursor-move {\n    cursor: move;\n  }\n\n  .sm\\:cursor-not-allowed {\n    cursor: not-allowed;\n  }\n\n  .sm\\:block {\n    display: block;\n  }\n\n  .sm\\:inline-block {\n    display: inline-block;\n  }\n\n  .sm\\:inline {\n    display: inline;\n  }\n\n  .sm\\:table {\n    display: table;\n  }\n\n  .sm\\:table-row {\n    display: table-row;\n  }\n\n  .sm\\:table-cell {\n    display: table-cell;\n  }\n\n  .sm\\:hidden {\n    display: none;\n  }\n\n  .sm\\:flex {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n  }\n\n  .sm\\:inline-flex {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n  }\n\n  .sm\\:flex-row {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n  }\n\n  .sm\\:flex-row-reverse {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: row-reverse;\n            flex-direction: row-reverse;\n  }\n\n  .sm\\:flex-col {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n\n  .sm\\:flex-col-reverse {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n  }\n\n  .sm\\:flex-wrap {\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n  }\n\n  .sm\\:flex-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse;\n        flex-wrap: wrap-reverse;\n  }\n\n  .sm\\:flex-no-wrap {\n    -ms-flex-wrap: nowrap;\n        flex-wrap: nowrap;\n  }\n\n  .sm\\:items-start {\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n  }\n\n  .sm\\:items-end {\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n  }\n\n  .sm\\:items-center {\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n  }\n\n  .sm\\:items-baseline {\n    -webkit-box-align: baseline;\n        -ms-flex-align: baseline;\n            align-items: baseline;\n  }\n\n  .sm\\:items-stretch {\n    -webkit-box-align: stretch;\n        -ms-flex-align: stretch;\n            align-items: stretch;\n  }\n\n  .sm\\:self-auto {\n    -ms-flex-item-align: auto;\n        -ms-grid-row-align: auto;\n        align-self: auto;\n  }\n\n  .sm\\:self-start {\n    -ms-flex-item-align: start;\n        align-self: flex-start;\n  }\n\n  .sm\\:self-end {\n    -ms-flex-item-align: end;\n        align-self: flex-end;\n  }\n\n  .sm\\:self-center {\n    -ms-flex-item-align: center;\n        -ms-grid-row-align: center;\n        align-self: center;\n  }\n\n  .sm\\:self-stretch {\n    -ms-flex-item-align: stretch;\n        -ms-grid-row-align: stretch;\n        align-self: stretch;\n  }\n\n  .sm\\:justify-start {\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n  }\n\n  .sm\\:justify-end {\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n  }\n\n  .sm\\:justify-center {\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n  }\n\n  .sm\\:justify-between {\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n  }\n\n  .sm\\:justify-around {\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n  }\n\n  .sm\\:content-center {\n    -ms-flex-line-pack: center;\n        align-content: center;\n  }\n\n  .sm\\:content-start {\n    -ms-flex-line-pack: start;\n        align-content: flex-start;\n  }\n\n  .sm\\:content-end {\n    -ms-flex-line-pack: end;\n        align-content: flex-end;\n  }\n\n  .sm\\:content-between {\n    -ms-flex-line-pack: justify;\n        align-content: space-between;\n  }\n\n  .sm\\:content-around {\n    -ms-flex-line-pack: distribute;\n        align-content: space-around;\n  }\n\n  .sm\\:flex-1 {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n  }\n\n  .sm\\:flex-auto {\n    -webkit-box-flex: 1;\n        -ms-flex: auto;\n            flex: auto;\n  }\n\n  .sm\\:flex-initial {\n    -webkit-box-flex: initial;\n        -ms-flex: initial;\n            flex: initial;\n  }\n\n  .sm\\:flex-none {\n    -webkit-box-flex: 0;\n        -ms-flex: none;\n            flex: none;\n  }\n\n  .sm\\:flex-grow {\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n  }\n\n  .sm\\:flex-shrink {\n    -ms-flex-negative: 1;\n        flex-shrink: 1;\n  }\n\n  .sm\\:flex-no-grow {\n    -webkit-box-flex: 0;\n        -ms-flex-positive: 0;\n            flex-grow: 0;\n  }\n\n  .sm\\:flex-no-shrink {\n    -ms-flex-negative: 0;\n        flex-shrink: 0;\n  }\n\n  .sm\\:float-right {\n    float: right;\n  }\n\n  .sm\\:float-left {\n    float: left;\n  }\n\n  .sm\\:float-none {\n    float: none;\n  }\n\n  .sm\\:clearfix:after {\n    content: \"\";\n    display: table;\n    clear: both;\n  }\n\n  .sm\\:font-sans {\n    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;\n  }\n\n  .sm\\:font-serif {\n    font-family: Constantia, Lucida Bright, Lucidabright, Lucida Serif, Lucida, DejaVu Serif, Bitstream Vera Serif, Liberation Serif, Georgia, serif;\n  }\n\n  .sm\\:font-mono {\n    font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;\n  }\n\n  .sm\\:font-hairline {\n    font-weight: 100;\n  }\n\n  .sm\\:font-thin {\n    font-weight: 200;\n  }\n\n  .sm\\:font-light {\n    font-weight: 300;\n  }\n\n  .sm\\:font-normal {\n    font-weight: 400;\n  }\n\n  .sm\\:font-medium {\n    font-weight: 500;\n  }\n\n  .sm\\:font-semibold {\n    font-weight: 600;\n  }\n\n  .sm\\:font-bold {\n    font-weight: 700;\n  }\n\n  .sm\\:font-extrabold {\n    font-weight: 800;\n  }\n\n  .sm\\:font-black {\n    font-weight: 900;\n  }\n\n  .sm\\:hover\\:font-hairline:hover {\n    font-weight: 100;\n  }\n\n  .sm\\:hover\\:font-thin:hover {\n    font-weight: 200;\n  }\n\n  .sm\\:hover\\:font-light:hover {\n    font-weight: 300;\n  }\n\n  .sm\\:hover\\:font-normal:hover {\n    font-weight: 400;\n  }\n\n  .sm\\:hover\\:font-medium:hover {\n    font-weight: 500;\n  }\n\n  .sm\\:hover\\:font-semibold:hover {\n    font-weight: 600;\n  }\n\n  .sm\\:hover\\:font-bold:hover {\n    font-weight: 700;\n  }\n\n  .sm\\:hover\\:font-extrabold:hover {\n    font-weight: 800;\n  }\n\n  .sm\\:hover\\:font-black:hover {\n    font-weight: 900;\n  }\n\n  .sm\\:h-1 {\n    height: .25rem;\n  }\n\n  .sm\\:h-2 {\n    height: .5rem;\n  }\n\n  .sm\\:h-3 {\n    height: .75rem;\n  }\n\n  .sm\\:h-4 {\n    height: 1rem;\n  }\n\n  .sm\\:h-6 {\n    height: 1.5rem;\n  }\n\n  .sm\\:h-8 {\n    height: 2rem;\n  }\n\n  .sm\\:h-10 {\n    height: 2.5rem;\n  }\n\n  .sm\\:h-12 {\n    height: 3rem;\n  }\n\n  .sm\\:h-16 {\n    height: 4rem;\n  }\n\n  .sm\\:h-24 {\n    height: 6rem;\n  }\n\n  .sm\\:h-32 {\n    height: 8rem;\n  }\n\n  .sm\\:h-48 {\n    height: 12rem;\n  }\n\n  .sm\\:h-64 {\n    height: 16rem;\n  }\n\n  .sm\\:h-auto {\n    height: auto;\n  }\n\n  .sm\\:h-px {\n    height: 1px;\n  }\n\n  .sm\\:h-full {\n    height: 100%;\n  }\n\n  .sm\\:h-screen {\n    height: 100vh;\n  }\n\n  .sm\\:leading-none {\n    line-height: 1;\n  }\n\n  .sm\\:leading-tight {\n    line-height: 1.25;\n  }\n\n  .sm\\:leading-normal {\n    line-height: 1.5;\n  }\n\n  .sm\\:leading-loose {\n    line-height: 2;\n  }\n\n  .sm\\:m-0 {\n    margin: 0;\n  }\n\n  .sm\\:m-1 {\n    margin: .25rem;\n  }\n\n  .sm\\:m-2 {\n    margin: .5rem;\n  }\n\n  .sm\\:m-3 {\n    margin: .75rem;\n  }\n\n  .sm\\:m-4 {\n    margin: 1rem;\n  }\n\n  .sm\\:m-6 {\n    margin: 1.5rem;\n  }\n\n  .sm\\:m-8 {\n    margin: 2rem;\n  }\n\n  .sm\\:m-auto {\n    margin: auto;\n  }\n\n  .sm\\:m-px {\n    margin: 1px;\n  }\n\n  .sm\\:my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .sm\\:mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .sm\\:my-1 {\n    margin-top: .25rem;\n    margin-bottom: .25rem;\n  }\n\n  .sm\\:mx-1 {\n    margin-left: .25rem;\n    margin-right: .25rem;\n  }\n\n  .sm\\:my-2 {\n    margin-top: .5rem;\n    margin-bottom: .5rem;\n  }\n\n  .sm\\:mx-2 {\n    margin-left: .5rem;\n    margin-right: .5rem;\n  }\n\n  .sm\\:my-3 {\n    margin-top: .75rem;\n    margin-bottom: .75rem;\n  }\n\n  .sm\\:mx-3 {\n    margin-left: .75rem;\n    margin-right: .75rem;\n  }\n\n  .sm\\:my-4 {\n    margin-top: 1rem;\n    margin-bottom: 1rem;\n  }\n\n  .sm\\:mx-4 {\n    margin-left: 1rem;\n    margin-right: 1rem;\n  }\n\n  .sm\\:my-6 {\n    margin-top: 1.5rem;\n    margin-bottom: 1.5rem;\n  }\n\n  .sm\\:mx-6 {\n    margin-left: 1.5rem;\n    margin-right: 1.5rem;\n  }\n\n  .sm\\:my-8 {\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n  }\n\n  .sm\\:mx-8 {\n    margin-left: 2rem;\n    margin-right: 2rem;\n  }\n\n  .sm\\:my-auto {\n    margin-top: auto;\n    margin-bottom: auto;\n  }\n\n  .sm\\:mx-auto {\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  .sm\\:my-px {\n    margin-top: 1px;\n    margin-bottom: 1px;\n  }\n\n  .sm\\:mx-px {\n    margin-left: 1px;\n    margin-right: 1px;\n  }\n\n  .sm\\:mt-0 {\n    margin-top: 0;\n  }\n\n  .sm\\:mr-0 {\n    margin-right: 0;\n  }\n\n  .sm\\:mb-0 {\n    margin-bottom: 0;\n  }\n\n  .sm\\:ml-0 {\n    margin-left: 0;\n  }\n\n  .sm\\:mt-1 {\n    margin-top: .25rem;\n  }\n\n  .sm\\:mr-1 {\n    margin-right: .25rem;\n  }\n\n  .sm\\:mb-1 {\n    margin-bottom: .25rem;\n  }\n\n  .sm\\:ml-1 {\n    margin-left: .25rem;\n  }\n\n  .sm\\:mt-2 {\n    margin-top: .5rem;\n  }\n\n  .sm\\:mr-2 {\n    margin-right: .5rem;\n  }\n\n  .sm\\:mb-2 {\n    margin-bottom: .5rem;\n  }\n\n  .sm\\:ml-2 {\n    margin-left: .5rem;\n  }\n\n  .sm\\:mt-3 {\n    margin-top: .75rem;\n  }\n\n  .sm\\:mr-3 {\n    margin-right: .75rem;\n  }\n\n  .sm\\:mb-3 {\n    margin-bottom: .75rem;\n  }\n\n  .sm\\:ml-3 {\n    margin-left: .75rem;\n  }\n\n  .sm\\:mt-4 {\n    margin-top: 1rem;\n  }\n\n  .sm\\:mr-4 {\n    margin-right: 1rem;\n  }\n\n  .sm\\:mb-4 {\n    margin-bottom: 1rem;\n  }\n\n  .sm\\:ml-4 {\n    margin-left: 1rem;\n  }\n\n  .sm\\:mt-6 {\n    margin-top: 1.5rem;\n  }\n\n  .sm\\:mr-6 {\n    margin-right: 1.5rem;\n  }\n\n  .sm\\:mb-6 {\n    margin-bottom: 1.5rem;\n  }\n\n  .sm\\:ml-6 {\n    margin-left: 1.5rem;\n  }\n\n  .sm\\:mt-8 {\n    margin-top: 2rem;\n  }\n\n  .sm\\:mr-8 {\n    margin-right: 2rem;\n  }\n\n  .sm\\:mb-8 {\n    margin-bottom: 2rem;\n  }\n\n  .sm\\:ml-8 {\n    margin-left: 2rem;\n  }\n\n  .sm\\:mt-auto {\n    margin-top: auto;\n  }\n\n  .sm\\:mr-auto {\n    margin-right: auto;\n  }\n\n  .sm\\:mb-auto {\n    margin-bottom: auto;\n  }\n\n  .sm\\:ml-auto {\n    margin-left: auto;\n  }\n\n  .sm\\:mt-px {\n    margin-top: 1px;\n  }\n\n  .sm\\:mr-px {\n    margin-right: 1px;\n  }\n\n  .sm\\:mb-px {\n    margin-bottom: 1px;\n  }\n\n  .sm\\:ml-px {\n    margin-left: 1px;\n  }\n\n  .sm\\:max-h-full {\n    max-height: 100%;\n  }\n\n  .sm\\:max-h-screen {\n    max-height: 100vh;\n  }\n\n  .sm\\:max-w-xs {\n    max-width: 20rem;\n  }\n\n  .sm\\:max-w-sm {\n    max-width: 30rem;\n  }\n\n  .sm\\:max-w-md {\n    max-width: 40rem;\n  }\n\n  .sm\\:max-w-lg {\n    max-width: 50rem;\n  }\n\n  .sm\\:max-w-xl {\n    max-width: 60rem;\n  }\n\n  .sm\\:max-w-2xl {\n    max-width: 70rem;\n  }\n\n  .sm\\:max-w-3xl {\n    max-width: 80rem;\n  }\n\n  .sm\\:max-w-4xl {\n    max-width: 90rem;\n  }\n\n  .sm\\:max-w-5xl {\n    max-width: 100rem;\n  }\n\n  .sm\\:max-w-full {\n    max-width: 100%;\n  }\n\n  .sm\\:min-h-0 {\n    min-height: 0;\n  }\n\n  .sm\\:min-h-full {\n    min-height: 100%;\n  }\n\n  .sm\\:min-h-screen {\n    min-height: 100vh;\n  }\n\n  .sm\\:min-w-0 {\n    min-width: 0;\n  }\n\n  .sm\\:min-w-full {\n    min-width: 100%;\n  }\n\n  .sm\\:-m-0 {\n    margin: 0;\n  }\n\n  .sm\\:-m-1 {\n    margin: -0.25rem;\n  }\n\n  .sm\\:-m-2 {\n    margin: -0.5rem;\n  }\n\n  .sm\\:-m-3 {\n    margin: -0.75rem;\n  }\n\n  .sm\\:-m-4 {\n    margin: -1rem;\n  }\n\n  .sm\\:-m-6 {\n    margin: -1.5rem;\n  }\n\n  .sm\\:-m-8 {\n    margin: -2rem;\n  }\n\n  .sm\\:-m-px {\n    margin: -1px;\n  }\n\n  .sm\\:-my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .sm\\:-mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .sm\\:-my-1 {\n    margin-top: -0.25rem;\n    margin-bottom: -0.25rem;\n  }\n\n  .sm\\:-mx-1 {\n    margin-left: -0.25rem;\n    margin-right: -0.25rem;\n  }\n\n  .sm\\:-my-2 {\n    margin-top: -0.5rem;\n    margin-bottom: -0.5rem;\n  }\n\n  .sm\\:-mx-2 {\n    margin-left: -0.5rem;\n    margin-right: -0.5rem;\n  }\n\n  .sm\\:-my-3 {\n    margin-top: -0.75rem;\n    margin-bottom: -0.75rem;\n  }\n\n  .sm\\:-mx-3 {\n    margin-left: -0.75rem;\n    margin-right: -0.75rem;\n  }\n\n  .sm\\:-my-4 {\n    margin-top: -1rem;\n    margin-bottom: -1rem;\n  }\n\n  .sm\\:-mx-4 {\n    margin-left: -1rem;\n    margin-right: -1rem;\n  }\n\n  .sm\\:-my-6 {\n    margin-top: -1.5rem;\n    margin-bottom: -1.5rem;\n  }\n\n  .sm\\:-mx-6 {\n    margin-left: -1.5rem;\n    margin-right: -1.5rem;\n  }\n\n  .sm\\:-my-8 {\n    margin-top: -2rem;\n    margin-bottom: -2rem;\n  }\n\n  .sm\\:-mx-8 {\n    margin-left: -2rem;\n    margin-right: -2rem;\n  }\n\n  .sm\\:-my-px {\n    margin-top: -1px;\n    margin-bottom: -1px;\n  }\n\n  .sm\\:-mx-px {\n    margin-left: -1px;\n    margin-right: -1px;\n  }\n\n  .sm\\:-mt-0 {\n    margin-top: 0;\n  }\n\n  .sm\\:-mr-0 {\n    margin-right: 0;\n  }\n\n  .sm\\:-mb-0 {\n    margin-bottom: 0;\n  }\n\n  .sm\\:-ml-0 {\n    margin-left: 0;\n  }\n\n  .sm\\:-mt-1 {\n    margin-top: -0.25rem;\n  }\n\n  .sm\\:-mr-1 {\n    margin-right: -0.25rem;\n  }\n\n  .sm\\:-mb-1 {\n    margin-bottom: -0.25rem;\n  }\n\n  .sm\\:-ml-1 {\n    margin-left: -0.25rem;\n  }\n\n  .sm\\:-mt-2 {\n    margin-top: -0.5rem;\n  }\n\n  .sm\\:-mr-2 {\n    margin-right: -0.5rem;\n  }\n\n  .sm\\:-mb-2 {\n    margin-bottom: -0.5rem;\n  }\n\n  .sm\\:-ml-2 {\n    margin-left: -0.5rem;\n  }\n\n  .sm\\:-mt-3 {\n    margin-top: -0.75rem;\n  }\n\n  .sm\\:-mr-3 {\n    margin-right: -0.75rem;\n  }\n\n  .sm\\:-mb-3 {\n    margin-bottom: -0.75rem;\n  }\n\n  .sm\\:-ml-3 {\n    margin-left: -0.75rem;\n  }\n\n  .sm\\:-mt-4 {\n    margin-top: -1rem;\n  }\n\n  .sm\\:-mr-4 {\n    margin-right: -1rem;\n  }\n\n  .sm\\:-mb-4 {\n    margin-bottom: -1rem;\n  }\n\n  .sm\\:-ml-4 {\n    margin-left: -1rem;\n  }\n\n  .sm\\:-mt-6 {\n    margin-top: -1.5rem;\n  }\n\n  .sm\\:-mr-6 {\n    margin-right: -1.5rem;\n  }\n\n  .sm\\:-mb-6 {\n    margin-bottom: -1.5rem;\n  }\n\n  .sm\\:-ml-6 {\n    margin-left: -1.5rem;\n  }\n\n  .sm\\:-mt-8 {\n    margin-top: -2rem;\n  }\n\n  .sm\\:-mr-8 {\n    margin-right: -2rem;\n  }\n\n  .sm\\:-mb-8 {\n    margin-bottom: -2rem;\n  }\n\n  .sm\\:-ml-8 {\n    margin-left: -2rem;\n  }\n\n  .sm\\:-mt-px {\n    margin-top: -1px;\n  }\n\n  .sm\\:-mr-px {\n    margin-right: -1px;\n  }\n\n  .sm\\:-mb-px {\n    margin-bottom: -1px;\n  }\n\n  .sm\\:-ml-px {\n    margin-left: -1px;\n  }\n\n  .sm\\:opacity-0 {\n    opacity: 0;\n  }\n\n  .sm\\:opacity-25 {\n    opacity: .25;\n  }\n\n  .sm\\:opacity-50 {\n    opacity: .5;\n  }\n\n  .sm\\:opacity-75 {\n    opacity: .75;\n  }\n\n  .sm\\:opacity-100 {\n    opacity: 1;\n  }\n\n  .sm\\:overflow-auto {\n    overflow: auto;\n  }\n\n  .sm\\:overflow-hidden {\n    overflow: hidden;\n  }\n\n  .sm\\:overflow-visible {\n    overflow: visible;\n  }\n\n  .sm\\:overflow-scroll {\n    overflow: scroll;\n  }\n\n  .sm\\:overflow-x-auto {\n    overflow-x: auto;\n  }\n\n  .sm\\:overflow-y-auto {\n    overflow-y: auto;\n  }\n\n  .sm\\:overflow-x-scroll {\n    overflow-x: scroll;\n  }\n\n  .sm\\:overflow-y-scroll {\n    overflow-y: scroll;\n  }\n\n  .sm\\:scrolling-touch {\n    -webkit-overflow-scrolling: touch;\n  }\n\n  .sm\\:scrolling-auto {\n    -webkit-overflow-scrolling: auto;\n  }\n\n  .sm\\:p-0 {\n    padding: 0;\n  }\n\n  .sm\\:p-1 {\n    padding: .25rem;\n  }\n\n  .sm\\:p-2 {\n    padding: .5rem;\n  }\n\n  .sm\\:p-3 {\n    padding: .75rem;\n  }\n\n  .sm\\:p-4 {\n    padding: 1rem;\n  }\n\n  .sm\\:p-6 {\n    padding: 1.5rem;\n  }\n\n  .sm\\:p-8 {\n    padding: 2rem;\n  }\n\n  .sm\\:p-px {\n    padding: 1px;\n  }\n\n  .sm\\:py-0 {\n    padding-top: 0;\n    padding-bottom: 0;\n  }\n\n  .sm\\:px-0 {\n    padding-left: 0;\n    padding-right: 0;\n  }\n\n  .sm\\:py-1 {\n    padding-top: .25rem;\n    padding-bottom: .25rem;\n  }\n\n  .sm\\:px-1 {\n    padding-left: .25rem;\n    padding-right: .25rem;\n  }\n\n  .sm\\:py-2 {\n    padding-top: .5rem;\n    padding-bottom: .5rem;\n  }\n\n  .sm\\:px-2 {\n    padding-left: .5rem;\n    padding-right: .5rem;\n  }\n\n  .sm\\:py-3 {\n    padding-top: .75rem;\n    padding-bottom: .75rem;\n  }\n\n  .sm\\:px-3 {\n    padding-left: .75rem;\n    padding-right: .75rem;\n  }\n\n  .sm\\:py-4 {\n    padding-top: 1rem;\n    padding-bottom: 1rem;\n  }\n\n  .sm\\:px-4 {\n    padding-left: 1rem;\n    padding-right: 1rem;\n  }\n\n  .sm\\:py-6 {\n    padding-top: 1.5rem;\n    padding-bottom: 1.5rem;\n  }\n\n  .sm\\:px-6 {\n    padding-left: 1.5rem;\n    padding-right: 1.5rem;\n  }\n\n  .sm\\:py-8 {\n    padding-top: 2rem;\n    padding-bottom: 2rem;\n  }\n\n  .sm\\:px-8 {\n    padding-left: 2rem;\n    padding-right: 2rem;\n  }\n\n  .sm\\:py-px {\n    padding-top: 1px;\n    padding-bottom: 1px;\n  }\n\n  .sm\\:px-px {\n    padding-left: 1px;\n    padding-right: 1px;\n  }\n\n  .sm\\:pt-0 {\n    padding-top: 0;\n  }\n\n  .sm\\:pr-0 {\n    padding-right: 0;\n  }\n\n  .sm\\:pb-0 {\n    padding-bottom: 0;\n  }\n\n  .sm\\:pl-0 {\n    padding-left: 0;\n  }\n\n  .sm\\:pt-1 {\n    padding-top: .25rem;\n  }\n\n  .sm\\:pr-1 {\n    padding-right: .25rem;\n  }\n\n  .sm\\:pb-1 {\n    padding-bottom: .25rem;\n  }\n\n  .sm\\:pl-1 {\n    padding-left: .25rem;\n  }\n\n  .sm\\:pt-2 {\n    padding-top: .5rem;\n  }\n\n  .sm\\:pr-2 {\n    padding-right: .5rem;\n  }\n\n  .sm\\:pb-2 {\n    padding-bottom: .5rem;\n  }\n\n  .sm\\:pl-2 {\n    padding-left: .5rem;\n  }\n\n  .sm\\:pt-3 {\n    padding-top: .75rem;\n  }\n\n  .sm\\:pr-3 {\n    padding-right: .75rem;\n  }\n\n  .sm\\:pb-3 {\n    padding-bottom: .75rem;\n  }\n\n  .sm\\:pl-3 {\n    padding-left: .75rem;\n  }\n\n  .sm\\:pt-4 {\n    padding-top: 1rem;\n  }\n\n  .sm\\:pr-4 {\n    padding-right: 1rem;\n  }\n\n  .sm\\:pb-4 {\n    padding-bottom: 1rem;\n  }\n\n  .sm\\:pl-4 {\n    padding-left: 1rem;\n  }\n\n  .sm\\:pt-6 {\n    padding-top: 1.5rem;\n  }\n\n  .sm\\:pr-6 {\n    padding-right: 1.5rem;\n  }\n\n  .sm\\:pb-6 {\n    padding-bottom: 1.5rem;\n  }\n\n  .sm\\:pl-6 {\n    padding-left: 1.5rem;\n  }\n\n  .sm\\:pt-8 {\n    padding-top: 2rem;\n  }\n\n  .sm\\:pr-8 {\n    padding-right: 2rem;\n  }\n\n  .sm\\:pb-8 {\n    padding-bottom: 2rem;\n  }\n\n  .sm\\:pl-8 {\n    padding-left: 2rem;\n  }\n\n  .sm\\:pt-px {\n    padding-top: 1px;\n  }\n\n  .sm\\:pr-px {\n    padding-right: 1px;\n  }\n\n  .sm\\:pb-px {\n    padding-bottom: 1px;\n  }\n\n  .sm\\:pl-px {\n    padding-left: 1px;\n  }\n\n  .sm\\:pointer-events-none {\n    pointer-events: none;\n  }\n\n  .sm\\:pointer-events-auto {\n    pointer-events: auto;\n  }\n\n  .sm\\:static {\n    position: static;\n  }\n\n  .sm\\:fixed {\n    position: fixed;\n  }\n\n  .sm\\:absolute {\n    position: absolute;\n  }\n\n  .sm\\:relative {\n    position: relative;\n  }\n\n  .sm\\:sticky {\n    position: -webkit-sticky;\n    position: sticky;\n  }\n\n  .sm\\:pin-none {\n    top: auto;\n    right: auto;\n    bottom: auto;\n    left: auto;\n  }\n\n  .sm\\:pin {\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n  }\n\n  .sm\\:pin-y {\n    top: 0;\n    bottom: 0;\n  }\n\n  .sm\\:pin-x {\n    right: 0;\n    left: 0;\n  }\n\n  .sm\\:pin-t {\n    top: 0;\n  }\n\n  .sm\\:pin-r {\n    right: 0;\n  }\n\n  .sm\\:pin-b {\n    bottom: 0;\n  }\n\n  .sm\\:pin-l {\n    left: 0;\n  }\n\n  .sm\\:resize-none {\n    resize: none;\n  }\n\n  .sm\\:resize-y {\n    resize: vertical;\n  }\n\n  .sm\\:resize-x {\n    resize: horizontal;\n  }\n\n  .sm\\:resize {\n    resize: both;\n  }\n\n  .sm\\:shadow {\n    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);\n  }\n\n  .sm\\:shadow-md {\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);\n  }\n\n  .sm\\:shadow-lg {\n    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);\n  }\n\n  .sm\\:shadow-inner {\n    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);\n  }\n\n  .sm\\:shadow-none {\n    box-shadow: none;\n  }\n\n  .sm\\:text-left {\n    text-align: left;\n  }\n\n  .sm\\:text-center {\n    text-align: center;\n  }\n\n  .sm\\:text-right {\n    text-align: right;\n  }\n\n  .sm\\:text-justify {\n    text-align: justify;\n  }\n\n  .sm\\:text-transparent {\n    color: transparent;\n  }\n\n  .sm\\:text-black {\n    color: #22292f;\n  }\n\n  .sm\\:text-grey-darkest {\n    color: #3d4852;\n  }\n\n  .sm\\:text-grey-darker {\n    color: #606f7b;\n  }\n\n  .sm\\:text-grey-dark {\n    color: #8795a1;\n  }\n\n  .sm\\:text-grey {\n    color: #b8c2cc;\n  }\n\n  .sm\\:text-grey-light {\n    color: #dae1e7;\n  }\n\n  .sm\\:text-grey-lighter {\n    color: #f1f5f8;\n  }\n\n  .sm\\:text-grey-lightest {\n    color: #f8fafc;\n  }\n\n  .sm\\:text-white {\n    color: #fff;\n  }\n\n  .sm\\:text-red-darkest {\n    color: #3b0d0c;\n  }\n\n  .sm\\:text-red-darker {\n    color: #621b18;\n  }\n\n  .sm\\:text-red-dark {\n    color: #cc1f1a;\n  }\n\n  .sm\\:text-red {\n    color: #e3342f;\n  }\n\n  .sm\\:text-red-light {\n    color: #ef5753;\n  }\n\n  .sm\\:text-red-lighter {\n    color: #f9acaa;\n  }\n\n  .sm\\:text-red-lightest {\n    color: #fcebea;\n  }\n\n  .sm\\:text-orange-darkest {\n    color: #462a16;\n  }\n\n  .sm\\:text-orange-darker {\n    color: #613b1f;\n  }\n\n  .sm\\:text-orange-dark {\n    color: #de751f;\n  }\n\n  .sm\\:text-orange {\n    color: #f6993f;\n  }\n\n  .sm\\:text-orange-light {\n    color: #faad63;\n  }\n\n  .sm\\:text-orange-lighter {\n    color: #fcd9b6;\n  }\n\n  .sm\\:text-orange-lightest {\n    color: #fff5eb;\n  }\n\n  .sm\\:text-yellow-darkest {\n    color: #453411;\n  }\n\n  .sm\\:text-yellow-darker {\n    color: #684f1d;\n  }\n\n  .sm\\:text-yellow-dark {\n    color: #f2d024;\n  }\n\n  .sm\\:text-yellow {\n    color: #ffed4a;\n  }\n\n  .sm\\:text-yellow-light {\n    color: #fff382;\n  }\n\n  .sm\\:text-yellow-lighter {\n    color: #fff9c2;\n  }\n\n  .sm\\:text-yellow-lightest {\n    color: #fcfbeb;\n  }\n\n  .sm\\:text-green-darkest {\n    color: #0f2f21;\n  }\n\n  .sm\\:text-green-darker {\n    color: #1a4731;\n  }\n\n  .sm\\:text-green-dark {\n    color: #1f9d55;\n  }\n\n  .sm\\:text-green {\n    color: #38c172;\n  }\n\n  .sm\\:text-green-light {\n    color: #51d88a;\n  }\n\n  .sm\\:text-green-lighter {\n    color: #a2f5bf;\n  }\n\n  .sm\\:text-green-lightest {\n    color: #e3fcec;\n  }\n\n  .sm\\:text-teal-darkest {\n    color: #0d3331;\n  }\n\n  .sm\\:text-teal-darker {\n    color: #20504f;\n  }\n\n  .sm\\:text-teal-dark {\n    color: #38a89d;\n  }\n\n  .sm\\:text-teal {\n    color: #4dc0b5;\n  }\n\n  .sm\\:text-teal-light {\n    color: #64d5ca;\n  }\n\n  .sm\\:text-teal-lighter {\n    color: #a0f0ed;\n  }\n\n  .sm\\:text-teal-lightest {\n    color: #e8fffe;\n  }\n\n  .sm\\:text-blue-darkest {\n    color: #12283a;\n  }\n\n  .sm\\:text-blue-darker {\n    color: #1c3d5a;\n  }\n\n  .sm\\:text-blue-dark {\n    color: #2779bd;\n  }\n\n  .sm\\:text-blue {\n    color: #3490dc;\n  }\n\n  .sm\\:text-blue-light {\n    color: #6cb2eb;\n  }\n\n  .sm\\:text-blue-lighter {\n    color: #bcdefa;\n  }\n\n  .sm\\:text-blue-lightest {\n    color: #eff8ff;\n  }\n\n  .sm\\:text-indigo-darkest {\n    color: #191e38;\n  }\n\n  .sm\\:text-indigo-darker {\n    color: #2f365f;\n  }\n\n  .sm\\:text-indigo-dark {\n    color: #5661b3;\n  }\n\n  .sm\\:text-indigo {\n    color: #6574cd;\n  }\n\n  .sm\\:text-indigo-light {\n    color: #7886d7;\n  }\n\n  .sm\\:text-indigo-lighter {\n    color: #b2b7ff;\n  }\n\n  .sm\\:text-indigo-lightest {\n    color: #e6e8ff;\n  }\n\n  .sm\\:text-purple-darkest {\n    color: #21183c;\n  }\n\n  .sm\\:text-purple-darker {\n    color: #382b5f;\n  }\n\n  .sm\\:text-purple-dark {\n    color: #794acf;\n  }\n\n  .sm\\:text-purple {\n    color: #9561e2;\n  }\n\n  .sm\\:text-purple-light {\n    color: #a779e9;\n  }\n\n  .sm\\:text-purple-lighter {\n    color: #d6bbfc;\n  }\n\n  .sm\\:text-purple-lightest {\n    color: #f3ebff;\n  }\n\n  .sm\\:text-pink-darkest {\n    color: #451225;\n  }\n\n  .sm\\:text-pink-darker {\n    color: #6f213f;\n  }\n\n  .sm\\:text-pink-dark {\n    color: #eb5286;\n  }\n\n  .sm\\:text-pink {\n    color: #f66d9b;\n  }\n\n  .sm\\:text-pink-light {\n    color: #fa7ea8;\n  }\n\n  .sm\\:text-pink-lighter {\n    color: #ffbbca;\n  }\n\n  .sm\\:text-pink-lightest {\n    color: #ffebef;\n  }\n\n  .sm\\:hover\\:text-transparent:hover {\n    color: transparent;\n  }\n\n  .sm\\:hover\\:text-black:hover {\n    color: #22292f;\n  }\n\n  .sm\\:hover\\:text-grey-darkest:hover {\n    color: #3d4852;\n  }\n\n  .sm\\:hover\\:text-grey-darker:hover {\n    color: #606f7b;\n  }\n\n  .sm\\:hover\\:text-grey-dark:hover {\n    color: #8795a1;\n  }\n\n  .sm\\:hover\\:text-grey:hover {\n    color: #b8c2cc;\n  }\n\n  .sm\\:hover\\:text-grey-light:hover {\n    color: #dae1e7;\n  }\n\n  .sm\\:hover\\:text-grey-lighter:hover {\n    color: #f1f5f8;\n  }\n\n  .sm\\:hover\\:text-grey-lightest:hover {\n    color: #f8fafc;\n  }\n\n  .sm\\:hover\\:text-white:hover {\n    color: #fff;\n  }\n\n  .sm\\:hover\\:text-red-darkest:hover {\n    color: #3b0d0c;\n  }\n\n  .sm\\:hover\\:text-red-darker:hover {\n    color: #621b18;\n  }\n\n  .sm\\:hover\\:text-red-dark:hover {\n    color: #cc1f1a;\n  }\n\n  .sm\\:hover\\:text-red:hover {\n    color: #e3342f;\n  }\n\n  .sm\\:hover\\:text-red-light:hover {\n    color: #ef5753;\n  }\n\n  .sm\\:hover\\:text-red-lighter:hover {\n    color: #f9acaa;\n  }\n\n  .sm\\:hover\\:text-red-lightest:hover {\n    color: #fcebea;\n  }\n\n  .sm\\:hover\\:text-orange-darkest:hover {\n    color: #462a16;\n  }\n\n  .sm\\:hover\\:text-orange-darker:hover {\n    color: #613b1f;\n  }\n\n  .sm\\:hover\\:text-orange-dark:hover {\n    color: #de751f;\n  }\n\n  .sm\\:hover\\:text-orange:hover {\n    color: #f6993f;\n  }\n\n  .sm\\:hover\\:text-orange-light:hover {\n    color: #faad63;\n  }\n\n  .sm\\:hover\\:text-orange-lighter:hover {\n    color: #fcd9b6;\n  }\n\n  .sm\\:hover\\:text-orange-lightest:hover {\n    color: #fff5eb;\n  }\n\n  .sm\\:hover\\:text-yellow-darkest:hover {\n    color: #453411;\n  }\n\n  .sm\\:hover\\:text-yellow-darker:hover {\n    color: #684f1d;\n  }\n\n  .sm\\:hover\\:text-yellow-dark:hover {\n    color: #f2d024;\n  }\n\n  .sm\\:hover\\:text-yellow:hover {\n    color: #ffed4a;\n  }\n\n  .sm\\:hover\\:text-yellow-light:hover {\n    color: #fff382;\n  }\n\n  .sm\\:hover\\:text-yellow-lighter:hover {\n    color: #fff9c2;\n  }\n\n  .sm\\:hover\\:text-yellow-lightest:hover {\n    color: #fcfbeb;\n  }\n\n  .sm\\:hover\\:text-green-darkest:hover {\n    color: #0f2f21;\n  }\n\n  .sm\\:hover\\:text-green-darker:hover {\n    color: #1a4731;\n  }\n\n  .sm\\:hover\\:text-green-dark:hover {\n    color: #1f9d55;\n  }\n\n  .sm\\:hover\\:text-green:hover {\n    color: #38c172;\n  }\n\n  .sm\\:hover\\:text-green-light:hover {\n    color: #51d88a;\n  }\n\n  .sm\\:hover\\:text-green-lighter:hover {\n    color: #a2f5bf;\n  }\n\n  .sm\\:hover\\:text-green-lightest:hover {\n    color: #e3fcec;\n  }\n\n  .sm\\:hover\\:text-teal-darkest:hover {\n    color: #0d3331;\n  }\n\n  .sm\\:hover\\:text-teal-darker:hover {\n    color: #20504f;\n  }\n\n  .sm\\:hover\\:text-teal-dark:hover {\n    color: #38a89d;\n  }\n\n  .sm\\:hover\\:text-teal:hover {\n    color: #4dc0b5;\n  }\n\n  .sm\\:hover\\:text-teal-light:hover {\n    color: #64d5ca;\n  }\n\n  .sm\\:hover\\:text-teal-lighter:hover {\n    color: #a0f0ed;\n  }\n\n  .sm\\:hover\\:text-teal-lightest:hover {\n    color: #e8fffe;\n  }\n\n  .sm\\:hover\\:text-blue-darkest:hover {\n    color: #12283a;\n  }\n\n  .sm\\:hover\\:text-blue-darker:hover {\n    color: #1c3d5a;\n  }\n\n  .sm\\:hover\\:text-blue-dark:hover {\n    color: #2779bd;\n  }\n\n  .sm\\:hover\\:text-blue:hover {\n    color: #3490dc;\n  }\n\n  .sm\\:hover\\:text-blue-light:hover {\n    color: #6cb2eb;\n  }\n\n  .sm\\:hover\\:text-blue-lighter:hover {\n    color: #bcdefa;\n  }\n\n  .sm\\:hover\\:text-blue-lightest:hover {\n    color: #eff8ff;\n  }\n\n  .sm\\:hover\\:text-indigo-darkest:hover {\n    color: #191e38;\n  }\n\n  .sm\\:hover\\:text-indigo-darker:hover {\n    color: #2f365f;\n  }\n\n  .sm\\:hover\\:text-indigo-dark:hover {\n    color: #5661b3;\n  }\n\n  .sm\\:hover\\:text-indigo:hover {\n    color: #6574cd;\n  }\n\n  .sm\\:hover\\:text-indigo-light:hover {\n    color: #7886d7;\n  }\n\n  .sm\\:hover\\:text-indigo-lighter:hover {\n    color: #b2b7ff;\n  }\n\n  .sm\\:hover\\:text-indigo-lightest:hover {\n    color: #e6e8ff;\n  }\n\n  .sm\\:hover\\:text-purple-darkest:hover {\n    color: #21183c;\n  }\n\n  .sm\\:hover\\:text-purple-darker:hover {\n    color: #382b5f;\n  }\n\n  .sm\\:hover\\:text-purple-dark:hover {\n    color: #794acf;\n  }\n\n  .sm\\:hover\\:text-purple:hover {\n    color: #9561e2;\n  }\n\n  .sm\\:hover\\:text-purple-light:hover {\n    color: #a779e9;\n  }\n\n  .sm\\:hover\\:text-purple-lighter:hover {\n    color: #d6bbfc;\n  }\n\n  .sm\\:hover\\:text-purple-lightest:hover {\n    color: #f3ebff;\n  }\n\n  .sm\\:hover\\:text-pink-darkest:hover {\n    color: #451225;\n  }\n\n  .sm\\:hover\\:text-pink-darker:hover {\n    color: #6f213f;\n  }\n\n  .sm\\:hover\\:text-pink-dark:hover {\n    color: #eb5286;\n  }\n\n  .sm\\:hover\\:text-pink:hover {\n    color: #f66d9b;\n  }\n\n  .sm\\:hover\\:text-pink-light:hover {\n    color: #fa7ea8;\n  }\n\n  .sm\\:hover\\:text-pink-lighter:hover {\n    color: #ffbbca;\n  }\n\n  .sm\\:hover\\:text-pink-lightest:hover {\n    color: #ffebef;\n  }\n\n  .sm\\:text-xs {\n    font-size: .75rem;\n  }\n\n  .sm\\:text-sm {\n    font-size: .875rem;\n  }\n\n  .sm\\:text-base {\n    font-size: 1rem;\n  }\n\n  .sm\\:text-lg {\n    font-size: 1.125rem;\n  }\n\n  .sm\\:text-xl {\n    font-size: 1.25rem;\n  }\n\n  .sm\\:text-2xl {\n    font-size: 1.5rem;\n  }\n\n  .sm\\:text-3xl {\n    font-size: 1.875rem;\n  }\n\n  .sm\\:text-4xl {\n    font-size: 2.25rem;\n  }\n\n  .sm\\:text-5xl {\n    font-size: 3rem;\n  }\n\n  .sm\\:italic {\n    font-style: italic;\n  }\n\n  .sm\\:roman {\n    font-style: normal;\n  }\n\n  .sm\\:uppercase {\n    text-transform: uppercase;\n  }\n\n  .sm\\:lowercase {\n    text-transform: lowercase;\n  }\n\n  .sm\\:capitalize {\n    text-transform: capitalize;\n  }\n\n  .sm\\:normal-case {\n    text-transform: none;\n  }\n\n  .sm\\:underline {\n    text-decoration: underline;\n  }\n\n  .sm\\:line-through {\n    text-decoration: line-through;\n  }\n\n  .sm\\:no-underline {\n    text-decoration: none;\n  }\n\n  .sm\\:antialiased {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .sm\\:subpixel-antialiased {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .sm\\:hover\\:italic:hover {\n    font-style: italic;\n  }\n\n  .sm\\:hover\\:roman:hover {\n    font-style: normal;\n  }\n\n  .sm\\:hover\\:uppercase:hover {\n    text-transform: uppercase;\n  }\n\n  .sm\\:hover\\:lowercase:hover {\n    text-transform: lowercase;\n  }\n\n  .sm\\:hover\\:capitalize:hover {\n    text-transform: capitalize;\n  }\n\n  .sm\\:hover\\:normal-case:hover {\n    text-transform: none;\n  }\n\n  .sm\\:hover\\:underline:hover {\n    text-decoration: underline;\n  }\n\n  .sm\\:hover\\:line-through:hover {\n    text-decoration: line-through;\n  }\n\n  .sm\\:hover\\:no-underline:hover {\n    text-decoration: none;\n  }\n\n  .sm\\:hover\\:antialiased:hover {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .sm\\:hover\\:subpixel-antialiased:hover {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .sm\\:tracking-tight {\n    letter-spacing: -0.05em;\n  }\n\n  .sm\\:tracking-normal {\n    letter-spacing: 0;\n  }\n\n  .sm\\:tracking-wide {\n    letter-spacing: .05em;\n  }\n\n  .sm\\:select-none {\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n  }\n\n  .sm\\:select-text {\n    -webkit-user-select: text;\n       -moz-user-select: text;\n        -ms-user-select: text;\n            user-select: text;\n  }\n\n  .sm\\:align-baseline {\n    vertical-align: baseline;\n  }\n\n  .sm\\:align-top {\n    vertical-align: top;\n  }\n\n  .sm\\:align-middle {\n    vertical-align: middle;\n  }\n\n  .sm\\:align-bottom {\n    vertical-align: bottom;\n  }\n\n  .sm\\:align-text-top {\n    vertical-align: text-top;\n  }\n\n  .sm\\:align-text-bottom {\n    vertical-align: text-bottom;\n  }\n\n  .sm\\:visible {\n    visibility: visible;\n  }\n\n  .sm\\:invisible {\n    visibility: hidden;\n  }\n\n  .sm\\:whitespace-normal {\n    white-space: normal;\n  }\n\n  .sm\\:whitespace-no-wrap {\n    white-space: nowrap;\n  }\n\n  .sm\\:whitespace-pre {\n    white-space: pre;\n  }\n\n  .sm\\:whitespace-pre-line {\n    white-space: pre-line;\n  }\n\n  .sm\\:whitespace-pre-wrap {\n    white-space: pre-wrap;\n  }\n\n  .sm\\:break-words {\n    word-wrap: break-word;\n  }\n\n  .sm\\:break-normal {\n    word-wrap: normal;\n  }\n\n  .sm\\:truncate {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .sm\\:w-1 {\n    width: .25rem;\n  }\n\n  .sm\\:w-2 {\n    width: .5rem;\n  }\n\n  .sm\\:w-3 {\n    width: .75rem;\n  }\n\n  .sm\\:w-4 {\n    width: 1rem;\n  }\n\n  .sm\\:w-6 {\n    width: 1.5rem;\n  }\n\n  .sm\\:w-8 {\n    width: 2rem;\n  }\n\n  .sm\\:w-10 {\n    width: 2.5rem;\n  }\n\n  .sm\\:w-12 {\n    width: 3rem;\n  }\n\n  .sm\\:w-16 {\n    width: 4rem;\n  }\n\n  .sm\\:w-24 {\n    width: 6rem;\n  }\n\n  .sm\\:w-32 {\n    width: 8rem;\n  }\n\n  .sm\\:w-48 {\n    width: 12rem;\n  }\n\n  .sm\\:w-64 {\n    width: 16rem;\n  }\n\n  .sm\\:w-auto {\n    width: auto;\n  }\n\n  .sm\\:w-px {\n    width: 1px;\n  }\n\n  .sm\\:w-1\\/2 {\n    width: 50%;\n  }\n\n  .sm\\:w-1\\/3 {\n    width: 33.33333%;\n  }\n\n  .sm\\:w-2\\/3 {\n    width: 66.66667%;\n  }\n\n  .sm\\:w-1\\/4 {\n    width: 25%;\n  }\n\n  .sm\\:w-3\\/4 {\n    width: 75%;\n  }\n\n  .sm\\:w-1\\/5 {\n    width: 20%;\n  }\n\n  .sm\\:w-2\\/5 {\n    width: 40%;\n  }\n\n  .sm\\:w-3\\/5 {\n    width: 60%;\n  }\n\n  .sm\\:w-4\\/5 {\n    width: 80%;\n  }\n\n  .sm\\:w-1\\/6 {\n    width: 16.66667%;\n  }\n\n  .sm\\:w-5\\/6 {\n    width: 83.33333%;\n  }\n\n  .sm\\:w-full {\n    width: 100%;\n  }\n\n  .sm\\:w-screen {\n    width: 100vw;\n  }\n\n  .sm\\:z-0 {\n    z-index: 0;\n  }\n\n  .sm\\:z-10 {\n    z-index: 10;\n  }\n\n  .sm\\:z-20 {\n    z-index: 20;\n  }\n\n  .sm\\:z-30 {\n    z-index: 30;\n  }\n\n  .sm\\:z-40 {\n    z-index: 40;\n  }\n\n  .sm\\:z-50 {\n    z-index: 50;\n  }\n\n  .sm\\:z-auto {\n    z-index: auto;\n  }\n}\n\n@media (min-width: 768px) {\n  .md\\:list-reset {\n    list-style: none;\n    padding: 0;\n  }\n\n  .md\\:appearance-none {\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n  }\n\n  .md\\:bg-fixed {\n    background-attachment: fixed;\n  }\n\n  .md\\:bg-local {\n    background-attachment: local;\n  }\n\n  .md\\:bg-scroll {\n    background-attachment: scroll;\n  }\n\n  .md\\:bg-transparent {\n    background-color: transparent;\n  }\n\n  .md\\:bg-black {\n    background-color: #22292f;\n  }\n\n  .md\\:bg-grey-darkest {\n    background-color: #3d4852;\n  }\n\n  .md\\:bg-grey-darker {\n    background-color: #606f7b;\n  }\n\n  .md\\:bg-grey-dark {\n    background-color: #8795a1;\n  }\n\n  .md\\:bg-grey {\n    background-color: #b8c2cc;\n  }\n\n  .md\\:bg-grey-light {\n    background-color: #dae1e7;\n  }\n\n  .md\\:bg-grey-lighter {\n    background-color: #f1f5f8;\n  }\n\n  .md\\:bg-grey-lightest {\n    background-color: #f8fafc;\n  }\n\n  .md\\:bg-white {\n    background-color: #fff;\n  }\n\n  .md\\:bg-red-darkest {\n    background-color: #3b0d0c;\n  }\n\n  .md\\:bg-red-darker {\n    background-color: #621b18;\n  }\n\n  .md\\:bg-red-dark {\n    background-color: #cc1f1a;\n  }\n\n  .md\\:bg-red {\n    background-color: #e3342f;\n  }\n\n  .md\\:bg-red-light {\n    background-color: #ef5753;\n  }\n\n  .md\\:bg-red-lighter {\n    background-color: #f9acaa;\n  }\n\n  .md\\:bg-red-lightest {\n    background-color: #fcebea;\n  }\n\n  .md\\:bg-orange-darkest {\n    background-color: #462a16;\n  }\n\n  .md\\:bg-orange-darker {\n    background-color: #613b1f;\n  }\n\n  .md\\:bg-orange-dark {\n    background-color: #de751f;\n  }\n\n  .md\\:bg-orange {\n    background-color: #f6993f;\n  }\n\n  .md\\:bg-orange-light {\n    background-color: #faad63;\n  }\n\n  .md\\:bg-orange-lighter {\n    background-color: #fcd9b6;\n  }\n\n  .md\\:bg-orange-lightest {\n    background-color: #fff5eb;\n  }\n\n  .md\\:bg-yellow-darkest {\n    background-color: #453411;\n  }\n\n  .md\\:bg-yellow-darker {\n    background-color: #684f1d;\n  }\n\n  .md\\:bg-yellow-dark {\n    background-color: #f2d024;\n  }\n\n  .md\\:bg-yellow {\n    background-color: #ffed4a;\n  }\n\n  .md\\:bg-yellow-light {\n    background-color: #fff382;\n  }\n\n  .md\\:bg-yellow-lighter {\n    background-color: #fff9c2;\n  }\n\n  .md\\:bg-yellow-lightest {\n    background-color: #fcfbeb;\n  }\n\n  .md\\:bg-green-darkest {\n    background-color: #0f2f21;\n  }\n\n  .md\\:bg-green-darker {\n    background-color: #1a4731;\n  }\n\n  .md\\:bg-green-dark {\n    background-color: #1f9d55;\n  }\n\n  .md\\:bg-green {\n    background-color: #38c172;\n  }\n\n  .md\\:bg-green-light {\n    background-color: #51d88a;\n  }\n\n  .md\\:bg-green-lighter {\n    background-color: #a2f5bf;\n  }\n\n  .md\\:bg-green-lightest {\n    background-color: #e3fcec;\n  }\n\n  .md\\:bg-teal-darkest {\n    background-color: #0d3331;\n  }\n\n  .md\\:bg-teal-darker {\n    background-color: #20504f;\n  }\n\n  .md\\:bg-teal-dark {\n    background-color: #38a89d;\n  }\n\n  .md\\:bg-teal {\n    background-color: #4dc0b5;\n  }\n\n  .md\\:bg-teal-light {\n    background-color: #64d5ca;\n  }\n\n  .md\\:bg-teal-lighter {\n    background-color: #a0f0ed;\n  }\n\n  .md\\:bg-teal-lightest {\n    background-color: #e8fffe;\n  }\n\n  .md\\:bg-blue-darkest {\n    background-color: #12283a;\n  }\n\n  .md\\:bg-blue-darker {\n    background-color: #1c3d5a;\n  }\n\n  .md\\:bg-blue-dark {\n    background-color: #2779bd;\n  }\n\n  .md\\:bg-blue {\n    background-color: #3490dc;\n  }\n\n  .md\\:bg-blue-light {\n    background-color: #6cb2eb;\n  }\n\n  .md\\:bg-blue-lighter {\n    background-color: #bcdefa;\n  }\n\n  .md\\:bg-blue-lightest {\n    background-color: #eff8ff;\n  }\n\n  .md\\:bg-indigo-darkest {\n    background-color: #191e38;\n  }\n\n  .md\\:bg-indigo-darker {\n    background-color: #2f365f;\n  }\n\n  .md\\:bg-indigo-dark {\n    background-color: #5661b3;\n  }\n\n  .md\\:bg-indigo {\n    background-color: #6574cd;\n  }\n\n  .md\\:bg-indigo-light {\n    background-color: #7886d7;\n  }\n\n  .md\\:bg-indigo-lighter {\n    background-color: #b2b7ff;\n  }\n\n  .md\\:bg-indigo-lightest {\n    background-color: #e6e8ff;\n  }\n\n  .md\\:bg-purple-darkest {\n    background-color: #21183c;\n  }\n\n  .md\\:bg-purple-darker {\n    background-color: #382b5f;\n  }\n\n  .md\\:bg-purple-dark {\n    background-color: #794acf;\n  }\n\n  .md\\:bg-purple {\n    background-color: #9561e2;\n  }\n\n  .md\\:bg-purple-light {\n    background-color: #a779e9;\n  }\n\n  .md\\:bg-purple-lighter {\n    background-color: #d6bbfc;\n  }\n\n  .md\\:bg-purple-lightest {\n    background-color: #f3ebff;\n  }\n\n  .md\\:bg-pink-darkest {\n    background-color: #451225;\n  }\n\n  .md\\:bg-pink-darker {\n    background-color: #6f213f;\n  }\n\n  .md\\:bg-pink-dark {\n    background-color: #eb5286;\n  }\n\n  .md\\:bg-pink {\n    background-color: #f66d9b;\n  }\n\n  .md\\:bg-pink-light {\n    background-color: #fa7ea8;\n  }\n\n  .md\\:bg-pink-lighter {\n    background-color: #ffbbca;\n  }\n\n  .md\\:bg-pink-lightest {\n    background-color: #ffebef;\n  }\n\n  .md\\:hover\\:bg-transparent:hover {\n    background-color: transparent;\n  }\n\n  .md\\:hover\\:bg-black:hover {\n    background-color: #22292f;\n  }\n\n  .md\\:hover\\:bg-grey-darkest:hover {\n    background-color: #3d4852;\n  }\n\n  .md\\:hover\\:bg-grey-darker:hover {\n    background-color: #606f7b;\n  }\n\n  .md\\:hover\\:bg-grey-dark:hover {\n    background-color: #8795a1;\n  }\n\n  .md\\:hover\\:bg-grey:hover {\n    background-color: #b8c2cc;\n  }\n\n  .md\\:hover\\:bg-grey-light:hover {\n    background-color: #dae1e7;\n  }\n\n  .md\\:hover\\:bg-grey-lighter:hover {\n    background-color: #f1f5f8;\n  }\n\n  .md\\:hover\\:bg-grey-lightest:hover {\n    background-color: #f8fafc;\n  }\n\n  .md\\:hover\\:bg-white:hover {\n    background-color: #fff;\n  }\n\n  .md\\:hover\\:bg-red-darkest:hover {\n    background-color: #3b0d0c;\n  }\n\n  .md\\:hover\\:bg-red-darker:hover {\n    background-color: #621b18;\n  }\n\n  .md\\:hover\\:bg-red-dark:hover {\n    background-color: #cc1f1a;\n  }\n\n  .md\\:hover\\:bg-red:hover {\n    background-color: #e3342f;\n  }\n\n  .md\\:hover\\:bg-red-light:hover {\n    background-color: #ef5753;\n  }\n\n  .md\\:hover\\:bg-red-lighter:hover {\n    background-color: #f9acaa;\n  }\n\n  .md\\:hover\\:bg-red-lightest:hover {\n    background-color: #fcebea;\n  }\n\n  .md\\:hover\\:bg-orange-darkest:hover {\n    background-color: #462a16;\n  }\n\n  .md\\:hover\\:bg-orange-darker:hover {\n    background-color: #613b1f;\n  }\n\n  .md\\:hover\\:bg-orange-dark:hover {\n    background-color: #de751f;\n  }\n\n  .md\\:hover\\:bg-orange:hover {\n    background-color: #f6993f;\n  }\n\n  .md\\:hover\\:bg-orange-light:hover {\n    background-color: #faad63;\n  }\n\n  .md\\:hover\\:bg-orange-lighter:hover {\n    background-color: #fcd9b6;\n  }\n\n  .md\\:hover\\:bg-orange-lightest:hover {\n    background-color: #fff5eb;\n  }\n\n  .md\\:hover\\:bg-yellow-darkest:hover {\n    background-color: #453411;\n  }\n\n  .md\\:hover\\:bg-yellow-darker:hover {\n    background-color: #684f1d;\n  }\n\n  .md\\:hover\\:bg-yellow-dark:hover {\n    background-color: #f2d024;\n  }\n\n  .md\\:hover\\:bg-yellow:hover {\n    background-color: #ffed4a;\n  }\n\n  .md\\:hover\\:bg-yellow-light:hover {\n    background-color: #fff382;\n  }\n\n  .md\\:hover\\:bg-yellow-lighter:hover {\n    background-color: #fff9c2;\n  }\n\n  .md\\:hover\\:bg-yellow-lightest:hover {\n    background-color: #fcfbeb;\n  }\n\n  .md\\:hover\\:bg-green-darkest:hover {\n    background-color: #0f2f21;\n  }\n\n  .md\\:hover\\:bg-green-darker:hover {\n    background-color: #1a4731;\n  }\n\n  .md\\:hover\\:bg-green-dark:hover {\n    background-color: #1f9d55;\n  }\n\n  .md\\:hover\\:bg-green:hover {\n    background-color: #38c172;\n  }\n\n  .md\\:hover\\:bg-green-light:hover {\n    background-color: #51d88a;\n  }\n\n  .md\\:hover\\:bg-green-lighter:hover {\n    background-color: #a2f5bf;\n  }\n\n  .md\\:hover\\:bg-green-lightest:hover {\n    background-color: #e3fcec;\n  }\n\n  .md\\:hover\\:bg-teal-darkest:hover {\n    background-color: #0d3331;\n  }\n\n  .md\\:hover\\:bg-teal-darker:hover {\n    background-color: #20504f;\n  }\n\n  .md\\:hover\\:bg-teal-dark:hover {\n    background-color: #38a89d;\n  }\n\n  .md\\:hover\\:bg-teal:hover {\n    background-color: #4dc0b5;\n  }\n\n  .md\\:hover\\:bg-teal-light:hover {\n    background-color: #64d5ca;\n  }\n\n  .md\\:hover\\:bg-teal-lighter:hover {\n    background-color: #a0f0ed;\n  }\n\n  .md\\:hover\\:bg-teal-lightest:hover {\n    background-color: #e8fffe;\n  }\n\n  .md\\:hover\\:bg-blue-darkest:hover {\n    background-color: #12283a;\n  }\n\n  .md\\:hover\\:bg-blue-darker:hover {\n    background-color: #1c3d5a;\n  }\n\n  .md\\:hover\\:bg-blue-dark:hover {\n    background-color: #2779bd;\n  }\n\n  .md\\:hover\\:bg-blue:hover {\n    background-color: #3490dc;\n  }\n\n  .md\\:hover\\:bg-blue-light:hover {\n    background-color: #6cb2eb;\n  }\n\n  .md\\:hover\\:bg-blue-lighter:hover {\n    background-color: #bcdefa;\n  }\n\n  .md\\:hover\\:bg-blue-lightest:hover {\n    background-color: #eff8ff;\n  }\n\n  .md\\:hover\\:bg-indigo-darkest:hover {\n    background-color: #191e38;\n  }\n\n  .md\\:hover\\:bg-indigo-darker:hover {\n    background-color: #2f365f;\n  }\n\n  .md\\:hover\\:bg-indigo-dark:hover {\n    background-color: #5661b3;\n  }\n\n  .md\\:hover\\:bg-indigo:hover {\n    background-color: #6574cd;\n  }\n\n  .md\\:hover\\:bg-indigo-light:hover {\n    background-color: #7886d7;\n  }\n\n  .md\\:hover\\:bg-indigo-lighter:hover {\n    background-color: #b2b7ff;\n  }\n\n  .md\\:hover\\:bg-indigo-lightest:hover {\n    background-color: #e6e8ff;\n  }\n\n  .md\\:hover\\:bg-purple-darkest:hover {\n    background-color: #21183c;\n  }\n\n  .md\\:hover\\:bg-purple-darker:hover {\n    background-color: #382b5f;\n  }\n\n  .md\\:hover\\:bg-purple-dark:hover {\n    background-color: #794acf;\n  }\n\n  .md\\:hover\\:bg-purple:hover {\n    background-color: #9561e2;\n  }\n\n  .md\\:hover\\:bg-purple-light:hover {\n    background-color: #a779e9;\n  }\n\n  .md\\:hover\\:bg-purple-lighter:hover {\n    background-color: #d6bbfc;\n  }\n\n  .md\\:hover\\:bg-purple-lightest:hover {\n    background-color: #f3ebff;\n  }\n\n  .md\\:hover\\:bg-pink-darkest:hover {\n    background-color: #451225;\n  }\n\n  .md\\:hover\\:bg-pink-darker:hover {\n    background-color: #6f213f;\n  }\n\n  .md\\:hover\\:bg-pink-dark:hover {\n    background-color: #eb5286;\n  }\n\n  .md\\:hover\\:bg-pink:hover {\n    background-color: #f66d9b;\n  }\n\n  .md\\:hover\\:bg-pink-light:hover {\n    background-color: #fa7ea8;\n  }\n\n  .md\\:hover\\:bg-pink-lighter:hover {\n    background-color: #ffbbca;\n  }\n\n  .md\\:hover\\:bg-pink-lightest:hover {\n    background-color: #ffebef;\n  }\n\n  .md\\:bg-bottom {\n    background-position: bottom;\n  }\n\n  .md\\:bg-center {\n    background-position: center;\n  }\n\n  .md\\:bg-left {\n    background-position: left;\n  }\n\n  .md\\:bg-left-bottom {\n    background-position: left bottom;\n  }\n\n  .md\\:bg-left-top {\n    background-position: left top;\n  }\n\n  .md\\:bg-right {\n    background-position: right;\n  }\n\n  .md\\:bg-right-bottom {\n    background-position: right bottom;\n  }\n\n  .md\\:bg-right-top {\n    background-position: right top;\n  }\n\n  .md\\:bg-top {\n    background-position: top;\n  }\n\n  .md\\:bg-repeat {\n    background-repeat: repeat;\n  }\n\n  .md\\:bg-no-repeat {\n    background-repeat: no-repeat;\n  }\n\n  .md\\:bg-repeat-x {\n    background-repeat: repeat-x;\n  }\n\n  .md\\:bg-repeat-y {\n    background-repeat: repeat-y;\n  }\n\n  .md\\:bg-auto {\n    background-size: auto;\n  }\n\n  .md\\:bg-cover {\n    background-size: cover;\n  }\n\n  .md\\:bg-contain {\n    background-size: contain;\n  }\n\n  .md\\:border-transparent {\n    border-color: transparent;\n  }\n\n  .md\\:border-black {\n    border-color: #22292f;\n  }\n\n  .md\\:border-grey-darkest {\n    border-color: #3d4852;\n  }\n\n  .md\\:border-grey-darker {\n    border-color: #606f7b;\n  }\n\n  .md\\:border-grey-dark {\n    border-color: #8795a1;\n  }\n\n  .md\\:border-grey {\n    border-color: #b8c2cc;\n  }\n\n  .md\\:border-grey-light {\n    border-color: #dae1e7;\n  }\n\n  .md\\:border-grey-lighter {\n    border-color: #f1f5f8;\n  }\n\n  .md\\:border-grey-lightest {\n    border-color: #f8fafc;\n  }\n\n  .md\\:border-white {\n    border-color: #fff;\n  }\n\n  .md\\:border-red-darkest {\n    border-color: #3b0d0c;\n  }\n\n  .md\\:border-red-darker {\n    border-color: #621b18;\n  }\n\n  .md\\:border-red-dark {\n    border-color: #cc1f1a;\n  }\n\n  .md\\:border-red {\n    border-color: #e3342f;\n  }\n\n  .md\\:border-red-light {\n    border-color: #ef5753;\n  }\n\n  .md\\:border-red-lighter {\n    border-color: #f9acaa;\n  }\n\n  .md\\:border-red-lightest {\n    border-color: #fcebea;\n  }\n\n  .md\\:border-orange-darkest {\n    border-color: #462a16;\n  }\n\n  .md\\:border-orange-darker {\n    border-color: #613b1f;\n  }\n\n  .md\\:border-orange-dark {\n    border-color: #de751f;\n  }\n\n  .md\\:border-orange {\n    border-color: #f6993f;\n  }\n\n  .md\\:border-orange-light {\n    border-color: #faad63;\n  }\n\n  .md\\:border-orange-lighter {\n    border-color: #fcd9b6;\n  }\n\n  .md\\:border-orange-lightest {\n    border-color: #fff5eb;\n  }\n\n  .md\\:border-yellow-darkest {\n    border-color: #453411;\n  }\n\n  .md\\:border-yellow-darker {\n    border-color: #684f1d;\n  }\n\n  .md\\:border-yellow-dark {\n    border-color: #f2d024;\n  }\n\n  .md\\:border-yellow {\n    border-color: #ffed4a;\n  }\n\n  .md\\:border-yellow-light {\n    border-color: #fff382;\n  }\n\n  .md\\:border-yellow-lighter {\n    border-color: #fff9c2;\n  }\n\n  .md\\:border-yellow-lightest {\n    border-color: #fcfbeb;\n  }\n\n  .md\\:border-green-darkest {\n    border-color: #0f2f21;\n  }\n\n  .md\\:border-green-darker {\n    border-color: #1a4731;\n  }\n\n  .md\\:border-green-dark {\n    border-color: #1f9d55;\n  }\n\n  .md\\:border-green {\n    border-color: #38c172;\n  }\n\n  .md\\:border-green-light {\n    border-color: #51d88a;\n  }\n\n  .md\\:border-green-lighter {\n    border-color: #a2f5bf;\n  }\n\n  .md\\:border-green-lightest {\n    border-color: #e3fcec;\n  }\n\n  .md\\:border-teal-darkest {\n    border-color: #0d3331;\n  }\n\n  .md\\:border-teal-darker {\n    border-color: #20504f;\n  }\n\n  .md\\:border-teal-dark {\n    border-color: #38a89d;\n  }\n\n  .md\\:border-teal {\n    border-color: #4dc0b5;\n  }\n\n  .md\\:border-teal-light {\n    border-color: #64d5ca;\n  }\n\n  .md\\:border-teal-lighter {\n    border-color: #a0f0ed;\n  }\n\n  .md\\:border-teal-lightest {\n    border-color: #e8fffe;\n  }\n\n  .md\\:border-blue-darkest {\n    border-color: #12283a;\n  }\n\n  .md\\:border-blue-darker {\n    border-color: #1c3d5a;\n  }\n\n  .md\\:border-blue-dark {\n    border-color: #2779bd;\n  }\n\n  .md\\:border-blue {\n    border-color: #3490dc;\n  }\n\n  .md\\:border-blue-light {\n    border-color: #6cb2eb;\n  }\n\n  .md\\:border-blue-lighter {\n    border-color: #bcdefa;\n  }\n\n  .md\\:border-blue-lightest {\n    border-color: #eff8ff;\n  }\n\n  .md\\:border-indigo-darkest {\n    border-color: #191e38;\n  }\n\n  .md\\:border-indigo-darker {\n    border-color: #2f365f;\n  }\n\n  .md\\:border-indigo-dark {\n    border-color: #5661b3;\n  }\n\n  .md\\:border-indigo {\n    border-color: #6574cd;\n  }\n\n  .md\\:border-indigo-light {\n    border-color: #7886d7;\n  }\n\n  .md\\:border-indigo-lighter {\n    border-color: #b2b7ff;\n  }\n\n  .md\\:border-indigo-lightest {\n    border-color: #e6e8ff;\n  }\n\n  .md\\:border-purple-darkest {\n    border-color: #21183c;\n  }\n\n  .md\\:border-purple-darker {\n    border-color: #382b5f;\n  }\n\n  .md\\:border-purple-dark {\n    border-color: #794acf;\n  }\n\n  .md\\:border-purple {\n    border-color: #9561e2;\n  }\n\n  .md\\:border-purple-light {\n    border-color: #a779e9;\n  }\n\n  .md\\:border-purple-lighter {\n    border-color: #d6bbfc;\n  }\n\n  .md\\:border-purple-lightest {\n    border-color: #f3ebff;\n  }\n\n  .md\\:border-pink-darkest {\n    border-color: #451225;\n  }\n\n  .md\\:border-pink-darker {\n    border-color: #6f213f;\n  }\n\n  .md\\:border-pink-dark {\n    border-color: #eb5286;\n  }\n\n  .md\\:border-pink {\n    border-color: #f66d9b;\n  }\n\n  .md\\:border-pink-light {\n    border-color: #fa7ea8;\n  }\n\n  .md\\:border-pink-lighter {\n    border-color: #ffbbca;\n  }\n\n  .md\\:border-pink-lightest {\n    border-color: #ffebef;\n  }\n\n  .md\\:hover\\:border-transparent:hover {\n    border-color: transparent;\n  }\n\n  .md\\:hover\\:border-black:hover {\n    border-color: #22292f;\n  }\n\n  .md\\:hover\\:border-grey-darkest:hover {\n    border-color: #3d4852;\n  }\n\n  .md\\:hover\\:border-grey-darker:hover {\n    border-color: #606f7b;\n  }\n\n  .md\\:hover\\:border-grey-dark:hover {\n    border-color: #8795a1;\n  }\n\n  .md\\:hover\\:border-grey:hover {\n    border-color: #b8c2cc;\n  }\n\n  .md\\:hover\\:border-grey-light:hover {\n    border-color: #dae1e7;\n  }\n\n  .md\\:hover\\:border-grey-lighter:hover {\n    border-color: #f1f5f8;\n  }\n\n  .md\\:hover\\:border-grey-lightest:hover {\n    border-color: #f8fafc;\n  }\n\n  .md\\:hover\\:border-white:hover {\n    border-color: #fff;\n  }\n\n  .md\\:hover\\:border-red-darkest:hover {\n    border-color: #3b0d0c;\n  }\n\n  .md\\:hover\\:border-red-darker:hover {\n    border-color: #621b18;\n  }\n\n  .md\\:hover\\:border-red-dark:hover {\n    border-color: #cc1f1a;\n  }\n\n  .md\\:hover\\:border-red:hover {\n    border-color: #e3342f;\n  }\n\n  .md\\:hover\\:border-red-light:hover {\n    border-color: #ef5753;\n  }\n\n  .md\\:hover\\:border-red-lighter:hover {\n    border-color: #f9acaa;\n  }\n\n  .md\\:hover\\:border-red-lightest:hover {\n    border-color: #fcebea;\n  }\n\n  .md\\:hover\\:border-orange-darkest:hover {\n    border-color: #462a16;\n  }\n\n  .md\\:hover\\:border-orange-darker:hover {\n    border-color: #613b1f;\n  }\n\n  .md\\:hover\\:border-orange-dark:hover {\n    border-color: #de751f;\n  }\n\n  .md\\:hover\\:border-orange:hover {\n    border-color: #f6993f;\n  }\n\n  .md\\:hover\\:border-orange-light:hover {\n    border-color: #faad63;\n  }\n\n  .md\\:hover\\:border-orange-lighter:hover {\n    border-color: #fcd9b6;\n  }\n\n  .md\\:hover\\:border-orange-lightest:hover {\n    border-color: #fff5eb;\n  }\n\n  .md\\:hover\\:border-yellow-darkest:hover {\n    border-color: #453411;\n  }\n\n  .md\\:hover\\:border-yellow-darker:hover {\n    border-color: #684f1d;\n  }\n\n  .md\\:hover\\:border-yellow-dark:hover {\n    border-color: #f2d024;\n  }\n\n  .md\\:hover\\:border-yellow:hover {\n    border-color: #ffed4a;\n  }\n\n  .md\\:hover\\:border-yellow-light:hover {\n    border-color: #fff382;\n  }\n\n  .md\\:hover\\:border-yellow-lighter:hover {\n    border-color: #fff9c2;\n  }\n\n  .md\\:hover\\:border-yellow-lightest:hover {\n    border-color: #fcfbeb;\n  }\n\n  .md\\:hover\\:border-green-darkest:hover {\n    border-color: #0f2f21;\n  }\n\n  .md\\:hover\\:border-green-darker:hover {\n    border-color: #1a4731;\n  }\n\n  .md\\:hover\\:border-green-dark:hover {\n    border-color: #1f9d55;\n  }\n\n  .md\\:hover\\:border-green:hover {\n    border-color: #38c172;\n  }\n\n  .md\\:hover\\:border-green-light:hover {\n    border-color: #51d88a;\n  }\n\n  .md\\:hover\\:border-green-lighter:hover {\n    border-color: #a2f5bf;\n  }\n\n  .md\\:hover\\:border-green-lightest:hover {\n    border-color: #e3fcec;\n  }\n\n  .md\\:hover\\:border-teal-darkest:hover {\n    border-color: #0d3331;\n  }\n\n  .md\\:hover\\:border-teal-darker:hover {\n    border-color: #20504f;\n  }\n\n  .md\\:hover\\:border-teal-dark:hover {\n    border-color: #38a89d;\n  }\n\n  .md\\:hover\\:border-teal:hover {\n    border-color: #4dc0b5;\n  }\n\n  .md\\:hover\\:border-teal-light:hover {\n    border-color: #64d5ca;\n  }\n\n  .md\\:hover\\:border-teal-lighter:hover {\n    border-color: #a0f0ed;\n  }\n\n  .md\\:hover\\:border-teal-lightest:hover {\n    border-color: #e8fffe;\n  }\n\n  .md\\:hover\\:border-blue-darkest:hover {\n    border-color: #12283a;\n  }\n\n  .md\\:hover\\:border-blue-darker:hover {\n    border-color: #1c3d5a;\n  }\n\n  .md\\:hover\\:border-blue-dark:hover {\n    border-color: #2779bd;\n  }\n\n  .md\\:hover\\:border-blue:hover {\n    border-color: #3490dc;\n  }\n\n  .md\\:hover\\:border-blue-light:hover {\n    border-color: #6cb2eb;\n  }\n\n  .md\\:hover\\:border-blue-lighter:hover {\n    border-color: #bcdefa;\n  }\n\n  .md\\:hover\\:border-blue-lightest:hover {\n    border-color: #eff8ff;\n  }\n\n  .md\\:hover\\:border-indigo-darkest:hover {\n    border-color: #191e38;\n  }\n\n  .md\\:hover\\:border-indigo-darker:hover {\n    border-color: #2f365f;\n  }\n\n  .md\\:hover\\:border-indigo-dark:hover {\n    border-color: #5661b3;\n  }\n\n  .md\\:hover\\:border-indigo:hover {\n    border-color: #6574cd;\n  }\n\n  .md\\:hover\\:border-indigo-light:hover {\n    border-color: #7886d7;\n  }\n\n  .md\\:hover\\:border-indigo-lighter:hover {\n    border-color: #b2b7ff;\n  }\n\n  .md\\:hover\\:border-indigo-lightest:hover {\n    border-color: #e6e8ff;\n  }\n\n  .md\\:hover\\:border-purple-darkest:hover {\n    border-color: #21183c;\n  }\n\n  .md\\:hover\\:border-purple-darker:hover {\n    border-color: #382b5f;\n  }\n\n  .md\\:hover\\:border-purple-dark:hover {\n    border-color: #794acf;\n  }\n\n  .md\\:hover\\:border-purple:hover {\n    border-color: #9561e2;\n  }\n\n  .md\\:hover\\:border-purple-light:hover {\n    border-color: #a779e9;\n  }\n\n  .md\\:hover\\:border-purple-lighter:hover {\n    border-color: #d6bbfc;\n  }\n\n  .md\\:hover\\:border-purple-lightest:hover {\n    border-color: #f3ebff;\n  }\n\n  .md\\:hover\\:border-pink-darkest:hover {\n    border-color: #451225;\n  }\n\n  .md\\:hover\\:border-pink-darker:hover {\n    border-color: #6f213f;\n  }\n\n  .md\\:hover\\:border-pink-dark:hover {\n    border-color: #eb5286;\n  }\n\n  .md\\:hover\\:border-pink:hover {\n    border-color: #f66d9b;\n  }\n\n  .md\\:hover\\:border-pink-light:hover {\n    border-color: #fa7ea8;\n  }\n\n  .md\\:hover\\:border-pink-lighter:hover {\n    border-color: #ffbbca;\n  }\n\n  .md\\:hover\\:border-pink-lightest:hover {\n    border-color: #ffebef;\n  }\n\n  .md\\:rounded-none {\n    border-radius: 0;\n  }\n\n  .md\\:rounded-sm {\n    border-radius: .125rem;\n  }\n\n  .md\\:rounded {\n    border-radius: .25rem;\n  }\n\n  .md\\:rounded-lg {\n    border-radius: .5rem;\n  }\n\n  .md\\:rounded-full {\n    border-radius: 9999px;\n  }\n\n  .md\\:rounded-t-none {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n  }\n\n  .md\\:rounded-r-none {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n  }\n\n  .md\\:rounded-b-none {\n    border-bottom-right-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .md\\:rounded-l-none {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .md\\:rounded-t-sm {\n    border-top-left-radius: .125rem;\n    border-top-right-radius: .125rem;\n  }\n\n  .md\\:rounded-r-sm {\n    border-top-right-radius: .125rem;\n    border-bottom-right-radius: .125rem;\n  }\n\n  .md\\:rounded-b-sm {\n    border-bottom-right-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .md\\:rounded-l-sm {\n    border-top-left-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .md\\:rounded-t {\n    border-top-left-radius: .25rem;\n    border-top-right-radius: .25rem;\n  }\n\n  .md\\:rounded-r {\n    border-top-right-radius: .25rem;\n    border-bottom-right-radius: .25rem;\n  }\n\n  .md\\:rounded-b {\n    border-bottom-right-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .md\\:rounded-l {\n    border-top-left-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .md\\:rounded-t-lg {\n    border-top-left-radius: .5rem;\n    border-top-right-radius: .5rem;\n  }\n\n  .md\\:rounded-r-lg {\n    border-top-right-radius: .5rem;\n    border-bottom-right-radius: .5rem;\n  }\n\n  .md\\:rounded-b-lg {\n    border-bottom-right-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .md\\:rounded-l-lg {\n    border-top-left-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .md\\:rounded-t-full {\n    border-top-left-radius: 9999px;\n    border-top-right-radius: 9999px;\n  }\n\n  .md\\:rounded-r-full {\n    border-top-right-radius: 9999px;\n    border-bottom-right-radius: 9999px;\n  }\n\n  .md\\:rounded-b-full {\n    border-bottom-right-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .md\\:rounded-l-full {\n    border-top-left-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .md\\:rounded-tl-none {\n    border-top-left-radius: 0;\n  }\n\n  .md\\:rounded-tr-none {\n    border-top-right-radius: 0;\n  }\n\n  .md\\:rounded-br-none {\n    border-bottom-right-radius: 0;\n  }\n\n  .md\\:rounded-bl-none {\n    border-bottom-left-radius: 0;\n  }\n\n  .md\\:rounded-tl-sm {\n    border-top-left-radius: .125rem;\n  }\n\n  .md\\:rounded-tr-sm {\n    border-top-right-radius: .125rem;\n  }\n\n  .md\\:rounded-br-sm {\n    border-bottom-right-radius: .125rem;\n  }\n\n  .md\\:rounded-bl-sm {\n    border-bottom-left-radius: .125rem;\n  }\n\n  .md\\:rounded-tl {\n    border-top-left-radius: .25rem;\n  }\n\n  .md\\:rounded-tr {\n    border-top-right-radius: .25rem;\n  }\n\n  .md\\:rounded-br {\n    border-bottom-right-radius: .25rem;\n  }\n\n  .md\\:rounded-bl {\n    border-bottom-left-radius: .25rem;\n  }\n\n  .md\\:rounded-tl-lg {\n    border-top-left-radius: .5rem;\n  }\n\n  .md\\:rounded-tr-lg {\n    border-top-right-radius: .5rem;\n  }\n\n  .md\\:rounded-br-lg {\n    border-bottom-right-radius: .5rem;\n  }\n\n  .md\\:rounded-bl-lg {\n    border-bottom-left-radius: .5rem;\n  }\n\n  .md\\:rounded-tl-full {\n    border-top-left-radius: 9999px;\n  }\n\n  .md\\:rounded-tr-full {\n    border-top-right-radius: 9999px;\n  }\n\n  .md\\:rounded-br-full {\n    border-bottom-right-radius: 9999px;\n  }\n\n  .md\\:rounded-bl-full {\n    border-bottom-left-radius: 9999px;\n  }\n\n  .md\\:border-solid {\n    border-style: solid;\n  }\n\n  .md\\:border-dashed {\n    border-style: dashed;\n  }\n\n  .md\\:border-dotted {\n    border-style: dotted;\n  }\n\n  .md\\:border-none {\n    border-style: none;\n  }\n\n  .md\\:border-0 {\n    border-width: 0;\n  }\n\n  .md\\:border-2 {\n    border-width: 2px;\n  }\n\n  .md\\:border-4 {\n    border-width: 4px;\n  }\n\n  .md\\:border-8 {\n    border-width: 8px;\n  }\n\n  .md\\:border {\n    border-width: 1px;\n  }\n\n  .md\\:border-t-0 {\n    border-top-width: 0;\n  }\n\n  .md\\:border-r-0 {\n    border-right-width: 0;\n  }\n\n  .md\\:border-b-0 {\n    border-bottom-width: 0;\n  }\n\n  .md\\:border-l-0 {\n    border-left-width: 0;\n  }\n\n  .md\\:border-t-2 {\n    border-top-width: 2px;\n  }\n\n  .md\\:border-r-2 {\n    border-right-width: 2px;\n  }\n\n  .md\\:border-b-2 {\n    border-bottom-width: 2px;\n  }\n\n  .md\\:border-l-2 {\n    border-left-width: 2px;\n  }\n\n  .md\\:border-t-4 {\n    border-top-width: 4px;\n  }\n\n  .md\\:border-r-4 {\n    border-right-width: 4px;\n  }\n\n  .md\\:border-b-4 {\n    border-bottom-width: 4px;\n  }\n\n  .md\\:border-l-4 {\n    border-left-width: 4px;\n  }\n\n  .md\\:border-t-8 {\n    border-top-width: 8px;\n  }\n\n  .md\\:border-r-8 {\n    border-right-width: 8px;\n  }\n\n  .md\\:border-b-8 {\n    border-bottom-width: 8px;\n  }\n\n  .md\\:border-l-8 {\n    border-left-width: 8px;\n  }\n\n  .md\\:border-t {\n    border-top-width: 1px;\n  }\n\n  .md\\:border-r {\n    border-right-width: 1px;\n  }\n\n  .md\\:border-b {\n    border-bottom-width: 1px;\n  }\n\n  .md\\:border-l {\n    border-left-width: 1px;\n  }\n\n  .md\\:cursor-auto {\n    cursor: auto;\n  }\n\n  .md\\:cursor-default {\n    cursor: default;\n  }\n\n  .md\\:cursor-pointer {\n    cursor: pointer;\n  }\n\n  .md\\:cursor-wait {\n    cursor: wait;\n  }\n\n  .md\\:cursor-move {\n    cursor: move;\n  }\n\n  .md\\:cursor-not-allowed {\n    cursor: not-allowed;\n  }\n\n  .md\\:block {\n    display: block;\n  }\n\n  .md\\:inline-block {\n    display: inline-block;\n  }\n\n  .md\\:inline {\n    display: inline;\n  }\n\n  .md\\:table {\n    display: table;\n  }\n\n  .md\\:table-row {\n    display: table-row;\n  }\n\n  .md\\:table-cell {\n    display: table-cell;\n  }\n\n  .md\\:hidden {\n    display: none;\n  }\n\n  .md\\:flex {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n  }\n\n  .md\\:inline-flex {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n  }\n\n  .md\\:flex-row {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n  }\n\n  .md\\:flex-row-reverse {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: row-reverse;\n            flex-direction: row-reverse;\n  }\n\n  .md\\:flex-col {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n\n  .md\\:flex-col-reverse {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n  }\n\n  .md\\:flex-wrap {\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n  }\n\n  .md\\:flex-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse;\n        flex-wrap: wrap-reverse;\n  }\n\n  .md\\:flex-no-wrap {\n    -ms-flex-wrap: nowrap;\n        flex-wrap: nowrap;\n  }\n\n  .md\\:items-start {\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n  }\n\n  .md\\:items-end {\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n  }\n\n  .md\\:items-center {\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n  }\n\n  .md\\:items-baseline {\n    -webkit-box-align: baseline;\n        -ms-flex-align: baseline;\n            align-items: baseline;\n  }\n\n  .md\\:items-stretch {\n    -webkit-box-align: stretch;\n        -ms-flex-align: stretch;\n            align-items: stretch;\n  }\n\n  .md\\:self-auto {\n    -ms-flex-item-align: auto;\n        -ms-grid-row-align: auto;\n        align-self: auto;\n  }\n\n  .md\\:self-start {\n    -ms-flex-item-align: start;\n        align-self: flex-start;\n  }\n\n  .md\\:self-end {\n    -ms-flex-item-align: end;\n        align-self: flex-end;\n  }\n\n  .md\\:self-center {\n    -ms-flex-item-align: center;\n        -ms-grid-row-align: center;\n        align-self: center;\n  }\n\n  .md\\:self-stretch {\n    -ms-flex-item-align: stretch;\n        -ms-grid-row-align: stretch;\n        align-self: stretch;\n  }\n\n  .md\\:justify-start {\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n  }\n\n  .md\\:justify-end {\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n  }\n\n  .md\\:justify-center {\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n  }\n\n  .md\\:justify-between {\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n  }\n\n  .md\\:justify-around {\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n  }\n\n  .md\\:content-center {\n    -ms-flex-line-pack: center;\n        align-content: center;\n  }\n\n  .md\\:content-start {\n    -ms-flex-line-pack: start;\n        align-content: flex-start;\n  }\n\n  .md\\:content-end {\n    -ms-flex-line-pack: end;\n        align-content: flex-end;\n  }\n\n  .md\\:content-between {\n    -ms-flex-line-pack: justify;\n        align-content: space-between;\n  }\n\n  .md\\:content-around {\n    -ms-flex-line-pack: distribute;\n        align-content: space-around;\n  }\n\n  .md\\:flex-1 {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n  }\n\n  .md\\:flex-auto {\n    -webkit-box-flex: 1;\n        -ms-flex: auto;\n            flex: auto;\n  }\n\n  .md\\:flex-initial {\n    -webkit-box-flex: initial;\n        -ms-flex: initial;\n            flex: initial;\n  }\n\n  .md\\:flex-none {\n    -webkit-box-flex: 0;\n        -ms-flex: none;\n            flex: none;\n  }\n\n  .md\\:flex-grow {\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n  }\n\n  .md\\:flex-shrink {\n    -ms-flex-negative: 1;\n        flex-shrink: 1;\n  }\n\n  .md\\:flex-no-grow {\n    -webkit-box-flex: 0;\n        -ms-flex-positive: 0;\n            flex-grow: 0;\n  }\n\n  .md\\:flex-no-shrink {\n    -ms-flex-negative: 0;\n        flex-shrink: 0;\n  }\n\n  .md\\:float-right {\n    float: right;\n  }\n\n  .md\\:float-left {\n    float: left;\n  }\n\n  .md\\:float-none {\n    float: none;\n  }\n\n  .md\\:clearfix:after {\n    content: \"\";\n    display: table;\n    clear: both;\n  }\n\n  .md\\:font-sans {\n    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;\n  }\n\n  .md\\:font-serif {\n    font-family: Constantia, Lucida Bright, Lucidabright, Lucida Serif, Lucida, DejaVu Serif, Bitstream Vera Serif, Liberation Serif, Georgia, serif;\n  }\n\n  .md\\:font-mono {\n    font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;\n  }\n\n  .md\\:font-hairline {\n    font-weight: 100;\n  }\n\n  .md\\:font-thin {\n    font-weight: 200;\n  }\n\n  .md\\:font-light {\n    font-weight: 300;\n  }\n\n  .md\\:font-normal {\n    font-weight: 400;\n  }\n\n  .md\\:font-medium {\n    font-weight: 500;\n  }\n\n  .md\\:font-semibold {\n    font-weight: 600;\n  }\n\n  .md\\:font-bold {\n    font-weight: 700;\n  }\n\n  .md\\:font-extrabold {\n    font-weight: 800;\n  }\n\n  .md\\:font-black {\n    font-weight: 900;\n  }\n\n  .md\\:hover\\:font-hairline:hover {\n    font-weight: 100;\n  }\n\n  .md\\:hover\\:font-thin:hover {\n    font-weight: 200;\n  }\n\n  .md\\:hover\\:font-light:hover {\n    font-weight: 300;\n  }\n\n  .md\\:hover\\:font-normal:hover {\n    font-weight: 400;\n  }\n\n  .md\\:hover\\:font-medium:hover {\n    font-weight: 500;\n  }\n\n  .md\\:hover\\:font-semibold:hover {\n    font-weight: 600;\n  }\n\n  .md\\:hover\\:font-bold:hover {\n    font-weight: 700;\n  }\n\n  .md\\:hover\\:font-extrabold:hover {\n    font-weight: 800;\n  }\n\n  .md\\:hover\\:font-black:hover {\n    font-weight: 900;\n  }\n\n  .md\\:h-1 {\n    height: .25rem;\n  }\n\n  .md\\:h-2 {\n    height: .5rem;\n  }\n\n  .md\\:h-3 {\n    height: .75rem;\n  }\n\n  .md\\:h-4 {\n    height: 1rem;\n  }\n\n  .md\\:h-6 {\n    height: 1.5rem;\n  }\n\n  .md\\:h-8 {\n    height: 2rem;\n  }\n\n  .md\\:h-10 {\n    height: 2.5rem;\n  }\n\n  .md\\:h-12 {\n    height: 3rem;\n  }\n\n  .md\\:h-16 {\n    height: 4rem;\n  }\n\n  .md\\:h-24 {\n    height: 6rem;\n  }\n\n  .md\\:h-32 {\n    height: 8rem;\n  }\n\n  .md\\:h-48 {\n    height: 12rem;\n  }\n\n  .md\\:h-64 {\n    height: 16rem;\n  }\n\n  .md\\:h-auto {\n    height: auto;\n  }\n\n  .md\\:h-px {\n    height: 1px;\n  }\n\n  .md\\:h-full {\n    height: 100%;\n  }\n\n  .md\\:h-screen {\n    height: 100vh;\n  }\n\n  .md\\:leading-none {\n    line-height: 1;\n  }\n\n  .md\\:leading-tight {\n    line-height: 1.25;\n  }\n\n  .md\\:leading-normal {\n    line-height: 1.5;\n  }\n\n  .md\\:leading-loose {\n    line-height: 2;\n  }\n\n  .md\\:m-0 {\n    margin: 0;\n  }\n\n  .md\\:m-1 {\n    margin: .25rem;\n  }\n\n  .md\\:m-2 {\n    margin: .5rem;\n  }\n\n  .md\\:m-3 {\n    margin: .75rem;\n  }\n\n  .md\\:m-4 {\n    margin: 1rem;\n  }\n\n  .md\\:m-6 {\n    margin: 1.5rem;\n  }\n\n  .md\\:m-8 {\n    margin: 2rem;\n  }\n\n  .md\\:m-auto {\n    margin: auto;\n  }\n\n  .md\\:m-px {\n    margin: 1px;\n  }\n\n  .md\\:my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .md\\:mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .md\\:my-1 {\n    margin-top: .25rem;\n    margin-bottom: .25rem;\n  }\n\n  .md\\:mx-1 {\n    margin-left: .25rem;\n    margin-right: .25rem;\n  }\n\n  .md\\:my-2 {\n    margin-top: .5rem;\n    margin-bottom: .5rem;\n  }\n\n  .md\\:mx-2 {\n    margin-left: .5rem;\n    margin-right: .5rem;\n  }\n\n  .md\\:my-3 {\n    margin-top: .75rem;\n    margin-bottom: .75rem;\n  }\n\n  .md\\:mx-3 {\n    margin-left: .75rem;\n    margin-right: .75rem;\n  }\n\n  .md\\:my-4 {\n    margin-top: 1rem;\n    margin-bottom: 1rem;\n  }\n\n  .md\\:mx-4 {\n    margin-left: 1rem;\n    margin-right: 1rem;\n  }\n\n  .md\\:my-6 {\n    margin-top: 1.5rem;\n    margin-bottom: 1.5rem;\n  }\n\n  .md\\:mx-6 {\n    margin-left: 1.5rem;\n    margin-right: 1.5rem;\n  }\n\n  .md\\:my-8 {\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n  }\n\n  .md\\:mx-8 {\n    margin-left: 2rem;\n    margin-right: 2rem;\n  }\n\n  .md\\:my-auto {\n    margin-top: auto;\n    margin-bottom: auto;\n  }\n\n  .md\\:mx-auto {\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  .md\\:my-px {\n    margin-top: 1px;\n    margin-bottom: 1px;\n  }\n\n  .md\\:mx-px {\n    margin-left: 1px;\n    margin-right: 1px;\n  }\n\n  .md\\:mt-0 {\n    margin-top: 0;\n  }\n\n  .md\\:mr-0 {\n    margin-right: 0;\n  }\n\n  .md\\:mb-0 {\n    margin-bottom: 0;\n  }\n\n  .md\\:ml-0 {\n    margin-left: 0;\n  }\n\n  .md\\:mt-1 {\n    margin-top: .25rem;\n  }\n\n  .md\\:mr-1 {\n    margin-right: .25rem;\n  }\n\n  .md\\:mb-1 {\n    margin-bottom: .25rem;\n  }\n\n  .md\\:ml-1 {\n    margin-left: .25rem;\n  }\n\n  .md\\:mt-2 {\n    margin-top: .5rem;\n  }\n\n  .md\\:mr-2 {\n    margin-right: .5rem;\n  }\n\n  .md\\:mb-2 {\n    margin-bottom: .5rem;\n  }\n\n  .md\\:ml-2 {\n    margin-left: .5rem;\n  }\n\n  .md\\:mt-3 {\n    margin-top: .75rem;\n  }\n\n  .md\\:mr-3 {\n    margin-right: .75rem;\n  }\n\n  .md\\:mb-3 {\n    margin-bottom: .75rem;\n  }\n\n  .md\\:ml-3 {\n    margin-left: .75rem;\n  }\n\n  .md\\:mt-4 {\n    margin-top: 1rem;\n  }\n\n  .md\\:mr-4 {\n    margin-right: 1rem;\n  }\n\n  .md\\:mb-4 {\n    margin-bottom: 1rem;\n  }\n\n  .md\\:ml-4 {\n    margin-left: 1rem;\n  }\n\n  .md\\:mt-6 {\n    margin-top: 1.5rem;\n  }\n\n  .md\\:mr-6 {\n    margin-right: 1.5rem;\n  }\n\n  .md\\:mb-6 {\n    margin-bottom: 1.5rem;\n  }\n\n  .md\\:ml-6 {\n    margin-left: 1.5rem;\n  }\n\n  .md\\:mt-8 {\n    margin-top: 2rem;\n  }\n\n  .md\\:mr-8 {\n    margin-right: 2rem;\n  }\n\n  .md\\:mb-8 {\n    margin-bottom: 2rem;\n  }\n\n  .md\\:ml-8 {\n    margin-left: 2rem;\n  }\n\n  .md\\:mt-auto {\n    margin-top: auto;\n  }\n\n  .md\\:mr-auto {\n    margin-right: auto;\n  }\n\n  .md\\:mb-auto {\n    margin-bottom: auto;\n  }\n\n  .md\\:ml-auto {\n    margin-left: auto;\n  }\n\n  .md\\:mt-px {\n    margin-top: 1px;\n  }\n\n  .md\\:mr-px {\n    margin-right: 1px;\n  }\n\n  .md\\:mb-px {\n    margin-bottom: 1px;\n  }\n\n  .md\\:ml-px {\n    margin-left: 1px;\n  }\n\n  .md\\:max-h-full {\n    max-height: 100%;\n  }\n\n  .md\\:max-h-screen {\n    max-height: 100vh;\n  }\n\n  .md\\:max-w-xs {\n    max-width: 20rem;\n  }\n\n  .md\\:max-w-sm {\n    max-width: 30rem;\n  }\n\n  .md\\:max-w-md {\n    max-width: 40rem;\n  }\n\n  .md\\:max-w-lg {\n    max-width: 50rem;\n  }\n\n  .md\\:max-w-xl {\n    max-width: 60rem;\n  }\n\n  .md\\:max-w-2xl {\n    max-width: 70rem;\n  }\n\n  .md\\:max-w-3xl {\n    max-width: 80rem;\n  }\n\n  .md\\:max-w-4xl {\n    max-width: 90rem;\n  }\n\n  .md\\:max-w-5xl {\n    max-width: 100rem;\n  }\n\n  .md\\:max-w-full {\n    max-width: 100%;\n  }\n\n  .md\\:min-h-0 {\n    min-height: 0;\n  }\n\n  .md\\:min-h-full {\n    min-height: 100%;\n  }\n\n  .md\\:min-h-screen {\n    min-height: 100vh;\n  }\n\n  .md\\:min-w-0 {\n    min-width: 0;\n  }\n\n  .md\\:min-w-full {\n    min-width: 100%;\n  }\n\n  .md\\:-m-0 {\n    margin: 0;\n  }\n\n  .md\\:-m-1 {\n    margin: -0.25rem;\n  }\n\n  .md\\:-m-2 {\n    margin: -0.5rem;\n  }\n\n  .md\\:-m-3 {\n    margin: -0.75rem;\n  }\n\n  .md\\:-m-4 {\n    margin: -1rem;\n  }\n\n  .md\\:-m-6 {\n    margin: -1.5rem;\n  }\n\n  .md\\:-m-8 {\n    margin: -2rem;\n  }\n\n  .md\\:-m-px {\n    margin: -1px;\n  }\n\n  .md\\:-my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .md\\:-mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .md\\:-my-1 {\n    margin-top: -0.25rem;\n    margin-bottom: -0.25rem;\n  }\n\n  .md\\:-mx-1 {\n    margin-left: -0.25rem;\n    margin-right: -0.25rem;\n  }\n\n  .md\\:-my-2 {\n    margin-top: -0.5rem;\n    margin-bottom: -0.5rem;\n  }\n\n  .md\\:-mx-2 {\n    margin-left: -0.5rem;\n    margin-right: -0.5rem;\n  }\n\n  .md\\:-my-3 {\n    margin-top: -0.75rem;\n    margin-bottom: -0.75rem;\n  }\n\n  .md\\:-mx-3 {\n    margin-left: -0.75rem;\n    margin-right: -0.75rem;\n  }\n\n  .md\\:-my-4 {\n    margin-top: -1rem;\n    margin-bottom: -1rem;\n  }\n\n  .md\\:-mx-4 {\n    margin-left: -1rem;\n    margin-right: -1rem;\n  }\n\n  .md\\:-my-6 {\n    margin-top: -1.5rem;\n    margin-bottom: -1.5rem;\n  }\n\n  .md\\:-mx-6 {\n    margin-left: -1.5rem;\n    margin-right: -1.5rem;\n  }\n\n  .md\\:-my-8 {\n    margin-top: -2rem;\n    margin-bottom: -2rem;\n  }\n\n  .md\\:-mx-8 {\n    margin-left: -2rem;\n    margin-right: -2rem;\n  }\n\n  .md\\:-my-px {\n    margin-top: -1px;\n    margin-bottom: -1px;\n  }\n\n  .md\\:-mx-px {\n    margin-left: -1px;\n    margin-right: -1px;\n  }\n\n  .md\\:-mt-0 {\n    margin-top: 0;\n  }\n\n  .md\\:-mr-0 {\n    margin-right: 0;\n  }\n\n  .md\\:-mb-0 {\n    margin-bottom: 0;\n  }\n\n  .md\\:-ml-0 {\n    margin-left: 0;\n  }\n\n  .md\\:-mt-1 {\n    margin-top: -0.25rem;\n  }\n\n  .md\\:-mr-1 {\n    margin-right: -0.25rem;\n  }\n\n  .md\\:-mb-1 {\n    margin-bottom: -0.25rem;\n  }\n\n  .md\\:-ml-1 {\n    margin-left: -0.25rem;\n  }\n\n  .md\\:-mt-2 {\n    margin-top: -0.5rem;\n  }\n\n  .md\\:-mr-2 {\n    margin-right: -0.5rem;\n  }\n\n  .md\\:-mb-2 {\n    margin-bottom: -0.5rem;\n  }\n\n  .md\\:-ml-2 {\n    margin-left: -0.5rem;\n  }\n\n  .md\\:-mt-3 {\n    margin-top: -0.75rem;\n  }\n\n  .md\\:-mr-3 {\n    margin-right: -0.75rem;\n  }\n\n  .md\\:-mb-3 {\n    margin-bottom: -0.75rem;\n  }\n\n  .md\\:-ml-3 {\n    margin-left: -0.75rem;\n  }\n\n  .md\\:-mt-4 {\n    margin-top: -1rem;\n  }\n\n  .md\\:-mr-4 {\n    margin-right: -1rem;\n  }\n\n  .md\\:-mb-4 {\n    margin-bottom: -1rem;\n  }\n\n  .md\\:-ml-4 {\n    margin-left: -1rem;\n  }\n\n  .md\\:-mt-6 {\n    margin-top: -1.5rem;\n  }\n\n  .md\\:-mr-6 {\n    margin-right: -1.5rem;\n  }\n\n  .md\\:-mb-6 {\n    margin-bottom: -1.5rem;\n  }\n\n  .md\\:-ml-6 {\n    margin-left: -1.5rem;\n  }\n\n  .md\\:-mt-8 {\n    margin-top: -2rem;\n  }\n\n  .md\\:-mr-8 {\n    margin-right: -2rem;\n  }\n\n  .md\\:-mb-8 {\n    margin-bottom: -2rem;\n  }\n\n  .md\\:-ml-8 {\n    margin-left: -2rem;\n  }\n\n  .md\\:-mt-px {\n    margin-top: -1px;\n  }\n\n  .md\\:-mr-px {\n    margin-right: -1px;\n  }\n\n  .md\\:-mb-px {\n    margin-bottom: -1px;\n  }\n\n  .md\\:-ml-px {\n    margin-left: -1px;\n  }\n\n  .md\\:opacity-0 {\n    opacity: 0;\n  }\n\n  .md\\:opacity-25 {\n    opacity: .25;\n  }\n\n  .md\\:opacity-50 {\n    opacity: .5;\n  }\n\n  .md\\:opacity-75 {\n    opacity: .75;\n  }\n\n  .md\\:opacity-100 {\n    opacity: 1;\n  }\n\n  .md\\:overflow-auto {\n    overflow: auto;\n  }\n\n  .md\\:overflow-hidden {\n    overflow: hidden;\n  }\n\n  .md\\:overflow-visible {\n    overflow: visible;\n  }\n\n  .md\\:overflow-scroll {\n    overflow: scroll;\n  }\n\n  .md\\:overflow-x-auto {\n    overflow-x: auto;\n  }\n\n  .md\\:overflow-y-auto {\n    overflow-y: auto;\n  }\n\n  .md\\:overflow-x-scroll {\n    overflow-x: scroll;\n  }\n\n  .md\\:overflow-y-scroll {\n    overflow-y: scroll;\n  }\n\n  .md\\:scrolling-touch {\n    -webkit-overflow-scrolling: touch;\n  }\n\n  .md\\:scrolling-auto {\n    -webkit-overflow-scrolling: auto;\n  }\n\n  .md\\:p-0 {\n    padding: 0;\n  }\n\n  .md\\:p-1 {\n    padding: .25rem;\n  }\n\n  .md\\:p-2 {\n    padding: .5rem;\n  }\n\n  .md\\:p-3 {\n    padding: .75rem;\n  }\n\n  .md\\:p-4 {\n    padding: 1rem;\n  }\n\n  .md\\:p-6 {\n    padding: 1.5rem;\n  }\n\n  .md\\:p-8 {\n    padding: 2rem;\n  }\n\n  .md\\:p-px {\n    padding: 1px;\n  }\n\n  .md\\:py-0 {\n    padding-top: 0;\n    padding-bottom: 0;\n  }\n\n  .md\\:px-0 {\n    padding-left: 0;\n    padding-right: 0;\n  }\n\n  .md\\:py-1 {\n    padding-top: .25rem;\n    padding-bottom: .25rem;\n  }\n\n  .md\\:px-1 {\n    padding-left: .25rem;\n    padding-right: .25rem;\n  }\n\n  .md\\:py-2 {\n    padding-top: .5rem;\n    padding-bottom: .5rem;\n  }\n\n  .md\\:px-2 {\n    padding-left: .5rem;\n    padding-right: .5rem;\n  }\n\n  .md\\:py-3 {\n    padding-top: .75rem;\n    padding-bottom: .75rem;\n  }\n\n  .md\\:px-3 {\n    padding-left: .75rem;\n    padding-right: .75rem;\n  }\n\n  .md\\:py-4 {\n    padding-top: 1rem;\n    padding-bottom: 1rem;\n  }\n\n  .md\\:px-4 {\n    padding-left: 1rem;\n    padding-right: 1rem;\n  }\n\n  .md\\:py-6 {\n    padding-top: 1.5rem;\n    padding-bottom: 1.5rem;\n  }\n\n  .md\\:px-6 {\n    padding-left: 1.5rem;\n    padding-right: 1.5rem;\n  }\n\n  .md\\:py-8 {\n    padding-top: 2rem;\n    padding-bottom: 2rem;\n  }\n\n  .md\\:px-8 {\n    padding-left: 2rem;\n    padding-right: 2rem;\n  }\n\n  .md\\:py-px {\n    padding-top: 1px;\n    padding-bottom: 1px;\n  }\n\n  .md\\:px-px {\n    padding-left: 1px;\n    padding-right: 1px;\n  }\n\n  .md\\:pt-0 {\n    padding-top: 0;\n  }\n\n  .md\\:pr-0 {\n    padding-right: 0;\n  }\n\n  .md\\:pb-0 {\n    padding-bottom: 0;\n  }\n\n  .md\\:pl-0 {\n    padding-left: 0;\n  }\n\n  .md\\:pt-1 {\n    padding-top: .25rem;\n  }\n\n  .md\\:pr-1 {\n    padding-right: .25rem;\n  }\n\n  .md\\:pb-1 {\n    padding-bottom: .25rem;\n  }\n\n  .md\\:pl-1 {\n    padding-left: .25rem;\n  }\n\n  .md\\:pt-2 {\n    padding-top: .5rem;\n  }\n\n  .md\\:pr-2 {\n    padding-right: .5rem;\n  }\n\n  .md\\:pb-2 {\n    padding-bottom: .5rem;\n  }\n\n  .md\\:pl-2 {\n    padding-left: .5rem;\n  }\n\n  .md\\:pt-3 {\n    padding-top: .75rem;\n  }\n\n  .md\\:pr-3 {\n    padding-right: .75rem;\n  }\n\n  .md\\:pb-3 {\n    padding-bottom: .75rem;\n  }\n\n  .md\\:pl-3 {\n    padding-left: .75rem;\n  }\n\n  .md\\:pt-4 {\n    padding-top: 1rem;\n  }\n\n  .md\\:pr-4 {\n    padding-right: 1rem;\n  }\n\n  .md\\:pb-4 {\n    padding-bottom: 1rem;\n  }\n\n  .md\\:pl-4 {\n    padding-left: 1rem;\n  }\n\n  .md\\:pt-6 {\n    padding-top: 1.5rem;\n  }\n\n  .md\\:pr-6 {\n    padding-right: 1.5rem;\n  }\n\n  .md\\:pb-6 {\n    padding-bottom: 1.5rem;\n  }\n\n  .md\\:pl-6 {\n    padding-left: 1.5rem;\n  }\n\n  .md\\:pt-8 {\n    padding-top: 2rem;\n  }\n\n  .md\\:pr-8 {\n    padding-right: 2rem;\n  }\n\n  .md\\:pb-8 {\n    padding-bottom: 2rem;\n  }\n\n  .md\\:pl-8 {\n    padding-left: 2rem;\n  }\n\n  .md\\:pt-px {\n    padding-top: 1px;\n  }\n\n  .md\\:pr-px {\n    padding-right: 1px;\n  }\n\n  .md\\:pb-px {\n    padding-bottom: 1px;\n  }\n\n  .md\\:pl-px {\n    padding-left: 1px;\n  }\n\n  .md\\:pointer-events-none {\n    pointer-events: none;\n  }\n\n  .md\\:pointer-events-auto {\n    pointer-events: auto;\n  }\n\n  .md\\:static {\n    position: static;\n  }\n\n  .md\\:fixed {\n    position: fixed;\n  }\n\n  .md\\:absolute {\n    position: absolute;\n  }\n\n  .md\\:relative {\n    position: relative;\n  }\n\n  .md\\:sticky {\n    position: -webkit-sticky;\n    position: sticky;\n  }\n\n  .md\\:pin-none {\n    top: auto;\n    right: auto;\n    bottom: auto;\n    left: auto;\n  }\n\n  .md\\:pin {\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n  }\n\n  .md\\:pin-y {\n    top: 0;\n    bottom: 0;\n  }\n\n  .md\\:pin-x {\n    right: 0;\n    left: 0;\n  }\n\n  .md\\:pin-t {\n    top: 0;\n  }\n\n  .md\\:pin-r {\n    right: 0;\n  }\n\n  .md\\:pin-b {\n    bottom: 0;\n  }\n\n  .md\\:pin-l {\n    left: 0;\n  }\n\n  .md\\:resize-none {\n    resize: none;\n  }\n\n  .md\\:resize-y {\n    resize: vertical;\n  }\n\n  .md\\:resize-x {\n    resize: horizontal;\n  }\n\n  .md\\:resize {\n    resize: both;\n  }\n\n  .md\\:shadow {\n    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);\n  }\n\n  .md\\:shadow-md {\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);\n  }\n\n  .md\\:shadow-lg {\n    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);\n  }\n\n  .md\\:shadow-inner {\n    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);\n  }\n\n  .md\\:shadow-none {\n    box-shadow: none;\n  }\n\n  .md\\:text-left {\n    text-align: left;\n  }\n\n  .md\\:text-center {\n    text-align: center;\n  }\n\n  .md\\:text-right {\n    text-align: right;\n  }\n\n  .md\\:text-justify {\n    text-align: justify;\n  }\n\n  .md\\:text-transparent {\n    color: transparent;\n  }\n\n  .md\\:text-black {\n    color: #22292f;\n  }\n\n  .md\\:text-grey-darkest {\n    color: #3d4852;\n  }\n\n  .md\\:text-grey-darker {\n    color: #606f7b;\n  }\n\n  .md\\:text-grey-dark {\n    color: #8795a1;\n  }\n\n  .md\\:text-grey {\n    color: #b8c2cc;\n  }\n\n  .md\\:text-grey-light {\n    color: #dae1e7;\n  }\n\n  .md\\:text-grey-lighter {\n    color: #f1f5f8;\n  }\n\n  .md\\:text-grey-lightest {\n    color: #f8fafc;\n  }\n\n  .md\\:text-white {\n    color: #fff;\n  }\n\n  .md\\:text-red-darkest {\n    color: #3b0d0c;\n  }\n\n  .md\\:text-red-darker {\n    color: #621b18;\n  }\n\n  .md\\:text-red-dark {\n    color: #cc1f1a;\n  }\n\n  .md\\:text-red {\n    color: #e3342f;\n  }\n\n  .md\\:text-red-light {\n    color: #ef5753;\n  }\n\n  .md\\:text-red-lighter {\n    color: #f9acaa;\n  }\n\n  .md\\:text-red-lightest {\n    color: #fcebea;\n  }\n\n  .md\\:text-orange-darkest {\n    color: #462a16;\n  }\n\n  .md\\:text-orange-darker {\n    color: #613b1f;\n  }\n\n  .md\\:text-orange-dark {\n    color: #de751f;\n  }\n\n  .md\\:text-orange {\n    color: #f6993f;\n  }\n\n  .md\\:text-orange-light {\n    color: #faad63;\n  }\n\n  .md\\:text-orange-lighter {\n    color: #fcd9b6;\n  }\n\n  .md\\:text-orange-lightest {\n    color: #fff5eb;\n  }\n\n  .md\\:text-yellow-darkest {\n    color: #453411;\n  }\n\n  .md\\:text-yellow-darker {\n    color: #684f1d;\n  }\n\n  .md\\:text-yellow-dark {\n    color: #f2d024;\n  }\n\n  .md\\:text-yellow {\n    color: #ffed4a;\n  }\n\n  .md\\:text-yellow-light {\n    color: #fff382;\n  }\n\n  .md\\:text-yellow-lighter {\n    color: #fff9c2;\n  }\n\n  .md\\:text-yellow-lightest {\n    color: #fcfbeb;\n  }\n\n  .md\\:text-green-darkest {\n    color: #0f2f21;\n  }\n\n  .md\\:text-green-darker {\n    color: #1a4731;\n  }\n\n  .md\\:text-green-dark {\n    color: #1f9d55;\n  }\n\n  .md\\:text-green {\n    color: #38c172;\n  }\n\n  .md\\:text-green-light {\n    color: #51d88a;\n  }\n\n  .md\\:text-green-lighter {\n    color: #a2f5bf;\n  }\n\n  .md\\:text-green-lightest {\n    color: #e3fcec;\n  }\n\n  .md\\:text-teal-darkest {\n    color: #0d3331;\n  }\n\n  .md\\:text-teal-darker {\n    color: #20504f;\n  }\n\n  .md\\:text-teal-dark {\n    color: #38a89d;\n  }\n\n  .md\\:text-teal {\n    color: #4dc0b5;\n  }\n\n  .md\\:text-teal-light {\n    color: #64d5ca;\n  }\n\n  .md\\:text-teal-lighter {\n    color: #a0f0ed;\n  }\n\n  .md\\:text-teal-lightest {\n    color: #e8fffe;\n  }\n\n  .md\\:text-blue-darkest {\n    color: #12283a;\n  }\n\n  .md\\:text-blue-darker {\n    color: #1c3d5a;\n  }\n\n  .md\\:text-blue-dark {\n    color: #2779bd;\n  }\n\n  .md\\:text-blue {\n    color: #3490dc;\n  }\n\n  .md\\:text-blue-light {\n    color: #6cb2eb;\n  }\n\n  .md\\:text-blue-lighter {\n    color: #bcdefa;\n  }\n\n  .md\\:text-blue-lightest {\n    color: #eff8ff;\n  }\n\n  .md\\:text-indigo-darkest {\n    color: #191e38;\n  }\n\n  .md\\:text-indigo-darker {\n    color: #2f365f;\n  }\n\n  .md\\:text-indigo-dark {\n    color: #5661b3;\n  }\n\n  .md\\:text-indigo {\n    color: #6574cd;\n  }\n\n  .md\\:text-indigo-light {\n    color: #7886d7;\n  }\n\n  .md\\:text-indigo-lighter {\n    color: #b2b7ff;\n  }\n\n  .md\\:text-indigo-lightest {\n    color: #e6e8ff;\n  }\n\n  .md\\:text-purple-darkest {\n    color: #21183c;\n  }\n\n  .md\\:text-purple-darker {\n    color: #382b5f;\n  }\n\n  .md\\:text-purple-dark {\n    color: #794acf;\n  }\n\n  .md\\:text-purple {\n    color: #9561e2;\n  }\n\n  .md\\:text-purple-light {\n    color: #a779e9;\n  }\n\n  .md\\:text-purple-lighter {\n    color: #d6bbfc;\n  }\n\n  .md\\:text-purple-lightest {\n    color: #f3ebff;\n  }\n\n  .md\\:text-pink-darkest {\n    color: #451225;\n  }\n\n  .md\\:text-pink-darker {\n    color: #6f213f;\n  }\n\n  .md\\:text-pink-dark {\n    color: #eb5286;\n  }\n\n  .md\\:text-pink {\n    color: #f66d9b;\n  }\n\n  .md\\:text-pink-light {\n    color: #fa7ea8;\n  }\n\n  .md\\:text-pink-lighter {\n    color: #ffbbca;\n  }\n\n  .md\\:text-pink-lightest {\n    color: #ffebef;\n  }\n\n  .md\\:hover\\:text-transparent:hover {\n    color: transparent;\n  }\n\n  .md\\:hover\\:text-black:hover {\n    color: #22292f;\n  }\n\n  .md\\:hover\\:text-grey-darkest:hover {\n    color: #3d4852;\n  }\n\n  .md\\:hover\\:text-grey-darker:hover {\n    color: #606f7b;\n  }\n\n  .md\\:hover\\:text-grey-dark:hover {\n    color: #8795a1;\n  }\n\n  .md\\:hover\\:text-grey:hover {\n    color: #b8c2cc;\n  }\n\n  .md\\:hover\\:text-grey-light:hover {\n    color: #dae1e7;\n  }\n\n  .md\\:hover\\:text-grey-lighter:hover {\n    color: #f1f5f8;\n  }\n\n  .md\\:hover\\:text-grey-lightest:hover {\n    color: #f8fafc;\n  }\n\n  .md\\:hover\\:text-white:hover {\n    color: #fff;\n  }\n\n  .md\\:hover\\:text-red-darkest:hover {\n    color: #3b0d0c;\n  }\n\n  .md\\:hover\\:text-red-darker:hover {\n    color: #621b18;\n  }\n\n  .md\\:hover\\:text-red-dark:hover {\n    color: #cc1f1a;\n  }\n\n  .md\\:hover\\:text-red:hover {\n    color: #e3342f;\n  }\n\n  .md\\:hover\\:text-red-light:hover {\n    color: #ef5753;\n  }\n\n  .md\\:hover\\:text-red-lighter:hover {\n    color: #f9acaa;\n  }\n\n  .md\\:hover\\:text-red-lightest:hover {\n    color: #fcebea;\n  }\n\n  .md\\:hover\\:text-orange-darkest:hover {\n    color: #462a16;\n  }\n\n  .md\\:hover\\:text-orange-darker:hover {\n    color: #613b1f;\n  }\n\n  .md\\:hover\\:text-orange-dark:hover {\n    color: #de751f;\n  }\n\n  .md\\:hover\\:text-orange:hover {\n    color: #f6993f;\n  }\n\n  .md\\:hover\\:text-orange-light:hover {\n    color: #faad63;\n  }\n\n  .md\\:hover\\:text-orange-lighter:hover {\n    color: #fcd9b6;\n  }\n\n  .md\\:hover\\:text-orange-lightest:hover {\n    color: #fff5eb;\n  }\n\n  .md\\:hover\\:text-yellow-darkest:hover {\n    color: #453411;\n  }\n\n  .md\\:hover\\:text-yellow-darker:hover {\n    color: #684f1d;\n  }\n\n  .md\\:hover\\:text-yellow-dark:hover {\n    color: #f2d024;\n  }\n\n  .md\\:hover\\:text-yellow:hover {\n    color: #ffed4a;\n  }\n\n  .md\\:hover\\:text-yellow-light:hover {\n    color: #fff382;\n  }\n\n  .md\\:hover\\:text-yellow-lighter:hover {\n    color: #fff9c2;\n  }\n\n  .md\\:hover\\:text-yellow-lightest:hover {\n    color: #fcfbeb;\n  }\n\n  .md\\:hover\\:text-green-darkest:hover {\n    color: #0f2f21;\n  }\n\n  .md\\:hover\\:text-green-darker:hover {\n    color: #1a4731;\n  }\n\n  .md\\:hover\\:text-green-dark:hover {\n    color: #1f9d55;\n  }\n\n  .md\\:hover\\:text-green:hover {\n    color: #38c172;\n  }\n\n  .md\\:hover\\:text-green-light:hover {\n    color: #51d88a;\n  }\n\n  .md\\:hover\\:text-green-lighter:hover {\n    color: #a2f5bf;\n  }\n\n  .md\\:hover\\:text-green-lightest:hover {\n    color: #e3fcec;\n  }\n\n  .md\\:hover\\:text-teal-darkest:hover {\n    color: #0d3331;\n  }\n\n  .md\\:hover\\:text-teal-darker:hover {\n    color: #20504f;\n  }\n\n  .md\\:hover\\:text-teal-dark:hover {\n    color: #38a89d;\n  }\n\n  .md\\:hover\\:text-teal:hover {\n    color: #4dc0b5;\n  }\n\n  .md\\:hover\\:text-teal-light:hover {\n    color: #64d5ca;\n  }\n\n  .md\\:hover\\:text-teal-lighter:hover {\n    color: #a0f0ed;\n  }\n\n  .md\\:hover\\:text-teal-lightest:hover {\n    color: #e8fffe;\n  }\n\n  .md\\:hover\\:text-blue-darkest:hover {\n    color: #12283a;\n  }\n\n  .md\\:hover\\:text-blue-darker:hover {\n    color: #1c3d5a;\n  }\n\n  .md\\:hover\\:text-blue-dark:hover {\n    color: #2779bd;\n  }\n\n  .md\\:hover\\:text-blue:hover {\n    color: #3490dc;\n  }\n\n  .md\\:hover\\:text-blue-light:hover {\n    color: #6cb2eb;\n  }\n\n  .md\\:hover\\:text-blue-lighter:hover {\n    color: #bcdefa;\n  }\n\n  .md\\:hover\\:text-blue-lightest:hover {\n    color: #eff8ff;\n  }\n\n  .md\\:hover\\:text-indigo-darkest:hover {\n    color: #191e38;\n  }\n\n  .md\\:hover\\:text-indigo-darker:hover {\n    color: #2f365f;\n  }\n\n  .md\\:hover\\:text-indigo-dark:hover {\n    color: #5661b3;\n  }\n\n  .md\\:hover\\:text-indigo:hover {\n    color: #6574cd;\n  }\n\n  .md\\:hover\\:text-indigo-light:hover {\n    color: #7886d7;\n  }\n\n  .md\\:hover\\:text-indigo-lighter:hover {\n    color: #b2b7ff;\n  }\n\n  .md\\:hover\\:text-indigo-lightest:hover {\n    color: #e6e8ff;\n  }\n\n  .md\\:hover\\:text-purple-darkest:hover {\n    color: #21183c;\n  }\n\n  .md\\:hover\\:text-purple-darker:hover {\n    color: #382b5f;\n  }\n\n  .md\\:hover\\:text-purple-dark:hover {\n    color: #794acf;\n  }\n\n  .md\\:hover\\:text-purple:hover {\n    color: #9561e2;\n  }\n\n  .md\\:hover\\:text-purple-light:hover {\n    color: #a779e9;\n  }\n\n  .md\\:hover\\:text-purple-lighter:hover {\n    color: #d6bbfc;\n  }\n\n  .md\\:hover\\:text-purple-lightest:hover {\n    color: #f3ebff;\n  }\n\n  .md\\:hover\\:text-pink-darkest:hover {\n    color: #451225;\n  }\n\n  .md\\:hover\\:text-pink-darker:hover {\n    color: #6f213f;\n  }\n\n  .md\\:hover\\:text-pink-dark:hover {\n    color: #eb5286;\n  }\n\n  .md\\:hover\\:text-pink:hover {\n    color: #f66d9b;\n  }\n\n  .md\\:hover\\:text-pink-light:hover {\n    color: #fa7ea8;\n  }\n\n  .md\\:hover\\:text-pink-lighter:hover {\n    color: #ffbbca;\n  }\n\n  .md\\:hover\\:text-pink-lightest:hover {\n    color: #ffebef;\n  }\n\n  .md\\:text-xs {\n    font-size: .75rem;\n  }\n\n  .md\\:text-sm {\n    font-size: .875rem;\n  }\n\n  .md\\:text-base {\n    font-size: 1rem;\n  }\n\n  .md\\:text-lg {\n    font-size: 1.125rem;\n  }\n\n  .md\\:text-xl {\n    font-size: 1.25rem;\n  }\n\n  .md\\:text-2xl {\n    font-size: 1.5rem;\n  }\n\n  .md\\:text-3xl {\n    font-size: 1.875rem;\n  }\n\n  .md\\:text-4xl {\n    font-size: 2.25rem;\n  }\n\n  .md\\:text-5xl {\n    font-size: 3rem;\n  }\n\n  .md\\:italic {\n    font-style: italic;\n  }\n\n  .md\\:roman {\n    font-style: normal;\n  }\n\n  .md\\:uppercase {\n    text-transform: uppercase;\n  }\n\n  .md\\:lowercase {\n    text-transform: lowercase;\n  }\n\n  .md\\:capitalize {\n    text-transform: capitalize;\n  }\n\n  .md\\:normal-case {\n    text-transform: none;\n  }\n\n  .md\\:underline {\n    text-decoration: underline;\n  }\n\n  .md\\:line-through {\n    text-decoration: line-through;\n  }\n\n  .md\\:no-underline {\n    text-decoration: none;\n  }\n\n  .md\\:antialiased {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .md\\:subpixel-antialiased {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .md\\:hover\\:italic:hover {\n    font-style: italic;\n  }\n\n  .md\\:hover\\:roman:hover {\n    font-style: normal;\n  }\n\n  .md\\:hover\\:uppercase:hover {\n    text-transform: uppercase;\n  }\n\n  .md\\:hover\\:lowercase:hover {\n    text-transform: lowercase;\n  }\n\n  .md\\:hover\\:capitalize:hover {\n    text-transform: capitalize;\n  }\n\n  .md\\:hover\\:normal-case:hover {\n    text-transform: none;\n  }\n\n  .md\\:hover\\:underline:hover {\n    text-decoration: underline;\n  }\n\n  .md\\:hover\\:line-through:hover {\n    text-decoration: line-through;\n  }\n\n  .md\\:hover\\:no-underline:hover {\n    text-decoration: none;\n  }\n\n  .md\\:hover\\:antialiased:hover {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .md\\:hover\\:subpixel-antialiased:hover {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .md\\:tracking-tight {\n    letter-spacing: -0.05em;\n  }\n\n  .md\\:tracking-normal {\n    letter-spacing: 0;\n  }\n\n  .md\\:tracking-wide {\n    letter-spacing: .05em;\n  }\n\n  .md\\:select-none {\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n  }\n\n  .md\\:select-text {\n    -webkit-user-select: text;\n       -moz-user-select: text;\n        -ms-user-select: text;\n            user-select: text;\n  }\n\n  .md\\:align-baseline {\n    vertical-align: baseline;\n  }\n\n  .md\\:align-top {\n    vertical-align: top;\n  }\n\n  .md\\:align-middle {\n    vertical-align: middle;\n  }\n\n  .md\\:align-bottom {\n    vertical-align: bottom;\n  }\n\n  .md\\:align-text-top {\n    vertical-align: text-top;\n  }\n\n  .md\\:align-text-bottom {\n    vertical-align: text-bottom;\n  }\n\n  .md\\:visible {\n    visibility: visible;\n  }\n\n  .md\\:invisible {\n    visibility: hidden;\n  }\n\n  .md\\:whitespace-normal {\n    white-space: normal;\n  }\n\n  .md\\:whitespace-no-wrap {\n    white-space: nowrap;\n  }\n\n  .md\\:whitespace-pre {\n    white-space: pre;\n  }\n\n  .md\\:whitespace-pre-line {\n    white-space: pre-line;\n  }\n\n  .md\\:whitespace-pre-wrap {\n    white-space: pre-wrap;\n  }\n\n  .md\\:break-words {\n    word-wrap: break-word;\n  }\n\n  .md\\:break-normal {\n    word-wrap: normal;\n  }\n\n  .md\\:truncate {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .md\\:w-1 {\n    width: .25rem;\n  }\n\n  .md\\:w-2 {\n    width: .5rem;\n  }\n\n  .md\\:w-3 {\n    width: .75rem;\n  }\n\n  .md\\:w-4 {\n    width: 1rem;\n  }\n\n  .md\\:w-6 {\n    width: 1.5rem;\n  }\n\n  .md\\:w-8 {\n    width: 2rem;\n  }\n\n  .md\\:w-10 {\n    width: 2.5rem;\n  }\n\n  .md\\:w-12 {\n    width: 3rem;\n  }\n\n  .md\\:w-16 {\n    width: 4rem;\n  }\n\n  .md\\:w-24 {\n    width: 6rem;\n  }\n\n  .md\\:w-32 {\n    width: 8rem;\n  }\n\n  .md\\:w-48 {\n    width: 12rem;\n  }\n\n  .md\\:w-64 {\n    width: 16rem;\n  }\n\n  .md\\:w-auto {\n    width: auto;\n  }\n\n  .md\\:w-px {\n    width: 1px;\n  }\n\n  .md\\:w-1\\/2 {\n    width: 50%;\n  }\n\n  .md\\:w-1\\/3 {\n    width: 33.33333%;\n  }\n\n  .md\\:w-2\\/3 {\n    width: 66.66667%;\n  }\n\n  .md\\:w-1\\/4 {\n    width: 25%;\n  }\n\n  .md\\:w-3\\/4 {\n    width: 75%;\n  }\n\n  .md\\:w-1\\/5 {\n    width: 20%;\n  }\n\n  .md\\:w-2\\/5 {\n    width: 40%;\n  }\n\n  .md\\:w-3\\/5 {\n    width: 60%;\n  }\n\n  .md\\:w-4\\/5 {\n    width: 80%;\n  }\n\n  .md\\:w-1\\/6 {\n    width: 16.66667%;\n  }\n\n  .md\\:w-5\\/6 {\n    width: 83.33333%;\n  }\n\n  .md\\:w-full {\n    width: 100%;\n  }\n\n  .md\\:w-screen {\n    width: 100vw;\n  }\n\n  .md\\:z-0 {\n    z-index: 0;\n  }\n\n  .md\\:z-10 {\n    z-index: 10;\n  }\n\n  .md\\:z-20 {\n    z-index: 20;\n  }\n\n  .md\\:z-30 {\n    z-index: 30;\n  }\n\n  .md\\:z-40 {\n    z-index: 40;\n  }\n\n  .md\\:z-50 {\n    z-index: 50;\n  }\n\n  .md\\:z-auto {\n    z-index: auto;\n  }\n}\n\n@media (min-width: 992px) {\n  .lg\\:list-reset {\n    list-style: none;\n    padding: 0;\n  }\n\n  .lg\\:appearance-none {\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n  }\n\n  .lg\\:bg-fixed {\n    background-attachment: fixed;\n  }\n\n  .lg\\:bg-local {\n    background-attachment: local;\n  }\n\n  .lg\\:bg-scroll {\n    background-attachment: scroll;\n  }\n\n  .lg\\:bg-transparent {\n    background-color: transparent;\n  }\n\n  .lg\\:bg-black {\n    background-color: #22292f;\n  }\n\n  .lg\\:bg-grey-darkest {\n    background-color: #3d4852;\n  }\n\n  .lg\\:bg-grey-darker {\n    background-color: #606f7b;\n  }\n\n  .lg\\:bg-grey-dark {\n    background-color: #8795a1;\n  }\n\n  .lg\\:bg-grey {\n    background-color: #b8c2cc;\n  }\n\n  .lg\\:bg-grey-light {\n    background-color: #dae1e7;\n  }\n\n  .lg\\:bg-grey-lighter {\n    background-color: #f1f5f8;\n  }\n\n  .lg\\:bg-grey-lightest {\n    background-color: #f8fafc;\n  }\n\n  .lg\\:bg-white {\n    background-color: #fff;\n  }\n\n  .lg\\:bg-red-darkest {\n    background-color: #3b0d0c;\n  }\n\n  .lg\\:bg-red-darker {\n    background-color: #621b18;\n  }\n\n  .lg\\:bg-red-dark {\n    background-color: #cc1f1a;\n  }\n\n  .lg\\:bg-red {\n    background-color: #e3342f;\n  }\n\n  .lg\\:bg-red-light {\n    background-color: #ef5753;\n  }\n\n  .lg\\:bg-red-lighter {\n    background-color: #f9acaa;\n  }\n\n  .lg\\:bg-red-lightest {\n    background-color: #fcebea;\n  }\n\n  .lg\\:bg-orange-darkest {\n    background-color: #462a16;\n  }\n\n  .lg\\:bg-orange-darker {\n    background-color: #613b1f;\n  }\n\n  .lg\\:bg-orange-dark {\n    background-color: #de751f;\n  }\n\n  .lg\\:bg-orange {\n    background-color: #f6993f;\n  }\n\n  .lg\\:bg-orange-light {\n    background-color: #faad63;\n  }\n\n  .lg\\:bg-orange-lighter {\n    background-color: #fcd9b6;\n  }\n\n  .lg\\:bg-orange-lightest {\n    background-color: #fff5eb;\n  }\n\n  .lg\\:bg-yellow-darkest {\n    background-color: #453411;\n  }\n\n  .lg\\:bg-yellow-darker {\n    background-color: #684f1d;\n  }\n\n  .lg\\:bg-yellow-dark {\n    background-color: #f2d024;\n  }\n\n  .lg\\:bg-yellow {\n    background-color: #ffed4a;\n  }\n\n  .lg\\:bg-yellow-light {\n    background-color: #fff382;\n  }\n\n  .lg\\:bg-yellow-lighter {\n    background-color: #fff9c2;\n  }\n\n  .lg\\:bg-yellow-lightest {\n    background-color: #fcfbeb;\n  }\n\n  .lg\\:bg-green-darkest {\n    background-color: #0f2f21;\n  }\n\n  .lg\\:bg-green-darker {\n    background-color: #1a4731;\n  }\n\n  .lg\\:bg-green-dark {\n    background-color: #1f9d55;\n  }\n\n  .lg\\:bg-green {\n    background-color: #38c172;\n  }\n\n  .lg\\:bg-green-light {\n    background-color: #51d88a;\n  }\n\n  .lg\\:bg-green-lighter {\n    background-color: #a2f5bf;\n  }\n\n  .lg\\:bg-green-lightest {\n    background-color: #e3fcec;\n  }\n\n  .lg\\:bg-teal-darkest {\n    background-color: #0d3331;\n  }\n\n  .lg\\:bg-teal-darker {\n    background-color: #20504f;\n  }\n\n  .lg\\:bg-teal-dark {\n    background-color: #38a89d;\n  }\n\n  .lg\\:bg-teal {\n    background-color: #4dc0b5;\n  }\n\n  .lg\\:bg-teal-light {\n    background-color: #64d5ca;\n  }\n\n  .lg\\:bg-teal-lighter {\n    background-color: #a0f0ed;\n  }\n\n  .lg\\:bg-teal-lightest {\n    background-color: #e8fffe;\n  }\n\n  .lg\\:bg-blue-darkest {\n    background-color: #12283a;\n  }\n\n  .lg\\:bg-blue-darker {\n    background-color: #1c3d5a;\n  }\n\n  .lg\\:bg-blue-dark {\n    background-color: #2779bd;\n  }\n\n  .lg\\:bg-blue {\n    background-color: #3490dc;\n  }\n\n  .lg\\:bg-blue-light {\n    background-color: #6cb2eb;\n  }\n\n  .lg\\:bg-blue-lighter {\n    background-color: #bcdefa;\n  }\n\n  .lg\\:bg-blue-lightest {\n    background-color: #eff8ff;\n  }\n\n  .lg\\:bg-indigo-darkest {\n    background-color: #191e38;\n  }\n\n  .lg\\:bg-indigo-darker {\n    background-color: #2f365f;\n  }\n\n  .lg\\:bg-indigo-dark {\n    background-color: #5661b3;\n  }\n\n  .lg\\:bg-indigo {\n    background-color: #6574cd;\n  }\n\n  .lg\\:bg-indigo-light {\n    background-color: #7886d7;\n  }\n\n  .lg\\:bg-indigo-lighter {\n    background-color: #b2b7ff;\n  }\n\n  .lg\\:bg-indigo-lightest {\n    background-color: #e6e8ff;\n  }\n\n  .lg\\:bg-purple-darkest {\n    background-color: #21183c;\n  }\n\n  .lg\\:bg-purple-darker {\n    background-color: #382b5f;\n  }\n\n  .lg\\:bg-purple-dark {\n    background-color: #794acf;\n  }\n\n  .lg\\:bg-purple {\n    background-color: #9561e2;\n  }\n\n  .lg\\:bg-purple-light {\n    background-color: #a779e9;\n  }\n\n  .lg\\:bg-purple-lighter {\n    background-color: #d6bbfc;\n  }\n\n  .lg\\:bg-purple-lightest {\n    background-color: #f3ebff;\n  }\n\n  .lg\\:bg-pink-darkest {\n    background-color: #451225;\n  }\n\n  .lg\\:bg-pink-darker {\n    background-color: #6f213f;\n  }\n\n  .lg\\:bg-pink-dark {\n    background-color: #eb5286;\n  }\n\n  .lg\\:bg-pink {\n    background-color: #f66d9b;\n  }\n\n  .lg\\:bg-pink-light {\n    background-color: #fa7ea8;\n  }\n\n  .lg\\:bg-pink-lighter {\n    background-color: #ffbbca;\n  }\n\n  .lg\\:bg-pink-lightest {\n    background-color: #ffebef;\n  }\n\n  .lg\\:hover\\:bg-transparent:hover {\n    background-color: transparent;\n  }\n\n  .lg\\:hover\\:bg-black:hover {\n    background-color: #22292f;\n  }\n\n  .lg\\:hover\\:bg-grey-darkest:hover {\n    background-color: #3d4852;\n  }\n\n  .lg\\:hover\\:bg-grey-darker:hover {\n    background-color: #606f7b;\n  }\n\n  .lg\\:hover\\:bg-grey-dark:hover {\n    background-color: #8795a1;\n  }\n\n  .lg\\:hover\\:bg-grey:hover {\n    background-color: #b8c2cc;\n  }\n\n  .lg\\:hover\\:bg-grey-light:hover {\n    background-color: #dae1e7;\n  }\n\n  .lg\\:hover\\:bg-grey-lighter:hover {\n    background-color: #f1f5f8;\n  }\n\n  .lg\\:hover\\:bg-grey-lightest:hover {\n    background-color: #f8fafc;\n  }\n\n  .lg\\:hover\\:bg-white:hover {\n    background-color: #fff;\n  }\n\n  .lg\\:hover\\:bg-red-darkest:hover {\n    background-color: #3b0d0c;\n  }\n\n  .lg\\:hover\\:bg-red-darker:hover {\n    background-color: #621b18;\n  }\n\n  .lg\\:hover\\:bg-red-dark:hover {\n    background-color: #cc1f1a;\n  }\n\n  .lg\\:hover\\:bg-red:hover {\n    background-color: #e3342f;\n  }\n\n  .lg\\:hover\\:bg-red-light:hover {\n    background-color: #ef5753;\n  }\n\n  .lg\\:hover\\:bg-red-lighter:hover {\n    background-color: #f9acaa;\n  }\n\n  .lg\\:hover\\:bg-red-lightest:hover {\n    background-color: #fcebea;\n  }\n\n  .lg\\:hover\\:bg-orange-darkest:hover {\n    background-color: #462a16;\n  }\n\n  .lg\\:hover\\:bg-orange-darker:hover {\n    background-color: #613b1f;\n  }\n\n  .lg\\:hover\\:bg-orange-dark:hover {\n    background-color: #de751f;\n  }\n\n  .lg\\:hover\\:bg-orange:hover {\n    background-color: #f6993f;\n  }\n\n  .lg\\:hover\\:bg-orange-light:hover {\n    background-color: #faad63;\n  }\n\n  .lg\\:hover\\:bg-orange-lighter:hover {\n    background-color: #fcd9b6;\n  }\n\n  .lg\\:hover\\:bg-orange-lightest:hover {\n    background-color: #fff5eb;\n  }\n\n  .lg\\:hover\\:bg-yellow-darkest:hover {\n    background-color: #453411;\n  }\n\n  .lg\\:hover\\:bg-yellow-darker:hover {\n    background-color: #684f1d;\n  }\n\n  .lg\\:hover\\:bg-yellow-dark:hover {\n    background-color: #f2d024;\n  }\n\n  .lg\\:hover\\:bg-yellow:hover {\n    background-color: #ffed4a;\n  }\n\n  .lg\\:hover\\:bg-yellow-light:hover {\n    background-color: #fff382;\n  }\n\n  .lg\\:hover\\:bg-yellow-lighter:hover {\n    background-color: #fff9c2;\n  }\n\n  .lg\\:hover\\:bg-yellow-lightest:hover {\n    background-color: #fcfbeb;\n  }\n\n  .lg\\:hover\\:bg-green-darkest:hover {\n    background-color: #0f2f21;\n  }\n\n  .lg\\:hover\\:bg-green-darker:hover {\n    background-color: #1a4731;\n  }\n\n  .lg\\:hover\\:bg-green-dark:hover {\n    background-color: #1f9d55;\n  }\n\n  .lg\\:hover\\:bg-green:hover {\n    background-color: #38c172;\n  }\n\n  .lg\\:hover\\:bg-green-light:hover {\n    background-color: #51d88a;\n  }\n\n  .lg\\:hover\\:bg-green-lighter:hover {\n    background-color: #a2f5bf;\n  }\n\n  .lg\\:hover\\:bg-green-lightest:hover {\n    background-color: #e3fcec;\n  }\n\n  .lg\\:hover\\:bg-teal-darkest:hover {\n    background-color: #0d3331;\n  }\n\n  .lg\\:hover\\:bg-teal-darker:hover {\n    background-color: #20504f;\n  }\n\n  .lg\\:hover\\:bg-teal-dark:hover {\n    background-color: #38a89d;\n  }\n\n  .lg\\:hover\\:bg-teal:hover {\n    background-color: #4dc0b5;\n  }\n\n  .lg\\:hover\\:bg-teal-light:hover {\n    background-color: #64d5ca;\n  }\n\n  .lg\\:hover\\:bg-teal-lighter:hover {\n    background-color: #a0f0ed;\n  }\n\n  .lg\\:hover\\:bg-teal-lightest:hover {\n    background-color: #e8fffe;\n  }\n\n  .lg\\:hover\\:bg-blue-darkest:hover {\n    background-color: #12283a;\n  }\n\n  .lg\\:hover\\:bg-blue-darker:hover {\n    background-color: #1c3d5a;\n  }\n\n  .lg\\:hover\\:bg-blue-dark:hover {\n    background-color: #2779bd;\n  }\n\n  .lg\\:hover\\:bg-blue:hover {\n    background-color: #3490dc;\n  }\n\n  .lg\\:hover\\:bg-blue-light:hover {\n    background-color: #6cb2eb;\n  }\n\n  .lg\\:hover\\:bg-blue-lighter:hover {\n    background-color: #bcdefa;\n  }\n\n  .lg\\:hover\\:bg-blue-lightest:hover {\n    background-color: #eff8ff;\n  }\n\n  .lg\\:hover\\:bg-indigo-darkest:hover {\n    background-color: #191e38;\n  }\n\n  .lg\\:hover\\:bg-indigo-darker:hover {\n    background-color: #2f365f;\n  }\n\n  .lg\\:hover\\:bg-indigo-dark:hover {\n    background-color: #5661b3;\n  }\n\n  .lg\\:hover\\:bg-indigo:hover {\n    background-color: #6574cd;\n  }\n\n  .lg\\:hover\\:bg-indigo-light:hover {\n    background-color: #7886d7;\n  }\n\n  .lg\\:hover\\:bg-indigo-lighter:hover {\n    background-color: #b2b7ff;\n  }\n\n  .lg\\:hover\\:bg-indigo-lightest:hover {\n    background-color: #e6e8ff;\n  }\n\n  .lg\\:hover\\:bg-purple-darkest:hover {\n    background-color: #21183c;\n  }\n\n  .lg\\:hover\\:bg-purple-darker:hover {\n    background-color: #382b5f;\n  }\n\n  .lg\\:hover\\:bg-purple-dark:hover {\n    background-color: #794acf;\n  }\n\n  .lg\\:hover\\:bg-purple:hover {\n    background-color: #9561e2;\n  }\n\n  .lg\\:hover\\:bg-purple-light:hover {\n    background-color: #a779e9;\n  }\n\n  .lg\\:hover\\:bg-purple-lighter:hover {\n    background-color: #d6bbfc;\n  }\n\n  .lg\\:hover\\:bg-purple-lightest:hover {\n    background-color: #f3ebff;\n  }\n\n  .lg\\:hover\\:bg-pink-darkest:hover {\n    background-color: #451225;\n  }\n\n  .lg\\:hover\\:bg-pink-darker:hover {\n    background-color: #6f213f;\n  }\n\n  .lg\\:hover\\:bg-pink-dark:hover {\n    background-color: #eb5286;\n  }\n\n  .lg\\:hover\\:bg-pink:hover {\n    background-color: #f66d9b;\n  }\n\n  .lg\\:hover\\:bg-pink-light:hover {\n    background-color: #fa7ea8;\n  }\n\n  .lg\\:hover\\:bg-pink-lighter:hover {\n    background-color: #ffbbca;\n  }\n\n  .lg\\:hover\\:bg-pink-lightest:hover {\n    background-color: #ffebef;\n  }\n\n  .lg\\:bg-bottom {\n    background-position: bottom;\n  }\n\n  .lg\\:bg-center {\n    background-position: center;\n  }\n\n  .lg\\:bg-left {\n    background-position: left;\n  }\n\n  .lg\\:bg-left-bottom {\n    background-position: left bottom;\n  }\n\n  .lg\\:bg-left-top {\n    background-position: left top;\n  }\n\n  .lg\\:bg-right {\n    background-position: right;\n  }\n\n  .lg\\:bg-right-bottom {\n    background-position: right bottom;\n  }\n\n  .lg\\:bg-right-top {\n    background-position: right top;\n  }\n\n  .lg\\:bg-top {\n    background-position: top;\n  }\n\n  .lg\\:bg-repeat {\n    background-repeat: repeat;\n  }\n\n  .lg\\:bg-no-repeat {\n    background-repeat: no-repeat;\n  }\n\n  .lg\\:bg-repeat-x {\n    background-repeat: repeat-x;\n  }\n\n  .lg\\:bg-repeat-y {\n    background-repeat: repeat-y;\n  }\n\n  .lg\\:bg-auto {\n    background-size: auto;\n  }\n\n  .lg\\:bg-cover {\n    background-size: cover;\n  }\n\n  .lg\\:bg-contain {\n    background-size: contain;\n  }\n\n  .lg\\:border-transparent {\n    border-color: transparent;\n  }\n\n  .lg\\:border-black {\n    border-color: #22292f;\n  }\n\n  .lg\\:border-grey-darkest {\n    border-color: #3d4852;\n  }\n\n  .lg\\:border-grey-darker {\n    border-color: #606f7b;\n  }\n\n  .lg\\:border-grey-dark {\n    border-color: #8795a1;\n  }\n\n  .lg\\:border-grey {\n    border-color: #b8c2cc;\n  }\n\n  .lg\\:border-grey-light {\n    border-color: #dae1e7;\n  }\n\n  .lg\\:border-grey-lighter {\n    border-color: #f1f5f8;\n  }\n\n  .lg\\:border-grey-lightest {\n    border-color: #f8fafc;\n  }\n\n  .lg\\:border-white {\n    border-color: #fff;\n  }\n\n  .lg\\:border-red-darkest {\n    border-color: #3b0d0c;\n  }\n\n  .lg\\:border-red-darker {\n    border-color: #621b18;\n  }\n\n  .lg\\:border-red-dark {\n    border-color: #cc1f1a;\n  }\n\n  .lg\\:border-red {\n    border-color: #e3342f;\n  }\n\n  .lg\\:border-red-light {\n    border-color: #ef5753;\n  }\n\n  .lg\\:border-red-lighter {\n    border-color: #f9acaa;\n  }\n\n  .lg\\:border-red-lightest {\n    border-color: #fcebea;\n  }\n\n  .lg\\:border-orange-darkest {\n    border-color: #462a16;\n  }\n\n  .lg\\:border-orange-darker {\n    border-color: #613b1f;\n  }\n\n  .lg\\:border-orange-dark {\n    border-color: #de751f;\n  }\n\n  .lg\\:border-orange {\n    border-color: #f6993f;\n  }\n\n  .lg\\:border-orange-light {\n    border-color: #faad63;\n  }\n\n  .lg\\:border-orange-lighter {\n    border-color: #fcd9b6;\n  }\n\n  .lg\\:border-orange-lightest {\n    border-color: #fff5eb;\n  }\n\n  .lg\\:border-yellow-darkest {\n    border-color: #453411;\n  }\n\n  .lg\\:border-yellow-darker {\n    border-color: #684f1d;\n  }\n\n  .lg\\:border-yellow-dark {\n    border-color: #f2d024;\n  }\n\n  .lg\\:border-yellow {\n    border-color: #ffed4a;\n  }\n\n  .lg\\:border-yellow-light {\n    border-color: #fff382;\n  }\n\n  .lg\\:border-yellow-lighter {\n    border-color: #fff9c2;\n  }\n\n  .lg\\:border-yellow-lightest {\n    border-color: #fcfbeb;\n  }\n\n  .lg\\:border-green-darkest {\n    border-color: #0f2f21;\n  }\n\n  .lg\\:border-green-darker {\n    border-color: #1a4731;\n  }\n\n  .lg\\:border-green-dark {\n    border-color: #1f9d55;\n  }\n\n  .lg\\:border-green {\n    border-color: #38c172;\n  }\n\n  .lg\\:border-green-light {\n    border-color: #51d88a;\n  }\n\n  .lg\\:border-green-lighter {\n    border-color: #a2f5bf;\n  }\n\n  .lg\\:border-green-lightest {\n    border-color: #e3fcec;\n  }\n\n  .lg\\:border-teal-darkest {\n    border-color: #0d3331;\n  }\n\n  .lg\\:border-teal-darker {\n    border-color: #20504f;\n  }\n\n  .lg\\:border-teal-dark {\n    border-color: #38a89d;\n  }\n\n  .lg\\:border-teal {\n    border-color: #4dc0b5;\n  }\n\n  .lg\\:border-teal-light {\n    border-color: #64d5ca;\n  }\n\n  .lg\\:border-teal-lighter {\n    border-color: #a0f0ed;\n  }\n\n  .lg\\:border-teal-lightest {\n    border-color: #e8fffe;\n  }\n\n  .lg\\:border-blue-darkest {\n    border-color: #12283a;\n  }\n\n  .lg\\:border-blue-darker {\n    border-color: #1c3d5a;\n  }\n\n  .lg\\:border-blue-dark {\n    border-color: #2779bd;\n  }\n\n  .lg\\:border-blue {\n    border-color: #3490dc;\n  }\n\n  .lg\\:border-blue-light {\n    border-color: #6cb2eb;\n  }\n\n  .lg\\:border-blue-lighter {\n    border-color: #bcdefa;\n  }\n\n  .lg\\:border-blue-lightest {\n    border-color: #eff8ff;\n  }\n\n  .lg\\:border-indigo-darkest {\n    border-color: #191e38;\n  }\n\n  .lg\\:border-indigo-darker {\n    border-color: #2f365f;\n  }\n\n  .lg\\:border-indigo-dark {\n    border-color: #5661b3;\n  }\n\n  .lg\\:border-indigo {\n    border-color: #6574cd;\n  }\n\n  .lg\\:border-indigo-light {\n    border-color: #7886d7;\n  }\n\n  .lg\\:border-indigo-lighter {\n    border-color: #b2b7ff;\n  }\n\n  .lg\\:border-indigo-lightest {\n    border-color: #e6e8ff;\n  }\n\n  .lg\\:border-purple-darkest {\n    border-color: #21183c;\n  }\n\n  .lg\\:border-purple-darker {\n    border-color: #382b5f;\n  }\n\n  .lg\\:border-purple-dark {\n    border-color: #794acf;\n  }\n\n  .lg\\:border-purple {\n    border-color: #9561e2;\n  }\n\n  .lg\\:border-purple-light {\n    border-color: #a779e9;\n  }\n\n  .lg\\:border-purple-lighter {\n    border-color: #d6bbfc;\n  }\n\n  .lg\\:border-purple-lightest {\n    border-color: #f3ebff;\n  }\n\n  .lg\\:border-pink-darkest {\n    border-color: #451225;\n  }\n\n  .lg\\:border-pink-darker {\n    border-color: #6f213f;\n  }\n\n  .lg\\:border-pink-dark {\n    border-color: #eb5286;\n  }\n\n  .lg\\:border-pink {\n    border-color: #f66d9b;\n  }\n\n  .lg\\:border-pink-light {\n    border-color: #fa7ea8;\n  }\n\n  .lg\\:border-pink-lighter {\n    border-color: #ffbbca;\n  }\n\n  .lg\\:border-pink-lightest {\n    border-color: #ffebef;\n  }\n\n  .lg\\:hover\\:border-transparent:hover {\n    border-color: transparent;\n  }\n\n  .lg\\:hover\\:border-black:hover {\n    border-color: #22292f;\n  }\n\n  .lg\\:hover\\:border-grey-darkest:hover {\n    border-color: #3d4852;\n  }\n\n  .lg\\:hover\\:border-grey-darker:hover {\n    border-color: #606f7b;\n  }\n\n  .lg\\:hover\\:border-grey-dark:hover {\n    border-color: #8795a1;\n  }\n\n  .lg\\:hover\\:border-grey:hover {\n    border-color: #b8c2cc;\n  }\n\n  .lg\\:hover\\:border-grey-light:hover {\n    border-color: #dae1e7;\n  }\n\n  .lg\\:hover\\:border-grey-lighter:hover {\n    border-color: #f1f5f8;\n  }\n\n  .lg\\:hover\\:border-grey-lightest:hover {\n    border-color: #f8fafc;\n  }\n\n  .lg\\:hover\\:border-white:hover {\n    border-color: #fff;\n  }\n\n  .lg\\:hover\\:border-red-darkest:hover {\n    border-color: #3b0d0c;\n  }\n\n  .lg\\:hover\\:border-red-darker:hover {\n    border-color: #621b18;\n  }\n\n  .lg\\:hover\\:border-red-dark:hover {\n    border-color: #cc1f1a;\n  }\n\n  .lg\\:hover\\:border-red:hover {\n    border-color: #e3342f;\n  }\n\n  .lg\\:hover\\:border-red-light:hover {\n    border-color: #ef5753;\n  }\n\n  .lg\\:hover\\:border-red-lighter:hover {\n    border-color: #f9acaa;\n  }\n\n  .lg\\:hover\\:border-red-lightest:hover {\n    border-color: #fcebea;\n  }\n\n  .lg\\:hover\\:border-orange-darkest:hover {\n    border-color: #462a16;\n  }\n\n  .lg\\:hover\\:border-orange-darker:hover {\n    border-color: #613b1f;\n  }\n\n  .lg\\:hover\\:border-orange-dark:hover {\n    border-color: #de751f;\n  }\n\n  .lg\\:hover\\:border-orange:hover {\n    border-color: #f6993f;\n  }\n\n  .lg\\:hover\\:border-orange-light:hover {\n    border-color: #faad63;\n  }\n\n  .lg\\:hover\\:border-orange-lighter:hover {\n    border-color: #fcd9b6;\n  }\n\n  .lg\\:hover\\:border-orange-lightest:hover {\n    border-color: #fff5eb;\n  }\n\n  .lg\\:hover\\:border-yellow-darkest:hover {\n    border-color: #453411;\n  }\n\n  .lg\\:hover\\:border-yellow-darker:hover {\n    border-color: #684f1d;\n  }\n\n  .lg\\:hover\\:border-yellow-dark:hover {\n    border-color: #f2d024;\n  }\n\n  .lg\\:hover\\:border-yellow:hover {\n    border-color: #ffed4a;\n  }\n\n  .lg\\:hover\\:border-yellow-light:hover {\n    border-color: #fff382;\n  }\n\n  .lg\\:hover\\:border-yellow-lighter:hover {\n    border-color: #fff9c2;\n  }\n\n  .lg\\:hover\\:border-yellow-lightest:hover {\n    border-color: #fcfbeb;\n  }\n\n  .lg\\:hover\\:border-green-darkest:hover {\n    border-color: #0f2f21;\n  }\n\n  .lg\\:hover\\:border-green-darker:hover {\n    border-color: #1a4731;\n  }\n\n  .lg\\:hover\\:border-green-dark:hover {\n    border-color: #1f9d55;\n  }\n\n  .lg\\:hover\\:border-green:hover {\n    border-color: #38c172;\n  }\n\n  .lg\\:hover\\:border-green-light:hover {\n    border-color: #51d88a;\n  }\n\n  .lg\\:hover\\:border-green-lighter:hover {\n    border-color: #a2f5bf;\n  }\n\n  .lg\\:hover\\:border-green-lightest:hover {\n    border-color: #e3fcec;\n  }\n\n  .lg\\:hover\\:border-teal-darkest:hover {\n    border-color: #0d3331;\n  }\n\n  .lg\\:hover\\:border-teal-darker:hover {\n    border-color: #20504f;\n  }\n\n  .lg\\:hover\\:border-teal-dark:hover {\n    border-color: #38a89d;\n  }\n\n  .lg\\:hover\\:border-teal:hover {\n    border-color: #4dc0b5;\n  }\n\n  .lg\\:hover\\:border-teal-light:hover {\n    border-color: #64d5ca;\n  }\n\n  .lg\\:hover\\:border-teal-lighter:hover {\n    border-color: #a0f0ed;\n  }\n\n  .lg\\:hover\\:border-teal-lightest:hover {\n    border-color: #e8fffe;\n  }\n\n  .lg\\:hover\\:border-blue-darkest:hover {\n    border-color: #12283a;\n  }\n\n  .lg\\:hover\\:border-blue-darker:hover {\n    border-color: #1c3d5a;\n  }\n\n  .lg\\:hover\\:border-blue-dark:hover {\n    border-color: #2779bd;\n  }\n\n  .lg\\:hover\\:border-blue:hover {\n    border-color: #3490dc;\n  }\n\n  .lg\\:hover\\:border-blue-light:hover {\n    border-color: #6cb2eb;\n  }\n\n  .lg\\:hover\\:border-blue-lighter:hover {\n    border-color: #bcdefa;\n  }\n\n  .lg\\:hover\\:border-blue-lightest:hover {\n    border-color: #eff8ff;\n  }\n\n  .lg\\:hover\\:border-indigo-darkest:hover {\n    border-color: #191e38;\n  }\n\n  .lg\\:hover\\:border-indigo-darker:hover {\n    border-color: #2f365f;\n  }\n\n  .lg\\:hover\\:border-indigo-dark:hover {\n    border-color: #5661b3;\n  }\n\n  .lg\\:hover\\:border-indigo:hover {\n    border-color: #6574cd;\n  }\n\n  .lg\\:hover\\:border-indigo-light:hover {\n    border-color: #7886d7;\n  }\n\n  .lg\\:hover\\:border-indigo-lighter:hover {\n    border-color: #b2b7ff;\n  }\n\n  .lg\\:hover\\:border-indigo-lightest:hover {\n    border-color: #e6e8ff;\n  }\n\n  .lg\\:hover\\:border-purple-darkest:hover {\n    border-color: #21183c;\n  }\n\n  .lg\\:hover\\:border-purple-darker:hover {\n    border-color: #382b5f;\n  }\n\n  .lg\\:hover\\:border-purple-dark:hover {\n    border-color: #794acf;\n  }\n\n  .lg\\:hover\\:border-purple:hover {\n    border-color: #9561e2;\n  }\n\n  .lg\\:hover\\:border-purple-light:hover {\n    border-color: #a779e9;\n  }\n\n  .lg\\:hover\\:border-purple-lighter:hover {\n    border-color: #d6bbfc;\n  }\n\n  .lg\\:hover\\:border-purple-lightest:hover {\n    border-color: #f3ebff;\n  }\n\n  .lg\\:hover\\:border-pink-darkest:hover {\n    border-color: #451225;\n  }\n\n  .lg\\:hover\\:border-pink-darker:hover {\n    border-color: #6f213f;\n  }\n\n  .lg\\:hover\\:border-pink-dark:hover {\n    border-color: #eb5286;\n  }\n\n  .lg\\:hover\\:border-pink:hover {\n    border-color: #f66d9b;\n  }\n\n  .lg\\:hover\\:border-pink-light:hover {\n    border-color: #fa7ea8;\n  }\n\n  .lg\\:hover\\:border-pink-lighter:hover {\n    border-color: #ffbbca;\n  }\n\n  .lg\\:hover\\:border-pink-lightest:hover {\n    border-color: #ffebef;\n  }\n\n  .lg\\:rounded-none {\n    border-radius: 0;\n  }\n\n  .lg\\:rounded-sm {\n    border-radius: .125rem;\n  }\n\n  .lg\\:rounded {\n    border-radius: .25rem;\n  }\n\n  .lg\\:rounded-lg {\n    border-radius: .5rem;\n  }\n\n  .lg\\:rounded-full {\n    border-radius: 9999px;\n  }\n\n  .lg\\:rounded-t-none {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n  }\n\n  .lg\\:rounded-r-none {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n  }\n\n  .lg\\:rounded-b-none {\n    border-bottom-right-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .lg\\:rounded-l-none {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .lg\\:rounded-t-sm {\n    border-top-left-radius: .125rem;\n    border-top-right-radius: .125rem;\n  }\n\n  .lg\\:rounded-r-sm {\n    border-top-right-radius: .125rem;\n    border-bottom-right-radius: .125rem;\n  }\n\n  .lg\\:rounded-b-sm {\n    border-bottom-right-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .lg\\:rounded-l-sm {\n    border-top-left-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .lg\\:rounded-t {\n    border-top-left-radius: .25rem;\n    border-top-right-radius: .25rem;\n  }\n\n  .lg\\:rounded-r {\n    border-top-right-radius: .25rem;\n    border-bottom-right-radius: .25rem;\n  }\n\n  .lg\\:rounded-b {\n    border-bottom-right-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .lg\\:rounded-l {\n    border-top-left-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .lg\\:rounded-t-lg {\n    border-top-left-radius: .5rem;\n    border-top-right-radius: .5rem;\n  }\n\n  .lg\\:rounded-r-lg {\n    border-top-right-radius: .5rem;\n    border-bottom-right-radius: .5rem;\n  }\n\n  .lg\\:rounded-b-lg {\n    border-bottom-right-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .lg\\:rounded-l-lg {\n    border-top-left-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .lg\\:rounded-t-full {\n    border-top-left-radius: 9999px;\n    border-top-right-radius: 9999px;\n  }\n\n  .lg\\:rounded-r-full {\n    border-top-right-radius: 9999px;\n    border-bottom-right-radius: 9999px;\n  }\n\n  .lg\\:rounded-b-full {\n    border-bottom-right-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .lg\\:rounded-l-full {\n    border-top-left-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .lg\\:rounded-tl-none {\n    border-top-left-radius: 0;\n  }\n\n  .lg\\:rounded-tr-none {\n    border-top-right-radius: 0;\n  }\n\n  .lg\\:rounded-br-none {\n    border-bottom-right-radius: 0;\n  }\n\n  .lg\\:rounded-bl-none {\n    border-bottom-left-radius: 0;\n  }\n\n  .lg\\:rounded-tl-sm {\n    border-top-left-radius: .125rem;\n  }\n\n  .lg\\:rounded-tr-sm {\n    border-top-right-radius: .125rem;\n  }\n\n  .lg\\:rounded-br-sm {\n    border-bottom-right-radius: .125rem;\n  }\n\n  .lg\\:rounded-bl-sm {\n    border-bottom-left-radius: .125rem;\n  }\n\n  .lg\\:rounded-tl {\n    border-top-left-radius: .25rem;\n  }\n\n  .lg\\:rounded-tr {\n    border-top-right-radius: .25rem;\n  }\n\n  .lg\\:rounded-br {\n    border-bottom-right-radius: .25rem;\n  }\n\n  .lg\\:rounded-bl {\n    border-bottom-left-radius: .25rem;\n  }\n\n  .lg\\:rounded-tl-lg {\n    border-top-left-radius: .5rem;\n  }\n\n  .lg\\:rounded-tr-lg {\n    border-top-right-radius: .5rem;\n  }\n\n  .lg\\:rounded-br-lg {\n    border-bottom-right-radius: .5rem;\n  }\n\n  .lg\\:rounded-bl-lg {\n    border-bottom-left-radius: .5rem;\n  }\n\n  .lg\\:rounded-tl-full {\n    border-top-left-radius: 9999px;\n  }\n\n  .lg\\:rounded-tr-full {\n    border-top-right-radius: 9999px;\n  }\n\n  .lg\\:rounded-br-full {\n    border-bottom-right-radius: 9999px;\n  }\n\n  .lg\\:rounded-bl-full {\n    border-bottom-left-radius: 9999px;\n  }\n\n  .lg\\:border-solid {\n    border-style: solid;\n  }\n\n  .lg\\:border-dashed {\n    border-style: dashed;\n  }\n\n  .lg\\:border-dotted {\n    border-style: dotted;\n  }\n\n  .lg\\:border-none {\n    border-style: none;\n  }\n\n  .lg\\:border-0 {\n    border-width: 0;\n  }\n\n  .lg\\:border-2 {\n    border-width: 2px;\n  }\n\n  .lg\\:border-4 {\n    border-width: 4px;\n  }\n\n  .lg\\:border-8 {\n    border-width: 8px;\n  }\n\n  .lg\\:border {\n    border-width: 1px;\n  }\n\n  .lg\\:border-t-0 {\n    border-top-width: 0;\n  }\n\n  .lg\\:border-r-0 {\n    border-right-width: 0;\n  }\n\n  .lg\\:border-b-0 {\n    border-bottom-width: 0;\n  }\n\n  .lg\\:border-l-0 {\n    border-left-width: 0;\n  }\n\n  .lg\\:border-t-2 {\n    border-top-width: 2px;\n  }\n\n  .lg\\:border-r-2 {\n    border-right-width: 2px;\n  }\n\n  .lg\\:border-b-2 {\n    border-bottom-width: 2px;\n  }\n\n  .lg\\:border-l-2 {\n    border-left-width: 2px;\n  }\n\n  .lg\\:border-t-4 {\n    border-top-width: 4px;\n  }\n\n  .lg\\:border-r-4 {\n    border-right-width: 4px;\n  }\n\n  .lg\\:border-b-4 {\n    border-bottom-width: 4px;\n  }\n\n  .lg\\:border-l-4 {\n    border-left-width: 4px;\n  }\n\n  .lg\\:border-t-8 {\n    border-top-width: 8px;\n  }\n\n  .lg\\:border-r-8 {\n    border-right-width: 8px;\n  }\n\n  .lg\\:border-b-8 {\n    border-bottom-width: 8px;\n  }\n\n  .lg\\:border-l-8 {\n    border-left-width: 8px;\n  }\n\n  .lg\\:border-t {\n    border-top-width: 1px;\n  }\n\n  .lg\\:border-r {\n    border-right-width: 1px;\n  }\n\n  .lg\\:border-b {\n    border-bottom-width: 1px;\n  }\n\n  .lg\\:border-l {\n    border-left-width: 1px;\n  }\n\n  .lg\\:cursor-auto {\n    cursor: auto;\n  }\n\n  .lg\\:cursor-default {\n    cursor: default;\n  }\n\n  .lg\\:cursor-pointer {\n    cursor: pointer;\n  }\n\n  .lg\\:cursor-wait {\n    cursor: wait;\n  }\n\n  .lg\\:cursor-move {\n    cursor: move;\n  }\n\n  .lg\\:cursor-not-allowed {\n    cursor: not-allowed;\n  }\n\n  .lg\\:block {\n    display: block;\n  }\n\n  .lg\\:inline-block {\n    display: inline-block;\n  }\n\n  .lg\\:inline {\n    display: inline;\n  }\n\n  .lg\\:table {\n    display: table;\n  }\n\n  .lg\\:table-row {\n    display: table-row;\n  }\n\n  .lg\\:table-cell {\n    display: table-cell;\n  }\n\n  .lg\\:hidden {\n    display: none;\n  }\n\n  .lg\\:flex {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n  }\n\n  .lg\\:inline-flex {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n  }\n\n  .lg\\:flex-row {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n  }\n\n  .lg\\:flex-row-reverse {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: row-reverse;\n            flex-direction: row-reverse;\n  }\n\n  .lg\\:flex-col {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n\n  .lg\\:flex-col-reverse {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n  }\n\n  .lg\\:flex-wrap {\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n  }\n\n  .lg\\:flex-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse;\n        flex-wrap: wrap-reverse;\n  }\n\n  .lg\\:flex-no-wrap {\n    -ms-flex-wrap: nowrap;\n        flex-wrap: nowrap;\n  }\n\n  .lg\\:items-start {\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n  }\n\n  .lg\\:items-end {\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n  }\n\n  .lg\\:items-center {\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n  }\n\n  .lg\\:items-baseline {\n    -webkit-box-align: baseline;\n        -ms-flex-align: baseline;\n            align-items: baseline;\n  }\n\n  .lg\\:items-stretch {\n    -webkit-box-align: stretch;\n        -ms-flex-align: stretch;\n            align-items: stretch;\n  }\n\n  .lg\\:self-auto {\n    -ms-flex-item-align: auto;\n        -ms-grid-row-align: auto;\n        align-self: auto;\n  }\n\n  .lg\\:self-start {\n    -ms-flex-item-align: start;\n        align-self: flex-start;\n  }\n\n  .lg\\:self-end {\n    -ms-flex-item-align: end;\n        align-self: flex-end;\n  }\n\n  .lg\\:self-center {\n    -ms-flex-item-align: center;\n        -ms-grid-row-align: center;\n        align-self: center;\n  }\n\n  .lg\\:self-stretch {\n    -ms-flex-item-align: stretch;\n        -ms-grid-row-align: stretch;\n        align-self: stretch;\n  }\n\n  .lg\\:justify-start {\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n  }\n\n  .lg\\:justify-end {\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n  }\n\n  .lg\\:justify-center {\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n  }\n\n  .lg\\:justify-between {\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n  }\n\n  .lg\\:justify-around {\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n  }\n\n  .lg\\:content-center {\n    -ms-flex-line-pack: center;\n        align-content: center;\n  }\n\n  .lg\\:content-start {\n    -ms-flex-line-pack: start;\n        align-content: flex-start;\n  }\n\n  .lg\\:content-end {\n    -ms-flex-line-pack: end;\n        align-content: flex-end;\n  }\n\n  .lg\\:content-between {\n    -ms-flex-line-pack: justify;\n        align-content: space-between;\n  }\n\n  .lg\\:content-around {\n    -ms-flex-line-pack: distribute;\n        align-content: space-around;\n  }\n\n  .lg\\:flex-1 {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n  }\n\n  .lg\\:flex-auto {\n    -webkit-box-flex: 1;\n        -ms-flex: auto;\n            flex: auto;\n  }\n\n  .lg\\:flex-initial {\n    -webkit-box-flex: initial;\n        -ms-flex: initial;\n            flex: initial;\n  }\n\n  .lg\\:flex-none {\n    -webkit-box-flex: 0;\n        -ms-flex: none;\n            flex: none;\n  }\n\n  .lg\\:flex-grow {\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n  }\n\n  .lg\\:flex-shrink {\n    -ms-flex-negative: 1;\n        flex-shrink: 1;\n  }\n\n  .lg\\:flex-no-grow {\n    -webkit-box-flex: 0;\n        -ms-flex-positive: 0;\n            flex-grow: 0;\n  }\n\n  .lg\\:flex-no-shrink {\n    -ms-flex-negative: 0;\n        flex-shrink: 0;\n  }\n\n  .lg\\:float-right {\n    float: right;\n  }\n\n  .lg\\:float-left {\n    float: left;\n  }\n\n  .lg\\:float-none {\n    float: none;\n  }\n\n  .lg\\:clearfix:after {\n    content: \"\";\n    display: table;\n    clear: both;\n  }\n\n  .lg\\:font-sans {\n    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;\n  }\n\n  .lg\\:font-serif {\n    font-family: Constantia, Lucida Bright, Lucidabright, Lucida Serif, Lucida, DejaVu Serif, Bitstream Vera Serif, Liberation Serif, Georgia, serif;\n  }\n\n  .lg\\:font-mono {\n    font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;\n  }\n\n  .lg\\:font-hairline {\n    font-weight: 100;\n  }\n\n  .lg\\:font-thin {\n    font-weight: 200;\n  }\n\n  .lg\\:font-light {\n    font-weight: 300;\n  }\n\n  .lg\\:font-normal {\n    font-weight: 400;\n  }\n\n  .lg\\:font-medium {\n    font-weight: 500;\n  }\n\n  .lg\\:font-semibold {\n    font-weight: 600;\n  }\n\n  .lg\\:font-bold {\n    font-weight: 700;\n  }\n\n  .lg\\:font-extrabold {\n    font-weight: 800;\n  }\n\n  .lg\\:font-black {\n    font-weight: 900;\n  }\n\n  .lg\\:hover\\:font-hairline:hover {\n    font-weight: 100;\n  }\n\n  .lg\\:hover\\:font-thin:hover {\n    font-weight: 200;\n  }\n\n  .lg\\:hover\\:font-light:hover {\n    font-weight: 300;\n  }\n\n  .lg\\:hover\\:font-normal:hover {\n    font-weight: 400;\n  }\n\n  .lg\\:hover\\:font-medium:hover {\n    font-weight: 500;\n  }\n\n  .lg\\:hover\\:font-semibold:hover {\n    font-weight: 600;\n  }\n\n  .lg\\:hover\\:font-bold:hover {\n    font-weight: 700;\n  }\n\n  .lg\\:hover\\:font-extrabold:hover {\n    font-weight: 800;\n  }\n\n  .lg\\:hover\\:font-black:hover {\n    font-weight: 900;\n  }\n\n  .lg\\:h-1 {\n    height: .25rem;\n  }\n\n  .lg\\:h-2 {\n    height: .5rem;\n  }\n\n  .lg\\:h-3 {\n    height: .75rem;\n  }\n\n  .lg\\:h-4 {\n    height: 1rem;\n  }\n\n  .lg\\:h-6 {\n    height: 1.5rem;\n  }\n\n  .lg\\:h-8 {\n    height: 2rem;\n  }\n\n  .lg\\:h-10 {\n    height: 2.5rem;\n  }\n\n  .lg\\:h-12 {\n    height: 3rem;\n  }\n\n  .lg\\:h-16 {\n    height: 4rem;\n  }\n\n  .lg\\:h-24 {\n    height: 6rem;\n  }\n\n  .lg\\:h-32 {\n    height: 8rem;\n  }\n\n  .lg\\:h-48 {\n    height: 12rem;\n  }\n\n  .lg\\:h-64 {\n    height: 16rem;\n  }\n\n  .lg\\:h-auto {\n    height: auto;\n  }\n\n  .lg\\:h-px {\n    height: 1px;\n  }\n\n  .lg\\:h-full {\n    height: 100%;\n  }\n\n  .lg\\:h-screen {\n    height: 100vh;\n  }\n\n  .lg\\:leading-none {\n    line-height: 1;\n  }\n\n  .lg\\:leading-tight {\n    line-height: 1.25;\n  }\n\n  .lg\\:leading-normal {\n    line-height: 1.5;\n  }\n\n  .lg\\:leading-loose {\n    line-height: 2;\n  }\n\n  .lg\\:m-0 {\n    margin: 0;\n  }\n\n  .lg\\:m-1 {\n    margin: .25rem;\n  }\n\n  .lg\\:m-2 {\n    margin: .5rem;\n  }\n\n  .lg\\:m-3 {\n    margin: .75rem;\n  }\n\n  .lg\\:m-4 {\n    margin: 1rem;\n  }\n\n  .lg\\:m-6 {\n    margin: 1.5rem;\n  }\n\n  .lg\\:m-8 {\n    margin: 2rem;\n  }\n\n  .lg\\:m-auto {\n    margin: auto;\n  }\n\n  .lg\\:m-px {\n    margin: 1px;\n  }\n\n  .lg\\:my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .lg\\:mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .lg\\:my-1 {\n    margin-top: .25rem;\n    margin-bottom: .25rem;\n  }\n\n  .lg\\:mx-1 {\n    margin-left: .25rem;\n    margin-right: .25rem;\n  }\n\n  .lg\\:my-2 {\n    margin-top: .5rem;\n    margin-bottom: .5rem;\n  }\n\n  .lg\\:mx-2 {\n    margin-left: .5rem;\n    margin-right: .5rem;\n  }\n\n  .lg\\:my-3 {\n    margin-top: .75rem;\n    margin-bottom: .75rem;\n  }\n\n  .lg\\:mx-3 {\n    margin-left: .75rem;\n    margin-right: .75rem;\n  }\n\n  .lg\\:my-4 {\n    margin-top: 1rem;\n    margin-bottom: 1rem;\n  }\n\n  .lg\\:mx-4 {\n    margin-left: 1rem;\n    margin-right: 1rem;\n  }\n\n  .lg\\:my-6 {\n    margin-top: 1.5rem;\n    margin-bottom: 1.5rem;\n  }\n\n  .lg\\:mx-6 {\n    margin-left: 1.5rem;\n    margin-right: 1.5rem;\n  }\n\n  .lg\\:my-8 {\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n  }\n\n  .lg\\:mx-8 {\n    margin-left: 2rem;\n    margin-right: 2rem;\n  }\n\n  .lg\\:my-auto {\n    margin-top: auto;\n    margin-bottom: auto;\n  }\n\n  .lg\\:mx-auto {\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  .lg\\:my-px {\n    margin-top: 1px;\n    margin-bottom: 1px;\n  }\n\n  .lg\\:mx-px {\n    margin-left: 1px;\n    margin-right: 1px;\n  }\n\n  .lg\\:mt-0 {\n    margin-top: 0;\n  }\n\n  .lg\\:mr-0 {\n    margin-right: 0;\n  }\n\n  .lg\\:mb-0 {\n    margin-bottom: 0;\n  }\n\n  .lg\\:ml-0 {\n    margin-left: 0;\n  }\n\n  .lg\\:mt-1 {\n    margin-top: .25rem;\n  }\n\n  .lg\\:mr-1 {\n    margin-right: .25rem;\n  }\n\n  .lg\\:mb-1 {\n    margin-bottom: .25rem;\n  }\n\n  .lg\\:ml-1 {\n    margin-left: .25rem;\n  }\n\n  .lg\\:mt-2 {\n    margin-top: .5rem;\n  }\n\n  .lg\\:mr-2 {\n    margin-right: .5rem;\n  }\n\n  .lg\\:mb-2 {\n    margin-bottom: .5rem;\n  }\n\n  .lg\\:ml-2 {\n    margin-left: .5rem;\n  }\n\n  .lg\\:mt-3 {\n    margin-top: .75rem;\n  }\n\n  .lg\\:mr-3 {\n    margin-right: .75rem;\n  }\n\n  .lg\\:mb-3 {\n    margin-bottom: .75rem;\n  }\n\n  .lg\\:ml-3 {\n    margin-left: .75rem;\n  }\n\n  .lg\\:mt-4 {\n    margin-top: 1rem;\n  }\n\n  .lg\\:mr-4 {\n    margin-right: 1rem;\n  }\n\n  .lg\\:mb-4 {\n    margin-bottom: 1rem;\n  }\n\n  .lg\\:ml-4 {\n    margin-left: 1rem;\n  }\n\n  .lg\\:mt-6 {\n    margin-top: 1.5rem;\n  }\n\n  .lg\\:mr-6 {\n    margin-right: 1.5rem;\n  }\n\n  .lg\\:mb-6 {\n    margin-bottom: 1.5rem;\n  }\n\n  .lg\\:ml-6 {\n    margin-left: 1.5rem;\n  }\n\n  .lg\\:mt-8 {\n    margin-top: 2rem;\n  }\n\n  .lg\\:mr-8 {\n    margin-right: 2rem;\n  }\n\n  .lg\\:mb-8 {\n    margin-bottom: 2rem;\n  }\n\n  .lg\\:ml-8 {\n    margin-left: 2rem;\n  }\n\n  .lg\\:mt-auto {\n    margin-top: auto;\n  }\n\n  .lg\\:mr-auto {\n    margin-right: auto;\n  }\n\n  .lg\\:mb-auto {\n    margin-bottom: auto;\n  }\n\n  .lg\\:ml-auto {\n    margin-left: auto;\n  }\n\n  .lg\\:mt-px {\n    margin-top: 1px;\n  }\n\n  .lg\\:mr-px {\n    margin-right: 1px;\n  }\n\n  .lg\\:mb-px {\n    margin-bottom: 1px;\n  }\n\n  .lg\\:ml-px {\n    margin-left: 1px;\n  }\n\n  .lg\\:max-h-full {\n    max-height: 100%;\n  }\n\n  .lg\\:max-h-screen {\n    max-height: 100vh;\n  }\n\n  .lg\\:max-w-xs {\n    max-width: 20rem;\n  }\n\n  .lg\\:max-w-sm {\n    max-width: 30rem;\n  }\n\n  .lg\\:max-w-md {\n    max-width: 40rem;\n  }\n\n  .lg\\:max-w-lg {\n    max-width: 50rem;\n  }\n\n  .lg\\:max-w-xl {\n    max-width: 60rem;\n  }\n\n  .lg\\:max-w-2xl {\n    max-width: 70rem;\n  }\n\n  .lg\\:max-w-3xl {\n    max-width: 80rem;\n  }\n\n  .lg\\:max-w-4xl {\n    max-width: 90rem;\n  }\n\n  .lg\\:max-w-5xl {\n    max-width: 100rem;\n  }\n\n  .lg\\:max-w-full {\n    max-width: 100%;\n  }\n\n  .lg\\:min-h-0 {\n    min-height: 0;\n  }\n\n  .lg\\:min-h-full {\n    min-height: 100%;\n  }\n\n  .lg\\:min-h-screen {\n    min-height: 100vh;\n  }\n\n  .lg\\:min-w-0 {\n    min-width: 0;\n  }\n\n  .lg\\:min-w-full {\n    min-width: 100%;\n  }\n\n  .lg\\:-m-0 {\n    margin: 0;\n  }\n\n  .lg\\:-m-1 {\n    margin: -0.25rem;\n  }\n\n  .lg\\:-m-2 {\n    margin: -0.5rem;\n  }\n\n  .lg\\:-m-3 {\n    margin: -0.75rem;\n  }\n\n  .lg\\:-m-4 {\n    margin: -1rem;\n  }\n\n  .lg\\:-m-6 {\n    margin: -1.5rem;\n  }\n\n  .lg\\:-m-8 {\n    margin: -2rem;\n  }\n\n  .lg\\:-m-px {\n    margin: -1px;\n  }\n\n  .lg\\:-my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .lg\\:-mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .lg\\:-my-1 {\n    margin-top: -0.25rem;\n    margin-bottom: -0.25rem;\n  }\n\n  .lg\\:-mx-1 {\n    margin-left: -0.25rem;\n    margin-right: -0.25rem;\n  }\n\n  .lg\\:-my-2 {\n    margin-top: -0.5rem;\n    margin-bottom: -0.5rem;\n  }\n\n  .lg\\:-mx-2 {\n    margin-left: -0.5rem;\n    margin-right: -0.5rem;\n  }\n\n  .lg\\:-my-3 {\n    margin-top: -0.75rem;\n    margin-bottom: -0.75rem;\n  }\n\n  .lg\\:-mx-3 {\n    margin-left: -0.75rem;\n    margin-right: -0.75rem;\n  }\n\n  .lg\\:-my-4 {\n    margin-top: -1rem;\n    margin-bottom: -1rem;\n  }\n\n  .lg\\:-mx-4 {\n    margin-left: -1rem;\n    margin-right: -1rem;\n  }\n\n  .lg\\:-my-6 {\n    margin-top: -1.5rem;\n    margin-bottom: -1.5rem;\n  }\n\n  .lg\\:-mx-6 {\n    margin-left: -1.5rem;\n    margin-right: -1.5rem;\n  }\n\n  .lg\\:-my-8 {\n    margin-top: -2rem;\n    margin-bottom: -2rem;\n  }\n\n  .lg\\:-mx-8 {\n    margin-left: -2rem;\n    margin-right: -2rem;\n  }\n\n  .lg\\:-my-px {\n    margin-top: -1px;\n    margin-bottom: -1px;\n  }\n\n  .lg\\:-mx-px {\n    margin-left: -1px;\n    margin-right: -1px;\n  }\n\n  .lg\\:-mt-0 {\n    margin-top: 0;\n  }\n\n  .lg\\:-mr-0 {\n    margin-right: 0;\n  }\n\n  .lg\\:-mb-0 {\n    margin-bottom: 0;\n  }\n\n  .lg\\:-ml-0 {\n    margin-left: 0;\n  }\n\n  .lg\\:-mt-1 {\n    margin-top: -0.25rem;\n  }\n\n  .lg\\:-mr-1 {\n    margin-right: -0.25rem;\n  }\n\n  .lg\\:-mb-1 {\n    margin-bottom: -0.25rem;\n  }\n\n  .lg\\:-ml-1 {\n    margin-left: -0.25rem;\n  }\n\n  .lg\\:-mt-2 {\n    margin-top: -0.5rem;\n  }\n\n  .lg\\:-mr-2 {\n    margin-right: -0.5rem;\n  }\n\n  .lg\\:-mb-2 {\n    margin-bottom: -0.5rem;\n  }\n\n  .lg\\:-ml-2 {\n    margin-left: -0.5rem;\n  }\n\n  .lg\\:-mt-3 {\n    margin-top: -0.75rem;\n  }\n\n  .lg\\:-mr-3 {\n    margin-right: -0.75rem;\n  }\n\n  .lg\\:-mb-3 {\n    margin-bottom: -0.75rem;\n  }\n\n  .lg\\:-ml-3 {\n    margin-left: -0.75rem;\n  }\n\n  .lg\\:-mt-4 {\n    margin-top: -1rem;\n  }\n\n  .lg\\:-mr-4 {\n    margin-right: -1rem;\n  }\n\n  .lg\\:-mb-4 {\n    margin-bottom: -1rem;\n  }\n\n  .lg\\:-ml-4 {\n    margin-left: -1rem;\n  }\n\n  .lg\\:-mt-6 {\n    margin-top: -1.5rem;\n  }\n\n  .lg\\:-mr-6 {\n    margin-right: -1.5rem;\n  }\n\n  .lg\\:-mb-6 {\n    margin-bottom: -1.5rem;\n  }\n\n  .lg\\:-ml-6 {\n    margin-left: -1.5rem;\n  }\n\n  .lg\\:-mt-8 {\n    margin-top: -2rem;\n  }\n\n  .lg\\:-mr-8 {\n    margin-right: -2rem;\n  }\n\n  .lg\\:-mb-8 {\n    margin-bottom: -2rem;\n  }\n\n  .lg\\:-ml-8 {\n    margin-left: -2rem;\n  }\n\n  .lg\\:-mt-px {\n    margin-top: -1px;\n  }\n\n  .lg\\:-mr-px {\n    margin-right: -1px;\n  }\n\n  .lg\\:-mb-px {\n    margin-bottom: -1px;\n  }\n\n  .lg\\:-ml-px {\n    margin-left: -1px;\n  }\n\n  .lg\\:opacity-0 {\n    opacity: 0;\n  }\n\n  .lg\\:opacity-25 {\n    opacity: .25;\n  }\n\n  .lg\\:opacity-50 {\n    opacity: .5;\n  }\n\n  .lg\\:opacity-75 {\n    opacity: .75;\n  }\n\n  .lg\\:opacity-100 {\n    opacity: 1;\n  }\n\n  .lg\\:overflow-auto {\n    overflow: auto;\n  }\n\n  .lg\\:overflow-hidden {\n    overflow: hidden;\n  }\n\n  .lg\\:overflow-visible {\n    overflow: visible;\n  }\n\n  .lg\\:overflow-scroll {\n    overflow: scroll;\n  }\n\n  .lg\\:overflow-x-auto {\n    overflow-x: auto;\n  }\n\n  .lg\\:overflow-y-auto {\n    overflow-y: auto;\n  }\n\n  .lg\\:overflow-x-scroll {\n    overflow-x: scroll;\n  }\n\n  .lg\\:overflow-y-scroll {\n    overflow-y: scroll;\n  }\n\n  .lg\\:scrolling-touch {\n    -webkit-overflow-scrolling: touch;\n  }\n\n  .lg\\:scrolling-auto {\n    -webkit-overflow-scrolling: auto;\n  }\n\n  .lg\\:p-0 {\n    padding: 0;\n  }\n\n  .lg\\:p-1 {\n    padding: .25rem;\n  }\n\n  .lg\\:p-2 {\n    padding: .5rem;\n  }\n\n  .lg\\:p-3 {\n    padding: .75rem;\n  }\n\n  .lg\\:p-4 {\n    padding: 1rem;\n  }\n\n  .lg\\:p-6 {\n    padding: 1.5rem;\n  }\n\n  .lg\\:p-8 {\n    padding: 2rem;\n  }\n\n  .lg\\:p-px {\n    padding: 1px;\n  }\n\n  .lg\\:py-0 {\n    padding-top: 0;\n    padding-bottom: 0;\n  }\n\n  .lg\\:px-0 {\n    padding-left: 0;\n    padding-right: 0;\n  }\n\n  .lg\\:py-1 {\n    padding-top: .25rem;\n    padding-bottom: .25rem;\n  }\n\n  .lg\\:px-1 {\n    padding-left: .25rem;\n    padding-right: .25rem;\n  }\n\n  .lg\\:py-2 {\n    padding-top: .5rem;\n    padding-bottom: .5rem;\n  }\n\n  .lg\\:px-2 {\n    padding-left: .5rem;\n    padding-right: .5rem;\n  }\n\n  .lg\\:py-3 {\n    padding-top: .75rem;\n    padding-bottom: .75rem;\n  }\n\n  .lg\\:px-3 {\n    padding-left: .75rem;\n    padding-right: .75rem;\n  }\n\n  .lg\\:py-4 {\n    padding-top: 1rem;\n    padding-bottom: 1rem;\n  }\n\n  .lg\\:px-4 {\n    padding-left: 1rem;\n    padding-right: 1rem;\n  }\n\n  .lg\\:py-6 {\n    padding-top: 1.5rem;\n    padding-bottom: 1.5rem;\n  }\n\n  .lg\\:px-6 {\n    padding-left: 1.5rem;\n    padding-right: 1.5rem;\n  }\n\n  .lg\\:py-8 {\n    padding-top: 2rem;\n    padding-bottom: 2rem;\n  }\n\n  .lg\\:px-8 {\n    padding-left: 2rem;\n    padding-right: 2rem;\n  }\n\n  .lg\\:py-px {\n    padding-top: 1px;\n    padding-bottom: 1px;\n  }\n\n  .lg\\:px-px {\n    padding-left: 1px;\n    padding-right: 1px;\n  }\n\n  .lg\\:pt-0 {\n    padding-top: 0;\n  }\n\n  .lg\\:pr-0 {\n    padding-right: 0;\n  }\n\n  .lg\\:pb-0 {\n    padding-bottom: 0;\n  }\n\n  .lg\\:pl-0 {\n    padding-left: 0;\n  }\n\n  .lg\\:pt-1 {\n    padding-top: .25rem;\n  }\n\n  .lg\\:pr-1 {\n    padding-right: .25rem;\n  }\n\n  .lg\\:pb-1 {\n    padding-bottom: .25rem;\n  }\n\n  .lg\\:pl-1 {\n    padding-left: .25rem;\n  }\n\n  .lg\\:pt-2 {\n    padding-top: .5rem;\n  }\n\n  .lg\\:pr-2 {\n    padding-right: .5rem;\n  }\n\n  .lg\\:pb-2 {\n    padding-bottom: .5rem;\n  }\n\n  .lg\\:pl-2 {\n    padding-left: .5rem;\n  }\n\n  .lg\\:pt-3 {\n    padding-top: .75rem;\n  }\n\n  .lg\\:pr-3 {\n    padding-right: .75rem;\n  }\n\n  .lg\\:pb-3 {\n    padding-bottom: .75rem;\n  }\n\n  .lg\\:pl-3 {\n    padding-left: .75rem;\n  }\n\n  .lg\\:pt-4 {\n    padding-top: 1rem;\n  }\n\n  .lg\\:pr-4 {\n    padding-right: 1rem;\n  }\n\n  .lg\\:pb-4 {\n    padding-bottom: 1rem;\n  }\n\n  .lg\\:pl-4 {\n    padding-left: 1rem;\n  }\n\n  .lg\\:pt-6 {\n    padding-top: 1.5rem;\n  }\n\n  .lg\\:pr-6 {\n    padding-right: 1.5rem;\n  }\n\n  .lg\\:pb-6 {\n    padding-bottom: 1.5rem;\n  }\n\n  .lg\\:pl-6 {\n    padding-left: 1.5rem;\n  }\n\n  .lg\\:pt-8 {\n    padding-top: 2rem;\n  }\n\n  .lg\\:pr-8 {\n    padding-right: 2rem;\n  }\n\n  .lg\\:pb-8 {\n    padding-bottom: 2rem;\n  }\n\n  .lg\\:pl-8 {\n    padding-left: 2rem;\n  }\n\n  .lg\\:pt-px {\n    padding-top: 1px;\n  }\n\n  .lg\\:pr-px {\n    padding-right: 1px;\n  }\n\n  .lg\\:pb-px {\n    padding-bottom: 1px;\n  }\n\n  .lg\\:pl-px {\n    padding-left: 1px;\n  }\n\n  .lg\\:pointer-events-none {\n    pointer-events: none;\n  }\n\n  .lg\\:pointer-events-auto {\n    pointer-events: auto;\n  }\n\n  .lg\\:static {\n    position: static;\n  }\n\n  .lg\\:fixed {\n    position: fixed;\n  }\n\n  .lg\\:absolute {\n    position: absolute;\n  }\n\n  .lg\\:relative {\n    position: relative;\n  }\n\n  .lg\\:sticky {\n    position: -webkit-sticky;\n    position: sticky;\n  }\n\n  .lg\\:pin-none {\n    top: auto;\n    right: auto;\n    bottom: auto;\n    left: auto;\n  }\n\n  .lg\\:pin {\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n  }\n\n  .lg\\:pin-y {\n    top: 0;\n    bottom: 0;\n  }\n\n  .lg\\:pin-x {\n    right: 0;\n    left: 0;\n  }\n\n  .lg\\:pin-t {\n    top: 0;\n  }\n\n  .lg\\:pin-r {\n    right: 0;\n  }\n\n  .lg\\:pin-b {\n    bottom: 0;\n  }\n\n  .lg\\:pin-l {\n    left: 0;\n  }\n\n  .lg\\:resize-none {\n    resize: none;\n  }\n\n  .lg\\:resize-y {\n    resize: vertical;\n  }\n\n  .lg\\:resize-x {\n    resize: horizontal;\n  }\n\n  .lg\\:resize {\n    resize: both;\n  }\n\n  .lg\\:shadow {\n    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);\n  }\n\n  .lg\\:shadow-md {\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);\n  }\n\n  .lg\\:shadow-lg {\n    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);\n  }\n\n  .lg\\:shadow-inner {\n    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);\n  }\n\n  .lg\\:shadow-none {\n    box-shadow: none;\n  }\n\n  .lg\\:text-left {\n    text-align: left;\n  }\n\n  .lg\\:text-center {\n    text-align: center;\n  }\n\n  .lg\\:text-right {\n    text-align: right;\n  }\n\n  .lg\\:text-justify {\n    text-align: justify;\n  }\n\n  .lg\\:text-transparent {\n    color: transparent;\n  }\n\n  .lg\\:text-black {\n    color: #22292f;\n  }\n\n  .lg\\:text-grey-darkest {\n    color: #3d4852;\n  }\n\n  .lg\\:text-grey-darker {\n    color: #606f7b;\n  }\n\n  .lg\\:text-grey-dark {\n    color: #8795a1;\n  }\n\n  .lg\\:text-grey {\n    color: #b8c2cc;\n  }\n\n  .lg\\:text-grey-light {\n    color: #dae1e7;\n  }\n\n  .lg\\:text-grey-lighter {\n    color: #f1f5f8;\n  }\n\n  .lg\\:text-grey-lightest {\n    color: #f8fafc;\n  }\n\n  .lg\\:text-white {\n    color: #fff;\n  }\n\n  .lg\\:text-red-darkest {\n    color: #3b0d0c;\n  }\n\n  .lg\\:text-red-darker {\n    color: #621b18;\n  }\n\n  .lg\\:text-red-dark {\n    color: #cc1f1a;\n  }\n\n  .lg\\:text-red {\n    color: #e3342f;\n  }\n\n  .lg\\:text-red-light {\n    color: #ef5753;\n  }\n\n  .lg\\:text-red-lighter {\n    color: #f9acaa;\n  }\n\n  .lg\\:text-red-lightest {\n    color: #fcebea;\n  }\n\n  .lg\\:text-orange-darkest {\n    color: #462a16;\n  }\n\n  .lg\\:text-orange-darker {\n    color: #613b1f;\n  }\n\n  .lg\\:text-orange-dark {\n    color: #de751f;\n  }\n\n  .lg\\:text-orange {\n    color: #f6993f;\n  }\n\n  .lg\\:text-orange-light {\n    color: #faad63;\n  }\n\n  .lg\\:text-orange-lighter {\n    color: #fcd9b6;\n  }\n\n  .lg\\:text-orange-lightest {\n    color: #fff5eb;\n  }\n\n  .lg\\:text-yellow-darkest {\n    color: #453411;\n  }\n\n  .lg\\:text-yellow-darker {\n    color: #684f1d;\n  }\n\n  .lg\\:text-yellow-dark {\n    color: #f2d024;\n  }\n\n  .lg\\:text-yellow {\n    color: #ffed4a;\n  }\n\n  .lg\\:text-yellow-light {\n    color: #fff382;\n  }\n\n  .lg\\:text-yellow-lighter {\n    color: #fff9c2;\n  }\n\n  .lg\\:text-yellow-lightest {\n    color: #fcfbeb;\n  }\n\n  .lg\\:text-green-darkest {\n    color: #0f2f21;\n  }\n\n  .lg\\:text-green-darker {\n    color: #1a4731;\n  }\n\n  .lg\\:text-green-dark {\n    color: #1f9d55;\n  }\n\n  .lg\\:text-green {\n    color: #38c172;\n  }\n\n  .lg\\:text-green-light {\n    color: #51d88a;\n  }\n\n  .lg\\:text-green-lighter {\n    color: #a2f5bf;\n  }\n\n  .lg\\:text-green-lightest {\n    color: #e3fcec;\n  }\n\n  .lg\\:text-teal-darkest {\n    color: #0d3331;\n  }\n\n  .lg\\:text-teal-darker {\n    color: #20504f;\n  }\n\n  .lg\\:text-teal-dark {\n    color: #38a89d;\n  }\n\n  .lg\\:text-teal {\n    color: #4dc0b5;\n  }\n\n  .lg\\:text-teal-light {\n    color: #64d5ca;\n  }\n\n  .lg\\:text-teal-lighter {\n    color: #a0f0ed;\n  }\n\n  .lg\\:text-teal-lightest {\n    color: #e8fffe;\n  }\n\n  .lg\\:text-blue-darkest {\n    color: #12283a;\n  }\n\n  .lg\\:text-blue-darker {\n    color: #1c3d5a;\n  }\n\n  .lg\\:text-blue-dark {\n    color: #2779bd;\n  }\n\n  .lg\\:text-blue {\n    color: #3490dc;\n  }\n\n  .lg\\:text-blue-light {\n    color: #6cb2eb;\n  }\n\n  .lg\\:text-blue-lighter {\n    color: #bcdefa;\n  }\n\n  .lg\\:text-blue-lightest {\n    color: #eff8ff;\n  }\n\n  .lg\\:text-indigo-darkest {\n    color: #191e38;\n  }\n\n  .lg\\:text-indigo-darker {\n    color: #2f365f;\n  }\n\n  .lg\\:text-indigo-dark {\n    color: #5661b3;\n  }\n\n  .lg\\:text-indigo {\n    color: #6574cd;\n  }\n\n  .lg\\:text-indigo-light {\n    color: #7886d7;\n  }\n\n  .lg\\:text-indigo-lighter {\n    color: #b2b7ff;\n  }\n\n  .lg\\:text-indigo-lightest {\n    color: #e6e8ff;\n  }\n\n  .lg\\:text-purple-darkest {\n    color: #21183c;\n  }\n\n  .lg\\:text-purple-darker {\n    color: #382b5f;\n  }\n\n  .lg\\:text-purple-dark {\n    color: #794acf;\n  }\n\n  .lg\\:text-purple {\n    color: #9561e2;\n  }\n\n  .lg\\:text-purple-light {\n    color: #a779e9;\n  }\n\n  .lg\\:text-purple-lighter {\n    color: #d6bbfc;\n  }\n\n  .lg\\:text-purple-lightest {\n    color: #f3ebff;\n  }\n\n  .lg\\:text-pink-darkest {\n    color: #451225;\n  }\n\n  .lg\\:text-pink-darker {\n    color: #6f213f;\n  }\n\n  .lg\\:text-pink-dark {\n    color: #eb5286;\n  }\n\n  .lg\\:text-pink {\n    color: #f66d9b;\n  }\n\n  .lg\\:text-pink-light {\n    color: #fa7ea8;\n  }\n\n  .lg\\:text-pink-lighter {\n    color: #ffbbca;\n  }\n\n  .lg\\:text-pink-lightest {\n    color: #ffebef;\n  }\n\n  .lg\\:hover\\:text-transparent:hover {\n    color: transparent;\n  }\n\n  .lg\\:hover\\:text-black:hover {\n    color: #22292f;\n  }\n\n  .lg\\:hover\\:text-grey-darkest:hover {\n    color: #3d4852;\n  }\n\n  .lg\\:hover\\:text-grey-darker:hover {\n    color: #606f7b;\n  }\n\n  .lg\\:hover\\:text-grey-dark:hover {\n    color: #8795a1;\n  }\n\n  .lg\\:hover\\:text-grey:hover {\n    color: #b8c2cc;\n  }\n\n  .lg\\:hover\\:text-grey-light:hover {\n    color: #dae1e7;\n  }\n\n  .lg\\:hover\\:text-grey-lighter:hover {\n    color: #f1f5f8;\n  }\n\n  .lg\\:hover\\:text-grey-lightest:hover {\n    color: #f8fafc;\n  }\n\n  .lg\\:hover\\:text-white:hover {\n    color: #fff;\n  }\n\n  .lg\\:hover\\:text-red-darkest:hover {\n    color: #3b0d0c;\n  }\n\n  .lg\\:hover\\:text-red-darker:hover {\n    color: #621b18;\n  }\n\n  .lg\\:hover\\:text-red-dark:hover {\n    color: #cc1f1a;\n  }\n\n  .lg\\:hover\\:text-red:hover {\n    color: #e3342f;\n  }\n\n  .lg\\:hover\\:text-red-light:hover {\n    color: #ef5753;\n  }\n\n  .lg\\:hover\\:text-red-lighter:hover {\n    color: #f9acaa;\n  }\n\n  .lg\\:hover\\:text-red-lightest:hover {\n    color: #fcebea;\n  }\n\n  .lg\\:hover\\:text-orange-darkest:hover {\n    color: #462a16;\n  }\n\n  .lg\\:hover\\:text-orange-darker:hover {\n    color: #613b1f;\n  }\n\n  .lg\\:hover\\:text-orange-dark:hover {\n    color: #de751f;\n  }\n\n  .lg\\:hover\\:text-orange:hover {\n    color: #f6993f;\n  }\n\n  .lg\\:hover\\:text-orange-light:hover {\n    color: #faad63;\n  }\n\n  .lg\\:hover\\:text-orange-lighter:hover {\n    color: #fcd9b6;\n  }\n\n  .lg\\:hover\\:text-orange-lightest:hover {\n    color: #fff5eb;\n  }\n\n  .lg\\:hover\\:text-yellow-darkest:hover {\n    color: #453411;\n  }\n\n  .lg\\:hover\\:text-yellow-darker:hover {\n    color: #684f1d;\n  }\n\n  .lg\\:hover\\:text-yellow-dark:hover {\n    color: #f2d024;\n  }\n\n  .lg\\:hover\\:text-yellow:hover {\n    color: #ffed4a;\n  }\n\n  .lg\\:hover\\:text-yellow-light:hover {\n    color: #fff382;\n  }\n\n  .lg\\:hover\\:text-yellow-lighter:hover {\n    color: #fff9c2;\n  }\n\n  .lg\\:hover\\:text-yellow-lightest:hover {\n    color: #fcfbeb;\n  }\n\n  .lg\\:hover\\:text-green-darkest:hover {\n    color: #0f2f21;\n  }\n\n  .lg\\:hover\\:text-green-darker:hover {\n    color: #1a4731;\n  }\n\n  .lg\\:hover\\:text-green-dark:hover {\n    color: #1f9d55;\n  }\n\n  .lg\\:hover\\:text-green:hover {\n    color: #38c172;\n  }\n\n  .lg\\:hover\\:text-green-light:hover {\n    color: #51d88a;\n  }\n\n  .lg\\:hover\\:text-green-lighter:hover {\n    color: #a2f5bf;\n  }\n\n  .lg\\:hover\\:text-green-lightest:hover {\n    color: #e3fcec;\n  }\n\n  .lg\\:hover\\:text-teal-darkest:hover {\n    color: #0d3331;\n  }\n\n  .lg\\:hover\\:text-teal-darker:hover {\n    color: #20504f;\n  }\n\n  .lg\\:hover\\:text-teal-dark:hover {\n    color: #38a89d;\n  }\n\n  .lg\\:hover\\:text-teal:hover {\n    color: #4dc0b5;\n  }\n\n  .lg\\:hover\\:text-teal-light:hover {\n    color: #64d5ca;\n  }\n\n  .lg\\:hover\\:text-teal-lighter:hover {\n    color: #a0f0ed;\n  }\n\n  .lg\\:hover\\:text-teal-lightest:hover {\n    color: #e8fffe;\n  }\n\n  .lg\\:hover\\:text-blue-darkest:hover {\n    color: #12283a;\n  }\n\n  .lg\\:hover\\:text-blue-darker:hover {\n    color: #1c3d5a;\n  }\n\n  .lg\\:hover\\:text-blue-dark:hover {\n    color: #2779bd;\n  }\n\n  .lg\\:hover\\:text-blue:hover {\n    color: #3490dc;\n  }\n\n  .lg\\:hover\\:text-blue-light:hover {\n    color: #6cb2eb;\n  }\n\n  .lg\\:hover\\:text-blue-lighter:hover {\n    color: #bcdefa;\n  }\n\n  .lg\\:hover\\:text-blue-lightest:hover {\n    color: #eff8ff;\n  }\n\n  .lg\\:hover\\:text-indigo-darkest:hover {\n    color: #191e38;\n  }\n\n  .lg\\:hover\\:text-indigo-darker:hover {\n    color: #2f365f;\n  }\n\n  .lg\\:hover\\:text-indigo-dark:hover {\n    color: #5661b3;\n  }\n\n  .lg\\:hover\\:text-indigo:hover {\n    color: #6574cd;\n  }\n\n  .lg\\:hover\\:text-indigo-light:hover {\n    color: #7886d7;\n  }\n\n  .lg\\:hover\\:text-indigo-lighter:hover {\n    color: #b2b7ff;\n  }\n\n  .lg\\:hover\\:text-indigo-lightest:hover {\n    color: #e6e8ff;\n  }\n\n  .lg\\:hover\\:text-purple-darkest:hover {\n    color: #21183c;\n  }\n\n  .lg\\:hover\\:text-purple-darker:hover {\n    color: #382b5f;\n  }\n\n  .lg\\:hover\\:text-purple-dark:hover {\n    color: #794acf;\n  }\n\n  .lg\\:hover\\:text-purple:hover {\n    color: #9561e2;\n  }\n\n  .lg\\:hover\\:text-purple-light:hover {\n    color: #a779e9;\n  }\n\n  .lg\\:hover\\:text-purple-lighter:hover {\n    color: #d6bbfc;\n  }\n\n  .lg\\:hover\\:text-purple-lightest:hover {\n    color: #f3ebff;\n  }\n\n  .lg\\:hover\\:text-pink-darkest:hover {\n    color: #451225;\n  }\n\n  .lg\\:hover\\:text-pink-darker:hover {\n    color: #6f213f;\n  }\n\n  .lg\\:hover\\:text-pink-dark:hover {\n    color: #eb5286;\n  }\n\n  .lg\\:hover\\:text-pink:hover {\n    color: #f66d9b;\n  }\n\n  .lg\\:hover\\:text-pink-light:hover {\n    color: #fa7ea8;\n  }\n\n  .lg\\:hover\\:text-pink-lighter:hover {\n    color: #ffbbca;\n  }\n\n  .lg\\:hover\\:text-pink-lightest:hover {\n    color: #ffebef;\n  }\n\n  .lg\\:text-xs {\n    font-size: .75rem;\n  }\n\n  .lg\\:text-sm {\n    font-size: .875rem;\n  }\n\n  .lg\\:text-base {\n    font-size: 1rem;\n  }\n\n  .lg\\:text-lg {\n    font-size: 1.125rem;\n  }\n\n  .lg\\:text-xl {\n    font-size: 1.25rem;\n  }\n\n  .lg\\:text-2xl {\n    font-size: 1.5rem;\n  }\n\n  .lg\\:text-3xl {\n    font-size: 1.875rem;\n  }\n\n  .lg\\:text-4xl {\n    font-size: 2.25rem;\n  }\n\n  .lg\\:text-5xl {\n    font-size: 3rem;\n  }\n\n  .lg\\:italic {\n    font-style: italic;\n  }\n\n  .lg\\:roman {\n    font-style: normal;\n  }\n\n  .lg\\:uppercase {\n    text-transform: uppercase;\n  }\n\n  .lg\\:lowercase {\n    text-transform: lowercase;\n  }\n\n  .lg\\:capitalize {\n    text-transform: capitalize;\n  }\n\n  .lg\\:normal-case {\n    text-transform: none;\n  }\n\n  .lg\\:underline {\n    text-decoration: underline;\n  }\n\n  .lg\\:line-through {\n    text-decoration: line-through;\n  }\n\n  .lg\\:no-underline {\n    text-decoration: none;\n  }\n\n  .lg\\:antialiased {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .lg\\:subpixel-antialiased {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .lg\\:hover\\:italic:hover {\n    font-style: italic;\n  }\n\n  .lg\\:hover\\:roman:hover {\n    font-style: normal;\n  }\n\n  .lg\\:hover\\:uppercase:hover {\n    text-transform: uppercase;\n  }\n\n  .lg\\:hover\\:lowercase:hover {\n    text-transform: lowercase;\n  }\n\n  .lg\\:hover\\:capitalize:hover {\n    text-transform: capitalize;\n  }\n\n  .lg\\:hover\\:normal-case:hover {\n    text-transform: none;\n  }\n\n  .lg\\:hover\\:underline:hover {\n    text-decoration: underline;\n  }\n\n  .lg\\:hover\\:line-through:hover {\n    text-decoration: line-through;\n  }\n\n  .lg\\:hover\\:no-underline:hover {\n    text-decoration: none;\n  }\n\n  .lg\\:hover\\:antialiased:hover {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .lg\\:hover\\:subpixel-antialiased:hover {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .lg\\:tracking-tight {\n    letter-spacing: -0.05em;\n  }\n\n  .lg\\:tracking-normal {\n    letter-spacing: 0;\n  }\n\n  .lg\\:tracking-wide {\n    letter-spacing: .05em;\n  }\n\n  .lg\\:select-none {\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n  }\n\n  .lg\\:select-text {\n    -webkit-user-select: text;\n       -moz-user-select: text;\n        -ms-user-select: text;\n            user-select: text;\n  }\n\n  .lg\\:align-baseline {\n    vertical-align: baseline;\n  }\n\n  .lg\\:align-top {\n    vertical-align: top;\n  }\n\n  .lg\\:align-middle {\n    vertical-align: middle;\n  }\n\n  .lg\\:align-bottom {\n    vertical-align: bottom;\n  }\n\n  .lg\\:align-text-top {\n    vertical-align: text-top;\n  }\n\n  .lg\\:align-text-bottom {\n    vertical-align: text-bottom;\n  }\n\n  .lg\\:visible {\n    visibility: visible;\n  }\n\n  .lg\\:invisible {\n    visibility: hidden;\n  }\n\n  .lg\\:whitespace-normal {\n    white-space: normal;\n  }\n\n  .lg\\:whitespace-no-wrap {\n    white-space: nowrap;\n  }\n\n  .lg\\:whitespace-pre {\n    white-space: pre;\n  }\n\n  .lg\\:whitespace-pre-line {\n    white-space: pre-line;\n  }\n\n  .lg\\:whitespace-pre-wrap {\n    white-space: pre-wrap;\n  }\n\n  .lg\\:break-words {\n    word-wrap: break-word;\n  }\n\n  .lg\\:break-normal {\n    word-wrap: normal;\n  }\n\n  .lg\\:truncate {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .lg\\:w-1 {\n    width: .25rem;\n  }\n\n  .lg\\:w-2 {\n    width: .5rem;\n  }\n\n  .lg\\:w-3 {\n    width: .75rem;\n  }\n\n  .lg\\:w-4 {\n    width: 1rem;\n  }\n\n  .lg\\:w-6 {\n    width: 1.5rem;\n  }\n\n  .lg\\:w-8 {\n    width: 2rem;\n  }\n\n  .lg\\:w-10 {\n    width: 2.5rem;\n  }\n\n  .lg\\:w-12 {\n    width: 3rem;\n  }\n\n  .lg\\:w-16 {\n    width: 4rem;\n  }\n\n  .lg\\:w-24 {\n    width: 6rem;\n  }\n\n  .lg\\:w-32 {\n    width: 8rem;\n  }\n\n  .lg\\:w-48 {\n    width: 12rem;\n  }\n\n  .lg\\:w-64 {\n    width: 16rem;\n  }\n\n  .lg\\:w-auto {\n    width: auto;\n  }\n\n  .lg\\:w-px {\n    width: 1px;\n  }\n\n  .lg\\:w-1\\/2 {\n    width: 50%;\n  }\n\n  .lg\\:w-1\\/3 {\n    width: 33.33333%;\n  }\n\n  .lg\\:w-2\\/3 {\n    width: 66.66667%;\n  }\n\n  .lg\\:w-1\\/4 {\n    width: 25%;\n  }\n\n  .lg\\:w-3\\/4 {\n    width: 75%;\n  }\n\n  .lg\\:w-1\\/5 {\n    width: 20%;\n  }\n\n  .lg\\:w-2\\/5 {\n    width: 40%;\n  }\n\n  .lg\\:w-3\\/5 {\n    width: 60%;\n  }\n\n  .lg\\:w-4\\/5 {\n    width: 80%;\n  }\n\n  .lg\\:w-1\\/6 {\n    width: 16.66667%;\n  }\n\n  .lg\\:w-5\\/6 {\n    width: 83.33333%;\n  }\n\n  .lg\\:w-full {\n    width: 100%;\n  }\n\n  .lg\\:w-screen {\n    width: 100vw;\n  }\n\n  .lg\\:z-0 {\n    z-index: 0;\n  }\n\n  .lg\\:z-10 {\n    z-index: 10;\n  }\n\n  .lg\\:z-20 {\n    z-index: 20;\n  }\n\n  .lg\\:z-30 {\n    z-index: 30;\n  }\n\n  .lg\\:z-40 {\n    z-index: 40;\n  }\n\n  .lg\\:z-50 {\n    z-index: 50;\n  }\n\n  .lg\\:z-auto {\n    z-index: auto;\n  }\n}\n\n@media (min-width: 1200px) {\n  .xl\\:list-reset {\n    list-style: none;\n    padding: 0;\n  }\n\n  .xl\\:appearance-none {\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n  }\n\n  .xl\\:bg-fixed {\n    background-attachment: fixed;\n  }\n\n  .xl\\:bg-local {\n    background-attachment: local;\n  }\n\n  .xl\\:bg-scroll {\n    background-attachment: scroll;\n  }\n\n  .xl\\:bg-transparent {\n    background-color: transparent;\n  }\n\n  .xl\\:bg-black {\n    background-color: #22292f;\n  }\n\n  .xl\\:bg-grey-darkest {\n    background-color: #3d4852;\n  }\n\n  .xl\\:bg-grey-darker {\n    background-color: #606f7b;\n  }\n\n  .xl\\:bg-grey-dark {\n    background-color: #8795a1;\n  }\n\n  .xl\\:bg-grey {\n    background-color: #b8c2cc;\n  }\n\n  .xl\\:bg-grey-light {\n    background-color: #dae1e7;\n  }\n\n  .xl\\:bg-grey-lighter {\n    background-color: #f1f5f8;\n  }\n\n  .xl\\:bg-grey-lightest {\n    background-color: #f8fafc;\n  }\n\n  .xl\\:bg-white {\n    background-color: #fff;\n  }\n\n  .xl\\:bg-red-darkest {\n    background-color: #3b0d0c;\n  }\n\n  .xl\\:bg-red-darker {\n    background-color: #621b18;\n  }\n\n  .xl\\:bg-red-dark {\n    background-color: #cc1f1a;\n  }\n\n  .xl\\:bg-red {\n    background-color: #e3342f;\n  }\n\n  .xl\\:bg-red-light {\n    background-color: #ef5753;\n  }\n\n  .xl\\:bg-red-lighter {\n    background-color: #f9acaa;\n  }\n\n  .xl\\:bg-red-lightest {\n    background-color: #fcebea;\n  }\n\n  .xl\\:bg-orange-darkest {\n    background-color: #462a16;\n  }\n\n  .xl\\:bg-orange-darker {\n    background-color: #613b1f;\n  }\n\n  .xl\\:bg-orange-dark {\n    background-color: #de751f;\n  }\n\n  .xl\\:bg-orange {\n    background-color: #f6993f;\n  }\n\n  .xl\\:bg-orange-light {\n    background-color: #faad63;\n  }\n\n  .xl\\:bg-orange-lighter {\n    background-color: #fcd9b6;\n  }\n\n  .xl\\:bg-orange-lightest {\n    background-color: #fff5eb;\n  }\n\n  .xl\\:bg-yellow-darkest {\n    background-color: #453411;\n  }\n\n  .xl\\:bg-yellow-darker {\n    background-color: #684f1d;\n  }\n\n  .xl\\:bg-yellow-dark {\n    background-color: #f2d024;\n  }\n\n  .xl\\:bg-yellow {\n    background-color: #ffed4a;\n  }\n\n  .xl\\:bg-yellow-light {\n    background-color: #fff382;\n  }\n\n  .xl\\:bg-yellow-lighter {\n    background-color: #fff9c2;\n  }\n\n  .xl\\:bg-yellow-lightest {\n    background-color: #fcfbeb;\n  }\n\n  .xl\\:bg-green-darkest {\n    background-color: #0f2f21;\n  }\n\n  .xl\\:bg-green-darker {\n    background-color: #1a4731;\n  }\n\n  .xl\\:bg-green-dark {\n    background-color: #1f9d55;\n  }\n\n  .xl\\:bg-green {\n    background-color: #38c172;\n  }\n\n  .xl\\:bg-green-light {\n    background-color: #51d88a;\n  }\n\n  .xl\\:bg-green-lighter {\n    background-color: #a2f5bf;\n  }\n\n  .xl\\:bg-green-lightest {\n    background-color: #e3fcec;\n  }\n\n  .xl\\:bg-teal-darkest {\n    background-color: #0d3331;\n  }\n\n  .xl\\:bg-teal-darker {\n    background-color: #20504f;\n  }\n\n  .xl\\:bg-teal-dark {\n    background-color: #38a89d;\n  }\n\n  .xl\\:bg-teal {\n    background-color: #4dc0b5;\n  }\n\n  .xl\\:bg-teal-light {\n    background-color: #64d5ca;\n  }\n\n  .xl\\:bg-teal-lighter {\n    background-color: #a0f0ed;\n  }\n\n  .xl\\:bg-teal-lightest {\n    background-color: #e8fffe;\n  }\n\n  .xl\\:bg-blue-darkest {\n    background-color: #12283a;\n  }\n\n  .xl\\:bg-blue-darker {\n    background-color: #1c3d5a;\n  }\n\n  .xl\\:bg-blue-dark {\n    background-color: #2779bd;\n  }\n\n  .xl\\:bg-blue {\n    background-color: #3490dc;\n  }\n\n  .xl\\:bg-blue-light {\n    background-color: #6cb2eb;\n  }\n\n  .xl\\:bg-blue-lighter {\n    background-color: #bcdefa;\n  }\n\n  .xl\\:bg-blue-lightest {\n    background-color: #eff8ff;\n  }\n\n  .xl\\:bg-indigo-darkest {\n    background-color: #191e38;\n  }\n\n  .xl\\:bg-indigo-darker {\n    background-color: #2f365f;\n  }\n\n  .xl\\:bg-indigo-dark {\n    background-color: #5661b3;\n  }\n\n  .xl\\:bg-indigo {\n    background-color: #6574cd;\n  }\n\n  .xl\\:bg-indigo-light {\n    background-color: #7886d7;\n  }\n\n  .xl\\:bg-indigo-lighter {\n    background-color: #b2b7ff;\n  }\n\n  .xl\\:bg-indigo-lightest {\n    background-color: #e6e8ff;\n  }\n\n  .xl\\:bg-purple-darkest {\n    background-color: #21183c;\n  }\n\n  .xl\\:bg-purple-darker {\n    background-color: #382b5f;\n  }\n\n  .xl\\:bg-purple-dark {\n    background-color: #794acf;\n  }\n\n  .xl\\:bg-purple {\n    background-color: #9561e2;\n  }\n\n  .xl\\:bg-purple-light {\n    background-color: #a779e9;\n  }\n\n  .xl\\:bg-purple-lighter {\n    background-color: #d6bbfc;\n  }\n\n  .xl\\:bg-purple-lightest {\n    background-color: #f3ebff;\n  }\n\n  .xl\\:bg-pink-darkest {\n    background-color: #451225;\n  }\n\n  .xl\\:bg-pink-darker {\n    background-color: #6f213f;\n  }\n\n  .xl\\:bg-pink-dark {\n    background-color: #eb5286;\n  }\n\n  .xl\\:bg-pink {\n    background-color: #f66d9b;\n  }\n\n  .xl\\:bg-pink-light {\n    background-color: #fa7ea8;\n  }\n\n  .xl\\:bg-pink-lighter {\n    background-color: #ffbbca;\n  }\n\n  .xl\\:bg-pink-lightest {\n    background-color: #ffebef;\n  }\n\n  .xl\\:hover\\:bg-transparent:hover {\n    background-color: transparent;\n  }\n\n  .xl\\:hover\\:bg-black:hover {\n    background-color: #22292f;\n  }\n\n  .xl\\:hover\\:bg-grey-darkest:hover {\n    background-color: #3d4852;\n  }\n\n  .xl\\:hover\\:bg-grey-darker:hover {\n    background-color: #606f7b;\n  }\n\n  .xl\\:hover\\:bg-grey-dark:hover {\n    background-color: #8795a1;\n  }\n\n  .xl\\:hover\\:bg-grey:hover {\n    background-color: #b8c2cc;\n  }\n\n  .xl\\:hover\\:bg-grey-light:hover {\n    background-color: #dae1e7;\n  }\n\n  .xl\\:hover\\:bg-grey-lighter:hover {\n    background-color: #f1f5f8;\n  }\n\n  .xl\\:hover\\:bg-grey-lightest:hover {\n    background-color: #f8fafc;\n  }\n\n  .xl\\:hover\\:bg-white:hover {\n    background-color: #fff;\n  }\n\n  .xl\\:hover\\:bg-red-darkest:hover {\n    background-color: #3b0d0c;\n  }\n\n  .xl\\:hover\\:bg-red-darker:hover {\n    background-color: #621b18;\n  }\n\n  .xl\\:hover\\:bg-red-dark:hover {\n    background-color: #cc1f1a;\n  }\n\n  .xl\\:hover\\:bg-red:hover {\n    background-color: #e3342f;\n  }\n\n  .xl\\:hover\\:bg-red-light:hover {\n    background-color: #ef5753;\n  }\n\n  .xl\\:hover\\:bg-red-lighter:hover {\n    background-color: #f9acaa;\n  }\n\n  .xl\\:hover\\:bg-red-lightest:hover {\n    background-color: #fcebea;\n  }\n\n  .xl\\:hover\\:bg-orange-darkest:hover {\n    background-color: #462a16;\n  }\n\n  .xl\\:hover\\:bg-orange-darker:hover {\n    background-color: #613b1f;\n  }\n\n  .xl\\:hover\\:bg-orange-dark:hover {\n    background-color: #de751f;\n  }\n\n  .xl\\:hover\\:bg-orange:hover {\n    background-color: #f6993f;\n  }\n\n  .xl\\:hover\\:bg-orange-light:hover {\n    background-color: #faad63;\n  }\n\n  .xl\\:hover\\:bg-orange-lighter:hover {\n    background-color: #fcd9b6;\n  }\n\n  .xl\\:hover\\:bg-orange-lightest:hover {\n    background-color: #fff5eb;\n  }\n\n  .xl\\:hover\\:bg-yellow-darkest:hover {\n    background-color: #453411;\n  }\n\n  .xl\\:hover\\:bg-yellow-darker:hover {\n    background-color: #684f1d;\n  }\n\n  .xl\\:hover\\:bg-yellow-dark:hover {\n    background-color: #f2d024;\n  }\n\n  .xl\\:hover\\:bg-yellow:hover {\n    background-color: #ffed4a;\n  }\n\n  .xl\\:hover\\:bg-yellow-light:hover {\n    background-color: #fff382;\n  }\n\n  .xl\\:hover\\:bg-yellow-lighter:hover {\n    background-color: #fff9c2;\n  }\n\n  .xl\\:hover\\:bg-yellow-lightest:hover {\n    background-color: #fcfbeb;\n  }\n\n  .xl\\:hover\\:bg-green-darkest:hover {\n    background-color: #0f2f21;\n  }\n\n  .xl\\:hover\\:bg-green-darker:hover {\n    background-color: #1a4731;\n  }\n\n  .xl\\:hover\\:bg-green-dark:hover {\n    background-color: #1f9d55;\n  }\n\n  .xl\\:hover\\:bg-green:hover {\n    background-color: #38c172;\n  }\n\n  .xl\\:hover\\:bg-green-light:hover {\n    background-color: #51d88a;\n  }\n\n  .xl\\:hover\\:bg-green-lighter:hover {\n    background-color: #a2f5bf;\n  }\n\n  .xl\\:hover\\:bg-green-lightest:hover {\n    background-color: #e3fcec;\n  }\n\n  .xl\\:hover\\:bg-teal-darkest:hover {\n    background-color: #0d3331;\n  }\n\n  .xl\\:hover\\:bg-teal-darker:hover {\n    background-color: #20504f;\n  }\n\n  .xl\\:hover\\:bg-teal-dark:hover {\n    background-color: #38a89d;\n  }\n\n  .xl\\:hover\\:bg-teal:hover {\n    background-color: #4dc0b5;\n  }\n\n  .xl\\:hover\\:bg-teal-light:hover {\n    background-color: #64d5ca;\n  }\n\n  .xl\\:hover\\:bg-teal-lighter:hover {\n    background-color: #a0f0ed;\n  }\n\n  .xl\\:hover\\:bg-teal-lightest:hover {\n    background-color: #e8fffe;\n  }\n\n  .xl\\:hover\\:bg-blue-darkest:hover {\n    background-color: #12283a;\n  }\n\n  .xl\\:hover\\:bg-blue-darker:hover {\n    background-color: #1c3d5a;\n  }\n\n  .xl\\:hover\\:bg-blue-dark:hover {\n    background-color: #2779bd;\n  }\n\n  .xl\\:hover\\:bg-blue:hover {\n    background-color: #3490dc;\n  }\n\n  .xl\\:hover\\:bg-blue-light:hover {\n    background-color: #6cb2eb;\n  }\n\n  .xl\\:hover\\:bg-blue-lighter:hover {\n    background-color: #bcdefa;\n  }\n\n  .xl\\:hover\\:bg-blue-lightest:hover {\n    background-color: #eff8ff;\n  }\n\n  .xl\\:hover\\:bg-indigo-darkest:hover {\n    background-color: #191e38;\n  }\n\n  .xl\\:hover\\:bg-indigo-darker:hover {\n    background-color: #2f365f;\n  }\n\n  .xl\\:hover\\:bg-indigo-dark:hover {\n    background-color: #5661b3;\n  }\n\n  .xl\\:hover\\:bg-indigo:hover {\n    background-color: #6574cd;\n  }\n\n  .xl\\:hover\\:bg-indigo-light:hover {\n    background-color: #7886d7;\n  }\n\n  .xl\\:hover\\:bg-indigo-lighter:hover {\n    background-color: #b2b7ff;\n  }\n\n  .xl\\:hover\\:bg-indigo-lightest:hover {\n    background-color: #e6e8ff;\n  }\n\n  .xl\\:hover\\:bg-purple-darkest:hover {\n    background-color: #21183c;\n  }\n\n  .xl\\:hover\\:bg-purple-darker:hover {\n    background-color: #382b5f;\n  }\n\n  .xl\\:hover\\:bg-purple-dark:hover {\n    background-color: #794acf;\n  }\n\n  .xl\\:hover\\:bg-purple:hover {\n    background-color: #9561e2;\n  }\n\n  .xl\\:hover\\:bg-purple-light:hover {\n    background-color: #a779e9;\n  }\n\n  .xl\\:hover\\:bg-purple-lighter:hover {\n    background-color: #d6bbfc;\n  }\n\n  .xl\\:hover\\:bg-purple-lightest:hover {\n    background-color: #f3ebff;\n  }\n\n  .xl\\:hover\\:bg-pink-darkest:hover {\n    background-color: #451225;\n  }\n\n  .xl\\:hover\\:bg-pink-darker:hover {\n    background-color: #6f213f;\n  }\n\n  .xl\\:hover\\:bg-pink-dark:hover {\n    background-color: #eb5286;\n  }\n\n  .xl\\:hover\\:bg-pink:hover {\n    background-color: #f66d9b;\n  }\n\n  .xl\\:hover\\:bg-pink-light:hover {\n    background-color: #fa7ea8;\n  }\n\n  .xl\\:hover\\:bg-pink-lighter:hover {\n    background-color: #ffbbca;\n  }\n\n  .xl\\:hover\\:bg-pink-lightest:hover {\n    background-color: #ffebef;\n  }\n\n  .xl\\:bg-bottom {\n    background-position: bottom;\n  }\n\n  .xl\\:bg-center {\n    background-position: center;\n  }\n\n  .xl\\:bg-left {\n    background-position: left;\n  }\n\n  .xl\\:bg-left-bottom {\n    background-position: left bottom;\n  }\n\n  .xl\\:bg-left-top {\n    background-position: left top;\n  }\n\n  .xl\\:bg-right {\n    background-position: right;\n  }\n\n  .xl\\:bg-right-bottom {\n    background-position: right bottom;\n  }\n\n  .xl\\:bg-right-top {\n    background-position: right top;\n  }\n\n  .xl\\:bg-top {\n    background-position: top;\n  }\n\n  .xl\\:bg-repeat {\n    background-repeat: repeat;\n  }\n\n  .xl\\:bg-no-repeat {\n    background-repeat: no-repeat;\n  }\n\n  .xl\\:bg-repeat-x {\n    background-repeat: repeat-x;\n  }\n\n  .xl\\:bg-repeat-y {\n    background-repeat: repeat-y;\n  }\n\n  .xl\\:bg-auto {\n    background-size: auto;\n  }\n\n  .xl\\:bg-cover {\n    background-size: cover;\n  }\n\n  .xl\\:bg-contain {\n    background-size: contain;\n  }\n\n  .xl\\:border-transparent {\n    border-color: transparent;\n  }\n\n  .xl\\:border-black {\n    border-color: #22292f;\n  }\n\n  .xl\\:border-grey-darkest {\n    border-color: #3d4852;\n  }\n\n  .xl\\:border-grey-darker {\n    border-color: #606f7b;\n  }\n\n  .xl\\:border-grey-dark {\n    border-color: #8795a1;\n  }\n\n  .xl\\:border-grey {\n    border-color: #b8c2cc;\n  }\n\n  .xl\\:border-grey-light {\n    border-color: #dae1e7;\n  }\n\n  .xl\\:border-grey-lighter {\n    border-color: #f1f5f8;\n  }\n\n  .xl\\:border-grey-lightest {\n    border-color: #f8fafc;\n  }\n\n  .xl\\:border-white {\n    border-color: #fff;\n  }\n\n  .xl\\:border-red-darkest {\n    border-color: #3b0d0c;\n  }\n\n  .xl\\:border-red-darker {\n    border-color: #621b18;\n  }\n\n  .xl\\:border-red-dark {\n    border-color: #cc1f1a;\n  }\n\n  .xl\\:border-red {\n    border-color: #e3342f;\n  }\n\n  .xl\\:border-red-light {\n    border-color: #ef5753;\n  }\n\n  .xl\\:border-red-lighter {\n    border-color: #f9acaa;\n  }\n\n  .xl\\:border-red-lightest {\n    border-color: #fcebea;\n  }\n\n  .xl\\:border-orange-darkest {\n    border-color: #462a16;\n  }\n\n  .xl\\:border-orange-darker {\n    border-color: #613b1f;\n  }\n\n  .xl\\:border-orange-dark {\n    border-color: #de751f;\n  }\n\n  .xl\\:border-orange {\n    border-color: #f6993f;\n  }\n\n  .xl\\:border-orange-light {\n    border-color: #faad63;\n  }\n\n  .xl\\:border-orange-lighter {\n    border-color: #fcd9b6;\n  }\n\n  .xl\\:border-orange-lightest {\n    border-color: #fff5eb;\n  }\n\n  .xl\\:border-yellow-darkest {\n    border-color: #453411;\n  }\n\n  .xl\\:border-yellow-darker {\n    border-color: #684f1d;\n  }\n\n  .xl\\:border-yellow-dark {\n    border-color: #f2d024;\n  }\n\n  .xl\\:border-yellow {\n    border-color: #ffed4a;\n  }\n\n  .xl\\:border-yellow-light {\n    border-color: #fff382;\n  }\n\n  .xl\\:border-yellow-lighter {\n    border-color: #fff9c2;\n  }\n\n  .xl\\:border-yellow-lightest {\n    border-color: #fcfbeb;\n  }\n\n  .xl\\:border-green-darkest {\n    border-color: #0f2f21;\n  }\n\n  .xl\\:border-green-darker {\n    border-color: #1a4731;\n  }\n\n  .xl\\:border-green-dark {\n    border-color: #1f9d55;\n  }\n\n  .xl\\:border-green {\n    border-color: #38c172;\n  }\n\n  .xl\\:border-green-light {\n    border-color: #51d88a;\n  }\n\n  .xl\\:border-green-lighter {\n    border-color: #a2f5bf;\n  }\n\n  .xl\\:border-green-lightest {\n    border-color: #e3fcec;\n  }\n\n  .xl\\:border-teal-darkest {\n    border-color: #0d3331;\n  }\n\n  .xl\\:border-teal-darker {\n    border-color: #20504f;\n  }\n\n  .xl\\:border-teal-dark {\n    border-color: #38a89d;\n  }\n\n  .xl\\:border-teal {\n    border-color: #4dc0b5;\n  }\n\n  .xl\\:border-teal-light {\n    border-color: #64d5ca;\n  }\n\n  .xl\\:border-teal-lighter {\n    border-color: #a0f0ed;\n  }\n\n  .xl\\:border-teal-lightest {\n    border-color: #e8fffe;\n  }\n\n  .xl\\:border-blue-darkest {\n    border-color: #12283a;\n  }\n\n  .xl\\:border-blue-darker {\n    border-color: #1c3d5a;\n  }\n\n  .xl\\:border-blue-dark {\n    border-color: #2779bd;\n  }\n\n  .xl\\:border-blue {\n    border-color: #3490dc;\n  }\n\n  .xl\\:border-blue-light {\n    border-color: #6cb2eb;\n  }\n\n  .xl\\:border-blue-lighter {\n    border-color: #bcdefa;\n  }\n\n  .xl\\:border-blue-lightest {\n    border-color: #eff8ff;\n  }\n\n  .xl\\:border-indigo-darkest {\n    border-color: #191e38;\n  }\n\n  .xl\\:border-indigo-darker {\n    border-color: #2f365f;\n  }\n\n  .xl\\:border-indigo-dark {\n    border-color: #5661b3;\n  }\n\n  .xl\\:border-indigo {\n    border-color: #6574cd;\n  }\n\n  .xl\\:border-indigo-light {\n    border-color: #7886d7;\n  }\n\n  .xl\\:border-indigo-lighter {\n    border-color: #b2b7ff;\n  }\n\n  .xl\\:border-indigo-lightest {\n    border-color: #e6e8ff;\n  }\n\n  .xl\\:border-purple-darkest {\n    border-color: #21183c;\n  }\n\n  .xl\\:border-purple-darker {\n    border-color: #382b5f;\n  }\n\n  .xl\\:border-purple-dark {\n    border-color: #794acf;\n  }\n\n  .xl\\:border-purple {\n    border-color: #9561e2;\n  }\n\n  .xl\\:border-purple-light {\n    border-color: #a779e9;\n  }\n\n  .xl\\:border-purple-lighter {\n    border-color: #d6bbfc;\n  }\n\n  .xl\\:border-purple-lightest {\n    border-color: #f3ebff;\n  }\n\n  .xl\\:border-pink-darkest {\n    border-color: #451225;\n  }\n\n  .xl\\:border-pink-darker {\n    border-color: #6f213f;\n  }\n\n  .xl\\:border-pink-dark {\n    border-color: #eb5286;\n  }\n\n  .xl\\:border-pink {\n    border-color: #f66d9b;\n  }\n\n  .xl\\:border-pink-light {\n    border-color: #fa7ea8;\n  }\n\n  .xl\\:border-pink-lighter {\n    border-color: #ffbbca;\n  }\n\n  .xl\\:border-pink-lightest {\n    border-color: #ffebef;\n  }\n\n  .xl\\:hover\\:border-transparent:hover {\n    border-color: transparent;\n  }\n\n  .xl\\:hover\\:border-black:hover {\n    border-color: #22292f;\n  }\n\n  .xl\\:hover\\:border-grey-darkest:hover {\n    border-color: #3d4852;\n  }\n\n  .xl\\:hover\\:border-grey-darker:hover {\n    border-color: #606f7b;\n  }\n\n  .xl\\:hover\\:border-grey-dark:hover {\n    border-color: #8795a1;\n  }\n\n  .xl\\:hover\\:border-grey:hover {\n    border-color: #b8c2cc;\n  }\n\n  .xl\\:hover\\:border-grey-light:hover {\n    border-color: #dae1e7;\n  }\n\n  .xl\\:hover\\:border-grey-lighter:hover {\n    border-color: #f1f5f8;\n  }\n\n  .xl\\:hover\\:border-grey-lightest:hover {\n    border-color: #f8fafc;\n  }\n\n  .xl\\:hover\\:border-white:hover {\n    border-color: #fff;\n  }\n\n  .xl\\:hover\\:border-red-darkest:hover {\n    border-color: #3b0d0c;\n  }\n\n  .xl\\:hover\\:border-red-darker:hover {\n    border-color: #621b18;\n  }\n\n  .xl\\:hover\\:border-red-dark:hover {\n    border-color: #cc1f1a;\n  }\n\n  .xl\\:hover\\:border-red:hover {\n    border-color: #e3342f;\n  }\n\n  .xl\\:hover\\:border-red-light:hover {\n    border-color: #ef5753;\n  }\n\n  .xl\\:hover\\:border-red-lighter:hover {\n    border-color: #f9acaa;\n  }\n\n  .xl\\:hover\\:border-red-lightest:hover {\n    border-color: #fcebea;\n  }\n\n  .xl\\:hover\\:border-orange-darkest:hover {\n    border-color: #462a16;\n  }\n\n  .xl\\:hover\\:border-orange-darker:hover {\n    border-color: #613b1f;\n  }\n\n  .xl\\:hover\\:border-orange-dark:hover {\n    border-color: #de751f;\n  }\n\n  .xl\\:hover\\:border-orange:hover {\n    border-color: #f6993f;\n  }\n\n  .xl\\:hover\\:border-orange-light:hover {\n    border-color: #faad63;\n  }\n\n  .xl\\:hover\\:border-orange-lighter:hover {\n    border-color: #fcd9b6;\n  }\n\n  .xl\\:hover\\:border-orange-lightest:hover {\n    border-color: #fff5eb;\n  }\n\n  .xl\\:hover\\:border-yellow-darkest:hover {\n    border-color: #453411;\n  }\n\n  .xl\\:hover\\:border-yellow-darker:hover {\n    border-color: #684f1d;\n  }\n\n  .xl\\:hover\\:border-yellow-dark:hover {\n    border-color: #f2d024;\n  }\n\n  .xl\\:hover\\:border-yellow:hover {\n    border-color: #ffed4a;\n  }\n\n  .xl\\:hover\\:border-yellow-light:hover {\n    border-color: #fff382;\n  }\n\n  .xl\\:hover\\:border-yellow-lighter:hover {\n    border-color: #fff9c2;\n  }\n\n  .xl\\:hover\\:border-yellow-lightest:hover {\n    border-color: #fcfbeb;\n  }\n\n  .xl\\:hover\\:border-green-darkest:hover {\n    border-color: #0f2f21;\n  }\n\n  .xl\\:hover\\:border-green-darker:hover {\n    border-color: #1a4731;\n  }\n\n  .xl\\:hover\\:border-green-dark:hover {\n    border-color: #1f9d55;\n  }\n\n  .xl\\:hover\\:border-green:hover {\n    border-color: #38c172;\n  }\n\n  .xl\\:hover\\:border-green-light:hover {\n    border-color: #51d88a;\n  }\n\n  .xl\\:hover\\:border-green-lighter:hover {\n    border-color: #a2f5bf;\n  }\n\n  .xl\\:hover\\:border-green-lightest:hover {\n    border-color: #e3fcec;\n  }\n\n  .xl\\:hover\\:border-teal-darkest:hover {\n    border-color: #0d3331;\n  }\n\n  .xl\\:hover\\:border-teal-darker:hover {\n    border-color: #20504f;\n  }\n\n  .xl\\:hover\\:border-teal-dark:hover {\n    border-color: #38a89d;\n  }\n\n  .xl\\:hover\\:border-teal:hover {\n    border-color: #4dc0b5;\n  }\n\n  .xl\\:hover\\:border-teal-light:hover {\n    border-color: #64d5ca;\n  }\n\n  .xl\\:hover\\:border-teal-lighter:hover {\n    border-color: #a0f0ed;\n  }\n\n  .xl\\:hover\\:border-teal-lightest:hover {\n    border-color: #e8fffe;\n  }\n\n  .xl\\:hover\\:border-blue-darkest:hover {\n    border-color: #12283a;\n  }\n\n  .xl\\:hover\\:border-blue-darker:hover {\n    border-color: #1c3d5a;\n  }\n\n  .xl\\:hover\\:border-blue-dark:hover {\n    border-color: #2779bd;\n  }\n\n  .xl\\:hover\\:border-blue:hover {\n    border-color: #3490dc;\n  }\n\n  .xl\\:hover\\:border-blue-light:hover {\n    border-color: #6cb2eb;\n  }\n\n  .xl\\:hover\\:border-blue-lighter:hover {\n    border-color: #bcdefa;\n  }\n\n  .xl\\:hover\\:border-blue-lightest:hover {\n    border-color: #eff8ff;\n  }\n\n  .xl\\:hover\\:border-indigo-darkest:hover {\n    border-color: #191e38;\n  }\n\n  .xl\\:hover\\:border-indigo-darker:hover {\n    border-color: #2f365f;\n  }\n\n  .xl\\:hover\\:border-indigo-dark:hover {\n    border-color: #5661b3;\n  }\n\n  .xl\\:hover\\:border-indigo:hover {\n    border-color: #6574cd;\n  }\n\n  .xl\\:hover\\:border-indigo-light:hover {\n    border-color: #7886d7;\n  }\n\n  .xl\\:hover\\:border-indigo-lighter:hover {\n    border-color: #b2b7ff;\n  }\n\n  .xl\\:hover\\:border-indigo-lightest:hover {\n    border-color: #e6e8ff;\n  }\n\n  .xl\\:hover\\:border-purple-darkest:hover {\n    border-color: #21183c;\n  }\n\n  .xl\\:hover\\:border-purple-darker:hover {\n    border-color: #382b5f;\n  }\n\n  .xl\\:hover\\:border-purple-dark:hover {\n    border-color: #794acf;\n  }\n\n  .xl\\:hover\\:border-purple:hover {\n    border-color: #9561e2;\n  }\n\n  .xl\\:hover\\:border-purple-light:hover {\n    border-color: #a779e9;\n  }\n\n  .xl\\:hover\\:border-purple-lighter:hover {\n    border-color: #d6bbfc;\n  }\n\n  .xl\\:hover\\:border-purple-lightest:hover {\n    border-color: #f3ebff;\n  }\n\n  .xl\\:hover\\:border-pink-darkest:hover {\n    border-color: #451225;\n  }\n\n  .xl\\:hover\\:border-pink-darker:hover {\n    border-color: #6f213f;\n  }\n\n  .xl\\:hover\\:border-pink-dark:hover {\n    border-color: #eb5286;\n  }\n\n  .xl\\:hover\\:border-pink:hover {\n    border-color: #f66d9b;\n  }\n\n  .xl\\:hover\\:border-pink-light:hover {\n    border-color: #fa7ea8;\n  }\n\n  .xl\\:hover\\:border-pink-lighter:hover {\n    border-color: #ffbbca;\n  }\n\n  .xl\\:hover\\:border-pink-lightest:hover {\n    border-color: #ffebef;\n  }\n\n  .xl\\:rounded-none {\n    border-radius: 0;\n  }\n\n  .xl\\:rounded-sm {\n    border-radius: .125rem;\n  }\n\n  .xl\\:rounded {\n    border-radius: .25rem;\n  }\n\n  .xl\\:rounded-lg {\n    border-radius: .5rem;\n  }\n\n  .xl\\:rounded-full {\n    border-radius: 9999px;\n  }\n\n  .xl\\:rounded-t-none {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n  }\n\n  .xl\\:rounded-r-none {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n  }\n\n  .xl\\:rounded-b-none {\n    border-bottom-right-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .xl\\:rounded-l-none {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n  }\n\n  .xl\\:rounded-t-sm {\n    border-top-left-radius: .125rem;\n    border-top-right-radius: .125rem;\n  }\n\n  .xl\\:rounded-r-sm {\n    border-top-right-radius: .125rem;\n    border-bottom-right-radius: .125rem;\n  }\n\n  .xl\\:rounded-b-sm {\n    border-bottom-right-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .xl\\:rounded-l-sm {\n    border-top-left-radius: .125rem;\n    border-bottom-left-radius: .125rem;\n  }\n\n  .xl\\:rounded-t {\n    border-top-left-radius: .25rem;\n    border-top-right-radius: .25rem;\n  }\n\n  .xl\\:rounded-r {\n    border-top-right-radius: .25rem;\n    border-bottom-right-radius: .25rem;\n  }\n\n  .xl\\:rounded-b {\n    border-bottom-right-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .xl\\:rounded-l {\n    border-top-left-radius: .25rem;\n    border-bottom-left-radius: .25rem;\n  }\n\n  .xl\\:rounded-t-lg {\n    border-top-left-radius: .5rem;\n    border-top-right-radius: .5rem;\n  }\n\n  .xl\\:rounded-r-lg {\n    border-top-right-radius: .5rem;\n    border-bottom-right-radius: .5rem;\n  }\n\n  .xl\\:rounded-b-lg {\n    border-bottom-right-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .xl\\:rounded-l-lg {\n    border-top-left-radius: .5rem;\n    border-bottom-left-radius: .5rem;\n  }\n\n  .xl\\:rounded-t-full {\n    border-top-left-radius: 9999px;\n    border-top-right-radius: 9999px;\n  }\n\n  .xl\\:rounded-r-full {\n    border-top-right-radius: 9999px;\n    border-bottom-right-radius: 9999px;\n  }\n\n  .xl\\:rounded-b-full {\n    border-bottom-right-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .xl\\:rounded-l-full {\n    border-top-left-radius: 9999px;\n    border-bottom-left-radius: 9999px;\n  }\n\n  .xl\\:rounded-tl-none {\n    border-top-left-radius: 0;\n  }\n\n  .xl\\:rounded-tr-none {\n    border-top-right-radius: 0;\n  }\n\n  .xl\\:rounded-br-none {\n    border-bottom-right-radius: 0;\n  }\n\n  .xl\\:rounded-bl-none {\n    border-bottom-left-radius: 0;\n  }\n\n  .xl\\:rounded-tl-sm {\n    border-top-left-radius: .125rem;\n  }\n\n  .xl\\:rounded-tr-sm {\n    border-top-right-radius: .125rem;\n  }\n\n  .xl\\:rounded-br-sm {\n    border-bottom-right-radius: .125rem;\n  }\n\n  .xl\\:rounded-bl-sm {\n    border-bottom-left-radius: .125rem;\n  }\n\n  .xl\\:rounded-tl {\n    border-top-left-radius: .25rem;\n  }\n\n  .xl\\:rounded-tr {\n    border-top-right-radius: .25rem;\n  }\n\n  .xl\\:rounded-br {\n    border-bottom-right-radius: .25rem;\n  }\n\n  .xl\\:rounded-bl {\n    border-bottom-left-radius: .25rem;\n  }\n\n  .xl\\:rounded-tl-lg {\n    border-top-left-radius: .5rem;\n  }\n\n  .xl\\:rounded-tr-lg {\n    border-top-right-radius: .5rem;\n  }\n\n  .xl\\:rounded-br-lg {\n    border-bottom-right-radius: .5rem;\n  }\n\n  .xl\\:rounded-bl-lg {\n    border-bottom-left-radius: .5rem;\n  }\n\n  .xl\\:rounded-tl-full {\n    border-top-left-radius: 9999px;\n  }\n\n  .xl\\:rounded-tr-full {\n    border-top-right-radius: 9999px;\n  }\n\n  .xl\\:rounded-br-full {\n    border-bottom-right-radius: 9999px;\n  }\n\n  .xl\\:rounded-bl-full {\n    border-bottom-left-radius: 9999px;\n  }\n\n  .xl\\:border-solid {\n    border-style: solid;\n  }\n\n  .xl\\:border-dashed {\n    border-style: dashed;\n  }\n\n  .xl\\:border-dotted {\n    border-style: dotted;\n  }\n\n  .xl\\:border-none {\n    border-style: none;\n  }\n\n  .xl\\:border-0 {\n    border-width: 0;\n  }\n\n  .xl\\:border-2 {\n    border-width: 2px;\n  }\n\n  .xl\\:border-4 {\n    border-width: 4px;\n  }\n\n  .xl\\:border-8 {\n    border-width: 8px;\n  }\n\n  .xl\\:border {\n    border-width: 1px;\n  }\n\n  .xl\\:border-t-0 {\n    border-top-width: 0;\n  }\n\n  .xl\\:border-r-0 {\n    border-right-width: 0;\n  }\n\n  .xl\\:border-b-0 {\n    border-bottom-width: 0;\n  }\n\n  .xl\\:border-l-0 {\n    border-left-width: 0;\n  }\n\n  .xl\\:border-t-2 {\n    border-top-width: 2px;\n  }\n\n  .xl\\:border-r-2 {\n    border-right-width: 2px;\n  }\n\n  .xl\\:border-b-2 {\n    border-bottom-width: 2px;\n  }\n\n  .xl\\:border-l-2 {\n    border-left-width: 2px;\n  }\n\n  .xl\\:border-t-4 {\n    border-top-width: 4px;\n  }\n\n  .xl\\:border-r-4 {\n    border-right-width: 4px;\n  }\n\n  .xl\\:border-b-4 {\n    border-bottom-width: 4px;\n  }\n\n  .xl\\:border-l-4 {\n    border-left-width: 4px;\n  }\n\n  .xl\\:border-t-8 {\n    border-top-width: 8px;\n  }\n\n  .xl\\:border-r-8 {\n    border-right-width: 8px;\n  }\n\n  .xl\\:border-b-8 {\n    border-bottom-width: 8px;\n  }\n\n  .xl\\:border-l-8 {\n    border-left-width: 8px;\n  }\n\n  .xl\\:border-t {\n    border-top-width: 1px;\n  }\n\n  .xl\\:border-r {\n    border-right-width: 1px;\n  }\n\n  .xl\\:border-b {\n    border-bottom-width: 1px;\n  }\n\n  .xl\\:border-l {\n    border-left-width: 1px;\n  }\n\n  .xl\\:cursor-auto {\n    cursor: auto;\n  }\n\n  .xl\\:cursor-default {\n    cursor: default;\n  }\n\n  .xl\\:cursor-pointer {\n    cursor: pointer;\n  }\n\n  .xl\\:cursor-wait {\n    cursor: wait;\n  }\n\n  .xl\\:cursor-move {\n    cursor: move;\n  }\n\n  .xl\\:cursor-not-allowed {\n    cursor: not-allowed;\n  }\n\n  .xl\\:block {\n    display: block;\n  }\n\n  .xl\\:inline-block {\n    display: inline-block;\n  }\n\n  .xl\\:inline {\n    display: inline;\n  }\n\n  .xl\\:table {\n    display: table;\n  }\n\n  .xl\\:table-row {\n    display: table-row;\n  }\n\n  .xl\\:table-cell {\n    display: table-cell;\n  }\n\n  .xl\\:hidden {\n    display: none;\n  }\n\n  .xl\\:flex {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n  }\n\n  .xl\\:inline-flex {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n  }\n\n  .xl\\:flex-row {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n  }\n\n  .xl\\:flex-row-reverse {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: row-reverse;\n            flex-direction: row-reverse;\n  }\n\n  .xl\\:flex-col {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n\n  .xl\\:flex-col-reverse {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n  }\n\n  .xl\\:flex-wrap {\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n  }\n\n  .xl\\:flex-wrap-reverse {\n    -ms-flex-wrap: wrap-reverse;\n        flex-wrap: wrap-reverse;\n  }\n\n  .xl\\:flex-no-wrap {\n    -ms-flex-wrap: nowrap;\n        flex-wrap: nowrap;\n  }\n\n  .xl\\:items-start {\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n  }\n\n  .xl\\:items-end {\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n  }\n\n  .xl\\:items-center {\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n  }\n\n  .xl\\:items-baseline {\n    -webkit-box-align: baseline;\n        -ms-flex-align: baseline;\n            align-items: baseline;\n  }\n\n  .xl\\:items-stretch {\n    -webkit-box-align: stretch;\n        -ms-flex-align: stretch;\n            align-items: stretch;\n  }\n\n  .xl\\:self-auto {\n    -ms-flex-item-align: auto;\n        -ms-grid-row-align: auto;\n        align-self: auto;\n  }\n\n  .xl\\:self-start {\n    -ms-flex-item-align: start;\n        align-self: flex-start;\n  }\n\n  .xl\\:self-end {\n    -ms-flex-item-align: end;\n        align-self: flex-end;\n  }\n\n  .xl\\:self-center {\n    -ms-flex-item-align: center;\n        -ms-grid-row-align: center;\n        align-self: center;\n  }\n\n  .xl\\:self-stretch {\n    -ms-flex-item-align: stretch;\n        -ms-grid-row-align: stretch;\n        align-self: stretch;\n  }\n\n  .xl\\:justify-start {\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n  }\n\n  .xl\\:justify-end {\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n  }\n\n  .xl\\:justify-center {\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n  }\n\n  .xl\\:justify-between {\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n  }\n\n  .xl\\:justify-around {\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n  }\n\n  .xl\\:content-center {\n    -ms-flex-line-pack: center;\n        align-content: center;\n  }\n\n  .xl\\:content-start {\n    -ms-flex-line-pack: start;\n        align-content: flex-start;\n  }\n\n  .xl\\:content-end {\n    -ms-flex-line-pack: end;\n        align-content: flex-end;\n  }\n\n  .xl\\:content-between {\n    -ms-flex-line-pack: justify;\n        align-content: space-between;\n  }\n\n  .xl\\:content-around {\n    -ms-flex-line-pack: distribute;\n        align-content: space-around;\n  }\n\n  .xl\\:flex-1 {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n  }\n\n  .xl\\:flex-auto {\n    -webkit-box-flex: 1;\n        -ms-flex: auto;\n            flex: auto;\n  }\n\n  .xl\\:flex-initial {\n    -webkit-box-flex: initial;\n        -ms-flex: initial;\n            flex: initial;\n  }\n\n  .xl\\:flex-none {\n    -webkit-box-flex: 0;\n        -ms-flex: none;\n            flex: none;\n  }\n\n  .xl\\:flex-grow {\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n  }\n\n  .xl\\:flex-shrink {\n    -ms-flex-negative: 1;\n        flex-shrink: 1;\n  }\n\n  .xl\\:flex-no-grow {\n    -webkit-box-flex: 0;\n        -ms-flex-positive: 0;\n            flex-grow: 0;\n  }\n\n  .xl\\:flex-no-shrink {\n    -ms-flex-negative: 0;\n        flex-shrink: 0;\n  }\n\n  .xl\\:float-right {\n    float: right;\n  }\n\n  .xl\\:float-left {\n    float: left;\n  }\n\n  .xl\\:float-none {\n    float: none;\n  }\n\n  .xl\\:clearfix:after {\n    content: \"\";\n    display: table;\n    clear: both;\n  }\n\n  .xl\\:font-sans {\n    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;\n  }\n\n  .xl\\:font-serif {\n    font-family: Constantia, Lucida Bright, Lucidabright, Lucida Serif, Lucida, DejaVu Serif, Bitstream Vera Serif, Liberation Serif, Georgia, serif;\n  }\n\n  .xl\\:font-mono {\n    font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;\n  }\n\n  .xl\\:font-hairline {\n    font-weight: 100;\n  }\n\n  .xl\\:font-thin {\n    font-weight: 200;\n  }\n\n  .xl\\:font-light {\n    font-weight: 300;\n  }\n\n  .xl\\:font-normal {\n    font-weight: 400;\n  }\n\n  .xl\\:font-medium {\n    font-weight: 500;\n  }\n\n  .xl\\:font-semibold {\n    font-weight: 600;\n  }\n\n  .xl\\:font-bold {\n    font-weight: 700;\n  }\n\n  .xl\\:font-extrabold {\n    font-weight: 800;\n  }\n\n  .xl\\:font-black {\n    font-weight: 900;\n  }\n\n  .xl\\:hover\\:font-hairline:hover {\n    font-weight: 100;\n  }\n\n  .xl\\:hover\\:font-thin:hover {\n    font-weight: 200;\n  }\n\n  .xl\\:hover\\:font-light:hover {\n    font-weight: 300;\n  }\n\n  .xl\\:hover\\:font-normal:hover {\n    font-weight: 400;\n  }\n\n  .xl\\:hover\\:font-medium:hover {\n    font-weight: 500;\n  }\n\n  .xl\\:hover\\:font-semibold:hover {\n    font-weight: 600;\n  }\n\n  .xl\\:hover\\:font-bold:hover {\n    font-weight: 700;\n  }\n\n  .xl\\:hover\\:font-extrabold:hover {\n    font-weight: 800;\n  }\n\n  .xl\\:hover\\:font-black:hover {\n    font-weight: 900;\n  }\n\n  .xl\\:h-1 {\n    height: .25rem;\n  }\n\n  .xl\\:h-2 {\n    height: .5rem;\n  }\n\n  .xl\\:h-3 {\n    height: .75rem;\n  }\n\n  .xl\\:h-4 {\n    height: 1rem;\n  }\n\n  .xl\\:h-6 {\n    height: 1.5rem;\n  }\n\n  .xl\\:h-8 {\n    height: 2rem;\n  }\n\n  .xl\\:h-10 {\n    height: 2.5rem;\n  }\n\n  .xl\\:h-12 {\n    height: 3rem;\n  }\n\n  .xl\\:h-16 {\n    height: 4rem;\n  }\n\n  .xl\\:h-24 {\n    height: 6rem;\n  }\n\n  .xl\\:h-32 {\n    height: 8rem;\n  }\n\n  .xl\\:h-48 {\n    height: 12rem;\n  }\n\n  .xl\\:h-64 {\n    height: 16rem;\n  }\n\n  .xl\\:h-auto {\n    height: auto;\n  }\n\n  .xl\\:h-px {\n    height: 1px;\n  }\n\n  .xl\\:h-full {\n    height: 100%;\n  }\n\n  .xl\\:h-screen {\n    height: 100vh;\n  }\n\n  .xl\\:leading-none {\n    line-height: 1;\n  }\n\n  .xl\\:leading-tight {\n    line-height: 1.25;\n  }\n\n  .xl\\:leading-normal {\n    line-height: 1.5;\n  }\n\n  .xl\\:leading-loose {\n    line-height: 2;\n  }\n\n  .xl\\:m-0 {\n    margin: 0;\n  }\n\n  .xl\\:m-1 {\n    margin: .25rem;\n  }\n\n  .xl\\:m-2 {\n    margin: .5rem;\n  }\n\n  .xl\\:m-3 {\n    margin: .75rem;\n  }\n\n  .xl\\:m-4 {\n    margin: 1rem;\n  }\n\n  .xl\\:m-6 {\n    margin: 1.5rem;\n  }\n\n  .xl\\:m-8 {\n    margin: 2rem;\n  }\n\n  .xl\\:m-auto {\n    margin: auto;\n  }\n\n  .xl\\:m-px {\n    margin: 1px;\n  }\n\n  .xl\\:my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .xl\\:mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .xl\\:my-1 {\n    margin-top: .25rem;\n    margin-bottom: .25rem;\n  }\n\n  .xl\\:mx-1 {\n    margin-left: .25rem;\n    margin-right: .25rem;\n  }\n\n  .xl\\:my-2 {\n    margin-top: .5rem;\n    margin-bottom: .5rem;\n  }\n\n  .xl\\:mx-2 {\n    margin-left: .5rem;\n    margin-right: .5rem;\n  }\n\n  .xl\\:my-3 {\n    margin-top: .75rem;\n    margin-bottom: .75rem;\n  }\n\n  .xl\\:mx-3 {\n    margin-left: .75rem;\n    margin-right: .75rem;\n  }\n\n  .xl\\:my-4 {\n    margin-top: 1rem;\n    margin-bottom: 1rem;\n  }\n\n  .xl\\:mx-4 {\n    margin-left: 1rem;\n    margin-right: 1rem;\n  }\n\n  .xl\\:my-6 {\n    margin-top: 1.5rem;\n    margin-bottom: 1.5rem;\n  }\n\n  .xl\\:mx-6 {\n    margin-left: 1.5rem;\n    margin-right: 1.5rem;\n  }\n\n  .xl\\:my-8 {\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n  }\n\n  .xl\\:mx-8 {\n    margin-left: 2rem;\n    margin-right: 2rem;\n  }\n\n  .xl\\:my-auto {\n    margin-top: auto;\n    margin-bottom: auto;\n  }\n\n  .xl\\:mx-auto {\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  .xl\\:my-px {\n    margin-top: 1px;\n    margin-bottom: 1px;\n  }\n\n  .xl\\:mx-px {\n    margin-left: 1px;\n    margin-right: 1px;\n  }\n\n  .xl\\:mt-0 {\n    margin-top: 0;\n  }\n\n  .xl\\:mr-0 {\n    margin-right: 0;\n  }\n\n  .xl\\:mb-0 {\n    margin-bottom: 0;\n  }\n\n  .xl\\:ml-0 {\n    margin-left: 0;\n  }\n\n  .xl\\:mt-1 {\n    margin-top: .25rem;\n  }\n\n  .xl\\:mr-1 {\n    margin-right: .25rem;\n  }\n\n  .xl\\:mb-1 {\n    margin-bottom: .25rem;\n  }\n\n  .xl\\:ml-1 {\n    margin-left: .25rem;\n  }\n\n  .xl\\:mt-2 {\n    margin-top: .5rem;\n  }\n\n  .xl\\:mr-2 {\n    margin-right: .5rem;\n  }\n\n  .xl\\:mb-2 {\n    margin-bottom: .5rem;\n  }\n\n  .xl\\:ml-2 {\n    margin-left: .5rem;\n  }\n\n  .xl\\:mt-3 {\n    margin-top: .75rem;\n  }\n\n  .xl\\:mr-3 {\n    margin-right: .75rem;\n  }\n\n  .xl\\:mb-3 {\n    margin-bottom: .75rem;\n  }\n\n  .xl\\:ml-3 {\n    margin-left: .75rem;\n  }\n\n  .xl\\:mt-4 {\n    margin-top: 1rem;\n  }\n\n  .xl\\:mr-4 {\n    margin-right: 1rem;\n  }\n\n  .xl\\:mb-4 {\n    margin-bottom: 1rem;\n  }\n\n  .xl\\:ml-4 {\n    margin-left: 1rem;\n  }\n\n  .xl\\:mt-6 {\n    margin-top: 1.5rem;\n  }\n\n  .xl\\:mr-6 {\n    margin-right: 1.5rem;\n  }\n\n  .xl\\:mb-6 {\n    margin-bottom: 1.5rem;\n  }\n\n  .xl\\:ml-6 {\n    margin-left: 1.5rem;\n  }\n\n  .xl\\:mt-8 {\n    margin-top: 2rem;\n  }\n\n  .xl\\:mr-8 {\n    margin-right: 2rem;\n  }\n\n  .xl\\:mb-8 {\n    margin-bottom: 2rem;\n  }\n\n  .xl\\:ml-8 {\n    margin-left: 2rem;\n  }\n\n  .xl\\:mt-auto {\n    margin-top: auto;\n  }\n\n  .xl\\:mr-auto {\n    margin-right: auto;\n  }\n\n  .xl\\:mb-auto {\n    margin-bottom: auto;\n  }\n\n  .xl\\:ml-auto {\n    margin-left: auto;\n  }\n\n  .xl\\:mt-px {\n    margin-top: 1px;\n  }\n\n  .xl\\:mr-px {\n    margin-right: 1px;\n  }\n\n  .xl\\:mb-px {\n    margin-bottom: 1px;\n  }\n\n  .xl\\:ml-px {\n    margin-left: 1px;\n  }\n\n  .xl\\:max-h-full {\n    max-height: 100%;\n  }\n\n  .xl\\:max-h-screen {\n    max-height: 100vh;\n  }\n\n  .xl\\:max-w-xs {\n    max-width: 20rem;\n  }\n\n  .xl\\:max-w-sm {\n    max-width: 30rem;\n  }\n\n  .xl\\:max-w-md {\n    max-width: 40rem;\n  }\n\n  .xl\\:max-w-lg {\n    max-width: 50rem;\n  }\n\n  .xl\\:max-w-xl {\n    max-width: 60rem;\n  }\n\n  .xl\\:max-w-2xl {\n    max-width: 70rem;\n  }\n\n  .xl\\:max-w-3xl {\n    max-width: 80rem;\n  }\n\n  .xl\\:max-w-4xl {\n    max-width: 90rem;\n  }\n\n  .xl\\:max-w-5xl {\n    max-width: 100rem;\n  }\n\n  .xl\\:max-w-full {\n    max-width: 100%;\n  }\n\n  .xl\\:min-h-0 {\n    min-height: 0;\n  }\n\n  .xl\\:min-h-full {\n    min-height: 100%;\n  }\n\n  .xl\\:min-h-screen {\n    min-height: 100vh;\n  }\n\n  .xl\\:min-w-0 {\n    min-width: 0;\n  }\n\n  .xl\\:min-w-full {\n    min-width: 100%;\n  }\n\n  .xl\\:-m-0 {\n    margin: 0;\n  }\n\n  .xl\\:-m-1 {\n    margin: -0.25rem;\n  }\n\n  .xl\\:-m-2 {\n    margin: -0.5rem;\n  }\n\n  .xl\\:-m-3 {\n    margin: -0.75rem;\n  }\n\n  .xl\\:-m-4 {\n    margin: -1rem;\n  }\n\n  .xl\\:-m-6 {\n    margin: -1.5rem;\n  }\n\n  .xl\\:-m-8 {\n    margin: -2rem;\n  }\n\n  .xl\\:-m-px {\n    margin: -1px;\n  }\n\n  .xl\\:-my-0 {\n    margin-top: 0;\n    margin-bottom: 0;\n  }\n\n  .xl\\:-mx-0 {\n    margin-left: 0;\n    margin-right: 0;\n  }\n\n  .xl\\:-my-1 {\n    margin-top: -0.25rem;\n    margin-bottom: -0.25rem;\n  }\n\n  .xl\\:-mx-1 {\n    margin-left: -0.25rem;\n    margin-right: -0.25rem;\n  }\n\n  .xl\\:-my-2 {\n    margin-top: -0.5rem;\n    margin-bottom: -0.5rem;\n  }\n\n  .xl\\:-mx-2 {\n    margin-left: -0.5rem;\n    margin-right: -0.5rem;\n  }\n\n  .xl\\:-my-3 {\n    margin-top: -0.75rem;\n    margin-bottom: -0.75rem;\n  }\n\n  .xl\\:-mx-3 {\n    margin-left: -0.75rem;\n    margin-right: -0.75rem;\n  }\n\n  .xl\\:-my-4 {\n    margin-top: -1rem;\n    margin-bottom: -1rem;\n  }\n\n  .xl\\:-mx-4 {\n    margin-left: -1rem;\n    margin-right: -1rem;\n  }\n\n  .xl\\:-my-6 {\n    margin-top: -1.5rem;\n    margin-bottom: -1.5rem;\n  }\n\n  .xl\\:-mx-6 {\n    margin-left: -1.5rem;\n    margin-right: -1.5rem;\n  }\n\n  .xl\\:-my-8 {\n    margin-top: -2rem;\n    margin-bottom: -2rem;\n  }\n\n  .xl\\:-mx-8 {\n    margin-left: -2rem;\n    margin-right: -2rem;\n  }\n\n  .xl\\:-my-px {\n    margin-top: -1px;\n    margin-bottom: -1px;\n  }\n\n  .xl\\:-mx-px {\n    margin-left: -1px;\n    margin-right: -1px;\n  }\n\n  .xl\\:-mt-0 {\n    margin-top: 0;\n  }\n\n  .xl\\:-mr-0 {\n    margin-right: 0;\n  }\n\n  .xl\\:-mb-0 {\n    margin-bottom: 0;\n  }\n\n  .xl\\:-ml-0 {\n    margin-left: 0;\n  }\n\n  .xl\\:-mt-1 {\n    margin-top: -0.25rem;\n  }\n\n  .xl\\:-mr-1 {\n    margin-right: -0.25rem;\n  }\n\n  .xl\\:-mb-1 {\n    margin-bottom: -0.25rem;\n  }\n\n  .xl\\:-ml-1 {\n    margin-left: -0.25rem;\n  }\n\n  .xl\\:-mt-2 {\n    margin-top: -0.5rem;\n  }\n\n  .xl\\:-mr-2 {\n    margin-right: -0.5rem;\n  }\n\n  .xl\\:-mb-2 {\n    margin-bottom: -0.5rem;\n  }\n\n  .xl\\:-ml-2 {\n    margin-left: -0.5rem;\n  }\n\n  .xl\\:-mt-3 {\n    margin-top: -0.75rem;\n  }\n\n  .xl\\:-mr-3 {\n    margin-right: -0.75rem;\n  }\n\n  .xl\\:-mb-3 {\n    margin-bottom: -0.75rem;\n  }\n\n  .xl\\:-ml-3 {\n    margin-left: -0.75rem;\n  }\n\n  .xl\\:-mt-4 {\n    margin-top: -1rem;\n  }\n\n  .xl\\:-mr-4 {\n    margin-right: -1rem;\n  }\n\n  .xl\\:-mb-4 {\n    margin-bottom: -1rem;\n  }\n\n  .xl\\:-ml-4 {\n    margin-left: -1rem;\n  }\n\n  .xl\\:-mt-6 {\n    margin-top: -1.5rem;\n  }\n\n  .xl\\:-mr-6 {\n    margin-right: -1.5rem;\n  }\n\n  .xl\\:-mb-6 {\n    margin-bottom: -1.5rem;\n  }\n\n  .xl\\:-ml-6 {\n    margin-left: -1.5rem;\n  }\n\n  .xl\\:-mt-8 {\n    margin-top: -2rem;\n  }\n\n  .xl\\:-mr-8 {\n    margin-right: -2rem;\n  }\n\n  .xl\\:-mb-8 {\n    margin-bottom: -2rem;\n  }\n\n  .xl\\:-ml-8 {\n    margin-left: -2rem;\n  }\n\n  .xl\\:-mt-px {\n    margin-top: -1px;\n  }\n\n  .xl\\:-mr-px {\n    margin-right: -1px;\n  }\n\n  .xl\\:-mb-px {\n    margin-bottom: -1px;\n  }\n\n  .xl\\:-ml-px {\n    margin-left: -1px;\n  }\n\n  .xl\\:opacity-0 {\n    opacity: 0;\n  }\n\n  .xl\\:opacity-25 {\n    opacity: .25;\n  }\n\n  .xl\\:opacity-50 {\n    opacity: .5;\n  }\n\n  .xl\\:opacity-75 {\n    opacity: .75;\n  }\n\n  .xl\\:opacity-100 {\n    opacity: 1;\n  }\n\n  .xl\\:overflow-auto {\n    overflow: auto;\n  }\n\n  .xl\\:overflow-hidden {\n    overflow: hidden;\n  }\n\n  .xl\\:overflow-visible {\n    overflow: visible;\n  }\n\n  .xl\\:overflow-scroll {\n    overflow: scroll;\n  }\n\n  .xl\\:overflow-x-auto {\n    overflow-x: auto;\n  }\n\n  .xl\\:overflow-y-auto {\n    overflow-y: auto;\n  }\n\n  .xl\\:overflow-x-scroll {\n    overflow-x: scroll;\n  }\n\n  .xl\\:overflow-y-scroll {\n    overflow-y: scroll;\n  }\n\n  .xl\\:scrolling-touch {\n    -webkit-overflow-scrolling: touch;\n  }\n\n  .xl\\:scrolling-auto {\n    -webkit-overflow-scrolling: auto;\n  }\n\n  .xl\\:p-0 {\n    padding: 0;\n  }\n\n  .xl\\:p-1 {\n    padding: .25rem;\n  }\n\n  .xl\\:p-2 {\n    padding: .5rem;\n  }\n\n  .xl\\:p-3 {\n    padding: .75rem;\n  }\n\n  .xl\\:p-4 {\n    padding: 1rem;\n  }\n\n  .xl\\:p-6 {\n    padding: 1.5rem;\n  }\n\n  .xl\\:p-8 {\n    padding: 2rem;\n  }\n\n  .xl\\:p-px {\n    padding: 1px;\n  }\n\n  .xl\\:py-0 {\n    padding-top: 0;\n    padding-bottom: 0;\n  }\n\n  .xl\\:px-0 {\n    padding-left: 0;\n    padding-right: 0;\n  }\n\n  .xl\\:py-1 {\n    padding-top: .25rem;\n    padding-bottom: .25rem;\n  }\n\n  .xl\\:px-1 {\n    padding-left: .25rem;\n    padding-right: .25rem;\n  }\n\n  .xl\\:py-2 {\n    padding-top: .5rem;\n    padding-bottom: .5rem;\n  }\n\n  .xl\\:px-2 {\n    padding-left: .5rem;\n    padding-right: .5rem;\n  }\n\n  .xl\\:py-3 {\n    padding-top: .75rem;\n    padding-bottom: .75rem;\n  }\n\n  .xl\\:px-3 {\n    padding-left: .75rem;\n    padding-right: .75rem;\n  }\n\n  .xl\\:py-4 {\n    padding-top: 1rem;\n    padding-bottom: 1rem;\n  }\n\n  .xl\\:px-4 {\n    padding-left: 1rem;\n    padding-right: 1rem;\n  }\n\n  .xl\\:py-6 {\n    padding-top: 1.5rem;\n    padding-bottom: 1.5rem;\n  }\n\n  .xl\\:px-6 {\n    padding-left: 1.5rem;\n    padding-right: 1.5rem;\n  }\n\n  .xl\\:py-8 {\n    padding-top: 2rem;\n    padding-bottom: 2rem;\n  }\n\n  .xl\\:px-8 {\n    padding-left: 2rem;\n    padding-right: 2rem;\n  }\n\n  .xl\\:py-px {\n    padding-top: 1px;\n    padding-bottom: 1px;\n  }\n\n  .xl\\:px-px {\n    padding-left: 1px;\n    padding-right: 1px;\n  }\n\n  .xl\\:pt-0 {\n    padding-top: 0;\n  }\n\n  .xl\\:pr-0 {\n    padding-right: 0;\n  }\n\n  .xl\\:pb-0 {\n    padding-bottom: 0;\n  }\n\n  .xl\\:pl-0 {\n    padding-left: 0;\n  }\n\n  .xl\\:pt-1 {\n    padding-top: .25rem;\n  }\n\n  .xl\\:pr-1 {\n    padding-right: .25rem;\n  }\n\n  .xl\\:pb-1 {\n    padding-bottom: .25rem;\n  }\n\n  .xl\\:pl-1 {\n    padding-left: .25rem;\n  }\n\n  .xl\\:pt-2 {\n    padding-top: .5rem;\n  }\n\n  .xl\\:pr-2 {\n    padding-right: .5rem;\n  }\n\n  .xl\\:pb-2 {\n    padding-bottom: .5rem;\n  }\n\n  .xl\\:pl-2 {\n    padding-left: .5rem;\n  }\n\n  .xl\\:pt-3 {\n    padding-top: .75rem;\n  }\n\n  .xl\\:pr-3 {\n    padding-right: .75rem;\n  }\n\n  .xl\\:pb-3 {\n    padding-bottom: .75rem;\n  }\n\n  .xl\\:pl-3 {\n    padding-left: .75rem;\n  }\n\n  .xl\\:pt-4 {\n    padding-top: 1rem;\n  }\n\n  .xl\\:pr-4 {\n    padding-right: 1rem;\n  }\n\n  .xl\\:pb-4 {\n    padding-bottom: 1rem;\n  }\n\n  .xl\\:pl-4 {\n    padding-left: 1rem;\n  }\n\n  .xl\\:pt-6 {\n    padding-top: 1.5rem;\n  }\n\n  .xl\\:pr-6 {\n    padding-right: 1.5rem;\n  }\n\n  .xl\\:pb-6 {\n    padding-bottom: 1.5rem;\n  }\n\n  .xl\\:pl-6 {\n    padding-left: 1.5rem;\n  }\n\n  .xl\\:pt-8 {\n    padding-top: 2rem;\n  }\n\n  .xl\\:pr-8 {\n    padding-right: 2rem;\n  }\n\n  .xl\\:pb-8 {\n    padding-bottom: 2rem;\n  }\n\n  .xl\\:pl-8 {\n    padding-left: 2rem;\n  }\n\n  .xl\\:pt-px {\n    padding-top: 1px;\n  }\n\n  .xl\\:pr-px {\n    padding-right: 1px;\n  }\n\n  .xl\\:pb-px {\n    padding-bottom: 1px;\n  }\n\n  .xl\\:pl-px {\n    padding-left: 1px;\n  }\n\n  .xl\\:pointer-events-none {\n    pointer-events: none;\n  }\n\n  .xl\\:pointer-events-auto {\n    pointer-events: auto;\n  }\n\n  .xl\\:static {\n    position: static;\n  }\n\n  .xl\\:fixed {\n    position: fixed;\n  }\n\n  .xl\\:absolute {\n    position: absolute;\n  }\n\n  .xl\\:relative {\n    position: relative;\n  }\n\n  .xl\\:sticky {\n    position: -webkit-sticky;\n    position: sticky;\n  }\n\n  .xl\\:pin-none {\n    top: auto;\n    right: auto;\n    bottom: auto;\n    left: auto;\n  }\n\n  .xl\\:pin {\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n  }\n\n  .xl\\:pin-y {\n    top: 0;\n    bottom: 0;\n  }\n\n  .xl\\:pin-x {\n    right: 0;\n    left: 0;\n  }\n\n  .xl\\:pin-t {\n    top: 0;\n  }\n\n  .xl\\:pin-r {\n    right: 0;\n  }\n\n  .xl\\:pin-b {\n    bottom: 0;\n  }\n\n  .xl\\:pin-l {\n    left: 0;\n  }\n\n  .xl\\:resize-none {\n    resize: none;\n  }\n\n  .xl\\:resize-y {\n    resize: vertical;\n  }\n\n  .xl\\:resize-x {\n    resize: horizontal;\n  }\n\n  .xl\\:resize {\n    resize: both;\n  }\n\n  .xl\\:shadow {\n    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);\n  }\n\n  .xl\\:shadow-md {\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);\n  }\n\n  .xl\\:shadow-lg {\n    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);\n  }\n\n  .xl\\:shadow-inner {\n    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);\n  }\n\n  .xl\\:shadow-none {\n    box-shadow: none;\n  }\n\n  .xl\\:text-left {\n    text-align: left;\n  }\n\n  .xl\\:text-center {\n    text-align: center;\n  }\n\n  .xl\\:text-right {\n    text-align: right;\n  }\n\n  .xl\\:text-justify {\n    text-align: justify;\n  }\n\n  .xl\\:text-transparent {\n    color: transparent;\n  }\n\n  .xl\\:text-black {\n    color: #22292f;\n  }\n\n  .xl\\:text-grey-darkest {\n    color: #3d4852;\n  }\n\n  .xl\\:text-grey-darker {\n    color: #606f7b;\n  }\n\n  .xl\\:text-grey-dark {\n    color: #8795a1;\n  }\n\n  .xl\\:text-grey {\n    color: #b8c2cc;\n  }\n\n  .xl\\:text-grey-light {\n    color: #dae1e7;\n  }\n\n  .xl\\:text-grey-lighter {\n    color: #f1f5f8;\n  }\n\n  .xl\\:text-grey-lightest {\n    color: #f8fafc;\n  }\n\n  .xl\\:text-white {\n    color: #fff;\n  }\n\n  .xl\\:text-red-darkest {\n    color: #3b0d0c;\n  }\n\n  .xl\\:text-red-darker {\n    color: #621b18;\n  }\n\n  .xl\\:text-red-dark {\n    color: #cc1f1a;\n  }\n\n  .xl\\:text-red {\n    color: #e3342f;\n  }\n\n  .xl\\:text-red-light {\n    color: #ef5753;\n  }\n\n  .xl\\:text-red-lighter {\n    color: #f9acaa;\n  }\n\n  .xl\\:text-red-lightest {\n    color: #fcebea;\n  }\n\n  .xl\\:text-orange-darkest {\n    color: #462a16;\n  }\n\n  .xl\\:text-orange-darker {\n    color: #613b1f;\n  }\n\n  .xl\\:text-orange-dark {\n    color: #de751f;\n  }\n\n  .xl\\:text-orange {\n    color: #f6993f;\n  }\n\n  .xl\\:text-orange-light {\n    color: #faad63;\n  }\n\n  .xl\\:text-orange-lighter {\n    color: #fcd9b6;\n  }\n\n  .xl\\:text-orange-lightest {\n    color: #fff5eb;\n  }\n\n  .xl\\:text-yellow-darkest {\n    color: #453411;\n  }\n\n  .xl\\:text-yellow-darker {\n    color: #684f1d;\n  }\n\n  .xl\\:text-yellow-dark {\n    color: #f2d024;\n  }\n\n  .xl\\:text-yellow {\n    color: #ffed4a;\n  }\n\n  .xl\\:text-yellow-light {\n    color: #fff382;\n  }\n\n  .xl\\:text-yellow-lighter {\n    color: #fff9c2;\n  }\n\n  .xl\\:text-yellow-lightest {\n    color: #fcfbeb;\n  }\n\n  .xl\\:text-green-darkest {\n    color: #0f2f21;\n  }\n\n  .xl\\:text-green-darker {\n    color: #1a4731;\n  }\n\n  .xl\\:text-green-dark {\n    color: #1f9d55;\n  }\n\n  .xl\\:text-green {\n    color: #38c172;\n  }\n\n  .xl\\:text-green-light {\n    color: #51d88a;\n  }\n\n  .xl\\:text-green-lighter {\n    color: #a2f5bf;\n  }\n\n  .xl\\:text-green-lightest {\n    color: #e3fcec;\n  }\n\n  .xl\\:text-teal-darkest {\n    color: #0d3331;\n  }\n\n  .xl\\:text-teal-darker {\n    color: #20504f;\n  }\n\n  .xl\\:text-teal-dark {\n    color: #38a89d;\n  }\n\n  .xl\\:text-teal {\n    color: #4dc0b5;\n  }\n\n  .xl\\:text-teal-light {\n    color: #64d5ca;\n  }\n\n  .xl\\:text-teal-lighter {\n    color: #a0f0ed;\n  }\n\n  .xl\\:text-teal-lightest {\n    color: #e8fffe;\n  }\n\n  .xl\\:text-blue-darkest {\n    color: #12283a;\n  }\n\n  .xl\\:text-blue-darker {\n    color: #1c3d5a;\n  }\n\n  .xl\\:text-blue-dark {\n    color: #2779bd;\n  }\n\n  .xl\\:text-blue {\n    color: #3490dc;\n  }\n\n  .xl\\:text-blue-light {\n    color: #6cb2eb;\n  }\n\n  .xl\\:text-blue-lighter {\n    color: #bcdefa;\n  }\n\n  .xl\\:text-blue-lightest {\n    color: #eff8ff;\n  }\n\n  .xl\\:text-indigo-darkest {\n    color: #191e38;\n  }\n\n  .xl\\:text-indigo-darker {\n    color: #2f365f;\n  }\n\n  .xl\\:text-indigo-dark {\n    color: #5661b3;\n  }\n\n  .xl\\:text-indigo {\n    color: #6574cd;\n  }\n\n  .xl\\:text-indigo-light {\n    color: #7886d7;\n  }\n\n  .xl\\:text-indigo-lighter {\n    color: #b2b7ff;\n  }\n\n  .xl\\:text-indigo-lightest {\n    color: #e6e8ff;\n  }\n\n  .xl\\:text-purple-darkest {\n    color: #21183c;\n  }\n\n  .xl\\:text-purple-darker {\n    color: #382b5f;\n  }\n\n  .xl\\:text-purple-dark {\n    color: #794acf;\n  }\n\n  .xl\\:text-purple {\n    color: #9561e2;\n  }\n\n  .xl\\:text-purple-light {\n    color: #a779e9;\n  }\n\n  .xl\\:text-purple-lighter {\n    color: #d6bbfc;\n  }\n\n  .xl\\:text-purple-lightest {\n    color: #f3ebff;\n  }\n\n  .xl\\:text-pink-darkest {\n    color: #451225;\n  }\n\n  .xl\\:text-pink-darker {\n    color: #6f213f;\n  }\n\n  .xl\\:text-pink-dark {\n    color: #eb5286;\n  }\n\n  .xl\\:text-pink {\n    color: #f66d9b;\n  }\n\n  .xl\\:text-pink-light {\n    color: #fa7ea8;\n  }\n\n  .xl\\:text-pink-lighter {\n    color: #ffbbca;\n  }\n\n  .xl\\:text-pink-lightest {\n    color: #ffebef;\n  }\n\n  .xl\\:hover\\:text-transparent:hover {\n    color: transparent;\n  }\n\n  .xl\\:hover\\:text-black:hover {\n    color: #22292f;\n  }\n\n  .xl\\:hover\\:text-grey-darkest:hover {\n    color: #3d4852;\n  }\n\n  .xl\\:hover\\:text-grey-darker:hover {\n    color: #606f7b;\n  }\n\n  .xl\\:hover\\:text-grey-dark:hover {\n    color: #8795a1;\n  }\n\n  .xl\\:hover\\:text-grey:hover {\n    color: #b8c2cc;\n  }\n\n  .xl\\:hover\\:text-grey-light:hover {\n    color: #dae1e7;\n  }\n\n  .xl\\:hover\\:text-grey-lighter:hover {\n    color: #f1f5f8;\n  }\n\n  .xl\\:hover\\:text-grey-lightest:hover {\n    color: #f8fafc;\n  }\n\n  .xl\\:hover\\:text-white:hover {\n    color: #fff;\n  }\n\n  .xl\\:hover\\:text-red-darkest:hover {\n    color: #3b0d0c;\n  }\n\n  .xl\\:hover\\:text-red-darker:hover {\n    color: #621b18;\n  }\n\n  .xl\\:hover\\:text-red-dark:hover {\n    color: #cc1f1a;\n  }\n\n  .xl\\:hover\\:text-red:hover {\n    color: #e3342f;\n  }\n\n  .xl\\:hover\\:text-red-light:hover {\n    color: #ef5753;\n  }\n\n  .xl\\:hover\\:text-red-lighter:hover {\n    color: #f9acaa;\n  }\n\n  .xl\\:hover\\:text-red-lightest:hover {\n    color: #fcebea;\n  }\n\n  .xl\\:hover\\:text-orange-darkest:hover {\n    color: #462a16;\n  }\n\n  .xl\\:hover\\:text-orange-darker:hover {\n    color: #613b1f;\n  }\n\n  .xl\\:hover\\:text-orange-dark:hover {\n    color: #de751f;\n  }\n\n  .xl\\:hover\\:text-orange:hover {\n    color: #f6993f;\n  }\n\n  .xl\\:hover\\:text-orange-light:hover {\n    color: #faad63;\n  }\n\n  .xl\\:hover\\:text-orange-lighter:hover {\n    color: #fcd9b6;\n  }\n\n  .xl\\:hover\\:text-orange-lightest:hover {\n    color: #fff5eb;\n  }\n\n  .xl\\:hover\\:text-yellow-darkest:hover {\n    color: #453411;\n  }\n\n  .xl\\:hover\\:text-yellow-darker:hover {\n    color: #684f1d;\n  }\n\n  .xl\\:hover\\:text-yellow-dark:hover {\n    color: #f2d024;\n  }\n\n  .xl\\:hover\\:text-yellow:hover {\n    color: #ffed4a;\n  }\n\n  .xl\\:hover\\:text-yellow-light:hover {\n    color: #fff382;\n  }\n\n  .xl\\:hover\\:text-yellow-lighter:hover {\n    color: #fff9c2;\n  }\n\n  .xl\\:hover\\:text-yellow-lightest:hover {\n    color: #fcfbeb;\n  }\n\n  .xl\\:hover\\:text-green-darkest:hover {\n    color: #0f2f21;\n  }\n\n  .xl\\:hover\\:text-green-darker:hover {\n    color: #1a4731;\n  }\n\n  .xl\\:hover\\:text-green-dark:hover {\n    color: #1f9d55;\n  }\n\n  .xl\\:hover\\:text-green:hover {\n    color: #38c172;\n  }\n\n  .xl\\:hover\\:text-green-light:hover {\n    color: #51d88a;\n  }\n\n  .xl\\:hover\\:text-green-lighter:hover {\n    color: #a2f5bf;\n  }\n\n  .xl\\:hover\\:text-green-lightest:hover {\n    color: #e3fcec;\n  }\n\n  .xl\\:hover\\:text-teal-darkest:hover {\n    color: #0d3331;\n  }\n\n  .xl\\:hover\\:text-teal-darker:hover {\n    color: #20504f;\n  }\n\n  .xl\\:hover\\:text-teal-dark:hover {\n    color: #38a89d;\n  }\n\n  .xl\\:hover\\:text-teal:hover {\n    color: #4dc0b5;\n  }\n\n  .xl\\:hover\\:text-teal-light:hover {\n    color: #64d5ca;\n  }\n\n  .xl\\:hover\\:text-teal-lighter:hover {\n    color: #a0f0ed;\n  }\n\n  .xl\\:hover\\:text-teal-lightest:hover {\n    color: #e8fffe;\n  }\n\n  .xl\\:hover\\:text-blue-darkest:hover {\n    color: #12283a;\n  }\n\n  .xl\\:hover\\:text-blue-darker:hover {\n    color: #1c3d5a;\n  }\n\n  .xl\\:hover\\:text-blue-dark:hover {\n    color: #2779bd;\n  }\n\n  .xl\\:hover\\:text-blue:hover {\n    color: #3490dc;\n  }\n\n  .xl\\:hover\\:text-blue-light:hover {\n    color: #6cb2eb;\n  }\n\n  .xl\\:hover\\:text-blue-lighter:hover {\n    color: #bcdefa;\n  }\n\n  .xl\\:hover\\:text-blue-lightest:hover {\n    color: #eff8ff;\n  }\n\n  .xl\\:hover\\:text-indigo-darkest:hover {\n    color: #191e38;\n  }\n\n  .xl\\:hover\\:text-indigo-darker:hover {\n    color: #2f365f;\n  }\n\n  .xl\\:hover\\:text-indigo-dark:hover {\n    color: #5661b3;\n  }\n\n  .xl\\:hover\\:text-indigo:hover {\n    color: #6574cd;\n  }\n\n  .xl\\:hover\\:text-indigo-light:hover {\n    color: #7886d7;\n  }\n\n  .xl\\:hover\\:text-indigo-lighter:hover {\n    color: #b2b7ff;\n  }\n\n  .xl\\:hover\\:text-indigo-lightest:hover {\n    color: #e6e8ff;\n  }\n\n  .xl\\:hover\\:text-purple-darkest:hover {\n    color: #21183c;\n  }\n\n  .xl\\:hover\\:text-purple-darker:hover {\n    color: #382b5f;\n  }\n\n  .xl\\:hover\\:text-purple-dark:hover {\n    color: #794acf;\n  }\n\n  .xl\\:hover\\:text-purple:hover {\n    color: #9561e2;\n  }\n\n  .xl\\:hover\\:text-purple-light:hover {\n    color: #a779e9;\n  }\n\n  .xl\\:hover\\:text-purple-lighter:hover {\n    color: #d6bbfc;\n  }\n\n  .xl\\:hover\\:text-purple-lightest:hover {\n    color: #f3ebff;\n  }\n\n  .xl\\:hover\\:text-pink-darkest:hover {\n    color: #451225;\n  }\n\n  .xl\\:hover\\:text-pink-darker:hover {\n    color: #6f213f;\n  }\n\n  .xl\\:hover\\:text-pink-dark:hover {\n    color: #eb5286;\n  }\n\n  .xl\\:hover\\:text-pink:hover {\n    color: #f66d9b;\n  }\n\n  .xl\\:hover\\:text-pink-light:hover {\n    color: #fa7ea8;\n  }\n\n  .xl\\:hover\\:text-pink-lighter:hover {\n    color: #ffbbca;\n  }\n\n  .xl\\:hover\\:text-pink-lightest:hover {\n    color: #ffebef;\n  }\n\n  .xl\\:text-xs {\n    font-size: .75rem;\n  }\n\n  .xl\\:text-sm {\n    font-size: .875rem;\n  }\n\n  .xl\\:text-base {\n    font-size: 1rem;\n  }\n\n  .xl\\:text-lg {\n    font-size: 1.125rem;\n  }\n\n  .xl\\:text-xl {\n    font-size: 1.25rem;\n  }\n\n  .xl\\:text-2xl {\n    font-size: 1.5rem;\n  }\n\n  .xl\\:text-3xl {\n    font-size: 1.875rem;\n  }\n\n  .xl\\:text-4xl {\n    font-size: 2.25rem;\n  }\n\n  .xl\\:text-5xl {\n    font-size: 3rem;\n  }\n\n  .xl\\:italic {\n    font-style: italic;\n  }\n\n  .xl\\:roman {\n    font-style: normal;\n  }\n\n  .xl\\:uppercase {\n    text-transform: uppercase;\n  }\n\n  .xl\\:lowercase {\n    text-transform: lowercase;\n  }\n\n  .xl\\:capitalize {\n    text-transform: capitalize;\n  }\n\n  .xl\\:normal-case {\n    text-transform: none;\n  }\n\n  .xl\\:underline {\n    text-decoration: underline;\n  }\n\n  .xl\\:line-through {\n    text-decoration: line-through;\n  }\n\n  .xl\\:no-underline {\n    text-decoration: none;\n  }\n\n  .xl\\:antialiased {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .xl\\:subpixel-antialiased {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .xl\\:hover\\:italic:hover {\n    font-style: italic;\n  }\n\n  .xl\\:hover\\:roman:hover {\n    font-style: normal;\n  }\n\n  .xl\\:hover\\:uppercase:hover {\n    text-transform: uppercase;\n  }\n\n  .xl\\:hover\\:lowercase:hover {\n    text-transform: lowercase;\n  }\n\n  .xl\\:hover\\:capitalize:hover {\n    text-transform: capitalize;\n  }\n\n  .xl\\:hover\\:normal-case:hover {\n    text-transform: none;\n  }\n\n  .xl\\:hover\\:underline:hover {\n    text-decoration: underline;\n  }\n\n  .xl\\:hover\\:line-through:hover {\n    text-decoration: line-through;\n  }\n\n  .xl\\:hover\\:no-underline:hover {\n    text-decoration: none;\n  }\n\n  .xl\\:hover\\:antialiased:hover {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n\n  .xl\\:hover\\:subpixel-antialiased:hover {\n    -webkit-font-smoothing: auto;\n    -moz-osx-font-smoothing: auto;\n  }\n\n  .xl\\:tracking-tight {\n    letter-spacing: -0.05em;\n  }\n\n  .xl\\:tracking-normal {\n    letter-spacing: 0;\n  }\n\n  .xl\\:tracking-wide {\n    letter-spacing: .05em;\n  }\n\n  .xl\\:select-none {\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n  }\n\n  .xl\\:select-text {\n    -webkit-user-select: text;\n       -moz-user-select: text;\n        -ms-user-select: text;\n            user-select: text;\n  }\n\n  .xl\\:align-baseline {\n    vertical-align: baseline;\n  }\n\n  .xl\\:align-top {\n    vertical-align: top;\n  }\n\n  .xl\\:align-middle {\n    vertical-align: middle;\n  }\n\n  .xl\\:align-bottom {\n    vertical-align: bottom;\n  }\n\n  .xl\\:align-text-top {\n    vertical-align: text-top;\n  }\n\n  .xl\\:align-text-bottom {\n    vertical-align: text-bottom;\n  }\n\n  .xl\\:visible {\n    visibility: visible;\n  }\n\n  .xl\\:invisible {\n    visibility: hidden;\n  }\n\n  .xl\\:whitespace-normal {\n    white-space: normal;\n  }\n\n  .xl\\:whitespace-no-wrap {\n    white-space: nowrap;\n  }\n\n  .xl\\:whitespace-pre {\n    white-space: pre;\n  }\n\n  .xl\\:whitespace-pre-line {\n    white-space: pre-line;\n  }\n\n  .xl\\:whitespace-pre-wrap {\n    white-space: pre-wrap;\n  }\n\n  .xl\\:break-words {\n    word-wrap: break-word;\n  }\n\n  .xl\\:break-normal {\n    word-wrap: normal;\n  }\n\n  .xl\\:truncate {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .xl\\:w-1 {\n    width: .25rem;\n  }\n\n  .xl\\:w-2 {\n    width: .5rem;\n  }\n\n  .xl\\:w-3 {\n    width: .75rem;\n  }\n\n  .xl\\:w-4 {\n    width: 1rem;\n  }\n\n  .xl\\:w-6 {\n    width: 1.5rem;\n  }\n\n  .xl\\:w-8 {\n    width: 2rem;\n  }\n\n  .xl\\:w-10 {\n    width: 2.5rem;\n  }\n\n  .xl\\:w-12 {\n    width: 3rem;\n  }\n\n  .xl\\:w-16 {\n    width: 4rem;\n  }\n\n  .xl\\:w-24 {\n    width: 6rem;\n  }\n\n  .xl\\:w-32 {\n    width: 8rem;\n  }\n\n  .xl\\:w-48 {\n    width: 12rem;\n  }\n\n  .xl\\:w-64 {\n    width: 16rem;\n  }\n\n  .xl\\:w-auto {\n    width: auto;\n  }\n\n  .xl\\:w-px {\n    width: 1px;\n  }\n\n  .xl\\:w-1\\/2 {\n    width: 50%;\n  }\n\n  .xl\\:w-1\\/3 {\n    width: 33.33333%;\n  }\n\n  .xl\\:w-2\\/3 {\n    width: 66.66667%;\n  }\n\n  .xl\\:w-1\\/4 {\n    width: 25%;\n  }\n\n  .xl\\:w-3\\/4 {\n    width: 75%;\n  }\n\n  .xl\\:w-1\\/5 {\n    width: 20%;\n  }\n\n  .xl\\:w-2\\/5 {\n    width: 40%;\n  }\n\n  .xl\\:w-3\\/5 {\n    width: 60%;\n  }\n\n  .xl\\:w-4\\/5 {\n    width: 80%;\n  }\n\n  .xl\\:w-1\\/6 {\n    width: 16.66667%;\n  }\n\n  .xl\\:w-5\\/6 {\n    width: 83.33333%;\n  }\n\n  .xl\\:w-full {\n    width: 100%;\n  }\n\n  .xl\\:w-screen {\n    width: 100vw;\n  }\n\n  .xl\\:z-0 {\n    z-index: 0;\n  }\n\n  .xl\\:z-10 {\n    z-index: 10;\n  }\n\n  .xl\\:z-20 {\n    z-index: 20;\n  }\n\n  .xl\\:z-30 {\n    z-index: 30;\n  }\n\n  .xl\\:z-40 {\n    z-index: 40;\n  }\n\n  .xl\\:z-50 {\n    z-index: 50;\n  }\n\n  .xl\\:z-auto {\n    z-index: auto;\n  }\n}\n", ""]);
 
 // exports
 
@@ -44388,7 +44414,7 @@ var render = function() {
   return _c(
     "h4",
     {
-      staticClass: "mt-2",
+      staticClass: "inline-block",
       on: {
         click: function($event) {
           _vm.change()
@@ -44559,13 +44585,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.state.saving
-    ? _c("div", { staticClass: "progress" }, [
-        _vm._v(_vm._s(_vm.$t("messages.saving")))
-      ])
-    : _c("div", { staticClass: "text-xs text-grey" }, [
-        _vm._v("\n    " + _vm._s(_vm.state.changed ? "Modified" : "") + "\n")
-      ])
+  return _c("div", { staticStyle: { "margin-top": "2px" } }, [
+    _vm.state.saving
+      ? _c("div", { staticClass: "progress" }, [
+          _vm._v(_vm._s(_vm.$t("messages.saving")))
+        ])
+      : _c("div", { staticClass: "text-xs text-grey" }, [
+          _vm._v(
+            "\n        " +
+              _vm._s(_vm.state.changed ? "Modified" : "Saved") +
+              "\n    "
+          )
+        ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -45524,81 +45556,115 @@ var render = function() {
       staticStyle: { "z-index": "6" }
     },
     [
-      _c(
-        "div",
-        { staticClass: "float-left" },
-        [
-          _vm.state.editable
-            ? _c(
-                "dropdown-menu",
-                { attrs: { label: _vm.$t("top.file") } },
-                [
-                  _vm.inRenderMode
-                    ? [
-                        _c(
-                          "dropdown-option",
-                          {
-                            nativeOn: {
-                              click: function($event) {
-                                _vm.beginEditMode()
+      _c("div", { staticClass: "flex content-between" }, [
+        _c(
+          "div",
+          { staticClass: "flex-1" },
+          [
+            _vm.state.editable
+              ? _c(
+                  "dropdown-menu",
+                  { attrs: { label: _vm.$t("top.file") } },
+                  [
+                    _vm.inRenderMode
+                      ? [
+                          _c(
+                            "dropdown-option",
+                            {
+                              nativeOn: {
+                                click: function($event) {
+                                  _vm.beginEditMode()
+                                }
                               }
-                            }
-                          },
-                          [
-                            _c("div", { staticClass: "flex items-center" }, [
-                              _c(
-                                "i",
-                                {
-                                  staticClass: "material-icons mr-1 text-blue"
-                                },
-                                [_vm._v("edit")]
-                              ),
-                              _vm._v(
-                                " " +
-                                  _vm._s(_vm.$t("top.edit_document")) +
-                                  "\n                "
-                              )
-                            ])
-                          ]
-                        )
-                      ]
-                    : _vm._e(),
-                  _vm._v(" "),
-                  !_vm.inRenderMode
-                    ? [
-                        _c(
-                          "dropdown-option",
-                          {
-                            nativeOn: {
-                              click: function($event) {
-                                _vm.save()
+                            },
+                            [
+                              _c("div", { staticClass: "flex items-center" }, [
+                                _c(
+                                  "i",
+                                  {
+                                    staticClass: "material-icons mr-1 text-blue"
+                                  },
+                                  [_vm._v("edit")]
+                                ),
+                                _vm._v(
+                                  " " +
+                                    _vm._s(_vm.$t("top.edit_document")) +
+                                    "\n                    "
+                                )
+                              ])
+                            ]
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    !_vm.inRenderMode
+                      ? [
+                          _c(
+                            "dropdown-option",
+                            {
+                              nativeOn: {
+                                click: function($event) {
+                                  _vm.save()
+                                }
                               }
-                            }
-                          },
-                          [
-                            _c("div", { staticClass: "flex items-center" }, [
-                              _c(
-                                "i",
-                                {
-                                  staticClass: "material-icons mr-1 text-green"
-                                },
-                                [_vm._v("save")]
-                              ),
-                              _vm._v(
-                                " " +
-                                  _vm._s(_vm.$t("top.save")) +
-                                  "\n                "
-                              )
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
+                            },
+                            [
+                              _c("div", { staticClass: "flex items-center" }, [
+                                _c(
+                                  "i",
+                                  {
+                                    staticClass:
+                                      "material-icons mr-1 text-green"
+                                  },
+                                  [_vm._v("save")]
+                                ),
+                                _vm._v(
+                                  " " +
+                                    _vm._s(_vm.$t("top.save")) +
+                                    "\n                    "
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "dropdown-option",
+                            {
+                              nativeOn: {
+                                click: function($event) {
+                                  _vm.beginRenderMode()
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "flex items-center" }, [
+                                _c(
+                                  "i",
+                                  {
+                                    staticClass:
+                                      "material-icons mr-1 text-orange",
+                                    staticStyle: { "margin-top": "-3px" }
+                                  },
+                                  [_vm._v("remove_red_eye")]
+                                ),
+                                _vm._v(
+                                  " " +
+                                    _vm._s(_vm.$t("top.render")) +
+                                    "\n                    "
+                                )
+                              ])
+                            ]
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.hasTranslations
+                      ? _c(
                           "dropdown-option",
                           {
                             nativeOn: {
                               click: function($event) {
-                                _vm.beginRenderMode()
+                                _vm.changeUiLanguage()
                               }
                             }
                           },
@@ -45608,113 +45674,138 @@ var render = function() {
                                 "i",
                                 {
                                   staticClass:
-                                    "material-icons mr-1 text-orange",
+                                    "material-icons mr-1 text-purple",
                                   staticStyle: { "margin-top": "-3px" }
                                 },
-                                [_vm._v("remove_red_eye")]
+                                [_vm._v("language")]
                               ),
                               _vm._v(
                                 " " +
-                                  _vm._s(_vm.$t("top.render")) +
-                                  "\n                "
+                                  _vm._s(_vm.$t("top.change_language")) +
+                                  "\n                    "
                               )
                             ])
                           ]
                         )
-                      ]
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.hasTranslations
-                    ? _c(
-                        "dropdown-option",
-                        {
-                          nativeOn: {
-                            click: function($event) {
-                              _vm.changeUiLanguage()
-                            }
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "flex items-center" }, [
-                            _c(
-                              "i",
-                              {
-                                staticClass: "material-icons mr-1 text-purple",
-                                staticStyle: { "margin-top": "-3px" }
-                              },
-                              [_vm._v("language")]
-                            ),
-                            _vm._v(
-                              " " +
-                                _vm._s(_vm.$t("top.change_language")) +
-                                "\n                "
-                            )
-                          ])
-                        ]
-                      )
-                    : _vm._e()
-                ],
-                2
-              )
-            : _vm._e()
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "float-left" }, [_c("document-title")], 1),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "float-left ml-4",
-          staticStyle: { "margin-top": "10px" }
-        },
-        [_c("document-status")],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "float-right" },
-        [
-          _c(
-            "dropdown-menu",
-            {
-              attrs: {
-                color: "grey-dark",
-                icon: "language",
-                label: _vm.$t("languages." + _vm.state.translation),
-                align: "pin-r"
-              }
-            },
-            _vm._l(_vm.translations, function(language) {
-              return language != _vm.translation
-                ? _c(
-                    "dropdown-option",
+                      : _vm._e()
+                  ],
+                  2
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c("document-title"),
+            _vm._v(" "),
+            _c("document-status")
+          ],
+          1
+        ),
+        _vm._v(" "),
+        !_vm.inRenderMode
+          ? _c(
+              "div",
+              { staticClass: "flex-1" },
+              [
+                _c("top-button", {
+                  directives: [
                     {
-                      key: language,
-                      nativeOn: {
-                        click: function($event) {
-                          _vm.changeTranslationLanguage(language)
+                      name: "tooltip",
+                      rawName: "v-tooltip",
+                      value: "Delete Content",
+                      expression: "'Delete Content'"
+                    }
+                  ],
+                  attrs: { disabled: !_vm.state.selection, icon: "delete" },
+                  on: {
+                    click: function($event) {
+                      _vm.deleteContent()
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("top-button", {
+                  directives: [
+                    {
+                      name: "tooltip",
+                      rawName: "v-tooltip",
+                      value: "Duplicate Content",
+                      expression: "'Duplicate Content'"
+                    }
+                  ],
+                  attrs: {
+                    disabled: !_vm.state.selection,
+                    icon: "content_copy"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.duplicateContent()
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("top-button", {
+                  directives: [
+                    {
+                      name: "tooltip",
+                      rawName: "v-tooltip",
+                      value: "Select Parent",
+                      expression: "'Select Parent'"
+                    }
+                  ],
+                  attrs: {
+                    disabled: !_vm.state.selection,
+                    icon: "arrow_upward"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.selectParent()
+                    }
+                  }
+                })
+              ],
+              1
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          [
+            _c(
+              "dropdown-menu",
+              {
+                attrs: {
+                  color: "grey-dark",
+                  icon: "language",
+                  label: _vm.$t("languages." + _vm.state.translation),
+                  align: "pin-r"
+                }
+              },
+              _vm._l(_vm.translations, function(language) {
+                return language != _vm.translation
+                  ? _c(
+                      "dropdown-option",
+                      {
+                        key: language,
+                        nativeOn: {
+                          click: function($event) {
+                            _vm.changeTranslationLanguage(language)
+                          }
                         }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                " +
-                          _vm._s(_vm.$t("languages." + language)) +
-                          "\n            "
-                      )
-                    ]
-                  )
-                : _vm._e()
-            })
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "clearfix" })
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.$t("languages." + language)) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              })
+            )
+          ],
+          1
+        )
+      ])
     ]
   )
 }
@@ -47193,18 +47284,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _contents = __webpack_require__(1);
-
-var _session = __webpack_require__(3);
+var _commands = __webpack_require__(385);
 
 exports.default = {
     key: 80, // p key
-    invoke: function invoke() {
-        var selected = (0, _session.getSelectedContent)();
-        if (selected && selected.container_id) {
-            (0, _session.selectContent)(selected.container_id);
-        }
-    }
+    invoke: _commands.selectParent
 };
 
 /***/ }),
@@ -47218,18 +47302,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _contents = __webpack_require__(1);
-
-var _session = __webpack_require__(3);
+var _commands = __webpack_require__(385);
 
 exports.default = {
     key: 8, // backspace
-    invoke: function invoke() {
-        var selected = (0, _session.getSelectedContent)();
-        if (selected) {
-            (0, _contents.removeContent)(selected);
-        }
-    }
+    invoke: _commands.removeSelectedContent
 };
 
 /***/ }),
@@ -47243,18 +47320,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _contents = __webpack_require__(1);
-
-var _session = __webpack_require__(3);
+var _commands = __webpack_require__(385);
 
 exports.default = {
     key: 68, // d key
-    invoke: function invoke() {
-        var selected = (0, _session.getSelectedContent)();
-        if (selected) {
-            (0, _contents.duplicateContent)(selected);
-        }
-    }
+    invoke: _commands.duplicateSelectedContent
 };
 
 /***/ }),
@@ -64567,6 +64637,6699 @@ exports.default = {
     (0, _session.toggleRenderMode)();
   }
 };
+
+/***/ }),
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+
+exports.default = {
+    props: ['icon', 'disabled'],
+    computed: {
+        btnClass: function btnClass() {
+            return this.disabled ? 'text-grey-light border-grey-light' : 'text-grey-dark border-grey-dark hover:text-blue hover:border-blue';
+        }
+    },
+    methods: {
+        emitClick: function emitClick() {
+            this.$emit('click');
+        }
+    }
+};
+
+/***/ }),
+/* 382 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_TopButton_vue__ = __webpack_require__(381);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_TopButton_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_TopButton_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_TopButton_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_TopButton_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_de9fe89e_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TopButton_vue__ = __webpack_require__(383);
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_TopButton_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_de9fe89e_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TopButton_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/ui/tools/TopButton.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-de9fe89e", Component.options)
+  } else {
+    hotAPI.reload("data-v-de9fe89e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+/* 383 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "button",
+    {
+      staticClass:
+        "mt-1 p-1 border hover:bg-white inline-block text-center text-xs font-bold uppercase",
+      class: _vm.btnClass,
+      attrs: { disabled: _vm.disabled, type: "button" },
+      on: { click: _vm.emitClick }
+    },
+    [_c("i", { staticClass: "material-icons" }, [_vm._v(_vm._s(_vm.icon))])]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-de9fe89e", esExports)
+  }
+}
+
+/***/ }),
+/* 384 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "install", function() { return install; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VTooltip", function() { return VTooltip; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VClosePopover", function() { return VClosePopover; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VPopover", function() { return VPopover; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTooltip", function() { return createTooltip; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroyTooltip", function() { return destroyTooltip; });
+/**!
+ * @fileOverview Kickass library to create and place poppers near their reference elements.
+ * @version 1.12.9
+ * @license
+ * Copyright (c) 2016 Federico Zivolo and contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
+var longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
+var timeoutDuration = 0;
+for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
+  if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {
+    timeoutDuration = 1;
+    break;
+  }
+}
+
+function microtaskDebounce(fn) {
+  var called = false;
+  return function () {
+    if (called) {
+      return;
+    }
+    called = true;
+    window.Promise.resolve().then(function () {
+      called = false;
+      fn();
+    });
+  };
+}
+
+function taskDebounce(fn) {
+  var scheduled = false;
+  return function () {
+    if (!scheduled) {
+      scheduled = true;
+      setTimeout(function () {
+        scheduled = false;
+        fn();
+      }, timeoutDuration);
+    }
+  };
+}
+
+var supportsMicroTasks = isBrowser && window.Promise;
+
+/**
+* Create a debounced version of a method, that's asynchronously deferred
+* but called in the minimum time possible.
+*
+* @method
+* @memberof Popper.Utils
+* @argument {Function} fn
+* @returns {Function}
+*/
+var debounce = supportsMicroTasks ? microtaskDebounce : taskDebounce;
+
+/**
+ * Check if the given variable is a function
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Any} functionToCheck - variable to check
+ * @returns {Boolean} answer to: is a function?
+ */
+function isFunction(functionToCheck) {
+  var getType = {};
+  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+}
+
+/**
+ * Get CSS computed property of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Eement} element
+ * @argument {String} property
+ */
+function getStyleComputedProperty(element, property) {
+  if (element.nodeType !== 1) {
+    return [];
+  }
+  // NOTE: 1 DOM access here
+  var css = getComputedStyle(element, null);
+  return property ? css[property] : css;
+}
+
+/**
+ * Returns the parentNode or the host of the element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} parent
+ */
+function getParentNode(element) {
+  if (element.nodeName === 'HTML') {
+    return element;
+  }
+  return element.parentNode || element.host;
+}
+
+/**
+ * Returns the scrolling parent of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} scroll parent
+ */
+function getScrollParent(element) {
+  // Return body, `getScroll` will take care to get the correct `scrollTop` from it
+  if (!element) {
+    return document.body;
+  }
+
+  switch (element.nodeName) {
+    case 'HTML':
+    case 'BODY':
+      return element.ownerDocument.body;
+    case '#document':
+      return element.body;
+  }
+
+  // Firefox want us to check `-x` and `-y` variations as well
+
+  var _getStyleComputedProp = getStyleComputedProperty(element),
+      overflow = _getStyleComputedProp.overflow,
+      overflowX = _getStyleComputedProp.overflowX,
+      overflowY = _getStyleComputedProp.overflowY;
+
+  if (/(auto|scroll)/.test(overflow + overflowY + overflowX)) {
+    return element;
+  }
+
+  return getScrollParent(getParentNode(element));
+}
+
+/**
+ * Returns the offset parent of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} offset parent
+ */
+function getOffsetParent(element) {
+  // NOTE: 1 DOM access here
+  var offsetParent = element && element.offsetParent;
+  var nodeName = offsetParent && offsetParent.nodeName;
+
+  if (!nodeName || nodeName === 'BODY' || nodeName === 'HTML') {
+    if (element) {
+      return element.ownerDocument.documentElement;
+    }
+
+    return document.documentElement;
+  }
+
+  // .offsetParent will return the closest TD or TABLE in case
+  // no offsetParent is present, I hate this job...
+  if (['TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, 'position') === 'static') {
+    return getOffsetParent(offsetParent);
+  }
+
+  return offsetParent;
+}
+
+function isOffsetContainer(element) {
+  var nodeName = element.nodeName;
+
+  if (nodeName === 'BODY') {
+    return false;
+  }
+  return nodeName === 'HTML' || getOffsetParent(element.firstElementChild) === element;
+}
+
+/**
+ * Finds the root node (document, shadowDOM root) of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} node
+ * @returns {Element} root node
+ */
+function getRoot(node) {
+  if (node.parentNode !== null) {
+    return getRoot(node.parentNode);
+  }
+
+  return node;
+}
+
+/**
+ * Finds the offset parent common to the two provided nodes
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element1
+ * @argument {Element} element2
+ * @returns {Element} common offset parent
+ */
+function findCommonOffsetParent(element1, element2) {
+  // This check is needed to avoid errors in case one of the elements isn't defined for any reason
+  if (!element1 || !element1.nodeType || !element2 || !element2.nodeType) {
+    return document.documentElement;
+  }
+
+  // Here we make sure to give as "start" the element that comes first in the DOM
+  var order = element1.compareDocumentPosition(element2) & Node.DOCUMENT_POSITION_FOLLOWING;
+  var start = order ? element1 : element2;
+  var end = order ? element2 : element1;
+
+  // Get common ancestor container
+  var range = document.createRange();
+  range.setStart(start, 0);
+  range.setEnd(end, 0);
+  var commonAncestorContainer = range.commonAncestorContainer;
+
+  // Both nodes are inside #document
+
+  if (element1 !== commonAncestorContainer && element2 !== commonAncestorContainer || start.contains(end)) {
+    if (isOffsetContainer(commonAncestorContainer)) {
+      return commonAncestorContainer;
+    }
+
+    return getOffsetParent(commonAncestorContainer);
+  }
+
+  // one of the nodes is inside shadowDOM, find which one
+  var element1root = getRoot(element1);
+  if (element1root.host) {
+    return findCommonOffsetParent(element1root.host, element2);
+  } else {
+    return findCommonOffsetParent(element1, getRoot(element2).host);
+  }
+}
+
+/**
+ * Gets the scroll value of the given element in the given side (top and left)
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @argument {String} side `top` or `left`
+ * @returns {number} amount of scrolled pixels
+ */
+function getScroll(element) {
+  var side = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'top';
+
+  var upperSide = side === 'top' ? 'scrollTop' : 'scrollLeft';
+  var nodeName = element.nodeName;
+
+  if (nodeName === 'BODY' || nodeName === 'HTML') {
+    var html = element.ownerDocument.documentElement;
+    var scrollingElement = element.ownerDocument.scrollingElement || html;
+    return scrollingElement[upperSide];
+  }
+
+  return element[upperSide];
+}
+
+/*
+ * Sum or subtract the element scroll values (left and top) from a given rect object
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} rect - Rect object you want to change
+ * @param {HTMLElement} element - The element from the function reads the scroll values
+ * @param {Boolean} subtract - set to true if you want to subtract the scroll values
+ * @return {Object} rect - The modifier rect object
+ */
+function includeScroll(rect, element) {
+  var subtract = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  var scrollTop = getScroll(element, 'top');
+  var scrollLeft = getScroll(element, 'left');
+  var modifier = subtract ? -1 : 1;
+  rect.top += scrollTop * modifier;
+  rect.bottom += scrollTop * modifier;
+  rect.left += scrollLeft * modifier;
+  rect.right += scrollLeft * modifier;
+  return rect;
+}
+
+/*
+ * Helper to detect borders of a given element
+ * @method
+ * @memberof Popper.Utils
+ * @param {CSSStyleDeclaration} styles
+ * Result of `getStyleComputedProperty` on the given element
+ * @param {String} axis - `x` or `y`
+ * @return {number} borders - The borders size of the given axis
+ */
+
+function getBordersSize(styles, axis) {
+  var sideA = axis === 'x' ? 'Left' : 'Top';
+  var sideB = sideA === 'Left' ? 'Right' : 'Bottom';
+
+  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);
+}
+
+/**
+ * Tells if you are running Internet Explorer 10
+ * @method
+ * @memberof Popper.Utils
+ * @returns {Boolean} isIE10
+ */
+var isIE10 = undefined;
+
+var isIE10$1 = function () {
+  if (isIE10 === undefined) {
+    isIE10 = navigator.appVersion.indexOf('MSIE 10') !== -1;
+  }
+  return isIE10;
+};
+
+function getSize(axis, body, html, computedStyle) {
+  return Math.max(body['offset' + axis], body['scroll' + axis], html['client' + axis], html['offset' + axis], html['scroll' + axis], isIE10$1() ? html['offset' + axis] + computedStyle['margin' + (axis === 'Height' ? 'Top' : 'Left')] + computedStyle['margin' + (axis === 'Height' ? 'Bottom' : 'Right')] : 0);
+}
+
+function getWindowSizes() {
+  var body = document.body;
+  var html = document.documentElement;
+  var computedStyle = isIE10$1() && getComputedStyle(html);
+
+  return {
+    height: getSize('Height', body, html, computedStyle),
+    width: getSize('Width', body, html, computedStyle)
+  };
+}
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+
+
+
+
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+/**
+ * Given element offsets, generate an output similar to getBoundingClientRect
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Object} offsets
+ * @returns {Object} ClientRect like output
+ */
+function getClientRect(offsets) {
+  return _extends({}, offsets, {
+    right: offsets.left + offsets.width,
+    bottom: offsets.top + offsets.height
+  });
+}
+
+/**
+ * Get bounding client rect of given element
+ * @method
+ * @memberof Popper.Utils
+ * @param {HTMLElement} element
+ * @return {Object} client rect
+ */
+function getBoundingClientRect(element) {
+  var rect = {};
+
+  // IE10 10 FIX: Please, don't ask, the element isn't
+  // considered in DOM in some circumstances...
+  // This isn't reproducible in IE10 compatibility mode of IE11
+  if (isIE10$1()) {
+    try {
+      rect = element.getBoundingClientRect();
+      var scrollTop = getScroll(element, 'top');
+      var scrollLeft = getScroll(element, 'left');
+      rect.top += scrollTop;
+      rect.left += scrollLeft;
+      rect.bottom += scrollTop;
+      rect.right += scrollLeft;
+    } catch (err) {}
+  } else {
+    rect = element.getBoundingClientRect();
+  }
+
+  var result = {
+    left: rect.left,
+    top: rect.top,
+    width: rect.right - rect.left,
+    height: rect.bottom - rect.top
+  };
+
+  // subtract scrollbar size from sizes
+  var sizes = element.nodeName === 'HTML' ? getWindowSizes() : {};
+  var width = sizes.width || element.clientWidth || result.right - result.left;
+  var height = sizes.height || element.clientHeight || result.bottom - result.top;
+
+  var horizScrollbar = element.offsetWidth - width;
+  var vertScrollbar = element.offsetHeight - height;
+
+  // if an hypothetical scrollbar is detected, we must be sure it's not a `border`
+  // we make this check conditional for performance reasons
+  if (horizScrollbar || vertScrollbar) {
+    var styles = getStyleComputedProperty(element);
+    horizScrollbar -= getBordersSize(styles, 'x');
+    vertScrollbar -= getBordersSize(styles, 'y');
+
+    result.width -= horizScrollbar;
+    result.height -= vertScrollbar;
+  }
+
+  return getClientRect(result);
+}
+
+function getOffsetRectRelativeToArbitraryNode(children, parent) {
+  var isIE10 = isIE10$1();
+  var isHTML = parent.nodeName === 'HTML';
+  var childrenRect = getBoundingClientRect(children);
+  var parentRect = getBoundingClientRect(parent);
+  var scrollParent = getScrollParent(children);
+
+  var styles = getStyleComputedProperty(parent);
+  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
+  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
+
+  var offsets = getClientRect({
+    top: childrenRect.top - parentRect.top - borderTopWidth,
+    left: childrenRect.left - parentRect.left - borderLeftWidth,
+    width: childrenRect.width,
+    height: childrenRect.height
+  });
+  offsets.marginTop = 0;
+  offsets.marginLeft = 0;
+
+  // Subtract margins of documentElement in case it's being used as parent
+  // we do this only on HTML because it's the only element that behaves
+  // differently when margins are applied to it. The margins are included in
+  // the box of the documentElement, in the other cases not.
+  if (!isIE10 && isHTML) {
+    var marginTop = parseFloat(styles.marginTop, 10);
+    var marginLeft = parseFloat(styles.marginLeft, 10);
+
+    offsets.top -= borderTopWidth - marginTop;
+    offsets.bottom -= borderTopWidth - marginTop;
+    offsets.left -= borderLeftWidth - marginLeft;
+    offsets.right -= borderLeftWidth - marginLeft;
+
+    // Attach marginTop and marginLeft because in some circumstances we may need them
+    offsets.marginTop = marginTop;
+    offsets.marginLeft = marginLeft;
+  }
+
+  if (isIE10 ? parent.contains(scrollParent) : parent === scrollParent && scrollParent.nodeName !== 'BODY') {
+    offsets = includeScroll(offsets, parent);
+  }
+
+  return offsets;
+}
+
+function getViewportOffsetRectRelativeToArtbitraryNode(element) {
+  var html = element.ownerDocument.documentElement;
+  var relativeOffset = getOffsetRectRelativeToArbitraryNode(element, html);
+  var width = Math.max(html.clientWidth, window.innerWidth || 0);
+  var height = Math.max(html.clientHeight, window.innerHeight || 0);
+
+  var scrollTop = getScroll(html);
+  var scrollLeft = getScroll(html, 'left');
+
+  var offset = {
+    top: scrollTop - relativeOffset.top + relativeOffset.marginTop,
+    left: scrollLeft - relativeOffset.left + relativeOffset.marginLeft,
+    width: width,
+    height: height
+  };
+
+  return getClientRect(offset);
+}
+
+/**
+ * Check if the given element is fixed or is inside a fixed parent
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @argument {Element} customContainer
+ * @returns {Boolean} answer to "isFixed?"
+ */
+function isFixed(element) {
+  var nodeName = element.nodeName;
+  if (nodeName === 'BODY' || nodeName === 'HTML') {
+    return false;
+  }
+  if (getStyleComputedProperty(element, 'position') === 'fixed') {
+    return true;
+  }
+  return isFixed(getParentNode(element));
+}
+
+/**
+ * Computed the boundaries limits and return them
+ * @method
+ * @memberof Popper.Utils
+ * @param {HTMLElement} popper
+ * @param {HTMLElement} reference
+ * @param {number} padding
+ * @param {HTMLElement} boundariesElement - Element used to define the boundaries
+ * @returns {Object} Coordinates of the boundaries
+ */
+function getBoundaries(popper, reference, padding, boundariesElement) {
+  // NOTE: 1 DOM access here
+  var boundaries = { top: 0, left: 0 };
+  var offsetParent = findCommonOffsetParent(popper, reference);
+
+  // Handle viewport case
+  if (boundariesElement === 'viewport') {
+    boundaries = getViewportOffsetRectRelativeToArtbitraryNode(offsetParent);
+  } else {
+    // Handle other cases based on DOM element used as boundaries
+    var boundariesNode = void 0;
+    if (boundariesElement === 'scrollParent') {
+      boundariesNode = getScrollParent(getParentNode(reference));
+      if (boundariesNode.nodeName === 'BODY') {
+        boundariesNode = popper.ownerDocument.documentElement;
+      }
+    } else if (boundariesElement === 'window') {
+      boundariesNode = popper.ownerDocument.documentElement;
+    } else {
+      boundariesNode = boundariesElement;
+    }
+
+    var offsets = getOffsetRectRelativeToArbitraryNode(boundariesNode, offsetParent);
+
+    // In case of HTML, we need a different computation
+    if (boundariesNode.nodeName === 'HTML' && !isFixed(offsetParent)) {
+      var _getWindowSizes = getWindowSizes(),
+          height = _getWindowSizes.height,
+          width = _getWindowSizes.width;
+
+      boundaries.top += offsets.top - offsets.marginTop;
+      boundaries.bottom = height + offsets.top;
+      boundaries.left += offsets.left - offsets.marginLeft;
+      boundaries.right = width + offsets.left;
+    } else {
+      // for all the other DOM elements, this one is good
+      boundaries = offsets;
+    }
+  }
+
+  // Add paddings
+  boundaries.left += padding;
+  boundaries.top += padding;
+  boundaries.right -= padding;
+  boundaries.bottom -= padding;
+
+  return boundaries;
+}
+
+function getArea(_ref) {
+  var width = _ref.width,
+      height = _ref.height;
+
+  return width * height;
+}
+
+/**
+ * Utility used to transform the `auto` placement to the placement with more
+ * available space.
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function computeAutoPlacement(placement, refRect, popper, reference, boundariesElement) {
+  var padding = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
+
+  if (placement.indexOf('auto') === -1) {
+    return placement;
+  }
+
+  var boundaries = getBoundaries(popper, reference, padding, boundariesElement);
+
+  var rects = {
+    top: {
+      width: boundaries.width,
+      height: refRect.top - boundaries.top
+    },
+    right: {
+      width: boundaries.right - refRect.right,
+      height: boundaries.height
+    },
+    bottom: {
+      width: boundaries.width,
+      height: boundaries.bottom - refRect.bottom
+    },
+    left: {
+      width: refRect.left - boundaries.left,
+      height: boundaries.height
+    }
+  };
+
+  var sortedAreas = Object.keys(rects).map(function (key) {
+    return _extends({
+      key: key
+    }, rects[key], {
+      area: getArea(rects[key])
+    });
+  }).sort(function (a, b) {
+    return b.area - a.area;
+  });
+
+  var filteredAreas = sortedAreas.filter(function (_ref2) {
+    var width = _ref2.width,
+        height = _ref2.height;
+    return width >= popper.clientWidth && height >= popper.clientHeight;
+  });
+
+  var computedPlacement = filteredAreas.length > 0 ? filteredAreas[0].key : sortedAreas[0].key;
+
+  var variation = placement.split('-')[1];
+
+  return computedPlacement + (variation ? '-' + variation : '');
+}
+
+/**
+ * Get offsets to the reference element
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} state
+ * @param {Element} popper - the popper element
+ * @param {Element} reference - the reference element (the popper will be relative to this)
+ * @returns {Object} An object containing the offsets which will be applied to the popper
+ */
+function getReferenceOffsets(state, popper, reference) {
+  var commonOffsetParent = findCommonOffsetParent(popper, reference);
+  return getOffsetRectRelativeToArbitraryNode(reference, commonOffsetParent);
+}
+
+/**
+ * Get the outer sizes of the given element (offset size + margins)
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Object} object containing width and height properties
+ */
+function getOuterSizes(element) {
+  var styles = getComputedStyle(element);
+  var x = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
+  var y = parseFloat(styles.marginLeft) + parseFloat(styles.marginRight);
+  var result = {
+    width: element.offsetWidth + y,
+    height: element.offsetHeight + x
+  };
+  return result;
+}
+
+/**
+ * Get the opposite placement of the given one
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement
+ * @returns {String} flipped placement
+ */
+function getOppositePlacement(placement) {
+  var hash = { left: 'right', right: 'left', bottom: 'top', top: 'bottom' };
+  return placement.replace(/left|right|bottom|top/g, function (matched) {
+    return hash[matched];
+  });
+}
+
+/**
+ * Get offsets to the popper
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} position - CSS position the Popper will get applied
+ * @param {HTMLElement} popper - the popper element
+ * @param {Object} referenceOffsets - the reference offsets (the popper will be relative to this)
+ * @param {String} placement - one of the valid placement options
+ * @returns {Object} popperOffsets - An object containing the offsets which will be applied to the popper
+ */
+function getPopperOffsets(popper, referenceOffsets, placement) {
+  placement = placement.split('-')[0];
+
+  // Get popper node sizes
+  var popperRect = getOuterSizes(popper);
+
+  // Add position, width and height to our offsets object
+  var popperOffsets = {
+    width: popperRect.width,
+    height: popperRect.height
+  };
+
+  // depending by the popper placement we have to compute its offsets slightly differently
+  var isHoriz = ['right', 'left'].indexOf(placement) !== -1;
+  var mainSide = isHoriz ? 'top' : 'left';
+  var secondarySide = isHoriz ? 'left' : 'top';
+  var measurement = isHoriz ? 'height' : 'width';
+  var secondaryMeasurement = !isHoriz ? 'height' : 'width';
+
+  popperOffsets[mainSide] = referenceOffsets[mainSide] + referenceOffsets[measurement] / 2 - popperRect[measurement] / 2;
+  if (placement === secondarySide) {
+    popperOffsets[secondarySide] = referenceOffsets[secondarySide] - popperRect[secondaryMeasurement];
+  } else {
+    popperOffsets[secondarySide] = referenceOffsets[getOppositePlacement(secondarySide)];
+  }
+
+  return popperOffsets;
+}
+
+/**
+ * Mimics the `find` method of Array
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Array} arr
+ * @argument prop
+ * @argument value
+ * @returns index or -1
+ */
+function find(arr, check) {
+  // use native find if supported
+  if (Array.prototype.find) {
+    return arr.find(check);
+  }
+
+  // use `filter` to obtain the same behavior of `find`
+  return arr.filter(check)[0];
+}
+
+/**
+ * Return the index of the matching object
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Array} arr
+ * @argument prop
+ * @argument value
+ * @returns index or -1
+ */
+function findIndex(arr, prop, value) {
+  // use native findIndex if supported
+  if (Array.prototype.findIndex) {
+    return arr.findIndex(function (cur) {
+      return cur[prop] === value;
+    });
+  }
+
+  // use `find` + `indexOf` if `findIndex` isn't supported
+  var match = find(arr, function (obj) {
+    return obj[prop] === value;
+  });
+  return arr.indexOf(match);
+}
+
+/**
+ * Loop trough the list of modifiers and run them in order,
+ * each of them will then edit the data object.
+ * @method
+ * @memberof Popper.Utils
+ * @param {dataObject} data
+ * @param {Array} modifiers
+ * @param {String} ends - Optional modifier name used as stopper
+ * @returns {dataObject}
+ */
+function runModifiers(modifiers, data, ends) {
+  var modifiersToRun = ends === undefined ? modifiers : modifiers.slice(0, findIndex(modifiers, 'name', ends));
+
+  modifiersToRun.forEach(function (modifier) {
+    if (modifier['function']) {
+      // eslint-disable-line dot-notation
+      console.warn('`modifier.function` is deprecated, use `modifier.fn`!');
+    }
+    var fn = modifier['function'] || modifier.fn; // eslint-disable-line dot-notation
+    if (modifier.enabled && isFunction(fn)) {
+      // Add properties to offsets to make them a complete clientRect object
+      // we do this before each modifier to make sure the previous one doesn't
+      // mess with these values
+      data.offsets.popper = getClientRect(data.offsets.popper);
+      data.offsets.reference = getClientRect(data.offsets.reference);
+
+      data = fn(data, modifier);
+    }
+  });
+
+  return data;
+}
+
+/**
+ * Updates the position of the popper, computing the new offsets and applying
+ * the new style.<br />
+ * Prefer `scheduleUpdate` over `update` because of performance reasons.
+ * @method
+ * @memberof Popper
+ */
+function update() {
+  // if popper is destroyed, don't perform any further update
+  if (this.state.isDestroyed) {
+    return;
+  }
+
+  var data = {
+    instance: this,
+    styles: {},
+    arrowStyles: {},
+    attributes: {},
+    flipped: false,
+    offsets: {}
+  };
+
+  // compute reference element offsets
+  data.offsets.reference = getReferenceOffsets(this.state, this.popper, this.reference);
+
+  // compute auto placement, store placement inside the data object,
+  // modifiers will be able to edit `placement` if needed
+  // and refer to originalPlacement to know the original value
+  data.placement = computeAutoPlacement(this.options.placement, data.offsets.reference, this.popper, this.reference, this.options.modifiers.flip.boundariesElement, this.options.modifiers.flip.padding);
+
+  // store the computed placement inside `originalPlacement`
+  data.originalPlacement = data.placement;
+
+  // compute the popper offsets
+  data.offsets.popper = getPopperOffsets(this.popper, data.offsets.reference, data.placement);
+  data.offsets.popper.position = 'absolute';
+
+  // run the modifiers
+  data = runModifiers(this.modifiers, data);
+
+  // the first `update` will call `onCreate` callback
+  // the other ones will call `onUpdate` callback
+  if (!this.state.isCreated) {
+    this.state.isCreated = true;
+    this.options.onCreate(data);
+  } else {
+    this.options.onUpdate(data);
+  }
+}
+
+/**
+ * Helper used to know if the given modifier is enabled.
+ * @method
+ * @memberof Popper.Utils
+ * @returns {Boolean}
+ */
+function isModifierEnabled(modifiers, modifierName) {
+  return modifiers.some(function (_ref) {
+    var name = _ref.name,
+        enabled = _ref.enabled;
+    return enabled && name === modifierName;
+  });
+}
+
+/**
+ * Get the prefixed supported property name
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} property (camelCase)
+ * @returns {String} prefixed property (camelCase or PascalCase, depending on the vendor prefix)
+ */
+function getSupportedPropertyName(property) {
+  var prefixes = [false, 'ms', 'Webkit', 'Moz', 'O'];
+  var upperProp = property.charAt(0).toUpperCase() + property.slice(1);
+
+  for (var i = 0; i < prefixes.length - 1; i++) {
+    var prefix = prefixes[i];
+    var toCheck = prefix ? '' + prefix + upperProp : property;
+    if (typeof document.body.style[toCheck] !== 'undefined') {
+      return toCheck;
+    }
+  }
+  return null;
+}
+
+/**
+ * Destroy the popper
+ * @method
+ * @memberof Popper
+ */
+function destroy() {
+  this.state.isDestroyed = true;
+
+  // touch DOM only if `applyStyle` modifier is enabled
+  if (isModifierEnabled(this.modifiers, 'applyStyle')) {
+    this.popper.removeAttribute('x-placement');
+    this.popper.style.left = '';
+    this.popper.style.position = '';
+    this.popper.style.top = '';
+    this.popper.style[getSupportedPropertyName('transform')] = '';
+  }
+
+  this.disableEventListeners();
+
+  // remove the popper if user explicity asked for the deletion on destroy
+  // do not use `remove` because IE11 doesn't support it
+  if (this.options.removeOnDestroy) {
+    this.popper.parentNode.removeChild(this.popper);
+  }
+  return this;
+}
+
+/**
+ * Get the window associated with the element
+ * @argument {Element} element
+ * @returns {Window}
+ */
+function getWindow(element) {
+  var ownerDocument = element.ownerDocument;
+  return ownerDocument ? ownerDocument.defaultView : window;
+}
+
+function attachToScrollParents(scrollParent, event, callback, scrollParents) {
+  var isBody = scrollParent.nodeName === 'BODY';
+  var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;
+  target.addEventListener(event, callback, { passive: true });
+
+  if (!isBody) {
+    attachToScrollParents(getScrollParent(target.parentNode), event, callback, scrollParents);
+  }
+  scrollParents.push(target);
+}
+
+/**
+ * Setup needed event listeners used to update the popper position
+ * @method
+ * @memberof Popper.Utils
+ * @private
+ */
+function setupEventListeners(reference, options, state, updateBound) {
+  // Resize event listener on window
+  state.updateBound = updateBound;
+  getWindow(reference).addEventListener('resize', state.updateBound, { passive: true });
+
+  // Scroll event listener on scroll parents
+  var scrollElement = getScrollParent(reference);
+  attachToScrollParents(scrollElement, 'scroll', state.updateBound, state.scrollParents);
+  state.scrollElement = scrollElement;
+  state.eventsEnabled = true;
+
+  return state;
+}
+
+/**
+ * It will add resize/scroll events and start recalculating
+ * position of the popper element when they are triggered.
+ * @method
+ * @memberof Popper
+ */
+function enableEventListeners() {
+  if (!this.state.eventsEnabled) {
+    this.state = setupEventListeners(this.reference, this.options, this.state, this.scheduleUpdate);
+  }
+}
+
+/**
+ * Remove event listeners used to update the popper position
+ * @method
+ * @memberof Popper.Utils
+ * @private
+ */
+function removeEventListeners(reference, state) {
+  // Remove resize event listener on window
+  getWindow(reference).removeEventListener('resize', state.updateBound);
+
+  // Remove scroll event listener on scroll parents
+  state.scrollParents.forEach(function (target) {
+    target.removeEventListener('scroll', state.updateBound);
+  });
+
+  // Reset state
+  state.updateBound = null;
+  state.scrollParents = [];
+  state.scrollElement = null;
+  state.eventsEnabled = false;
+  return state;
+}
+
+/**
+ * It will remove resize/scroll events and won't recalculate popper position
+ * when they are triggered. It also won't trigger onUpdate callback anymore,
+ * unless you call `update` method manually.
+ * @method
+ * @memberof Popper
+ */
+function disableEventListeners() {
+  if (this.state.eventsEnabled) {
+    cancelAnimationFrame(this.scheduleUpdate);
+    this.state = removeEventListeners(this.reference, this.state);
+  }
+}
+
+/**
+ * Tells if a given input is a number
+ * @method
+ * @memberof Popper.Utils
+ * @param {*} input to check
+ * @return {Boolean}
+ */
+function isNumeric(n) {
+  return n !== '' && !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+/**
+ * Set the style to the given popper
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element - Element to apply the style to
+ * @argument {Object} styles
+ * Object with a list of properties and values which will be applied to the element
+ */
+function setStyles(element, styles) {
+  Object.keys(styles).forEach(function (prop) {
+    var unit = '';
+    // add unit if the value is numeric and is one of the following
+    if (['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !== -1 && isNumeric(styles[prop])) {
+      unit = 'px';
+    }
+    element.style[prop] = styles[prop] + unit;
+  });
+}
+
+/**
+ * Set the attributes to the given popper
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element - Element to apply the attributes to
+ * @argument {Object} styles
+ * Object with a list of properties and values which will be applied to the element
+ */
+function setAttributes(element, attributes) {
+  Object.keys(attributes).forEach(function (prop) {
+    var value = attributes[prop];
+    if (value !== false) {
+      element.setAttribute(prop, attributes[prop]);
+    } else {
+      element.removeAttribute(prop);
+    }
+  });
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} data.styles - List of style properties - values to apply to popper element
+ * @argument {Object} data.attributes - List of attribute properties - values to apply to popper element
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The same data object
+ */
+function applyStyle(data) {
+  // any property present in `data.styles` will be applied to the popper,
+  // in this way we can make the 3rd party modifiers add custom styles to it
+  // Be aware, modifiers could override the properties defined in the previous
+  // lines of this modifier!
+  setStyles(data.instance.popper, data.styles);
+
+  // any property present in `data.attributes` will be applied to the popper,
+  // they will be set as HTML attributes of the element
+  setAttributes(data.instance.popper, data.attributes);
+
+  // if arrowElement is defined and arrowStyles has some properties
+  if (data.arrowElement && Object.keys(data.arrowStyles).length) {
+    setStyles(data.arrowElement, data.arrowStyles);
+  }
+
+  return data;
+}
+
+/**
+ * Set the x-placement attribute before everything else because it could be used
+ * to add margins to the popper margins needs to be calculated to get the
+ * correct popper offsets.
+ * @method
+ * @memberof Popper.modifiers
+ * @param {HTMLElement} reference - The reference element used to position the popper
+ * @param {HTMLElement} popper - The HTML element used as popper.
+ * @param {Object} options - Popper.js options
+ */
+function applyStyleOnLoad(reference, popper, options, modifierOptions, state) {
+  // compute reference element offsets
+  var referenceOffsets = getReferenceOffsets(state, popper, reference);
+
+  // compute auto placement, store placement inside the data object,
+  // modifiers will be able to edit `placement` if needed
+  // and refer to originalPlacement to know the original value
+  var placement = computeAutoPlacement(options.placement, referenceOffsets, popper, reference, options.modifiers.flip.boundariesElement, options.modifiers.flip.padding);
+
+  popper.setAttribute('x-placement', placement);
+
+  // Apply `position` to popper before anything else because
+  // without the position applied we can't guarantee correct computations
+  setStyles(popper, { position: 'absolute' });
+
+  return options;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function computeStyle(data, options) {
+  var x = options.x,
+      y = options.y;
+  var popper = data.offsets.popper;
+
+  // Remove this legacy support in Popper.js v2
+
+  var legacyGpuAccelerationOption = find(data.instance.modifiers, function (modifier) {
+    return modifier.name === 'applyStyle';
+  }).gpuAcceleration;
+  if (legacyGpuAccelerationOption !== undefined) {
+    console.warn('WARNING: `gpuAcceleration` option moved to `computeStyle` modifier and will not be supported in future versions of Popper.js!');
+  }
+  var gpuAcceleration = legacyGpuAccelerationOption !== undefined ? legacyGpuAccelerationOption : options.gpuAcceleration;
+
+  var offsetParent = getOffsetParent(data.instance.popper);
+  var offsetParentRect = getBoundingClientRect(offsetParent);
+
+  // Styles
+  var styles = {
+    position: popper.position
+  };
+
+  // floor sides to avoid blurry text
+  var offsets = {
+    left: Math.floor(popper.left),
+    top: Math.floor(popper.top),
+    bottom: Math.floor(popper.bottom),
+    right: Math.floor(popper.right)
+  };
+
+  var sideA = x === 'bottom' ? 'top' : 'bottom';
+  var sideB = y === 'right' ? 'left' : 'right';
+
+  // if gpuAcceleration is set to `true` and transform is supported,
+  //  we use `translate3d` to apply the position to the popper we
+  // automatically use the supported prefixed version if needed
+  var prefixedProperty = getSupportedPropertyName('transform');
+
+  // now, let's make a step back and look at this code closely (wtf?)
+  // If the content of the popper grows once it's been positioned, it
+  // may happen that the popper gets misplaced because of the new content
+  // overflowing its reference element
+  // To avoid this problem, we provide two options (x and y), which allow
+  // the consumer to define the offset origin.
+  // If we position a popper on top of a reference element, we can set
+  // `x` to `top` to make the popper grow towards its top instead of
+  // its bottom.
+  var left = void 0,
+      top = void 0;
+  if (sideA === 'bottom') {
+    top = -offsetParentRect.height + offsets.bottom;
+  } else {
+    top = offsets.top;
+  }
+  if (sideB === 'right') {
+    left = -offsetParentRect.width + offsets.right;
+  } else {
+    left = offsets.left;
+  }
+  if (gpuAcceleration && prefixedProperty) {
+    styles[prefixedProperty] = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
+    styles[sideA] = 0;
+    styles[sideB] = 0;
+    styles.willChange = 'transform';
+  } else {
+    // othwerise, we use the standard `top`, `left`, `bottom` and `right` properties
+    var invertTop = sideA === 'bottom' ? -1 : 1;
+    var invertLeft = sideB === 'right' ? -1 : 1;
+    styles[sideA] = top * invertTop;
+    styles[sideB] = left * invertLeft;
+    styles.willChange = sideA + ', ' + sideB;
+  }
+
+  // Attributes
+  var attributes = {
+    'x-placement': data.placement
+  };
+
+  // Update `data` attributes, styles and arrowStyles
+  data.attributes = _extends({}, attributes, data.attributes);
+  data.styles = _extends({}, styles, data.styles);
+  data.arrowStyles = _extends({}, data.offsets.arrow, data.arrowStyles);
+
+  return data;
+}
+
+/**
+ * Helper used to know if the given modifier depends from another one.<br />
+ * It checks if the needed modifier is listed and enabled.
+ * @method
+ * @memberof Popper.Utils
+ * @param {Array} modifiers - list of modifiers
+ * @param {String} requestingName - name of requesting modifier
+ * @param {String} requestedName - name of requested modifier
+ * @returns {Boolean}
+ */
+function isModifierRequired(modifiers, requestingName, requestedName) {
+  var requesting = find(modifiers, function (_ref) {
+    var name = _ref.name;
+    return name === requestingName;
+  });
+
+  var isRequired = !!requesting && modifiers.some(function (modifier) {
+    return modifier.name === requestedName && modifier.enabled && modifier.order < requesting.order;
+  });
+
+  if (!isRequired) {
+    var _requesting = '`' + requestingName + '`';
+    var requested = '`' + requestedName + '`';
+    console.warn(requested + ' modifier is required by ' + _requesting + ' modifier in order to work, be sure to include it before ' + _requesting + '!');
+  }
+  return isRequired;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function arrow(data, options) {
+  var _data$offsets$arrow;
+
+  // arrow depends on keepTogether in order to work
+  if (!isModifierRequired(data.instance.modifiers, 'arrow', 'keepTogether')) {
+    return data;
+  }
+
+  var arrowElement = options.element;
+
+  // if arrowElement is a string, suppose it's a CSS selector
+  if (typeof arrowElement === 'string') {
+    arrowElement = data.instance.popper.querySelector(arrowElement);
+
+    // if arrowElement is not found, don't run the modifier
+    if (!arrowElement) {
+      return data;
+    }
+  } else {
+    // if the arrowElement isn't a query selector we must check that the
+    // provided DOM node is child of its popper node
+    if (!data.instance.popper.contains(arrowElement)) {
+      console.warn('WARNING: `arrow.element` must be child of its popper element!');
+      return data;
+    }
+  }
+
+  var placement = data.placement.split('-')[0];
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var isVertical = ['left', 'right'].indexOf(placement) !== -1;
+
+  var len = isVertical ? 'height' : 'width';
+  var sideCapitalized = isVertical ? 'Top' : 'Left';
+  var side = sideCapitalized.toLowerCase();
+  var altSide = isVertical ? 'left' : 'top';
+  var opSide = isVertical ? 'bottom' : 'right';
+  var arrowElementSize = getOuterSizes(arrowElement)[len];
+
+  //
+  // extends keepTogether behavior making sure the popper and its
+  // reference have enough pixels in conjuction
+  //
+
+  // top/left side
+  if (reference[opSide] - arrowElementSize < popper[side]) {
+    data.offsets.popper[side] -= popper[side] - (reference[opSide] - arrowElementSize);
+  }
+  // bottom/right side
+  if (reference[side] + arrowElementSize > popper[opSide]) {
+    data.offsets.popper[side] += reference[side] + arrowElementSize - popper[opSide];
+  }
+  data.offsets.popper = getClientRect(data.offsets.popper);
+
+  // compute center of the popper
+  var center = reference[side] + reference[len] / 2 - arrowElementSize / 2;
+
+  // Compute the sideValue using the updated popper offsets
+  // take popper margin in account because we don't have this info available
+  var css = getStyleComputedProperty(data.instance.popper);
+  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
+  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
+  var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
+
+  // prevent arrowElement from being placed not contiguously to its popper
+  sideValue = Math.max(Math.min(popper[len] - arrowElementSize, sideValue), 0);
+
+  data.arrowElement = arrowElement;
+  data.offsets.arrow = (_data$offsets$arrow = {}, defineProperty(_data$offsets$arrow, side, Math.round(sideValue)), defineProperty(_data$offsets$arrow, altSide, ''), _data$offsets$arrow);
+
+  return data;
+}
+
+/**
+ * Get the opposite placement variation of the given one
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement variation
+ * @returns {String} flipped placement variation
+ */
+function getOppositeVariation(variation) {
+  if (variation === 'end') {
+    return 'start';
+  } else if (variation === 'start') {
+    return 'end';
+  }
+  return variation;
+}
+
+/**
+ * List of accepted placements to use as values of the `placement` option.<br />
+ * Valid placements are:
+ * - `auto`
+ * - `top`
+ * - `right`
+ * - `bottom`
+ * - `left`
+ *
+ * Each placement can have a variation from this list:
+ * - `-start`
+ * - `-end`
+ *
+ * Variations are interpreted easily if you think of them as the left to right
+ * written languages. Horizontally (`top` and `bottom`), `start` is left and `end`
+ * is right.<br />
+ * Vertically (`left` and `right`), `start` is top and `end` is bottom.
+ *
+ * Some valid examples are:
+ * - `top-end` (on top of reference, right aligned)
+ * - `right-start` (on right of reference, top aligned)
+ * - `bottom` (on bottom, centered)
+ * - `auto-right` (on the side with more space available, alignment depends by placement)
+ *
+ * @static
+ * @type {Array}
+ * @enum {String}
+ * @readonly
+ * @method placements
+ * @memberof Popper
+ */
+var placements = ['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start'];
+
+// Get rid of `auto` `auto-start` and `auto-end`
+var validPlacements = placements.slice(3);
+
+/**
+ * Given an initial placement, returns all the subsequent placements
+ * clockwise (or counter-clockwise).
+ *
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement - A valid placement (it accepts variations)
+ * @argument {Boolean} counter - Set to true to walk the placements counterclockwise
+ * @returns {Array} placements including their variations
+ */
+function clockwise(placement) {
+  var counter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  var index = validPlacements.indexOf(placement);
+  var arr = validPlacements.slice(index + 1).concat(validPlacements.slice(0, index));
+  return counter ? arr.reverse() : arr;
+}
+
+var BEHAVIORS = {
+  FLIP: 'flip',
+  CLOCKWISE: 'clockwise',
+  COUNTERCLOCKWISE: 'counterclockwise'
+};
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function flip(data, options) {
+  // if `inner` modifier is enabled, we can't use the `flip` modifier
+  if (isModifierEnabled(data.instance.modifiers, 'inner')) {
+    return data;
+  }
+
+  if (data.flipped && data.placement === data.originalPlacement) {
+    // seems like flip is trying to loop, probably there's not enough space on any of the flippable sides
+    return data;
+  }
+
+  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, options.boundariesElement);
+
+  var placement = data.placement.split('-')[0];
+  var placementOpposite = getOppositePlacement(placement);
+  var variation = data.placement.split('-')[1] || '';
+
+  var flipOrder = [];
+
+  switch (options.behavior) {
+    case BEHAVIORS.FLIP:
+      flipOrder = [placement, placementOpposite];
+      break;
+    case BEHAVIORS.CLOCKWISE:
+      flipOrder = clockwise(placement);
+      break;
+    case BEHAVIORS.COUNTERCLOCKWISE:
+      flipOrder = clockwise(placement, true);
+      break;
+    default:
+      flipOrder = options.behavior;
+  }
+
+  flipOrder.forEach(function (step, index) {
+    if (placement !== step || flipOrder.length === index + 1) {
+      return data;
+    }
+
+    placement = data.placement.split('-')[0];
+    placementOpposite = getOppositePlacement(placement);
+
+    var popperOffsets = data.offsets.popper;
+    var refOffsets = data.offsets.reference;
+
+    // using floor because the reference offsets may contain decimals we are not going to consider here
+    var floor = Math.floor;
+    var overlapsRef = placement === 'left' && floor(popperOffsets.right) > floor(refOffsets.left) || placement === 'right' && floor(popperOffsets.left) < floor(refOffsets.right) || placement === 'top' && floor(popperOffsets.bottom) > floor(refOffsets.top) || placement === 'bottom' && floor(popperOffsets.top) < floor(refOffsets.bottom);
+
+    var overflowsLeft = floor(popperOffsets.left) < floor(boundaries.left);
+    var overflowsRight = floor(popperOffsets.right) > floor(boundaries.right);
+    var overflowsTop = floor(popperOffsets.top) < floor(boundaries.top);
+    var overflowsBottom = floor(popperOffsets.bottom) > floor(boundaries.bottom);
+
+    var overflowsBoundaries = placement === 'left' && overflowsLeft || placement === 'right' && overflowsRight || placement === 'top' && overflowsTop || placement === 'bottom' && overflowsBottom;
+
+    // flip the variation if required
+    var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
+    var flippedVariation = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom);
+
+    if (overlapsRef || overflowsBoundaries || flippedVariation) {
+      // this boolean to detect any flip loop
+      data.flipped = true;
+
+      if (overlapsRef || overflowsBoundaries) {
+        placement = flipOrder[index + 1];
+      }
+
+      if (flippedVariation) {
+        variation = getOppositeVariation(variation);
+      }
+
+      data.placement = placement + (variation ? '-' + variation : '');
+
+      // this object contains `position`, we want to preserve it along with
+      // any additional property we may add in the future
+      data.offsets.popper = _extends({}, data.offsets.popper, getPopperOffsets(data.instance.popper, data.offsets.reference, data.placement));
+
+      data = runModifiers(data.instance.modifiers, data, 'flip');
+    }
+  });
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function keepTogether(data) {
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var placement = data.placement.split('-')[0];
+  var floor = Math.floor;
+  var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
+  var side = isVertical ? 'right' : 'bottom';
+  var opSide = isVertical ? 'left' : 'top';
+  var measurement = isVertical ? 'width' : 'height';
+
+  if (popper[side] < floor(reference[opSide])) {
+    data.offsets.popper[opSide] = floor(reference[opSide]) - popper[measurement];
+  }
+  if (popper[opSide] > floor(reference[side])) {
+    data.offsets.popper[opSide] = floor(reference[side]);
+  }
+
+  return data;
+}
+
+/**
+ * Converts a string containing value + unit into a px value number
+ * @function
+ * @memberof {modifiers~offset}
+ * @private
+ * @argument {String} str - Value + unit string
+ * @argument {String} measurement - `height` or `width`
+ * @argument {Object} popperOffsets
+ * @argument {Object} referenceOffsets
+ * @returns {Number|String}
+ * Value in pixels, or original string if no values were extracted
+ */
+function toValue(str, measurement, popperOffsets, referenceOffsets) {
+  // separate value from unit
+  var split = str.match(/((?:\-|\+)?\d*\.?\d*)(.*)/);
+  var value = +split[1];
+  var unit = split[2];
+
+  // If it's not a number it's an operator, I guess
+  if (!value) {
+    return str;
+  }
+
+  if (unit.indexOf('%') === 0) {
+    var element = void 0;
+    switch (unit) {
+      case '%p':
+        element = popperOffsets;
+        break;
+      case '%':
+      case '%r':
+      default:
+        element = referenceOffsets;
+    }
+
+    var rect = getClientRect(element);
+    return rect[measurement] / 100 * value;
+  } else if (unit === 'vh' || unit === 'vw') {
+    // if is a vh or vw, we calculate the size based on the viewport
+    var size = void 0;
+    if (unit === 'vh') {
+      size = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    } else {
+      size = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    }
+    return size / 100 * value;
+  } else {
+    // if is an explicit pixel unit, we get rid of the unit and keep the value
+    // if is an implicit unit, it's px, and we return just the value
+    return value;
+  }
+}
+
+/**
+ * Parse an `offset` string to extrapolate `x` and `y` numeric offsets.
+ * @function
+ * @memberof {modifiers~offset}
+ * @private
+ * @argument {String} offset
+ * @argument {Object} popperOffsets
+ * @argument {Object} referenceOffsets
+ * @argument {String} basePlacement
+ * @returns {Array} a two cells array with x and y offsets in numbers
+ */
+function parseOffset(offset, popperOffsets, referenceOffsets, basePlacement) {
+  var offsets = [0, 0];
+
+  // Use height if placement is left or right and index is 0 otherwise use width
+  // in this way the first offset will use an axis and the second one
+  // will use the other one
+  var useHeight = ['right', 'left'].indexOf(basePlacement) !== -1;
+
+  // Split the offset string to obtain a list of values and operands
+  // The regex addresses values with the plus or minus sign in front (+10, -20, etc)
+  var fragments = offset.split(/(\+|\-)/).map(function (frag) {
+    return frag.trim();
+  });
+
+  // Detect if the offset string contains a pair of values or a single one
+  // they could be separated by comma or space
+  var divider = fragments.indexOf(find(fragments, function (frag) {
+    return frag.search(/,|\s/) !== -1;
+  }));
+
+  if (fragments[divider] && fragments[divider].indexOf(',') === -1) {
+    console.warn('Offsets separated by white space(s) are deprecated, use a comma (,) instead.');
+  }
+
+  // If divider is found, we divide the list of values and operands to divide
+  // them by ofset X and Y.
+  var splitRegex = /\s*,\s*|\s+/;
+  var ops = divider !== -1 ? [fragments.slice(0, divider).concat([fragments[divider].split(splitRegex)[0]]), [fragments[divider].split(splitRegex)[1]].concat(fragments.slice(divider + 1))] : [fragments];
+
+  // Convert the values with units to absolute pixels to allow our computations
+  ops = ops.map(function (op, index) {
+    // Most of the units rely on the orientation of the popper
+    var measurement = (index === 1 ? !useHeight : useHeight) ? 'height' : 'width';
+    var mergeWithPrevious = false;
+    return op
+    // This aggregates any `+` or `-` sign that aren't considered operators
+    // e.g.: 10 + +5 => [10, +, +5]
+    .reduce(function (a, b) {
+      if (a[a.length - 1] === '' && ['+', '-'].indexOf(b) !== -1) {
+        a[a.length - 1] = b;
+        mergeWithPrevious = true;
+        return a;
+      } else if (mergeWithPrevious) {
+        a[a.length - 1] += b;
+        mergeWithPrevious = false;
+        return a;
+      } else {
+        return a.concat(b);
+      }
+    }, [])
+    // Here we convert the string values into number values (in px)
+    .map(function (str) {
+      return toValue(str, measurement, popperOffsets, referenceOffsets);
+    });
+  });
+
+  // Loop trough the offsets arrays and execute the operations
+  ops.forEach(function (op, index) {
+    op.forEach(function (frag, index2) {
+      if (isNumeric(frag)) {
+        offsets[index] += frag * (op[index2 - 1] === '-' ? -1 : 1);
+      }
+    });
+  });
+  return offsets;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @argument {Number|String} options.offset=0
+ * The offset value as described in the modifier description
+ * @returns {Object} The data object, properly modified
+ */
+function offset(data, _ref) {
+  var offset = _ref.offset;
+  var placement = data.placement,
+      _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var basePlacement = placement.split('-')[0];
+
+  var offsets = void 0;
+  if (isNumeric(+offset)) {
+    offsets = [+offset, 0];
+  } else {
+    offsets = parseOffset(offset, popper, reference, basePlacement);
+  }
+
+  if (basePlacement === 'left') {
+    popper.top += offsets[0];
+    popper.left -= offsets[1];
+  } else if (basePlacement === 'right') {
+    popper.top += offsets[0];
+    popper.left += offsets[1];
+  } else if (basePlacement === 'top') {
+    popper.left += offsets[0];
+    popper.top -= offsets[1];
+  } else if (basePlacement === 'bottom') {
+    popper.left += offsets[0];
+    popper.top += offsets[1];
+  }
+
+  data.popper = popper;
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function preventOverflow(data, options) {
+  var boundariesElement = options.boundariesElement || getOffsetParent(data.instance.popper);
+
+  // If offsetParent is the reference element, we really want to
+  // go one step up and use the next offsetParent as reference to
+  // avoid to make this modifier completely useless and look like broken
+  if (data.instance.reference === boundariesElement) {
+    boundariesElement = getOffsetParent(boundariesElement);
+  }
+
+  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, boundariesElement);
+  options.boundaries = boundaries;
+
+  var order = options.priority;
+  var popper = data.offsets.popper;
+
+  var check = {
+    primary: function primary(placement) {
+      var value = popper[placement];
+      if (popper[placement] < boundaries[placement] && !options.escapeWithReference) {
+        value = Math.max(popper[placement], boundaries[placement]);
+      }
+      return defineProperty({}, placement, value);
+    },
+    secondary: function secondary(placement) {
+      var mainSide = placement === 'right' ? 'left' : 'top';
+      var value = popper[mainSide];
+      if (popper[placement] > boundaries[placement] && !options.escapeWithReference) {
+        value = Math.min(popper[mainSide], boundaries[placement] - (placement === 'right' ? popper.width : popper.height));
+      }
+      return defineProperty({}, mainSide, value);
+    }
+  };
+
+  order.forEach(function (placement) {
+    var side = ['left', 'top'].indexOf(placement) !== -1 ? 'primary' : 'secondary';
+    popper = _extends({}, popper, check[side](placement));
+  });
+
+  data.offsets.popper = popper;
+
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function shift(data) {
+  var placement = data.placement;
+  var basePlacement = placement.split('-')[0];
+  var shiftvariation = placement.split('-')[1];
+
+  // if shift shiftvariation is specified, run the modifier
+  if (shiftvariation) {
+    var _data$offsets = data.offsets,
+        reference = _data$offsets.reference,
+        popper = _data$offsets.popper;
+
+    var isVertical = ['bottom', 'top'].indexOf(basePlacement) !== -1;
+    var side = isVertical ? 'left' : 'top';
+    var measurement = isVertical ? 'width' : 'height';
+
+    var shiftOffsets = {
+      start: defineProperty({}, side, reference[side]),
+      end: defineProperty({}, side, reference[side] + reference[measurement] - popper[measurement])
+    };
+
+    data.offsets.popper = _extends({}, popper, shiftOffsets[shiftvariation]);
+  }
+
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function hide(data) {
+  if (!isModifierRequired(data.instance.modifiers, 'hide', 'preventOverflow')) {
+    return data;
+  }
+
+  var refRect = data.offsets.reference;
+  var bound = find(data.instance.modifiers, function (modifier) {
+    return modifier.name === 'preventOverflow';
+  }).boundaries;
+
+  if (refRect.bottom < bound.top || refRect.left > bound.right || refRect.top > bound.bottom || refRect.right < bound.left) {
+    // Avoid unnecessary DOM access if visibility hasn't changed
+    if (data.hide === true) {
+      return data;
+    }
+
+    data.hide = true;
+    data.attributes['x-out-of-boundaries'] = '';
+  } else {
+    // Avoid unnecessary DOM access if visibility hasn't changed
+    if (data.hide === false) {
+      return data;
+    }
+
+    data.hide = false;
+    data.attributes['x-out-of-boundaries'] = false;
+  }
+
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function inner(data) {
+  var placement = data.placement;
+  var basePlacement = placement.split('-')[0];
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var isHoriz = ['left', 'right'].indexOf(basePlacement) !== -1;
+
+  var subtractLength = ['top', 'left'].indexOf(basePlacement) === -1;
+
+  popper[isHoriz ? 'left' : 'top'] = reference[basePlacement] - (subtractLength ? popper[isHoriz ? 'width' : 'height'] : 0);
+
+  data.placement = getOppositePlacement(placement);
+  data.offsets.popper = getClientRect(popper);
+
+  return data;
+}
+
+/**
+ * Modifier function, each modifier can have a function of this type assigned
+ * to its `fn` property.<br />
+ * These functions will be called on each update, this means that you must
+ * make sure they are performant enough to avoid performance bottlenecks.
+ *
+ * @function ModifierFn
+ * @argument {dataObject} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {dataObject} The data object, properly modified
+ */
+
+/**
+ * Modifiers are plugins used to alter the behavior of your poppers.<br />
+ * Popper.js uses a set of 9 modifiers to provide all the basic functionalities
+ * needed by the library.
+ *
+ * Usually you don't want to override the `order`, `fn` and `onLoad` props.
+ * All the other properties are configurations that could be tweaked.
+ * @namespace modifiers
+ */
+var modifiers = {
+  /**
+   * Modifier used to shift the popper on the start or end of its reference
+   * element.<br />
+   * It will read the variation of the `placement` property.<br />
+   * It can be one either `-end` or `-start`.
+   * @memberof modifiers
+   * @inner
+   */
+  shift: {
+    /** @prop {number} order=100 - Index used to define the order of execution */
+    order: 100,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: shift
+  },
+
+  /**
+   * The `offset` modifier can shift your popper on both its axis.
+   *
+   * It accepts the following units:
+   * - `px` or unitless, interpreted as pixels
+   * - `%` or `%r`, percentage relative to the length of the reference element
+   * - `%p`, percentage relative to the length of the popper element
+   * - `vw`, CSS viewport width unit
+   * - `vh`, CSS viewport height unit
+   *
+   * For length is intended the main axis relative to the placement of the popper.<br />
+   * This means that if the placement is `top` or `bottom`, the length will be the
+   * `width`. In case of `left` or `right`, it will be the height.
+   *
+   * You can provide a single value (as `Number` or `String`), or a pair of values
+   * as `String` divided by a comma or one (or more) white spaces.<br />
+   * The latter is a deprecated method because it leads to confusion and will be
+   * removed in v2.<br />
+   * Additionally, it accepts additions and subtractions between different units.
+   * Note that multiplications and divisions aren't supported.
+   *
+   * Valid examples are:
+   * ```
+   * 10
+   * '10%'
+   * '10, 10'
+   * '10%, 10'
+   * '10 + 10%'
+   * '10 - 5vh + 3%'
+   * '-10px + 5vh, 5px - 6%'
+   * ```
+   * > **NB**: If you desire to apply offsets to your poppers in a way that may make them overlap
+   * > with their reference element, unfortunately, you will have to disable the `flip` modifier.
+   * > More on this [reading this issue](https://github.com/FezVrasta/popper.js/issues/373)
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  offset: {
+    /** @prop {number} order=200 - Index used to define the order of execution */
+    order: 200,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: offset,
+    /** @prop {Number|String} offset=0
+     * The offset value as described in the modifier description
+     */
+    offset: 0
+  },
+
+  /**
+   * Modifier used to prevent the popper from being positioned outside the boundary.
+   *
+   * An scenario exists where the reference itself is not within the boundaries.<br />
+   * We can say it has "escaped the boundaries" — or just "escaped".<br />
+   * In this case we need to decide whether the popper should either:
+   *
+   * - detach from the reference and remain "trapped" in the boundaries, or
+   * - if it should ignore the boundary and "escape with its reference"
+   *
+   * When `escapeWithReference` is set to`true` and reference is completely
+   * outside its boundaries, the popper will overflow (or completely leave)
+   * the boundaries in order to remain attached to the edge of the reference.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  preventOverflow: {
+    /** @prop {number} order=300 - Index used to define the order of execution */
+    order: 300,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: preventOverflow,
+    /**
+     * @prop {Array} [priority=['left','right','top','bottom']]
+     * Popper will try to prevent overflow following these priorities by default,
+     * then, it could overflow on the left and on top of the `boundariesElement`
+     */
+    priority: ['left', 'right', 'top', 'bottom'],
+    /**
+     * @prop {number} padding=5
+     * Amount of pixel used to define a minimum distance between the boundaries
+     * and the popper this makes sure the popper has always a little padding
+     * between the edges of its container
+     */
+    padding: 5,
+    /**
+     * @prop {String|HTMLElement} boundariesElement='scrollParent'
+     * Boundaries used by the modifier, can be `scrollParent`, `window`,
+     * `viewport` or any DOM element.
+     */
+    boundariesElement: 'scrollParent'
+  },
+
+  /**
+   * Modifier used to make sure the reference and its popper stay near eachothers
+   * without leaving any gap between the two. Expecially useful when the arrow is
+   * enabled and you want to assure it to point to its reference element.
+   * It cares only about the first axis, you can still have poppers with margin
+   * between the popper and its reference element.
+   * @memberof modifiers
+   * @inner
+   */
+  keepTogether: {
+    /** @prop {number} order=400 - Index used to define the order of execution */
+    order: 400,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: keepTogether
+  },
+
+  /**
+   * This modifier is used to move the `arrowElement` of the popper to make
+   * sure it is positioned between the reference element and its popper element.
+   * It will read the outer size of the `arrowElement` node to detect how many
+   * pixels of conjuction are needed.
+   *
+   * It has no effect if no `arrowElement` is provided.
+   * @memberof modifiers
+   * @inner
+   */
+  arrow: {
+    /** @prop {number} order=500 - Index used to define the order of execution */
+    order: 500,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: arrow,
+    /** @prop {String|HTMLElement} element='[x-arrow]' - Selector or node used as arrow */
+    element: '[x-arrow]'
+  },
+
+  /**
+   * Modifier used to flip the popper's placement when it starts to overlap its
+   * reference element.
+   *
+   * Requires the `preventOverflow` modifier before it in order to work.
+   *
+   * **NOTE:** this modifier will interrupt the current update cycle and will
+   * restart it if it detects the need to flip the placement.
+   * @memberof modifiers
+   * @inner
+   */
+  flip: {
+    /** @prop {number} order=600 - Index used to define the order of execution */
+    order: 600,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: flip,
+    /**
+     * @prop {String|Array} behavior='flip'
+     * The behavior used to change the popper's placement. It can be one of
+     * `flip`, `clockwise`, `counterclockwise` or an array with a list of valid
+     * placements (with optional variations).
+     */
+    behavior: 'flip',
+    /**
+     * @prop {number} padding=5
+     * The popper will flip if it hits the edges of the `boundariesElement`
+     */
+    padding: 5,
+    /**
+     * @prop {String|HTMLElement} boundariesElement='viewport'
+     * The element which will define the boundaries of the popper position,
+     * the popper will never be placed outside of the defined boundaries
+     * (except if keepTogether is enabled)
+     */
+    boundariesElement: 'viewport'
+  },
+
+  /**
+   * Modifier used to make the popper flow toward the inner of the reference element.
+   * By default, when this modifier is disabled, the popper will be placed outside
+   * the reference element.
+   * @memberof modifiers
+   * @inner
+   */
+  inner: {
+    /** @prop {number} order=700 - Index used to define the order of execution */
+    order: 700,
+    /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+    enabled: false,
+    /** @prop {ModifierFn} */
+    fn: inner
+  },
+
+  /**
+   * Modifier used to hide the popper when its reference element is outside of the
+   * popper boundaries. It will set a `x-out-of-boundaries` attribute which can
+   * be used to hide with a CSS selector the popper when its reference is
+   * out of boundaries.
+   *
+   * Requires the `preventOverflow` modifier before it in order to work.
+   * @memberof modifiers
+   * @inner
+   */
+  hide: {
+    /** @prop {number} order=800 - Index used to define the order of execution */
+    order: 800,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: hide
+  },
+
+  /**
+   * Computes the style that will be applied to the popper element to gets
+   * properly positioned.
+   *
+   * Note that this modifier will not touch the DOM, it just prepares the styles
+   * so that `applyStyle` modifier can apply it. This separation is useful
+   * in case you need to replace `applyStyle` with a custom implementation.
+   *
+   * This modifier has `850` as `order` value to maintain backward compatibility
+   * with previous versions of Popper.js. Expect the modifiers ordering method
+   * to change in future major versions of the library.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  computeStyle: {
+    /** @prop {number} order=850 - Index used to define the order of execution */
+    order: 850,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: computeStyle,
+    /**
+     * @prop {Boolean} gpuAcceleration=true
+     * If true, it uses the CSS 3d transformation to position the popper.
+     * Otherwise, it will use the `top` and `left` properties.
+     */
+    gpuAcceleration: true,
+    /**
+     * @prop {string} [x='bottom']
+     * Where to anchor the X axis (`bottom` or `top`). AKA X offset origin.
+     * Change this if your popper should grow in a direction different from `bottom`
+     */
+    x: 'bottom',
+    /**
+     * @prop {string} [x='left']
+     * Where to anchor the Y axis (`left` or `right`). AKA Y offset origin.
+     * Change this if your popper should grow in a direction different from `right`
+     */
+    y: 'right'
+  },
+
+  /**
+   * Applies the computed styles to the popper element.
+   *
+   * All the DOM manipulations are limited to this modifier. This is useful in case
+   * you want to integrate Popper.js inside a framework or view library and you
+   * want to delegate all the DOM manipulations to it.
+   *
+   * Note that if you disable this modifier, you must make sure the popper element
+   * has its position set to `absolute` before Popper.js can do its work!
+   *
+   * Just disable this modifier and define you own to achieve the desired effect.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  applyStyle: {
+    /** @prop {number} order=900 - Index used to define the order of execution */
+    order: 900,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: applyStyle,
+    /** @prop {Function} */
+    onLoad: applyStyleOnLoad,
+    /**
+     * @deprecated since version 1.10.0, the property moved to `computeStyle` modifier
+     * @prop {Boolean} gpuAcceleration=true
+     * If true, it uses the CSS 3d transformation to position the popper.
+     * Otherwise, it will use the `top` and `left` properties.
+     */
+    gpuAcceleration: undefined
+  }
+};
+
+/**
+ * The `dataObject` is an object containing all the informations used by Popper.js
+ * this object get passed to modifiers and to the `onCreate` and `onUpdate` callbacks.
+ * @name dataObject
+ * @property {Object} data.instance The Popper.js instance
+ * @property {String} data.placement Placement applied to popper
+ * @property {String} data.originalPlacement Placement originally defined on init
+ * @property {Boolean} data.flipped True if popper has been flipped by flip modifier
+ * @property {Boolean} data.hide True if the reference element is out of boundaries, useful to know when to hide the popper.
+ * @property {HTMLElement} data.arrowElement Node used as arrow by arrow modifier
+ * @property {Object} data.styles Any CSS property defined here will be applied to the popper, it expects the JavaScript nomenclature (eg. `marginBottom`)
+ * @property {Object} data.arrowStyles Any CSS property defined here will be applied to the popper arrow, it expects the JavaScript nomenclature (eg. `marginBottom`)
+ * @property {Object} data.boundaries Offsets of the popper boundaries
+ * @property {Object} data.offsets The measurements of popper, reference and arrow elements.
+ * @property {Object} data.offsets.popper `top`, `left`, `width`, `height` values
+ * @property {Object} data.offsets.reference `top`, `left`, `width`, `height` values
+ * @property {Object} data.offsets.arrow] `top` and `left` offsets, only one of them will be different from 0
+ */
+
+/**
+ * Default options provided to Popper.js constructor.<br />
+ * These can be overriden using the `options` argument of Popper.js.<br />
+ * To override an option, simply pass as 3rd argument an object with the same
+ * structure of this object, example:
+ * ```
+ * new Popper(ref, pop, {
+ *   modifiers: {
+ *     preventOverflow: { enabled: false }
+ *   }
+ * })
+ * ```
+ * @type {Object}
+ * @static
+ * @memberof Popper
+ */
+var Defaults = {
+  /**
+   * Popper's placement
+   * @prop {Popper.placements} placement='bottom'
+   */
+  placement: 'bottom',
+
+  /**
+   * Whether events (resize, scroll) are initially enabled
+   * @prop {Boolean} eventsEnabled=true
+   */
+  eventsEnabled: true,
+
+  /**
+   * Set to true if you want to automatically remove the popper when
+   * you call the `destroy` method.
+   * @prop {Boolean} removeOnDestroy=false
+   */
+  removeOnDestroy: false,
+
+  /**
+   * Callback called when the popper is created.<br />
+   * By default, is set to no-op.<br />
+   * Access Popper.js instance with `data.instance`.
+   * @prop {onCreate}
+   */
+  onCreate: function onCreate() {},
+
+  /**
+   * Callback called when the popper is updated, this callback is not called
+   * on the initialization/creation of the popper, but only on subsequent
+   * updates.<br />
+   * By default, is set to no-op.<br />
+   * Access Popper.js instance with `data.instance`.
+   * @prop {onUpdate}
+   */
+  onUpdate: function onUpdate() {},
+
+  /**
+   * List of modifiers used to modify the offsets before they are applied to the popper.
+   * They provide most of the functionalities of Popper.js
+   * @prop {modifiers}
+   */
+  modifiers: modifiers
+};
+
+/**
+ * @callback onCreate
+ * @param {dataObject} data
+ */
+
+/**
+ * @callback onUpdate
+ * @param {dataObject} data
+ */
+
+// Utils
+// Methods
+var Popper = function () {
+  /**
+   * Create a new Popper.js instance
+   * @class Popper
+   * @param {HTMLElement|referenceObject} reference - The reference element used to position the popper
+   * @param {HTMLElement} popper - The HTML element used as popper.
+   * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
+   * @return {Object} instance - The generated Popper.js instance
+   */
+  function Popper(reference, popper) {
+    var _this = this;
+
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    classCallCheck(this, Popper);
+
+    this.scheduleUpdate = function () {
+      return requestAnimationFrame(_this.update);
+    };
+
+    // make update() debounced, so that it only runs at most once-per-tick
+    this.update = debounce(this.update.bind(this));
+
+    // with {} we create a new object with the options inside it
+    this.options = _extends({}, Popper.Defaults, options);
+
+    // init state
+    this.state = {
+      isDestroyed: false,
+      isCreated: false,
+      scrollParents: []
+    };
+
+    // get reference and popper elements (allow jQuery wrappers)
+    this.reference = reference && reference.jquery ? reference[0] : reference;
+    this.popper = popper && popper.jquery ? popper[0] : popper;
+
+    // Deep merge modifiers options
+    this.options.modifiers = {};
+    Object.keys(_extends({}, Popper.Defaults.modifiers, options.modifiers)).forEach(function (name) {
+      _this.options.modifiers[name] = _extends({}, Popper.Defaults.modifiers[name] || {}, options.modifiers ? options.modifiers[name] : {});
+    });
+
+    // Refactoring modifiers' list (Object => Array)
+    this.modifiers = Object.keys(this.options.modifiers).map(function (name) {
+      return _extends({
+        name: name
+      }, _this.options.modifiers[name]);
+    })
+    // sort the modifiers by order
+    .sort(function (a, b) {
+      return a.order - b.order;
+    });
+
+    // modifiers have the ability to execute arbitrary code when Popper.js get inited
+    // such code is executed in the same order of its modifier
+    // they could add new properties to their options configuration
+    // BE AWARE: don't add options to `options.modifiers.name` but to `modifierOptions`!
+    this.modifiers.forEach(function (modifierOptions) {
+      if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {
+        modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state);
+      }
+    });
+
+    // fire the first update to position the popper in the right place
+    this.update();
+
+    var eventsEnabled = this.options.eventsEnabled;
+    if (eventsEnabled) {
+      // setup event listeners, they will take care of update the position in specific situations
+      this.enableEventListeners();
+    }
+
+    this.state.eventsEnabled = eventsEnabled;
+  }
+
+  // We can't use class properties because they don't get listed in the
+  // class prototype and break stuff like Sinon stubs
+
+
+  createClass(Popper, [{
+    key: 'update',
+    value: function update$$1() {
+      return update.call(this);
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy$$1() {
+      return destroy.call(this);
+    }
+  }, {
+    key: 'enableEventListeners',
+    value: function enableEventListeners$$1() {
+      return enableEventListeners.call(this);
+    }
+  }, {
+    key: 'disableEventListeners',
+    value: function disableEventListeners$$1() {
+      return disableEventListeners.call(this);
+    }
+
+    /**
+     * Schedule an update, it will run on the next UI update available
+     * @method scheduleUpdate
+     * @memberof Popper
+     */
+
+
+    /**
+     * Collection of utilities useful when writing custom modifiers.
+     * Starting from version 1.7, this method is available only if you
+     * include `popper-utils.js` before `popper.js`.
+     *
+     * **DEPRECATION**: This way to access PopperUtils is deprecated
+     * and will be removed in v2! Use the PopperUtils module directly instead.
+     * Due to the high instability of the methods contained in Utils, we can't
+     * guarantee them to follow semver. Use them at your own risk!
+     * @static
+     * @private
+     * @type {Object}
+     * @deprecated since version 1.8
+     * @member Utils
+     * @memberof Popper
+     */
+
+  }]);
+  return Popper;
+}();
+
+/**
+ * The `referenceObject` is an object that provides an interface compatible with Popper.js
+ * and lets you use it as replacement of a real DOM node.<br />
+ * You can use this method to position a popper relatively to a set of coordinates
+ * in case you don't have a DOM node to use as reference.
+ *
+ * ```
+ * new Popper(referenceObject, popperNode);
+ * ```
+ *
+ * NB: This feature isn't supported in Internet Explorer 10
+ * @name referenceObject
+ * @property {Function} data.getBoundingClientRect
+ * A function that returns a set of coordinates compatible with the native `getBoundingClientRect` method.
+ * @property {number} data.clientWidth
+ * An ES6 getter that will return the width of the virtual reference element.
+ * @property {number} data.clientHeight
+ * An ES6 getter that will return the height of the virtual reference element.
+ */
+
+
+Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
+Popper.placements = placements;
+Popper.Defaults = Defaults;
+
+function convertToArray(value) {
+	if (typeof value === 'string') {
+		value = value.split(' ');
+	}
+	return value;
+}
+
+/**
+ * Add classes to an element.
+ * This method checks to ensure that the classes don't already exist before adding them.
+ * It uses el.className rather than classList in order to be IE friendly.
+ * @param {object} el - The element to add the classes to.
+ * @param {classes} string - List of space separated classes to be added to the element.
+ */
+function addClasses(el, classes) {
+	var newClasses = convertToArray(classes);
+	var classList = void 0;
+	if (el.className instanceof SVGAnimatedString) {
+		classList = Array.from(el.className);
+	} else {
+		classList = convertToArray(el.className);
+	}
+	newClasses.forEach(function (newClass) {
+		if (classList.indexOf(newClass) === -1) {
+			classList.push(newClass);
+		}
+	});
+	if (el instanceof SVGElement) {
+		el.setAttribute('class', classList.join(' '));
+	} else {
+		el.className = classList.join(' ');
+	}
+}
+
+/**
+ * Remove classes from an element.
+ * It uses el.className rather than classList in order to be IE friendly.
+ * @export
+ * @param {any} el The element to remove the classes from.
+ * @param {any} classes List of space separated classes to be removed from the element.
+ */
+function removeClasses(el, classes) {
+	var newClasses = convertToArray(classes);
+	var classList = void 0;
+	if (el.className instanceof SVGAnimatedString) {
+		classList = Array.from(el.className);
+	} else {
+		classList = convertToArray(el.className);
+	}
+	newClasses.forEach(function (newClass) {
+		var index = classList.indexOf(newClass);
+		if (index !== -1) {
+			classList.splice(index, 1);
+		}
+	});
+	if (el instanceof SVGElement) {
+		el.setAttribute('class', classList.join(' '));
+	} else {
+		el.className = classList.join(' ');
+	}
+}
+
+var supportsPassive = false;
+
+if (typeof window !== 'undefined') {
+	supportsPassive = false;
+	try {
+		var opts = Object.defineProperty({}, 'passive', {
+			get: function get() {
+				supportsPassive = true;
+			}
+		});
+		window.addEventListener('test', null, opts);
+	} catch (e) {}
+}
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+var classCallCheck$1 = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass$1 = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+
+
+
+
+
+
+var _extends$1 = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+/* Forked from https://github.com/FezVrasta/popper.js/blob/master/packages/tooltip/src/index.js */
+
+var DEFAULT_OPTIONS = {
+	container: false,
+	delay: 0,
+	html: false,
+	placement: 'top',
+	title: '',
+	template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+	trigger: 'hover focus',
+	offset: 0
+};
+
+var openTooltips = [];
+
+var Tooltip = function () {
+	/**
+  * Create a new Tooltip.js instance
+  * @class Tooltip
+  * @param {HTMLElement} reference - The DOM node used as reference of the tooltip (it can be a jQuery element).
+  * @param {Object} options
+  * @param {String} options.placement=bottom
+  *			Placement of the popper accepted values: `top(-start, -end), right(-start, -end), bottom(-start, -end),
+  *			left(-start, -end)`
+  * @param {HTMLElement|String|false} options.container=false - Append the tooltip to a specific element.
+  * @param {Number|Object} options.delay=0
+  *			Delay showing and hiding the tooltip (ms) - does not apply to manual trigger type.
+  *			If a number is supplied, delay is applied to both hide/show.
+  *			Object structure is: `{ show: 500, hide: 100 }`
+  * @param {Boolean} options.html=false - Insert HTML into the tooltip. If false, the content will inserted with `innerText`.
+  * @param {String|PlacementFunction} options.placement='top' - One of the allowed placements, or a function returning one of them.
+  * @param {String} [options.template='<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>']
+  *			Base HTML to used when creating the tooltip.
+  *			The tooltip's `title` will be injected into the `.tooltip-inner` or `.tooltip__inner`.
+  *			`.tooltip-arrow` or `.tooltip__arrow` will become the tooltip's arrow.
+  *			The outermost wrapper element should have the `.tooltip` class.
+  * @param {String|HTMLElement|TitleFunction} options.title='' - Default title value if `title` attribute isn't present.
+  * @param {String} [options.trigger='hover focus']
+  *			How tooltip is triggered - click, hover, focus, manual.
+  *			You may pass multiple triggers; separate them with a space. `manual` cannot be combined with any other trigger.
+  * @param {HTMLElement} options.boundariesElement
+  *			The element used as boundaries for the tooltip. For more information refer to Popper.js'
+  *			[boundariesElement docs](https://popper.js.org/popper-documentation.html)
+  * @param {Number|String} options.offset=0 - Offset of the tooltip relative to its reference. For more information refer to Popper.js'
+  *			[offset docs](https://popper.js.org/popper-documentation.html)
+  * @param {Object} options.popperOptions={} - Popper options, will be passed directly to popper instance. For more information refer to Popper.js'
+  *			[options docs](https://popper.js.org/popper-documentation.html)
+  * @return {Object} instance - The generated tooltip instance
+  */
+	function Tooltip(reference, options) {
+		classCallCheck$1(this, Tooltip);
+
+		_initialiseProps.call(this);
+
+		// apply user options over default ones
+		options = _extends$1({}, DEFAULT_OPTIONS, options);
+
+		reference.jquery && (reference = reference[0]);
+
+		// cache reference and options
+		this.reference = reference;
+		this.options = options;
+
+		// set initial state
+		this._isOpen = false;
+
+		this._init();
+	}
+
+	//
+	// Public methods
+	//
+
+	/**
+  * Reveals an element's tooltip. This is considered a "manual" triggering of the tooltip.
+  * Tooltips with zero-length titles are never displayed.
+  * @method Tooltip#show
+  * @memberof Tooltip
+  */
+
+
+	/**
+  * Hides an element’s tooltip. This is considered a “manual” triggering of the tooltip.
+  * @method Tooltip#hide
+  * @memberof Tooltip
+  */
+
+
+	/**
+  * Hides and destroys an element’s tooltip.
+  * @method Tooltip#dispose
+  * @memberof Tooltip
+  */
+
+
+	/**
+  * Toggles an element’s tooltip. This is considered a “manual” triggering of the tooltip.
+  * @method Tooltip#toggle
+  * @memberof Tooltip
+  */
+
+
+	createClass$1(Tooltip, [{
+		key: 'setClasses',
+		value: function setClasses(classes) {
+			this._classes = classes;
+		}
+	}, {
+		key: 'setContent',
+		value: function setContent(content) {
+			this.options.title = content;
+			if (this._tooltipNode) {
+				this._setContent(content, this.options);
+			}
+		}
+	}, {
+		key: 'setOptions',
+		value: function setOptions(options) {
+			var classesUpdated = false;
+			var classes = options && options.classes || directive.options.defaultClass;
+			if (this._classes !== classes) {
+				this.setClasses(classes);
+				classesUpdated = true;
+			}
+
+			options = getOptions(options);
+
+			var needPopperUpdate = false;
+			var needRestart = false;
+
+			if (this.options.offset !== options.offset || this.options.placement !== options.placement) {
+				needPopperUpdate = true;
+			}
+
+			if (this.options.template !== options.template || this.options.trigger !== options.trigger || this.options.container !== options.container || classesUpdated) {
+				needRestart = true;
+			}
+
+			for (var key in options) {
+				this.options[key] = options[key];
+			}
+
+			if (this._tooltipNode) {
+				if (needRestart) {
+					var isOpen = this._isOpen;
+
+					this.dispose();
+					this._init();
+
+					if (isOpen) {
+						this.show();
+					}
+				} else if (needPopperUpdate) {
+					this.popperInstance.update();
+				}
+			}
+		}
+
+		//
+		// Private methods
+		//
+
+	}, {
+		key: '_init',
+		value: function _init() {
+			// get events list
+			var events = typeof this.options.trigger === 'string' ? this.options.trigger.split(' ').filter(function (trigger) {
+				return ['click', 'hover', 'focus'].indexOf(trigger) !== -1;
+			}) : [];
+			this._isDisposed = false;
+			this._enableDocumentTouch = events.indexOf('manual') === -1;
+
+			// set event listeners
+			this._setEventListeners(this.reference, events, this.options);
+		}
+
+		/**
+   * Creates a new tooltip node
+   * @memberof Tooltip
+   * @private
+   * @param {HTMLElement} reference
+   * @param {String} template
+   * @param {String|HTMLElement|TitleFunction} title
+   * @param {Boolean} allowHtml
+   * @return {HTMLelement} tooltipNode
+   */
+
+	}, {
+		key: '_create',
+		value: function _create(reference, template) {
+			// create tooltip element
+			var tooltipGenerator = window.document.createElement('div');
+			tooltipGenerator.innerHTML = template.trim();
+			var tooltipNode = tooltipGenerator.childNodes[0];
+
+			// add unique ID to our tooltip (needed for accessibility reasons)
+			tooltipNode.id = 'tooltip_' + Math.random().toString(36).substr(2, 10);
+
+			// Initially hide the tooltip
+			// The attribute will be switched in a next frame so
+			// CSS transitions can play
+			tooltipNode.setAttribute('aria-hidden', 'true');
+
+			if (this.options.autoHide && this.options.trigger.indexOf('hover') !== -1) {
+				tooltipNode.addEventListener('mouseenter', this.hide);
+				tooltipNode.addEventListener('click', this.hide);
+			}
+
+			// return the generated tooltip node
+			return tooltipNode;
+		}
+	}, {
+		key: '_setContent',
+		value: function _setContent(content, options) {
+			var _this = this;
+
+			this.asyncContent = false;
+			this._applyContent(content, options).then(function () {
+				_this.popperInstance.update();
+			});
+		}
+	}, {
+		key: '_applyContent',
+		value: function _applyContent(title, options) {
+			var _this2 = this;
+
+			return new Promise(function (resolve, reject) {
+				var allowHtml = options.html;
+				var rootNode = _this2._tooltipNode;
+				var titleNode = rootNode.querySelector(_this2.options.innerSelector);
+				if (title.nodeType === 1) {
+					// if title is a node, append it only if allowHtml is true
+					if (allowHtml) {
+						while (titleNode.firstChild) {
+							titleNode.removeChild(titleNode.firstChild);
+						}
+						titleNode.appendChild(title);
+					}
+				} else if (typeof title === 'function') {
+					// if title is a function, call it and set innerText or innerHtml depending by `allowHtml` value
+					var result = title();
+					if (result && typeof result.then === 'function') {
+						_this2.asyncContent = true;
+						options.loadingClass && addClasses(rootNode, options.loadingClass);
+						if (options.loadingContent) {
+							_this2._applyContent(options.loadingContent, options);
+						}
+						result.then(function (asyncResult) {
+							options.loadingClass && removeClasses(rootNode, options.loadingClass);
+							return _this2._applyContent(asyncResult, options);
+						}).then(resolve).catch(reject);
+					} else {
+						_this2._applyContent(result, options).then(resolve).catch(reject);
+					}
+					return;
+				} else {
+					// if it's just a simple text, set innerText or innerHtml depending by `allowHtml` value
+					allowHtml ? titleNode.innerHTML = title : titleNode.innerText = title;
+				}
+				resolve();
+			});
+		}
+	}, {
+		key: '_show',
+		value: function _show(reference, options) {
+			if (options && typeof options.container === 'string') {
+				var container = document.querySelector(options.container);
+				if (!container) return;
+			}
+
+			clearTimeout(this._disposeTimer);
+
+			options = Object.assign({}, options);
+			delete options.offset;
+
+			var updateClasses = true;
+			if (this._tooltipNode) {
+				addClasses(this._tooltipNode, this._classes);
+				updateClasses = false;
+			}
+
+			var result = this._ensureShown(reference, options);
+
+			if (updateClasses && this._tooltipNode) {
+				addClasses(this._tooltipNode, this._classes);
+			}
+
+			return result;
+		}
+	}, {
+		key: '_ensureShown',
+		value: function _ensureShown(reference, options) {
+			var _this3 = this;
+
+			// don't show if it's already visible
+			if (this._isOpen) {
+				return this;
+			}
+			this._isOpen = true;
+
+			openTooltips.push(this);
+
+			// if the tooltipNode already exists, just show it
+			if (this._tooltipNode) {
+				this._tooltipNode.style.display = '';
+				this._tooltipNode.setAttribute('aria-hidden', 'false');
+				this.popperInstance.enableEventListeners();
+				this.popperInstance.update();
+				if (this.asyncContent) {
+					this._setContent(options.title, options);
+				}
+				return this;
+			}
+
+			// get title
+			var title = reference.getAttribute('title') || options.title;
+
+			// don't show tooltip if no title is defined
+			if (!title) {
+				return this;
+			}
+
+			// create tooltip node
+			var tooltipNode = this._create(reference, options.template);
+			this._tooltipNode = tooltipNode;
+
+			this._setContent(title, options);
+
+			// Add `aria-describedby` to our reference element for accessibility reasons
+			reference.setAttribute('aria-describedby', tooltipNode.id);
+
+			// append tooltip to container
+			var container = this._findContainer(options.container, reference);
+
+			this._append(tooltipNode, container);
+
+			var popperOptions = _extends$1({}, options.popperOptions, {
+				placement: options.placement
+			});
+
+			popperOptions.modifiers = _extends$1({}, popperOptions.modifiers, {
+				arrow: {
+					element: this.options.arrowSelector
+				}
+			});
+
+			if (options.boundariesElement) {
+				popperOptions.modifiers.preventOverflow = {
+					boundariesElement: options.boundariesElement
+				};
+			}
+
+			this.popperInstance = new Popper(reference, tooltipNode, popperOptions);
+
+			// Fix position
+			requestAnimationFrame(function () {
+				if (!_this3._isDisposed && _this3.popperInstance) {
+					_this3.popperInstance.update();
+
+					// Show the tooltip
+					requestAnimationFrame(function () {
+						if (!_this3._isDisposed) {
+							_this3._isOpen && tooltipNode.setAttribute('aria-hidden', 'false');
+						} else {
+							_this3.dispose();
+						}
+					});
+				} else {
+					_this3.dispose();
+				}
+			});
+
+			return this;
+		}
+	}, {
+		key: '_noLongerOpen',
+		value: function _noLongerOpen() {
+			var index = openTooltips.indexOf(this);
+			if (index !== -1) {
+				openTooltips.splice(index, 1);
+			}
+		}
+	}, {
+		key: '_hide',
+		value: function _hide() /* reference, options */{
+			var _this4 = this;
+
+			// don't hide if it's already hidden
+			if (!this._isOpen) {
+				return this;
+			}
+
+			this._isOpen = false;
+			this._noLongerOpen();
+
+			// hide tooltipNode
+			this._tooltipNode.style.display = 'none';
+			this._tooltipNode.setAttribute('aria-hidden', 'true');
+
+			this.popperInstance.disableEventListeners();
+
+			clearTimeout(this._disposeTimer);
+			var disposeTime = directive.options.disposeTimeout;
+			if (disposeTime !== null) {
+				this._disposeTimer = setTimeout(function () {
+					if (_this4._tooltipNode) {
+						_this4._tooltipNode.removeEventListener('mouseenter', _this4.hide);
+						_this4._tooltipNode.removeEventListener('click', _this4.hide);
+						// Don't remove popper instance, just the HTML element
+						_this4._tooltipNode.parentNode.removeChild(_this4._tooltipNode);
+						_this4._tooltipNode = null;
+					}
+				}, disposeTime);
+			}
+
+			return this;
+		}
+	}, {
+		key: '_dispose',
+		value: function _dispose() {
+			var _this5 = this;
+
+			this._isDisposed = true;
+
+			// remove event listeners first to prevent any unexpected behaviour
+			this._events.forEach(function (_ref) {
+				var func = _ref.func,
+				    event = _ref.event;
+
+				_this5.reference.removeEventListener(event, func);
+			});
+			this._events = [];
+
+			if (this._tooltipNode) {
+				this._hide();
+
+				this._tooltipNode.removeEventListener('mouseenter', this.hide);
+				this._tooltipNode.removeEventListener('click', this.hide);
+
+				// destroy instance
+				this.popperInstance.destroy();
+
+				// destroy tooltipNode if removeOnDestroy is not set, as popperInstance.destroy() already removes the element
+				if (!this.popperInstance.options.removeOnDestroy) {
+					this._tooltipNode.parentNode.removeChild(this._tooltipNode);
+					this._tooltipNode = null;
+				}
+			} else {
+				this._noLongerOpen();
+			}
+			return this;
+		}
+	}, {
+		key: '_findContainer',
+		value: function _findContainer(container, reference) {
+			// if container is a query, get the relative element
+			if (typeof container === 'string') {
+				container = window.document.querySelector(container);
+			} else if (container === false) {
+				// if container is `false`, set it to reference parent
+				container = reference.parentNode;
+			}
+			return container;
+		}
+
+		/**
+   * Append tooltip to container
+   * @memberof Tooltip
+   * @private
+   * @param {HTMLElement} tooltip
+   * @param {HTMLElement|String|false} container
+   */
+
+	}, {
+		key: '_append',
+		value: function _append(tooltipNode, container) {
+			container.appendChild(tooltipNode);
+		}
+	}, {
+		key: '_setEventListeners',
+		value: function _setEventListeners(reference, events, options) {
+			var _this6 = this;
+
+			var directEvents = [];
+			var oppositeEvents = [];
+
+			events.forEach(function (event) {
+				switch (event) {
+					case 'hover':
+						directEvents.push('mouseenter');
+						oppositeEvents.push('mouseleave');
+						break;
+					case 'focus':
+						directEvents.push('focus');
+						oppositeEvents.push('blur');
+						break;
+					case 'click':
+						directEvents.push('click');
+						oppositeEvents.push('click');
+						break;
+				}
+			});
+
+			// schedule show tooltip
+			directEvents.forEach(function (event) {
+				var func = function func(evt) {
+					if (_this6._isOpen === true) {
+						return;
+					}
+					evt.usedByTooltip = true;
+					_this6._scheduleShow(reference, options.delay, options, evt);
+				};
+				_this6._events.push({ event: event, func: func });
+				reference.addEventListener(event, func);
+			});
+
+			// schedule hide tooltip
+			oppositeEvents.forEach(function (event) {
+				var func = function func(evt) {
+					if (evt.usedByTooltip === true) {
+						return;
+					}
+					_this6._scheduleHide(reference, options.delay, options, evt);
+				};
+				_this6._events.push({ event: event, func: func });
+				reference.addEventListener(event, func);
+			});
+		}
+	}, {
+		key: '_onDocumentTouch',
+		value: function _onDocumentTouch(event) {
+			if (this._enableDocumentTouch) {
+				this._scheduleHide(this.reference, this.options.delay, this.options, event);
+			}
+		}
+	}, {
+		key: '_scheduleShow',
+		value: function _scheduleShow(reference, delay, options /*, evt */) {
+			var _this7 = this;
+
+			// defaults to 0
+			var computedDelay = delay && delay.show || delay || 0;
+			clearTimeout(this._scheduleTimer);
+			this._scheduleTimer = window.setTimeout(function () {
+				return _this7._show(reference, options);
+			}, computedDelay);
+		}
+	}, {
+		key: '_scheduleHide',
+		value: function _scheduleHide(reference, delay, options, evt) {
+			var _this8 = this;
+
+			// defaults to 0
+			var computedDelay = delay && delay.hide || delay || 0;
+			clearTimeout(this._scheduleTimer);
+			this._scheduleTimer = window.setTimeout(function () {
+				if (_this8._isOpen === false) {
+					return;
+				}
+				if (!document.body.contains(_this8._tooltipNode)) {
+					return;
+				}
+
+				// if we are hiding because of a mouseleave, we must check that the new
+				// reference isn't the tooltip, because in this case we don't want to hide it
+				if (evt.type === 'mouseleave') {
+					var isSet = _this8._setTooltipNodeEvent(evt, reference, delay, options);
+
+					// if we set the new event, don't hide the tooltip yet
+					// the new event will take care to hide it if necessary
+					if (isSet) {
+						return;
+					}
+				}
+
+				_this8._hide(reference, options);
+			}, computedDelay);
+		}
+	}]);
+	return Tooltip;
+}();
+
+// Hide tooltips on touch devices
+
+
+var _initialiseProps = function _initialiseProps() {
+	var _this9 = this;
+
+	this.show = function () {
+		_this9._show(_this9.reference, _this9.options);
+	};
+
+	this.hide = function () {
+		_this9._hide();
+	};
+
+	this.dispose = function () {
+		_this9._dispose();
+	};
+
+	this.toggle = function () {
+		if (_this9._isOpen) {
+			return _this9.hide();
+		} else {
+			return _this9.show();
+		}
+	};
+
+	this._events = [];
+
+	this._setTooltipNodeEvent = function (evt, reference, delay, options) {
+		var relatedreference = evt.relatedreference || evt.toElement;
+
+		var callback = function callback(evt2) {
+			var relatedreference2 = evt2.relatedreference || evt2.toElement;
+
+			// Remove event listener after call
+			_this9._tooltipNode.removeEventListener(evt.type, callback);
+
+			// If the new reference is not the reference element
+			if (!reference.contains(relatedreference2)) {
+				// Schedule to hide tooltip
+				_this9._scheduleHide(reference, options.delay, options, evt2);
+			}
+		};
+
+		if (_this9._tooltipNode.contains(relatedreference)) {
+			// listen to mouseleave on the tooltip element to be able to hide the tooltip
+			_this9._tooltipNode.addEventListener(evt.type, callback);
+			return true;
+		}
+
+		return false;
+	};
+};
+
+if (typeof document !== 'undefined') {
+	document.addEventListener('touchstart', function (event) {
+		for (var i = 0; i < openTooltips.length; i++) {
+			openTooltips[i]._onDocumentTouch(event);
+		}
+	}, supportsPassive ? {
+		passive: true
+	} : false);
+}
+
+/**
+ * Placement function, its context is the Tooltip instance.
+ * @memberof Tooltip
+ * @callback PlacementFunction
+ * @param {HTMLElement} tooltip - tooltip DOM node.
+ * @param {HTMLElement} reference - reference DOM node.
+ * @return {String} placement - One of the allowed placement options.
+ */
+
+/**
+ * Title function, its context is the Tooltip instance.
+ * @memberof Tooltip
+ * @callback TitleFunction
+ * @return {String} placement - The desired title.
+ */
+
+var state = {
+	enabled: true
+};
+
+var positions = ['top', 'top-start', 'top-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end'];
+
+var defaultOptions = {
+	// Default tooltip placement relative to target element
+	defaultPlacement: 'top',
+	// Default CSS classes applied to the tooltip element
+	defaultClass: 'vue-tooltip-theme',
+	// Default CSS classes applied to the target element of the tooltip
+	defaultTargetClass: 'has-tooltip',
+	// Default HTML template of the tooltip element
+	// It must include `tooltip-arrow` & `tooltip-inner` CSS classes (can be configured, see below)
+	// Change if the classes conflict with other libraries (for example bootstrap)
+	defaultTemplate: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+	// Selector used to get the arrow element in the tooltip template
+	defaultArrowSelector: '.tooltip-arrow, .tooltip__arrow',
+	// Selector used to get the inner content element in the tooltip template
+	defaultInnerSelector: '.tooltip-inner, .tooltip__inner',
+	// Delay (ms)
+	defaultDelay: 0,
+	// Default events that trigger the tooltip
+	defaultTrigger: 'hover focus',
+	// Default position offset (px)
+	defaultOffset: 0,
+	// Default container where the tooltip will be appended
+	defaultContainer: 'body',
+	defaultBoundariesElement: undefined,
+	defaultPopperOptions: {},
+	// Class added when content is loading
+	defaultLoadingClass: 'tooltip-loading',
+	// Displayed when tooltip content is loading
+	defaultLoadingContent: '...',
+	// Hide on mouseover tooltip
+	autoHide: true,
+	// Auto destroy tooltip DOM nodes (ms)
+	disposeTimeout: 5000,
+	// Options for popover
+	popover: {
+		defaultPlacement: 'bottom',
+		// Use the `popoverClass` prop for theming
+		defaultClass: 'vue-popover-theme',
+		// Base class (change if conflicts with other libraries)
+		defaultBaseClass: 'tooltip popover',
+		// Wrapper class (contains arrow and inner)
+		defaultWrapperClass: 'wrapper',
+		// Inner content class
+		defaultInnerClass: 'tooltip-inner popover-inner',
+		// Arrow class
+		defaultArrowClass: 'tooltip-arrow popover-arrow',
+		defaultDelay: 0,
+		defaultTrigger: 'click',
+		defaultOffset: 0,
+		defaultContainer: 'body',
+		defaultBoundariesElement: undefined,
+		defaultPopperOptions: {},
+		// Hides if clicked outside of popover
+		defaultAutoHide: true,
+		// Update popper on content resize
+		defaultHandleResize: true
+	}
+};
+
+function getOptions(options) {
+	var result = {
+		placement: typeof options.placement !== 'undefined' ? options.placement : directive.options.defaultPlacement,
+		delay: typeof options.delay !== 'undefined' ? options.delay : directive.options.defaultDelay,
+		template: typeof options.template !== 'undefined' ? options.template : directive.options.defaultTemplate,
+		arrowSelector: typeof options.arrowSelector !== 'undefined' ? options.arrowSelector : directive.options.defaultArrowSelector,
+		innerSelector: typeof options.innerSelector !== 'undefined' ? options.innerSelector : directive.options.defaultInnerSelector,
+		trigger: typeof options.trigger !== 'undefined' ? options.trigger : directive.options.defaultTrigger,
+		offset: typeof options.offset !== 'undefined' ? options.offset : directive.options.defaultOffset,
+		container: typeof options.container !== 'undefined' ? options.container : directive.options.defaultContainer,
+		boundariesElement: typeof options.boundariesElement !== 'undefined' ? options.boundariesElement : directive.options.defaultBoundariesElement,
+		autoHide: typeof options.autoHide !== 'undefined' ? options.autoHide : directive.options.autoHide,
+		loadingClass: typeof options.loadingClass !== 'undefined' ? options.loadingClass : directive.options.defaultLoadingClass,
+		loadingContent: typeof options.loadingContent !== 'undefined' ? options.loadingContent : directive.options.defaultLoadingContent,
+		popperOptions: _extends$1({}, typeof options.popperOptions !== 'undefined' ? options.popperOptions : directive.options.defaultPopperOptions)
+	};
+
+	if (result.offset) {
+		var typeofOffset = _typeof(result.offset);
+		var offset = result.offset;
+
+		// One value -> switch
+		if (typeofOffset === 'number' || typeofOffset === 'string' && offset.indexOf(',') === -1) {
+			offset = '0, ' + offset;
+		}
+
+		if (!result.popperOptions.modifiers) {
+			result.popperOptions.modifiers = {};
+		}
+		result.popperOptions.modifiers.offset = {
+			offset: offset
+		};
+	}
+
+	return result;
+}
+
+function getPlacement(value, modifiers) {
+	var placement = value.placement;
+	for (var i = 0; i < positions.length; i++) {
+		var pos = positions[i];
+		if (modifiers[pos]) {
+			placement = pos;
+		}
+	}
+	return placement;
+}
+
+function getContent(value) {
+	var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
+	if (type === 'string') {
+		return value;
+	} else if (value && type === 'object') {
+		return value.content;
+	} else {
+		return false;
+	}
+}
+
+function createTooltip(el, value) {
+	var modifiers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+	var content = getContent(value);
+	var classes = typeof value.classes !== 'undefined' ? value.classes : directive.options.defaultClass;
+	var opts = _extends$1({
+		title: content,
+		html: true
+	}, getOptions(_extends$1({}, value, {
+		placement: getPlacement(value, modifiers)
+	})));
+	var tooltip = el._tooltip = new Tooltip(el, opts);
+	tooltip.setClasses(classes);
+	tooltip._vueEl = el;
+
+	// Class on target
+	var targetClasses = typeof value.targetClasses !== 'undefined' ? value.targetClasses : directive.options.defaultTargetClass;
+	el._tooltipTargetClasses = targetClasses;
+	addClasses(el, targetClasses);
+
+	return tooltip;
+}
+
+function destroyTooltip(el) {
+	if (el._tooltip) {
+		el._tooltip.dispose();
+		delete el._tooltip;
+		delete el._tooltipOldShow;
+	}
+
+	if (el._tooltipTargetClasses) {
+		removeClasses(el, el._tooltipTargetClasses);
+		delete el._tooltipTargetClasses;
+	}
+}
+
+function bind(el, _ref) {
+	var value = _ref.value,
+	    oldValue = _ref.oldValue,
+	    modifiers = _ref.modifiers;
+
+	var content = getContent(value);
+	if (!content || !state.enabled) {
+		destroyTooltip(el);
+	} else {
+		var tooltip = void 0;
+		if (el._tooltip) {
+			tooltip = el._tooltip;
+			// Content
+			tooltip.setContent(content);
+			// Options
+			tooltip.setOptions(_extends$1({}, value, {
+				placement: getPlacement(value, modifiers)
+			}));
+		} else {
+			tooltip = createTooltip(el, value, modifiers);
+		}
+
+		// Manual show
+		if (typeof value.show !== 'undefined' && value.show !== el._tooltipOldShow) {
+			el._tooltipOldShow = value.show;
+			value.show ? tooltip.show() : tooltip.hide();
+		}
+	}
+}
+
+var directive = {
+	options: defaultOptions,
+	bind: bind,
+	update: bind,
+	unbind: function unbind(el) {
+		destroyTooltip(el);
+	}
+};
+
+function addListeners(el) {
+	el.addEventListener('click', onClick);
+	el.addEventListener('touchstart', onTouchStart, supportsPassive ? {
+		passive: true
+	} : false);
+}
+
+function removeListeners(el) {
+	el.removeEventListener('click', onClick);
+	el.removeEventListener('touchstart', onTouchStart);
+	el.removeEventListener('touchend', onTouchEnd);
+	el.removeEventListener('touchcancel', onTouchCancel);
+}
+
+function onClick(event) {
+	var el = event.currentTarget;
+	event.closePopover = !el.$_vclosepopover_touch;
+	event.closeAllPopover = el.$_closePopoverModifiers && !!el.$_closePopoverModifiers.all;
+}
+
+function onTouchStart(event) {
+	if (event.changedTouches.length === 1) {
+		var el = event.currentTarget;
+		el.$_vclosepopover_touch = true;
+		var touch = event.changedTouches[0];
+		el.$_vclosepopover_touchPoint = touch;
+		el.addEventListener('touchend', onTouchEnd);
+		el.addEventListener('touchcancel', onTouchCancel);
+	}
+}
+
+function onTouchEnd(event) {
+	var el = event.currentTarget;
+	el.$_vclosepopover_touch = false;
+	if (event.changedTouches.length === 1) {
+		var touch = event.changedTouches[0];
+		var firstTouch = el.$_vclosepopover_touchPoint;
+		event.closePopover = Math.abs(touch.screenY - firstTouch.screenY) < 20 && Math.abs(touch.screenX - firstTouch.screenX) < 20;
+		event.closeAllPopover = el.$_closePopoverModifiers && !!el.$_closePopoverModifiers.all;
+	}
+}
+
+function onTouchCancel(event) {
+	var el = event.currentTarget;
+	el.$_vclosepopover_touch = false;
+}
+
+var vclosepopover = {
+	bind: function bind(el, _ref) {
+		var value = _ref.value,
+		    modifiers = _ref.modifiers;
+
+		el.$_closePopoverModifiers = modifiers;
+		if (typeof value === 'undefined' || value) {
+			addListeners(el);
+		}
+	},
+	update: function update(el, _ref2) {
+		var value = _ref2.value,
+		    oldValue = _ref2.oldValue,
+		    modifiers = _ref2.modifiers;
+
+		el.$_closePopoverModifiers = modifiers;
+		if (value !== oldValue) {
+			if (typeof value === 'undefined' || value) {
+				addListeners(el);
+			} else {
+				removeListeners(el);
+			}
+		}
+	},
+	unbind: function unbind(el) {
+		removeListeners(el);
+	}
+};
+
+function getInternetExplorerVersion() {
+	var ua = window.navigator.userAgent;
+
+	var msie = ua.indexOf('MSIE ');
+	if (msie > 0) {
+		// IE 10 or older => return version number
+		return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+	}
+
+	var trident = ua.indexOf('Trident/');
+	if (trident > 0) {
+		// IE 11 => return version number
+		var rv = ua.indexOf('rv:');
+		return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+	}
+
+	var edge = ua.indexOf('Edge/');
+	if (edge > 0) {
+		// Edge (IE 12+) => return version number
+		return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+	}
+
+	// other browser
+	return -1;
+}
+
+var isIE = void 0;
+
+function initCompat() {
+	if (!initCompat.init) {
+		initCompat.init = true;
+		isIE = getInternetExplorerVersion() !== -1;
+	}
+}
+
+var ResizeObserver = { render: function render() {
+		var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "resize-observer", attrs: { "tabindex": "-1" } });
+	}, staticRenderFns: [], _scopeId: 'data-v-b329ee4c',
+	name: 'resize-observer',
+
+	methods: {
+		notify: function notify() {
+			this.$emit('notify');
+		},
+		addResizeHandlers: function addResizeHandlers() {
+			this._resizeObject.contentDocument.defaultView.addEventListener('resize', this.notify);
+			if (this._w !== this.$el.offsetWidth || this._h !== this.$el.offsetHeight) {
+				this.notify();
+			}
+		},
+		removeResizeHandlers: function removeResizeHandlers() {
+			if (this._resizeObject && this._resizeObject.onload) {
+				if (!isIE && this._resizeObject.contentDocument) {
+					this._resizeObject.contentDocument.defaultView.removeEventListener('resize', this.notify);
+				}
+				delete this._resizeObject.onload;
+			}
+		}
+	},
+
+	mounted: function mounted() {
+		var _this = this;
+
+		initCompat();
+		this.$nextTick(function () {
+			_this._w = _this.$el.offsetWidth;
+			_this._h = _this.$el.offsetHeight;
+		});
+		var object = document.createElement('object');
+		this._resizeObject = object;
+		object.setAttribute('style', 'display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; pointer-events: none; z-index: -1;');
+		object.setAttribute('aria-hidden', 'true');
+		object.onload = this.addResizeHandlers;
+		object.type = 'text/html';
+		if (isIE) {
+			this.$el.appendChild(object);
+		}
+		object.data = 'about:blank';
+		if (!isIE) {
+			this.$el.appendChild(object);
+		}
+	},
+	beforeDestroy: function beforeDestroy() {
+		this.removeResizeHandlers();
+	}
+};
+
+// Install the components
+function install$1(Vue) {
+	Vue.component('resize-observer', ResizeObserver);
+	/* -- Add more components here -- */
+}
+
+/* -- Plugin definition & Auto-install -- */
+/* You shouldn't have to modify the code below */
+
+// Plugin
+var plugin$2 = {
+	// eslint-disable-next-line no-undef
+	version: "0.4.3",
+	install: install$1
+};
+
+// Auto-install
+var GlobalVue$1 = null;
+if (typeof window !== 'undefined') {
+	GlobalVue$1 = window.Vue;
+} else if (typeof global !== 'undefined') {
+	GlobalVue$1 = global.Vue;
+}
+if (GlobalVue$1) {
+	GlobalVue$1.use(plugin$2);
+}
+
+function getDefault(key) {
+	var value = directive.options.popover[key];
+	if (typeof value === 'undefined') {
+		return directive.options[key];
+	}
+	return value;
+}
+
+var isIOS = false;
+if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
+	isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+}
+
+var openPopovers = [];
+
+var Popover = { render: function render() {
+		var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "v-popover", class: _vm.cssClass }, [_c('span', { ref: "trigger", staticClass: "trigger", staticStyle: { "display": "inline-block" }, attrs: { "aria-describedby": _vm.popoverId } }, [_vm._t("default")], 2), _vm._v(" "), _c('div', { ref: "popover", class: [_vm.popoverBaseClass, _vm.popoverClass, _vm.cssClass], style: {
+				display: _vm.isOpen ? '' : 'none'
+			}, attrs: { "id": _vm.popoverId, "aria-hidden": _vm.isOpen ? 'false' : 'true' } }, [_c('div', { class: _vm.popoverWrapperClass }, [_c('div', { ref: "arrow", class: _vm.popoverArrowClass }), _vm._v(" "), _c('div', { ref: "inner", class: _vm.popoverInnerClass, staticStyle: { "position": "relative" } }, [_c('div', [_vm._t("popover")], 2), _vm._v(" "), _vm.handleResize ? _c('ResizeObserver', { on: { "notify": _vm.$_handleResize } }) : _vm._e()], 1)])])]);
+	}, staticRenderFns: [],
+	name: 'VPopover',
+
+	components: {
+		ResizeObserver: ResizeObserver
+	},
+
+	props: {
+		open: {
+			type: Boolean,
+			default: false
+		},
+		disabled: {
+			type: Boolean,
+			default: false
+		},
+		placement: {
+			type: String,
+			default: function _default() {
+				return getDefault('defaultPlacement');
+			}
+		},
+		delay: {
+			type: [String, Number, Object],
+			default: function _default() {
+				return getDefault('defaultDelay');
+			}
+		},
+		offset: {
+			type: [String, Number],
+			default: function _default() {
+				return getDefault('defaultOffset');
+			}
+		},
+		trigger: {
+			type: String,
+			default: function _default() {
+				return getDefault('defaultTrigger');
+			}
+		},
+		container: {
+			type: [String, Object, Element],
+			default: function _default() {
+				return getDefault('defaultContainer');
+			}
+		},
+		boundariesElement: {
+			type: Element,
+			default: function _default() {
+				return getDefault('defaultBoundariesElement');
+			}
+		},
+		popperOptions: {
+			type: Object,
+			default: function _default() {
+				return getDefault('defaultPopperOptions');
+			}
+		},
+		popoverClass: {
+			type: [String, Array],
+			default: function _default() {
+				return getDefault('defaultClass');
+			}
+		},
+		popoverBaseClass: {
+			type: [String, Array],
+			default: function _default() {
+				return directive.options.popover.defaultBaseClass;
+			}
+		},
+		popoverInnerClass: {
+			type: [String, Array],
+			default: function _default() {
+				return directive.options.popover.defaultInnerClass;
+			}
+		},
+		popoverWrapperClass: {
+			type: [String, Array],
+			default: function _default() {
+				return directive.options.popover.defaultWrapperClass;
+			}
+		},
+		popoverArrowClass: {
+			type: [String, Array],
+			default: function _default() {
+				return directive.options.popover.defaultArrowClass;
+			}
+		},
+		autoHide: {
+			type: Boolean,
+			default: function _default() {
+				return directive.options.popover.defaultAutoHide;
+			}
+		},
+		handleResize: {
+			type: Boolean,
+			default: function _default() {
+				return directive.options.popover.defaultHandleResize;
+			}
+		},
+		openGroup: {
+			type: String,
+			default: null
+		}
+	},
+
+	data: function data() {
+		return {
+			isOpen: false,
+			id: Math.random().toString(36).substr(2, 10)
+		};
+	},
+
+
+	computed: {
+		cssClass: function cssClass() {
+			return {
+				'open': this.isOpen
+			};
+		},
+		popoverId: function popoverId() {
+			return 'popover_' + this.id;
+		}
+	},
+
+	watch: {
+		open: function open(val) {
+			if (val) {
+				this.show();
+			} else {
+				this.hide();
+			}
+		},
+		disabled: function disabled(val, oldVal) {
+			if (val !== oldVal) {
+				if (val) {
+					this.hide();
+				} else if (this.open) {
+					this.show();
+				}
+			}
+		},
+		container: function container(val) {
+			if (this.isOpen && this.popperInstance) {
+				var popoverNode = this.$refs.popover;
+				var reference = this.$refs.trigger;
+
+				var container = this.$_findContainer(this.container, reference);
+				if (!container) {
+					console.warn('No container for popover', this);
+					return;
+				}
+
+				container.appendChild(popoverNode);
+				this.popperInstance.update();
+			}
+		},
+		trigger: function trigger(val) {
+			this.$_removeEventListeners();
+			this.$_addEventListeners();
+		},
+		offset: function offset(val) {
+			var _this = this;
+
+			this.$_updatePopper(function () {
+				if (val) {
+					var offset = _this.$_getOffset();
+
+					_this.popperInstance.options.modifiers.offset = {
+						offset: offset
+					};
+				} else {
+					_this.popperInstance.options.modifiers.offset = undefined;
+				}
+			});
+		},
+		placement: function placement(val) {
+			var _this2 = this;
+
+			this.$_updatePopper(function () {
+				_this2.popperInstance.options.placement = val;
+			});
+		},
+
+
+		boundariesElement: '$_restartPopper',
+
+		popperOptions: {
+			handler: '$_restartPopper',
+			deep: true
+		}
+	},
+
+	created: function created() {
+		this.$_isDisposed = false;
+		this.$_mounted = false;
+		this.$_events = [];
+		this.$_preventOpen = false;
+	},
+	mounted: function mounted() {
+		var popoverNode = this.$refs.popover;
+		popoverNode.parentNode && popoverNode.parentNode.removeChild(popoverNode);
+
+		this.$_init();
+
+		if (this.open) {
+			this.show();
+		}
+	},
+	beforeDestroy: function beforeDestroy() {
+		this.dispose();
+	},
+
+
+	methods: {
+		show: function show() {
+			var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+			    event = _ref.event,
+			    _ref$skipDelay = _ref.skipDelay,
+			    skipDelay = _ref$skipDelay === undefined ? false : _ref$skipDelay,
+			    _ref$force = _ref.force,
+			    force = _ref$force === undefined ? false : _ref$force;
+
+			if (force || !this.disabled) {
+				this.$_scheduleShow(event);
+				this.$emit('show');
+			}
+			this.$emit('update:open', true);
+		},
+		hide: function hide() {
+			var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+			    event = _ref2.event,
+			    _ref2$skipDelay = _ref2.skipDelay;
+
+			this.$_scheduleHide(event);
+
+			this.$emit('hide');
+			this.$emit('update:open', false);
+		},
+		dispose: function dispose() {
+			this.$_isDisposed = true;
+			this.$_removeEventListeners();
+			this.hide({ skipDelay: true });
+			if (this.popperInstance) {
+				this.popperInstance.destroy();
+
+				// destroy tooltipNode if removeOnDestroy is not set, as popperInstance.destroy() already removes the element
+				if (!this.popperInstance.options.removeOnDestroy) {
+					var popoverNode = this.$refs.popover;
+					popoverNode.parentNode && popoverNode.parentNode.removeChild(popoverNode);
+				}
+			}
+			this.$_mounted = false;
+
+			this.$emit('dispose');
+		},
+		$_init: function $_init() {
+			if (this.trigger.indexOf('manual') === -1) {
+				this.$_addEventListeners();
+			}
+		},
+		$_show: function $_show() {
+			var _this3 = this;
+
+			var reference = this.$refs.trigger;
+			var popoverNode = this.$refs.popover;
+
+			clearTimeout(this.$_disposeTimer);
+
+			// Already open
+			if (this.isOpen) {
+				return;
+			}
+
+			// Popper is already initialized
+			if (this.popperInstance) {
+				this.isOpen = true;
+				this.popperInstance.enableEventListeners();
+				this.popperInstance.update();
+			}
+
+			if (!this.$_mounted) {
+				var container = this.$_findContainer(this.container, reference);
+				if (!container) {
+					console.warn('No container for popover', this);
+					return;
+				}
+				container.appendChild(popoverNode);
+				this.$_mounted = true;
+			}
+
+			if (!this.popperInstance) {
+				var popperOptions = _extends$1({}, this.popperOptions, {
+					placement: this.placement
+				});
+
+				popperOptions.modifiers = _extends$1({}, popperOptions.modifiers, {
+					arrow: {
+						element: this.$refs.arrow
+					}
+				});
+
+				if (this.offset) {
+					var offset = this.$_getOffset();
+
+					popperOptions.modifiers.offset = {
+						offset: offset
+					};
+				}
+
+				if (this.boundariesElement) {
+					popperOptions.modifiers.preventOverflow = {
+						boundariesElement: this.boundariesElement
+					};
+				}
+
+				this.popperInstance = new Popper(reference, popoverNode, popperOptions);
+
+				// Fix position
+				requestAnimationFrame(function () {
+					if (!_this3.$_isDisposed && _this3.popperInstance) {
+						_this3.popperInstance.update();
+
+						// Show the tooltip
+						requestAnimationFrame(function () {
+							if (!_this3.$_isDisposed) {
+								_this3.isOpen = true;
+							} else {
+								_this3.dispose();
+							}
+						});
+					} else {
+						_this3.dispose();
+					}
+				});
+			}
+
+			var openGroup = this.openGroup;
+			if (openGroup) {
+				var popover = void 0;
+				for (var i = 0; i < openPopovers.length; i++) {
+					popover = openPopovers[i];
+					if (popover.openGroup !== openGroup) {
+						popover.hide();
+						popover.$emit('close-group');
+					}
+				}
+			}
+
+			openPopovers.push(this);
+		},
+		$_hide: function $_hide() {
+			var _this4 = this;
+
+			// Already hidden
+			if (!this.isOpen) {
+				return;
+			}
+
+			var index = openPopovers.indexOf(this);
+			if (index !== -1) {
+				openPopovers.splice(index, 1);
+			}
+
+			this.isOpen = false;
+			if (this.popperInstance) {
+				this.popperInstance.disableEventListeners();
+			}
+
+			clearTimeout(this.$_disposeTimer);
+			var disposeTime = directive.options.popover.disposeTimeout || directive.options.disposeTimeout;
+			if (disposeTime !== null) {
+				this.$_disposeTimer = setTimeout(function () {
+					var popoverNode = _this4.$refs.popover;
+					if (popoverNode) {
+						// Don't remove popper instance, just the HTML element
+						popoverNode.parentNode && popoverNode.parentNode.removeChild(popoverNode);
+						_this4.$_mounted = false;
+					}
+				}, disposeTime);
+			}
+		},
+		$_findContainer: function $_findContainer(container, reference) {
+			// if container is a query, get the relative element
+			if (typeof container === 'string') {
+				container = window.document.querySelector(container);
+			} else if (container === false) {
+				// if container is `false`, set it to reference parent
+				container = reference.parentNode;
+			}
+			return container;
+		},
+		$_getOffset: function $_getOffset() {
+			var typeofOffset = _typeof(this.offset);
+			var offset = this.offset;
+
+			// One value -> switch
+			if (typeofOffset === 'number' || typeofOffset === 'string' && offset.indexOf(',') === -1) {
+				offset = '0, ' + offset;
+			}
+
+			return offset;
+		},
+		$_addEventListeners: function $_addEventListeners() {
+			var _this5 = this;
+
+			var reference = this.$refs.trigger;
+			var directEvents = [];
+			var oppositeEvents = [];
+
+			var events = typeof this.trigger === 'string' ? this.trigger.split(' ').filter(function (trigger) {
+				return ['click', 'hover', 'focus'].indexOf(trigger) !== -1;
+			}) : [];
+
+			events.forEach(function (event) {
+				switch (event) {
+					case 'hover':
+						directEvents.push('mouseenter');
+						oppositeEvents.push('mouseleave');
+						break;
+					case 'focus':
+						directEvents.push('focus');
+						oppositeEvents.push('blur');
+						break;
+					case 'click':
+						directEvents.push('click');
+						oppositeEvents.push('click');
+						break;
+				}
+			});
+
+			// schedule show tooltip
+			directEvents.forEach(function (event) {
+				var func = function func(event) {
+					if (_this5.isOpen) {
+						return;
+					}
+					event.usedByTooltip = true;
+					!_this5.$_preventOpen && _this5.show({ event: event });
+				};
+				_this5.$_events.push({ event: event, func: func });
+				reference.addEventListener(event, func);
+			});
+
+			// schedule hide tooltip
+			oppositeEvents.forEach(function (event) {
+				var func = function func(event) {
+					if (event.usedByTooltip) {
+						return;
+					}
+					_this5.hide({ event: event });
+				};
+				_this5.$_events.push({ event: event, func: func });
+				reference.addEventListener(event, func);
+			});
+		},
+		$_scheduleShow: function $_scheduleShow() {
+			var skipDelay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+			clearTimeout(this.$_scheduleTimer);
+			if (skipDelay) {
+				this.$_show();
+			} else {
+				// defaults to 0
+				var computedDelay = parseInt(this.delay && this.delay.show || this.delay || 0);
+				this.$_scheduleTimer = setTimeout(this.$_show.bind(this), computedDelay);
+			}
+		},
+		$_scheduleHide: function $_scheduleHide() {
+			var _this6 = this;
+
+			var event = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+			var skipDelay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+			clearTimeout(this.$_scheduleTimer);
+			if (skipDelay) {
+				this.$_hide();
+			} else {
+				// defaults to 0
+				var computedDelay = parseInt(this.delay && this.delay.hide || this.delay || 0);
+				this.$_scheduleTimer = setTimeout(function () {
+					if (!_this6.isOpen) {
+						return;
+					}
+
+					// if we are hiding because of a mouseleave, we must check that the new
+					// reference isn't the tooltip, because in this case we don't want to hide it
+					if (event && event.type === 'mouseleave') {
+						var isSet = _this6.$_setTooltipNodeEvent(event);
+
+						// if we set the new event, don't hide the tooltip yet
+						// the new event will take care to hide it if necessary
+						if (isSet) {
+							return;
+						}
+					}
+
+					_this6.$_hide();
+				}, computedDelay);
+			}
+		},
+		$_setTooltipNodeEvent: function $_setTooltipNodeEvent(event) {
+			var _this7 = this;
+
+			var reference = this.$refs.trigger;
+			var popoverNode = this.$refs.popover;
+
+			var relatedreference = event.relatedreference || event.toElement;
+
+			var callback = function callback(event2) {
+				var relatedreference2 = event2.relatedreference || event2.toElement;
+
+				// Remove event listener after call
+				popoverNode.removeEventListener(event.type, callback);
+
+				// If the new reference is not the reference element
+				if (!reference.contains(relatedreference2)) {
+					// Schedule to hide tooltip
+					_this7.hide({ event: event2 });
+				}
+			};
+
+			if (popoverNode.contains(relatedreference)) {
+				// listen to mouseleave on the tooltip element to be able to hide the tooltip
+				popoverNode.addEventListener(event.type, callback);
+				return true;
+			}
+
+			return false;
+		},
+		$_removeEventListeners: function $_removeEventListeners() {
+			var reference = this.$refs.trigger;
+			this.$_events.forEach(function (_ref3) {
+				var func = _ref3.func,
+				    event = _ref3.event;
+
+				reference.removeEventListener(event, func);
+			});
+			this.$_events = [];
+		},
+		$_updatePopper: function $_updatePopper(cb) {
+			if (this.isOpen && this.popperInstance) {
+				cb();
+				this.popperInstance.update();
+			}
+		},
+		$_restartPopper: function $_restartPopper() {
+			if (this.popperInstance) {
+				var isOpen = this.isOpen;
+				this.dispose();
+				this.$_init();
+				if (isOpen) {
+					this.show();
+				}
+			}
+		},
+		$_handleGlobalClose: function $_handleGlobalClose(event) {
+			var _this8 = this;
+
+			var touch = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+			this.hide({ event: event });
+
+			if (event.closePopover) {
+				this.$emit('close-directive');
+			} else {
+				this.$emit('auto-hide');
+			}
+
+			if (touch) {
+				this.$_preventOpen = true;
+				setTimeout(function () {
+					_this8.$_preventOpen = false;
+				}, 300);
+			}
+		},
+		$_handleResize: function $_handleResize() {
+			if (this.isOpen && this.popperInstance) {
+				this.popperInstance.update();
+				this.$emit('resize');
+			}
+		}
+	}
+};
+
+if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+	if (isIOS) {
+		document.addEventListener('touchend', handleGlobalTouchend, supportsPassive ? {
+			passive: true
+		} : false);
+	} else {
+		window.addEventListener('click', handleGlobalClick);
+	}
+}
+
+function handleGlobalClick(event) {
+	handleGlobalClose(event);
+}
+
+function handleGlobalTouchend(event) {
+	handleGlobalClose(event, true);
+}
+
+function handleGlobalClose(event) {
+	var touch = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+	var popover = void 0;
+	for (var i = 0; i < openPopovers.length; i++) {
+		popover = openPopovers[i];
+		var contains = popover.$refs.popover.contains(event.target);
+		if (event.closeAllPopover || event.closePopover && contains || popover.autoHide && !contains) {
+			popover.$_handleGlobalClose(event, touch);
+		}
+	}
+}
+
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+
+
+
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var lodash_merge = createCommonjsModule(function (module, exports) {
+/**
+ * lodash (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/** Used as the size to enable large array optimizations. */
+var LARGE_ARRAY_SIZE = 200;
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    objectTag = '[object Object]',
+    promiseTag = '[object Promise]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    symbolTag = '[object Symbol]',
+    weakMapTag = '[object WeakMap]';
+
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]',
+    float32Tag = '[object Float32Array]',
+    float64Tag = '[object Float64Array]',
+    int8Tag = '[object Int8Array]',
+    int16Tag = '[object Int16Array]',
+    int32Tag = '[object Int32Array]',
+    uint8Tag = '[object Uint8Array]',
+    uint8ClampedTag = '[object Uint8ClampedArray]',
+    uint16Tag = '[object Uint16Array]',
+    uint32Tag = '[object Uint32Array]';
+
+/**
+ * Used to match `RegExp`
+ * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+ */
+var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+
+/** Used to match `RegExp` flags from their coerced string values. */
+var reFlags = /\w*$/;
+
+/** Used to detect host constructors (Safari). */
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/** Used to identify `toStringTag` values of typed arrays. */
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+typedArrayTags[setTag] = typedArrayTags[stringTag] =
+typedArrayTags[weakMapTag] = false;
+
+/** Used to identify `toStringTag` values supported by `_.clone`. */
+var cloneableTags = {};
+cloneableTags[argsTag] = cloneableTags[arrayTag] =
+cloneableTags[arrayBufferTag] = cloneableTags[dataViewTag] =
+cloneableTags[boolTag] = cloneableTags[dateTag] =
+cloneableTags[float32Tag] = cloneableTags[float64Tag] =
+cloneableTags[int8Tag] = cloneableTags[int16Tag] =
+cloneableTags[int32Tag] = cloneableTags[mapTag] =
+cloneableTags[numberTag] = cloneableTags[objectTag] =
+cloneableTags[regexpTag] = cloneableTags[setTag] =
+cloneableTags[stringTag] = cloneableTags[symbolTag] =
+cloneableTags[uint8Tag] = cloneableTags[uint8ClampedTag] =
+cloneableTags[uint16Tag] = cloneableTags[uint32Tag] = true;
+cloneableTags[errorTag] = cloneableTags[funcTag] =
+cloneableTags[weakMapTag] = false;
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+/** Detect free variable `exports`. */
+var freeExports = 'object' == 'object' && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Detect free variable `process` from Node.js. */
+var freeProcess = moduleExports && freeGlobal.process;
+
+/** Used to access faster Node.js helpers. */
+var nodeUtil = (function() {
+  try {
+    return freeProcess && freeProcess.binding('util');
+  } catch (e) {}
+}());
+
+/* Node.js helper references. */
+var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+
+/**
+ * Adds the key-value `pair` to `map`.
+ *
+ * @private
+ * @param {Object} map The map to modify.
+ * @param {Array} pair The key-value pair to add.
+ * @returns {Object} Returns `map`.
+ */
+function addMapEntry(map, pair) {
+  // Don't return `map.set` because it's not chainable in IE 11.
+  map.set(pair[0], pair[1]);
+  return map;
+}
+
+/**
+ * Adds `value` to `set`.
+ *
+ * @private
+ * @param {Object} set The set to modify.
+ * @param {*} value The value to add.
+ * @returns {Object} Returns `set`.
+ */
+function addSetEntry(set, value) {
+  // Don't return `set.add` because it's not chainable in IE 11.
+  set.add(value);
+  return set;
+}
+
+/**
+ * A faster alternative to `Function#apply`, this function invokes `func`
+ * with the `this` binding of `thisArg` and the arguments of `args`.
+ *
+ * @private
+ * @param {Function} func The function to invoke.
+ * @param {*} thisArg The `this` binding of `func`.
+ * @param {Array} args The arguments to invoke `func` with.
+ * @returns {*} Returns the result of `func`.
+ */
+function apply(func, thisArg, args) {
+  switch (args.length) {
+    case 0: return func.call(thisArg);
+    case 1: return func.call(thisArg, args[0]);
+    case 2: return func.call(thisArg, args[0], args[1]);
+    case 3: return func.call(thisArg, args[0], args[1], args[2]);
+  }
+  return func.apply(thisArg, args);
+}
+
+/**
+ * A specialized version of `_.forEach` for arrays without support for
+ * iteratee shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns `array`.
+ */
+function arrayEach(array, iteratee) {
+  var index = -1,
+      length = array ? array.length : 0;
+
+  while (++index < length) {
+    if (iteratee(array[index], index, array) === false) {
+      break;
+    }
+  }
+  return array;
+}
+
+/**
+ * Appends the elements of `values` to `array`.
+ *
+ * @private
+ * @param {Array} array The array to modify.
+ * @param {Array} values The values to append.
+ * @returns {Array} Returns `array`.
+ */
+function arrayPush(array, values) {
+  var index = -1,
+      length = values.length,
+      offset = array.length;
+
+  while (++index < length) {
+    array[offset + index] = values[index];
+  }
+  return array;
+}
+
+/**
+ * A specialized version of `_.reduce` for arrays without support for
+ * iteratee shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {*} [accumulator] The initial value.
+ * @param {boolean} [initAccum] Specify using the first element of `array` as
+ *  the initial value.
+ * @returns {*} Returns the accumulated value.
+ */
+function arrayReduce(array, iteratee, accumulator, initAccum) {
+  var index = -1,
+      length = array ? array.length : 0;
+
+  if (initAccum && length) {
+    accumulator = array[++index];
+  }
+  while (++index < length) {
+    accumulator = iteratee(accumulator, array[index], index, array);
+  }
+  return accumulator;
+}
+
+/**
+ * The base implementation of `_.times` without support for iteratee shorthands
+ * or max array length checks.
+ *
+ * @private
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ */
+function baseTimes(n, iteratee) {
+  var index = -1,
+      result = Array(n);
+
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+
+/**
+ * The base implementation of `_.unary` without support for storing metadata.
+ *
+ * @private
+ * @param {Function} func The function to cap arguments for.
+ * @returns {Function} Returns the new capped function.
+ */
+function baseUnary(func) {
+  return function(value) {
+    return func(value);
+  };
+}
+
+/**
+ * Gets the value at `key` of `object`.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+
+/**
+ * Checks if `value` is a host object in IE < 9.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+ */
+function isHostObject(value) {
+  // Many host objects are `Object` objects that can coerce to strings
+  // despite having improperly defined `toString` methods.
+  var result = false;
+  if (value != null && typeof value.toString != 'function') {
+    try {
+      result = !!(value + '');
+    } catch (e) {}
+  }
+  return result;
+}
+
+/**
+ * Converts `map` to its key-value pairs.
+ *
+ * @private
+ * @param {Object} map The map to convert.
+ * @returns {Array} Returns the key-value pairs.
+ */
+function mapToArray(map) {
+  var index = -1,
+      result = Array(map.size);
+
+  map.forEach(function(value, key) {
+    result[++index] = [key, value];
+  });
+  return result;
+}
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function(arg) {
+    return func(transform(arg));
+  };
+}
+
+/**
+ * Converts `set` to an array of its values.
+ *
+ * @private
+ * @param {Object} set The set to convert.
+ * @returns {Array} Returns the values.
+ */
+function setToArray(set) {
+  var index = -1,
+      result = Array(set.size);
+
+  set.forEach(function(value) {
+    result[++index] = value;
+  });
+  return result;
+}
+
+/** Used for built-in method references. */
+var arrayProto = Array.prototype,
+    funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to detect overreaching core-js shims. */
+var coreJsData = root['__core-js_shared__'];
+
+/** Used to detect methods masquerading as native. */
+var maskSrcKey = (function() {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? ('Symbol(src)_1.' + uid) : '';
+}());
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to infer the `Object` constructor. */
+var objectCtorString = funcToString.call(Object);
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var objectToString = objectProto.toString;
+
+/** Used to detect if a method is native. */
+var reIsNative = RegExp('^' +
+  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+);
+
+/** Built-in value references. */
+var Buffer = moduleExports ? root.Buffer : undefined,
+    Symbol = root.Symbol,
+    Uint8Array = root.Uint8Array,
+    getPrototype = overArg(Object.getPrototypeOf, Object),
+    objectCreate = Object.create,
+    propertyIsEnumerable = objectProto.propertyIsEnumerable,
+    splice = arrayProto.splice;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeGetSymbols = Object.getOwnPropertySymbols,
+    nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined,
+    nativeKeys = overArg(Object.keys, Object),
+    nativeMax = Math.max;
+
+/* Built-in method references that are verified to be native. */
+var DataView = getNative(root, 'DataView'),
+    Map = getNative(root, 'Map'),
+    Promise = getNative(root, 'Promise'),
+    Set = getNative(root, 'Set'),
+    WeakMap = getNative(root, 'WeakMap'),
+    nativeCreate = getNative(Object, 'create');
+
+/** Used to detect maps, sets, and weakmaps. */
+var dataViewCtorString = toSource(DataView),
+    mapCtorString = toSource(Map),
+    promiseCtorString = toSource(Promise),
+    setCtorString = toSource(Set),
+    weakMapCtorString = toSource(WeakMap);
+
+/** Used to convert symbols to primitives and strings. */
+var symbolProto = Symbol ? Symbol.prototype : undefined,
+    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
+
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Hash(entries) {
+  var index = -1,
+      length = entries ? entries.length : 0;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+function hashClear() {
+  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+}
+
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function hashDelete(key) {
+  return this.has(key) && delete this.__data__[key];
+}
+
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function hashGet(key) {
+  var data = this.__data__;
+  if (nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+}
+
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function hashHas(key) {
+  var data = this.__data__;
+  return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
+}
+
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+function hashSet(key, value) {
+  var data = this.__data__;
+  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+  return this;
+}
+
+// Add methods to `Hash`.
+Hash.prototype.clear = hashClear;
+Hash.prototype['delete'] = hashDelete;
+Hash.prototype.get = hashGet;
+Hash.prototype.has = hashHas;
+Hash.prototype.set = hashSet;
+
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function ListCache(entries) {
+  var index = -1,
+      length = entries ? entries.length : 0;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+}
+
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  return true;
+}
+
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function listCacheGet(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  return index < 0 ? undefined : data[index][1];
+}
+
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function listCacheHas(key) {
+  return assocIndexOf(this.__data__, key) > -1;
+}
+
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+function listCacheSet(key, value) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+
+// Add methods to `ListCache`.
+ListCache.prototype.clear = listCacheClear;
+ListCache.prototype['delete'] = listCacheDelete;
+ListCache.prototype.get = listCacheGet;
+ListCache.prototype.has = listCacheHas;
+ListCache.prototype.set = listCacheSet;
+
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function MapCache(entries) {
+  var index = -1,
+      length = entries ? entries.length : 0;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+function mapCacheClear() {
+  this.__data__ = {
+    'hash': new Hash,
+    'map': new (Map || ListCache),
+    'string': new Hash
+  };
+}
+
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function mapCacheDelete(key) {
+  return getMapData(this, key)['delete'](key);
+}
+
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function mapCacheHas(key) {
+  return getMapData(this, key).has(key);
+}
+
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+function mapCacheSet(key, value) {
+  getMapData(this, key).set(key, value);
+  return this;
+}
+
+// Add methods to `MapCache`.
+MapCache.prototype.clear = mapCacheClear;
+MapCache.prototype['delete'] = mapCacheDelete;
+MapCache.prototype.get = mapCacheGet;
+MapCache.prototype.has = mapCacheHas;
+MapCache.prototype.set = mapCacheSet;
+
+/**
+ * Creates a stack cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Stack(entries) {
+  this.__data__ = new ListCache(entries);
+}
+
+/**
+ * Removes all key-value entries from the stack.
+ *
+ * @private
+ * @name clear
+ * @memberOf Stack
+ */
+function stackClear() {
+  this.__data__ = new ListCache;
+}
+
+/**
+ * Removes `key` and its value from the stack.
+ *
+ * @private
+ * @name delete
+ * @memberOf Stack
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function stackDelete(key) {
+  return this.__data__['delete'](key);
+}
+
+/**
+ * Gets the stack value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Stack
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function stackGet(key) {
+  return this.__data__.get(key);
+}
+
+/**
+ * Checks if a stack value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Stack
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function stackHas(key) {
+  return this.__data__.has(key);
+}
+
+/**
+ * Sets the stack `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Stack
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the stack cache instance.
+ */
+function stackSet(key, value) {
+  var cache = this.__data__;
+  if (cache instanceof ListCache) {
+    var pairs = cache.__data__;
+    if (!Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
+      pairs.push([key, value]);
+      return this;
+    }
+    cache = this.__data__ = new MapCache(pairs);
+  }
+  cache.set(key, value);
+  return this;
+}
+
+// Add methods to `Stack`.
+Stack.prototype.clear = stackClear;
+Stack.prototype['delete'] = stackDelete;
+Stack.prototype.get = stackGet;
+Stack.prototype.has = stackHas;
+Stack.prototype.set = stackSet;
+
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+function arrayLikeKeys(value, inherited) {
+  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+  // Safari 9 makes `arguments.length` enumerable in strict mode.
+  var result = (isArray(value) || isArguments(value))
+    ? baseTimes(value.length, String)
+    : [];
+
+  var length = result.length,
+      skipIndexes = !!length;
+
+  for (var key in value) {
+    if ((inherited || hasOwnProperty.call(value, key)) &&
+        !(skipIndexes && (key == 'length' || isIndex(key, length)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+/**
+ * This function is like `assignValue` except that it doesn't assign
+ * `undefined` values.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function assignMergeValue(object, key, value) {
+  if ((value !== undefined && !eq(object[key], value)) ||
+      (typeof key == 'number' && value === undefined && !(key in object))) {
+    object[key] = value;
+  }
+}
+
+/**
+ * Assigns `value` to `key` of `object` if the existing value is not equivalent
+ * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * for equality comparisons.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function assignValue(object, key, value) {
+  var objValue = object[key];
+  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
+      (value === undefined && !(key in object))) {
+    object[key] = value;
+  }
+}
+
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+
+/**
+ * The base implementation of `_.assign` without support for multiple sources
+ * or `customizer` functions.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @returns {Object} Returns `object`.
+ */
+function baseAssign(object, source) {
+  return object && copyObject(source, keys(source), object);
+}
+
+/**
+ * The base implementation of `_.clone` and `_.cloneDeep` which tracks
+ * traversed objects.
+ *
+ * @private
+ * @param {*} value The value to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @param {boolean} [isFull] Specify a clone including symbols.
+ * @param {Function} [customizer] The function to customize cloning.
+ * @param {string} [key] The key of `value`.
+ * @param {Object} [object] The parent object of `value`.
+ * @param {Object} [stack] Tracks traversed objects and their clone counterparts.
+ * @returns {*} Returns the cloned value.
+ */
+function baseClone(value, isDeep, isFull, customizer, key, object, stack) {
+  var result;
+  if (customizer) {
+    result = object ? customizer(value, key, object, stack) : customizer(value);
+  }
+  if (result !== undefined) {
+    return result;
+  }
+  if (!isObject(value)) {
+    return value;
+  }
+  var isArr = isArray(value);
+  if (isArr) {
+    result = initCloneArray(value);
+    if (!isDeep) {
+      return copyArray(value, result);
+    }
+  } else {
+    var tag = getTag(value),
+        isFunc = tag == funcTag || tag == genTag;
+
+    if (isBuffer(value)) {
+      return cloneBuffer(value, isDeep);
+    }
+    if (tag == objectTag || tag == argsTag || (isFunc && !object)) {
+      if (isHostObject(value)) {
+        return object ? value : {};
+      }
+      result = initCloneObject(isFunc ? {} : value);
+      if (!isDeep) {
+        return copySymbols(value, baseAssign(result, value));
+      }
+    } else {
+      if (!cloneableTags[tag]) {
+        return object ? value : {};
+      }
+      result = initCloneByTag(value, tag, baseClone, isDeep);
+    }
+  }
+  // Check for circular references and return its corresponding clone.
+  stack || (stack = new Stack);
+  var stacked = stack.get(value);
+  if (stacked) {
+    return stacked;
+  }
+  stack.set(value, result);
+
+  if (!isArr) {
+    var props = isFull ? getAllKeys(value) : keys(value);
+  }
+  arrayEach(props || value, function(subValue, key) {
+    if (props) {
+      key = subValue;
+      subValue = value[key];
+    }
+    // Recursively populate clone (susceptible to call stack limits).
+    assignValue(result, key, baseClone(subValue, isDeep, isFull, customizer, key, value, stack));
+  });
+  return result;
+}
+
+/**
+ * The base implementation of `_.create` without support for assigning
+ * properties to the created object.
+ *
+ * @private
+ * @param {Object} prototype The object to inherit from.
+ * @returns {Object} Returns the new object.
+ */
+function baseCreate(proto) {
+  return isObject(proto) ? objectCreate(proto) : {};
+}
+
+/**
+ * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
+ * `keysFunc` and `symbolsFunc` to get the enumerable property names and
+ * symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @param {Function} symbolsFunc The function to get the symbols of `object`.
+ * @returns {Array} Returns the array of property names and symbols.
+ */
+function baseGetAllKeys(object, keysFunc, symbolsFunc) {
+  var result = keysFunc(object);
+  return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
+}
+
+/**
+ * The base implementation of `getTag`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  return objectToString.call(value);
+}
+
+/**
+ * The base implementation of `_.isNative` without bad shim checks.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a native function,
+ *  else `false`.
+ */
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+  var pattern = (isFunction(value) || isHostObject(value)) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+
+/**
+ * The base implementation of `_.isTypedArray` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ */
+function baseIsTypedArray(value) {
+  return isObjectLike(value) &&
+    isLength(value.length) && !!typedArrayTags[objectToString.call(value)];
+}
+
+/**
+ * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function baseKeys(object) {
+  if (!isPrototype(object)) {
+    return nativeKeys(object);
+  }
+  var result = [];
+  for (var key in Object(object)) {
+    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+/**
+ * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function baseKeysIn(object) {
+  if (!isObject(object)) {
+    return nativeKeysIn(object);
+  }
+  var isProto = isPrototype(object),
+      result = [];
+
+  for (var key in object) {
+    if (!(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+/**
+ * The base implementation of `_.merge` without support for multiple sources.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {number} srcIndex The index of `source`.
+ * @param {Function} [customizer] The function to customize merged values.
+ * @param {Object} [stack] Tracks traversed source values and their merged
+ *  counterparts.
+ */
+function baseMerge(object, source, srcIndex, customizer, stack) {
+  if (object === source) {
+    return;
+  }
+  if (!(isArray(source) || isTypedArray(source))) {
+    var props = baseKeysIn(source);
+  }
+  arrayEach(props || source, function(srcValue, key) {
+    if (props) {
+      key = srcValue;
+      srcValue = source[key];
+    }
+    if (isObject(srcValue)) {
+      stack || (stack = new Stack);
+      baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
+    }
+    else {
+      var newValue = customizer
+        ? customizer(object[key], srcValue, (key + ''), object, source, stack)
+        : undefined;
+
+      if (newValue === undefined) {
+        newValue = srcValue;
+      }
+      assignMergeValue(object, key, newValue);
+    }
+  });
+}
+
+/**
+ * A specialized version of `baseMerge` for arrays and objects which performs
+ * deep merges and tracks traversed objects enabling objects with circular
+ * references to be merged.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {string} key The key of the value to merge.
+ * @param {number} srcIndex The index of `source`.
+ * @param {Function} mergeFunc The function to merge values.
+ * @param {Function} [customizer] The function to customize assigned values.
+ * @param {Object} [stack] Tracks traversed source values and their merged
+ *  counterparts.
+ */
+function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
+  var objValue = object[key],
+      srcValue = source[key],
+      stacked = stack.get(srcValue);
+
+  if (stacked) {
+    assignMergeValue(object, key, stacked);
+    return;
+  }
+  var newValue = customizer
+    ? customizer(objValue, srcValue, (key + ''), object, source, stack)
+    : undefined;
+
+  var isCommon = newValue === undefined;
+
+  if (isCommon) {
+    newValue = srcValue;
+    if (isArray(srcValue) || isTypedArray(srcValue)) {
+      if (isArray(objValue)) {
+        newValue = objValue;
+      }
+      else if (isArrayLikeObject(objValue)) {
+        newValue = copyArray(objValue);
+      }
+      else {
+        isCommon = false;
+        newValue = baseClone(srcValue, true);
+      }
+    }
+    else if (isPlainObject(srcValue) || isArguments(srcValue)) {
+      if (isArguments(objValue)) {
+        newValue = toPlainObject(objValue);
+      }
+      else if (!isObject(objValue) || (srcIndex && isFunction(objValue))) {
+        isCommon = false;
+        newValue = baseClone(srcValue, true);
+      }
+      else {
+        newValue = objValue;
+      }
+    }
+    else {
+      isCommon = false;
+    }
+  }
+  if (isCommon) {
+    // Recursively merge objects and arrays (susceptible to call stack limits).
+    stack.set(srcValue, newValue);
+    mergeFunc(newValue, srcValue, srcIndex, customizer, stack);
+    stack['delete'](srcValue);
+  }
+  assignMergeValue(object, key, newValue);
+}
+
+/**
+ * The base implementation of `_.rest` which doesn't validate or coerce arguments.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @returns {Function} Returns the new function.
+ */
+function baseRest(func, start) {
+  start = nativeMax(start === undefined ? (func.length - 1) : start, 0);
+  return function() {
+    var args = arguments,
+        index = -1,
+        length = nativeMax(args.length - start, 0),
+        array = Array(length);
+
+    while (++index < length) {
+      array[index] = args[start + index];
+    }
+    index = -1;
+    var otherArgs = Array(start + 1);
+    while (++index < start) {
+      otherArgs[index] = args[index];
+    }
+    otherArgs[start] = array;
+    return apply(func, this, otherArgs);
+  };
+}
+
+/**
+ * Creates a clone of  `buffer`.
+ *
+ * @private
+ * @param {Buffer} buffer The buffer to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Buffer} Returns the cloned buffer.
+ */
+function cloneBuffer(buffer, isDeep) {
+  if (isDeep) {
+    return buffer.slice();
+  }
+  var result = new buffer.constructor(buffer.length);
+  buffer.copy(result);
+  return result;
+}
+
+/**
+ * Creates a clone of `arrayBuffer`.
+ *
+ * @private
+ * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
+ * @returns {ArrayBuffer} Returns the cloned array buffer.
+ */
+function cloneArrayBuffer(arrayBuffer) {
+  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
+  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
+  return result;
+}
+
+/**
+ * Creates a clone of `dataView`.
+ *
+ * @private
+ * @param {Object} dataView The data view to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the cloned data view.
+ */
+function cloneDataView(dataView, isDeep) {
+  var buffer = isDeep ? cloneArrayBuffer(dataView.buffer) : dataView.buffer;
+  return new dataView.constructor(buffer, dataView.byteOffset, dataView.byteLength);
+}
+
+/**
+ * Creates a clone of `map`.
+ *
+ * @private
+ * @param {Object} map The map to clone.
+ * @param {Function} cloneFunc The function to clone values.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the cloned map.
+ */
+function cloneMap(map, isDeep, cloneFunc) {
+  var array = isDeep ? cloneFunc(mapToArray(map), true) : mapToArray(map);
+  return arrayReduce(array, addMapEntry, new map.constructor);
+}
+
+/**
+ * Creates a clone of `regexp`.
+ *
+ * @private
+ * @param {Object} regexp The regexp to clone.
+ * @returns {Object} Returns the cloned regexp.
+ */
+function cloneRegExp(regexp) {
+  var result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
+  result.lastIndex = regexp.lastIndex;
+  return result;
+}
+
+/**
+ * Creates a clone of `set`.
+ *
+ * @private
+ * @param {Object} set The set to clone.
+ * @param {Function} cloneFunc The function to clone values.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the cloned set.
+ */
+function cloneSet(set, isDeep, cloneFunc) {
+  var array = isDeep ? cloneFunc(setToArray(set), true) : setToArray(set);
+  return arrayReduce(array, addSetEntry, new set.constructor);
+}
+
+/**
+ * Creates a clone of the `symbol` object.
+ *
+ * @private
+ * @param {Object} symbol The symbol object to clone.
+ * @returns {Object} Returns the cloned symbol object.
+ */
+function cloneSymbol(symbol) {
+  return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
+}
+
+/**
+ * Creates a clone of `typedArray`.
+ *
+ * @private
+ * @param {Object} typedArray The typed array to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the cloned typed array.
+ */
+function cloneTypedArray(typedArray, isDeep) {
+  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
+  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
+}
+
+/**
+ * Copies the values of `source` to `array`.
+ *
+ * @private
+ * @param {Array} source The array to copy values from.
+ * @param {Array} [array=[]] The array to copy values to.
+ * @returns {Array} Returns `array`.
+ */
+function copyArray(source, array) {
+  var index = -1,
+      length = source.length;
+
+  array || (array = Array(length));
+  while (++index < length) {
+    array[index] = source[index];
+  }
+  return array;
+}
+
+/**
+ * Copies properties of `source` to `object`.
+ *
+ * @private
+ * @param {Object} source The object to copy properties from.
+ * @param {Array} props The property identifiers to copy.
+ * @param {Object} [object={}] The object to copy properties to.
+ * @param {Function} [customizer] The function to customize copied values.
+ * @returns {Object} Returns `object`.
+ */
+function copyObject(source, props, object, customizer) {
+  object || (object = {});
+
+  var index = -1,
+      length = props.length;
+
+  while (++index < length) {
+    var key = props[index];
+
+    var newValue = customizer
+      ? customizer(object[key], source[key], key, object, source)
+      : undefined;
+
+    assignValue(object, key, newValue === undefined ? source[key] : newValue);
+  }
+  return object;
+}
+
+/**
+ * Copies own symbol properties of `source` to `object`.
+ *
+ * @private
+ * @param {Object} source The object to copy symbols from.
+ * @param {Object} [object={}] The object to copy symbols to.
+ * @returns {Object} Returns `object`.
+ */
+function copySymbols(source, object) {
+  return copyObject(source, getSymbols(source), object);
+}
+
+/**
+ * Creates a function like `_.assign`.
+ *
+ * @private
+ * @param {Function} assigner The function to assign values.
+ * @returns {Function} Returns the new assigner function.
+ */
+function createAssigner(assigner) {
+  return baseRest(function(object, sources) {
+    var index = -1,
+        length = sources.length,
+        customizer = length > 1 ? sources[length - 1] : undefined,
+        guard = length > 2 ? sources[2] : undefined;
+
+    customizer = (assigner.length > 3 && typeof customizer == 'function')
+      ? (length--, customizer)
+      : undefined;
+
+    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+      customizer = length < 3 ? undefined : customizer;
+      length = 1;
+    }
+    object = Object(object);
+    while (++index < length) {
+      var source = sources[index];
+      if (source) {
+        assigner(object, source, index, customizer);
+      }
+    }
+    return object;
+  });
+}
+
+/**
+ * Creates an array of own enumerable property names and symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names and symbols.
+ */
+function getAllKeys(object) {
+  return baseGetAllKeys(object, keys, getSymbols);
+}
+
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+function getMapData(map, key) {
+  var data = map.__data__;
+  return isKeyable(key)
+    ? data[typeof key == 'string' ? 'string' : 'hash']
+    : data.map;
+}
+
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+
+/**
+ * Creates an array of the own enumerable symbol properties of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of symbols.
+ */
+var getSymbols = nativeGetSymbols ? overArg(nativeGetSymbols, Object) : stubArray;
+
+/**
+ * Gets the `toStringTag` of `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+var getTag = baseGetTag;
+
+// Fallback for data views, maps, sets, and weak maps in IE 11,
+// for data views in Edge < 14, and promises in Node.js.
+if ((DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
+    (Map && getTag(new Map) != mapTag) ||
+    (Promise && getTag(Promise.resolve()) != promiseTag) ||
+    (Set && getTag(new Set) != setTag) ||
+    (WeakMap && getTag(new WeakMap) != weakMapTag)) {
+  getTag = function(value) {
+    var result = objectToString.call(value),
+        Ctor = result == objectTag ? value.constructor : undefined,
+        ctorString = Ctor ? toSource(Ctor) : undefined;
+
+    if (ctorString) {
+      switch (ctorString) {
+        case dataViewCtorString: return dataViewTag;
+        case mapCtorString: return mapTag;
+        case promiseCtorString: return promiseTag;
+        case setCtorString: return setTag;
+        case weakMapCtorString: return weakMapTag;
+      }
+    }
+    return result;
+  };
+}
+
+/**
+ * Initializes an array clone.
+ *
+ * @private
+ * @param {Array} array The array to clone.
+ * @returns {Array} Returns the initialized clone.
+ */
+function initCloneArray(array) {
+  var length = array.length,
+      result = array.constructor(length);
+
+  // Add properties assigned by `RegExp#exec`.
+  if (length && typeof array[0] == 'string' && hasOwnProperty.call(array, 'index')) {
+    result.index = array.index;
+    result.input = array.input;
+  }
+  return result;
+}
+
+/**
+ * Initializes an object clone.
+ *
+ * @private
+ * @param {Object} object The object to clone.
+ * @returns {Object} Returns the initialized clone.
+ */
+function initCloneObject(object) {
+  return (typeof object.constructor == 'function' && !isPrototype(object))
+    ? baseCreate(getPrototype(object))
+    : {};
+}
+
+/**
+ * Initializes an object clone based on its `toStringTag`.
+ *
+ * **Note:** This function only supports cloning values with tags of
+ * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
+ *
+ * @private
+ * @param {Object} object The object to clone.
+ * @param {string} tag The `toStringTag` of the object to clone.
+ * @param {Function} cloneFunc The function to clone values.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the initialized clone.
+ */
+function initCloneByTag(object, tag, cloneFunc, isDeep) {
+  var Ctor = object.constructor;
+  switch (tag) {
+    case arrayBufferTag:
+      return cloneArrayBuffer(object);
+
+    case boolTag:
+    case dateTag:
+      return new Ctor(+object);
+
+    case dataViewTag:
+      return cloneDataView(object, isDeep);
+
+    case float32Tag: case float64Tag:
+    case int8Tag: case int16Tag: case int32Tag:
+    case uint8Tag: case uint8ClampedTag: case uint16Tag: case uint32Tag:
+      return cloneTypedArray(object, isDeep);
+
+    case mapTag:
+      return cloneMap(object, isDeep, cloneFunc);
+
+    case numberTag:
+    case stringTag:
+      return new Ctor(object);
+
+    case regexpTag:
+      return cloneRegExp(object);
+
+    case setTag:
+      return cloneSet(object, isDeep, cloneFunc);
+
+    case symbolTag:
+      return cloneSymbol(object);
+  }
+}
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  length = length == null ? MAX_SAFE_INTEGER : length;
+  return !!length &&
+    (typeof value == 'number' || reIsUint.test(value)) &&
+    (value > -1 && value % 1 == 0 && value < length);
+}
+
+/**
+ * Checks if the given arguments are from an iteratee call.
+ *
+ * @private
+ * @param {*} value The potential iteratee value argument.
+ * @param {*} index The potential iteratee index or key argument.
+ * @param {*} object The potential iteratee object argument.
+ * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+ *  else `false`.
+ */
+function isIterateeCall(value, index, object) {
+  if (!isObject(object)) {
+    return false;
+  }
+  var type = typeof index;
+  if (type == 'number'
+        ? (isArrayLike(object) && isIndex(index, object.length))
+        : (type == 'string' && index in object)
+      ) {
+    return eq(object[index], value);
+  }
+  return false;
+}
+
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+function isKeyable(value) {
+  var type = typeof value;
+  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+    ? (value !== '__proto__')
+    : (value === null);
+}
+
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+function isMasked(func) {
+  return !!maskSrcKey && (maskSrcKey in func);
+}
+
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+
+  return value === proto;
+}
+
+/**
+ * This function is like
+ * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * except that it includes inherited enumerable properties.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function nativeKeysIn(object) {
+  var result = [];
+  if (object != null) {
+    for (var key in Object(object)) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+/**
+ * Converts `func` to its source code.
+ *
+ * @private
+ * @param {Function} func The function to process.
+ * @returns {string} Returns the source code.
+ */
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+    try {
+      return (func + '');
+    } catch (e) {}
+  }
+  return '';
+}
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || (value !== value && other !== other);
+}
+
+/**
+ * Checks if `value` is likely an `arguments` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArguments(function() { return arguments; }());
+ * // => true
+ *
+ * _.isArguments([1, 2, 3]);
+ * // => false
+ */
+function isArguments(value) {
+  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
+    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
+}
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+
+/**
+ * This method is like `_.isArrayLike` except that it also checks if `value`
+ * is an object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array-like object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArrayLikeObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLikeObject(document.body.children);
+ * // => true
+ *
+ * _.isArrayLikeObject('abc');
+ * // => false
+ *
+ * _.isArrayLikeObject(_.noop);
+ * // => false
+ */
+function isArrayLikeObject(value) {
+  return isObjectLike(value) && isArrayLike(value);
+}
+
+/**
+ * Checks if `value` is a buffer.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+ * @example
+ *
+ * _.isBuffer(new Buffer(2));
+ * // => true
+ *
+ * _.isBuffer(new Uint8Array(2));
+ * // => false
+ */
+var isBuffer = nativeIsBuffer || stubFalse;
+
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+function isFunction(value) {
+  // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 8-9 which returns 'object' for typed array and other constructors.
+  var tag = isObject(value) ? objectToString.call(value) : '';
+  return tag == funcTag || tag == genTag;
+}
+
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+function isLength(value) {
+  return typeof value == 'number' &&
+    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return !!value && (type == 'object' || type == 'function');
+}
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return !!value && typeof value == 'object';
+}
+
+/**
+ * Checks if `value` is a plain object, that is, an object created by the
+ * `Object` constructor or one with a `[[Prototype]]` of `null`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.8.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ * }
+ *
+ * _.isPlainObject(new Foo);
+ * // => false
+ *
+ * _.isPlainObject([1, 2, 3]);
+ * // => false
+ *
+ * _.isPlainObject({ 'x': 0, 'y': 0 });
+ * // => true
+ *
+ * _.isPlainObject(Object.create(null));
+ * // => true
+ */
+function isPlainObject(value) {
+  if (!isObjectLike(value) ||
+      objectToString.call(value) != objectTag || isHostObject(value)) {
+    return false;
+  }
+  var proto = getPrototype(value);
+  if (proto === null) {
+    return true;
+  }
+  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+  return (typeof Ctor == 'function' &&
+    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
+}
+
+/**
+ * Checks if `value` is classified as a typed array.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ * @example
+ *
+ * _.isTypedArray(new Uint8Array);
+ * // => true
+ *
+ * _.isTypedArray([]);
+ * // => false
+ */
+var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+
+/**
+ * Converts `value` to a plain object flattening inherited enumerable string
+ * keyed properties of `value` to own properties of the plain object.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {Object} Returns the converted plain object.
+ * @example
+ *
+ * function Foo() {
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.assign({ 'a': 1 }, new Foo);
+ * // => { 'a': 1, 'b': 2 }
+ *
+ * _.assign({ 'a': 1 }, _.toPlainObject(new Foo));
+ * // => { 'a': 1, 'b': 2, 'c': 3 }
+ */
+function toPlainObject(value) {
+  return copyObject(value, keysIn(value));
+}
+
+/**
+ * Creates an array of the own enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects. See the
+ * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * for more details.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keys(new Foo);
+ * // => ['a', 'b'] (iteration order is not guaranteed)
+ *
+ * _.keys('hi');
+ * // => ['0', '1']
+ */
+function keys(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+}
+
+/**
+ * Creates an array of the own and inherited enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keysIn(new Foo);
+ * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
+ */
+function keysIn(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
+}
+
+/**
+ * This method is like `_.assign` except that it recursively merges own and
+ * inherited enumerable string keyed properties of source objects into the
+ * destination object. Source properties that resolve to `undefined` are
+ * skipped if a destination value exists. Array and plain object properties
+ * are merged recursively. Other objects and value types are overridden by
+ * assignment. Source objects are applied from left to right. Subsequent
+ * sources overwrite property assignments of previous sources.
+ *
+ * **Note:** This method mutates `object`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.5.0
+ * @category Object
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * var object = {
+ *   'a': [{ 'b': 2 }, { 'd': 4 }]
+ * };
+ *
+ * var other = {
+ *   'a': [{ 'c': 3 }, { 'e': 5 }]
+ * };
+ *
+ * _.merge(object, other);
+ * // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
+ */
+var merge = createAssigner(function(object, source, srcIndex) {
+  baseMerge(object, source, srcIndex);
+});
+
+/**
+ * This method returns a new empty array.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {Array} Returns the new empty array.
+ * @example
+ *
+ * var arrays = _.times(2, _.stubArray);
+ *
+ * console.log(arrays);
+ * // => [[], []]
+ *
+ * console.log(arrays[0] === arrays[1]);
+ * // => false
+ */
+function stubArray() {
+  return [];
+}
+
+/**
+ * This method returns `false`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {boolean} Returns `false`.
+ * @example
+ *
+ * _.times(2, _.stubFalse);
+ * // => [false, false]
+ */
+function stubFalse() {
+  return false;
+}
+
+module.exports = merge;
+});
+
+function install(Vue) {
+	var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+	if (install.installed) return;
+	install.installed = true;
+
+	var finalOptions = {};
+	lodash_merge(finalOptions, defaultOptions, options);
+
+	plugin.options = finalOptions;
+	directive.options = finalOptions;
+
+	Vue.directive('tooltip', directive);
+	Vue.directive('close-popover', vclosepopover);
+	Vue.component('v-popover', Popover);
+}
+
+var VTooltip = directive;
+var VClosePopover = vclosepopover;
+var VPopover = Popover;
+
+var plugin = {
+	install: install,
+
+	get enabled() {
+		return state.enabled;
+	},
+
+	set enabled(value) {
+		state.enabled = value;
+	}
+};
+
+// Auto-install
+var GlobalVue = null;
+if (typeof window !== 'undefined') {
+	GlobalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
+	GlobalVue = global.Vue;
+}
+if (GlobalVue) {
+	GlobalVue.use(plugin);
+}
+
+
+/* harmony default export */ __webpack_exports__["default"] = (plugin);
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(5)))
+
+/***/ }),
+/* 385 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.removeSelectedContent = removeSelectedContent;
+exports.duplicateSelectedContent = duplicateSelectedContent;
+exports.selectParent = selectParent;
+
+var _contents = __webpack_require__(1);
+
+var _session = __webpack_require__(3);
+
+function removeSelectedContent() {
+    var selected = (0, _session.getSelectedContent)();
+    if (selected) {
+        (0, _contents.removeContent)(selected);
+    }
+}
+
+function duplicateSelectedContent() {
+    var selected = (0, _session.getSelectedContent)();
+    if (selected) {
+        (0, _contents.duplicateContent)(selected);
+    }
+}
+
+function selectParent() {
+    var selected = (0, _session.getSelectedContent)();
+    if (selected && selected.container_id) {
+        (0, _session.selectContent)(selected.container_id);
+    }
+}
 
 /***/ })
 /******/ ]);
