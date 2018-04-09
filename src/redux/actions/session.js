@@ -35,6 +35,9 @@ export function activateMode(mode) {
 }
 
 export function beginEditMode() {
+    if ( ! isDocumentEditable()) {
+        return
+    }
     store.dispatch({
         type: 'SESSION_MODE_SET',
         payload: MODE_EDIT
@@ -50,12 +53,23 @@ export function beginRenderMode() {
     deselectContent()
 }
 
+export function toggleRenderMode() {
+    if ( getCurrentMode() === MODE_EDIT) {
+        return beginRenderMode()
+    }
+    return beginEditMode()
+}
+
 export function getCurrentMode() {
     return store.getState().session.mode
 }
 
 export function isDocumentAlterable() {
     return getCurrentMode() === MODE_EDIT && store.getState().session.alterable
+}
+
+export function isDocumentEditable() {
+    return store.getState().session.editable
 }
 
 export function selectContent(id) {

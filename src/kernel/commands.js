@@ -1,10 +1,13 @@
+import * as _ from 'lodash'
 import save from '~/ui/commands/save'
+import render from '~/ui/commands/render'
 import parent from '~/ui/commands/parent'
 import remove from '~/ui/commands/remove'
 import duplicate from '~/ui/commands/duplicate'
 
 const commands = [
     save,
+    render,
     parent,
     remove,
     duplicate,
@@ -12,9 +15,14 @@ const commands = [
 ]
 
 export default function() {
-
-     // for IE to cover IEs window event-object
-
+    
+    // Apply throttle to invoke callbacks
+    commands.map(command => {
+         if (command.hasOwnProperty('throttle')) {
+             command.invoke = _.throttle(command.invoke, command.throttle)
+         }
+         return command
+     })
 
     document.onkeydown = (e) => {
         e = e || window.event;

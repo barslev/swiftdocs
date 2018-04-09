@@ -36,7 +36,7 @@
         <div class="float-left ml-4" style="margin-top:10px">
             <document-status></document-status>
         </div>
-        
+
         <div class="float-right">
             <dropdown-menu color="grey-dark" icon="language" :label="$t('languages.' + state.translation)" align="pin-r">
                 <dropdown-option v-for="language in translations" :key="language" v-if="language != translation" @click.native="changeTranslationLanguage(language)">

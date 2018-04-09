@@ -465,8 +465,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 exports.activateMode = activateMode;
 exports.beginEditMode = beginEditMode;
 exports.beginRenderMode = beginRenderMode;
+exports.toggleRenderMode = toggleRenderMode;
 exports.getCurrentMode = getCurrentMode;
 exports.isDocumentAlterable = isDocumentAlterable;
+exports.isDocumentEditable = isDocumentEditable;
 exports.selectContent = selectContent;
 exports.deselectContent = deselectContent;
 exports.getSelectedContentId = getSelectedContentId;
@@ -510,6 +512,9 @@ function activateMode(mode) {
 }
 
 function beginEditMode() {
+    if (!isDocumentEditable()) {
+        return;
+    }
     store.dispatch({
         type: 'SESSION_MODE_SET',
         payload: MODE_EDIT
@@ -525,12 +530,23 @@ function beginRenderMode() {
     deselectContent();
 }
 
+function toggleRenderMode() {
+    if (getCurrentMode() === MODE_EDIT) {
+        return beginRenderMode();
+    }
+    return beginEditMode();
+}
+
 function getCurrentMode() {
     return store.getState().session.mode;
 }
 
 function isDocumentAlterable() {
     return getCurrentMode() === MODE_EDIT && store.getState().session.alterable;
+}
+
+function isDocumentEditable() {
+    return store.getState().session.editable;
 }
 
 function selectContent(id) {
@@ -47087,8 +47103,13 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function () {
 
-    // for IE to cover IEs window event-object
-
+    // Apply throttle to invoke callbacks
+    commands.map(function (command) {
+        if (command.hasOwnProperty('throttle')) {
+            command.invoke = _.throttle(command.invoke, command.throttle);
+        }
+        return command;
+    });
 
     document.onkeydown = function (e) {
         e = e || window.event;
@@ -47111,9 +47132,17 @@ exports.default = function () {
     };
 };
 
+var _lodash = __webpack_require__(41);
+
+var _ = _interopRequireWildcard(_lodash);
+
 var _save = __webpack_require__(285);
 
 var _save2 = _interopRequireDefault(_save);
+
+var _render = __webpack_require__(380);
+
+var _render2 = _interopRequireDefault(_render);
 
 var _parent = __webpack_require__(286);
 
@@ -47129,7 +47158,9 @@ var _duplicate2 = _interopRequireDefault(_duplicate);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var commands = [_save2.default, _parent2.default, _remove2.default, _duplicate2.default];
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var commands = [_save2.default, _render2.default, _parent2.default, _remove2.default, _duplicate2.default];
 
 /***/ }),
 /* 285 */
@@ -64515,6 +64546,27 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-7abe7322", esExports)
   }
 }
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _session = __webpack_require__(3);
+
+exports.default = {
+  key: 82, // r key
+  throttle: 500,
+  invoke: function invoke() {
+    (0, _session.toggleRenderMode)();
+  }
+};
 
 /***/ })
 /******/ ]);
