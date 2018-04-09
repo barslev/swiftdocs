@@ -39,7 +39,7 @@
     @apply .mb-2;
 }
 
-.toolbar-tabs a:hover {
+.toolbar-tabs a:hover, .toolbar-tabs a.active {
     cursor: pointer;
     @apply .bg-black .text-grey-light;
 }
