@@ -33438,12 +33438,13 @@ exports.default = {
 
             return _.filter(items, function (item) {
                 var state = (0, _contents.getContentState)(item.id);
-                var condition = _.get(state, 'logic.condition');
-
+                var condition = _.get(state, 'logic.conditions');
                 if (!condition) {
                     return true;
                 }
-                return _this3.evaluateCondition(condition);
+                return _.get(state, 'logic.conditions', []).every(function (condition) {
+                    return _this3.evaluateCondition(condition);
+                });
             });
         },
         evaluateCondition: function evaluateCondition(condition) {
@@ -53895,6 +53896,12 @@ module.exports = {
 "use strict";
 
 
+var _lodash = __webpack_require__(24);
+
+var _ = _interopRequireWildcard(_lodash);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 // As of v0.4.0, logic checks will be an array, instead of a single rule.
 
 module.exports = {
@@ -53902,7 +53909,13 @@ module.exports = {
     before: '0.4.0',
 
     up: function up(state) {
-        alert(state);
+        state.contents = state.contents.map(function (content) {
+            if (_.get(content, 'state.logic.condition') && !_.get(content, 'state.logic.conditions')) {
+                content.state.logic.conditions = [content.state.logic.condition];
+                delete content.state.logic.condition;
+            }
+            return content;
+        });
         return state;
     }
 };

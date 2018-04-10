@@ -107,12 +107,13 @@ export default {
         applyConditions(items) {        
             return _.filter(items, (item) => {
                 let state = getContentState(item.id)
-                let condition = _.get(state, 'logic.condition')
-                
+                let condition = _.get(state, 'logic.conditions')
                 if (!condition) {
                     return true
                 }
-                return this.evaluateCondition(condition)
+                return _.get(state, 'logic.conditions', []).every(condition => {
+                    return this.evaluateCondition(condition)
+                })
             })
         },
 
