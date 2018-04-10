@@ -22,6 +22,8 @@
 .toolbar-content {
     width:250px;
     @apply .p-4;
+    height: calc(100vh - 55px);
+    overflow-y: auto;
 }
 
 .toolbar-tabs a {

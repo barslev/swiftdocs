@@ -9,7 +9,7 @@
         <hr>
         <h5>{{ $t('menus.data.explorer') }}</h5>
 
-        <div v-if="!state.loading" style="height: calc(100vh - 165px);overflow-y:auto;">
+        <div v-if="!state.loading">
             <variable-displayer v-for="(variable, i) in Object.keys(state.data)"
                 :key="i"
                 :variable="variable"
