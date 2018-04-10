@@ -118,24 +118,24 @@ export default {
 
         evaluateCondition(condition) {
             try {
-                const address = _.get(
+                const value = _.get(
                     this.context,
                     condition.address
                 )
 
                 switch (condition.comparator) {
                     case 'exists':
-                        return typeof address !== 'undefined'
+                        return typeof value !== 'undefined' && value !== null
                     case 'truthy':
-                        return address
+                        return value
                     case 'falsy':
-                        return !address
+                        return !value
                     case 'equals':
-                        return address == condition.value
+                        return value == condition.value
                     case 'greater_than':
-                        return comparable(address) > parseFloat(condition.value)
+                        return comparable(value) > parseFloat(condition.value)
                     case 'less_than':
-                        return comparable(address) < parseFloat(condition.value)
+                        return comparable(value) < parseFloat(condition.value)
                     default:
                         throw new Error('Unknown comparator: ' + condition.comparator)
                 }

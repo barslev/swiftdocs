@@ -124,3 +124,10 @@ html, body {
 button:active, button:focus {
 	outline: none;
 }
+
+.editMode .document__page-header {
+	border-bottom: 1px dashed #e4e4e4;
+}
+.editMode .document__page-footer {
+	border-top: 1px dashed #e4e4e4;
+}
