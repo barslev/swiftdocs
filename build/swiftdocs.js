@@ -34676,7 +34676,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 var _lodash = __webpack_require__(24);
 
@@ -53192,8 +53191,6 @@ var render = function() {
         })
       }),
       _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
       _c(
         "button",
         {
@@ -71413,7 +71410,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "p-2 mb-2 bg-grey-lightest" }, [
+  return _c("div", { staticClass: "p-2 mb-3 bg-grey-lightest" }, [
     _c("h5", [_vm._v(_vm._s(_vm.$t("menus.logic.condition")))]),
     _vm._v(" "),
     _c("div", { staticClass: "mb-3" }, [

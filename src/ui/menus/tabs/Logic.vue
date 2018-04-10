@@ -21,7 +21,6 @@
             :data="condition"
             @update="updateCondition(i, arguments[0])"
             @remove="removeCondition(i)" />
-        <br>
         <button class="btn-default" @click="addCondition()">+ New Rule</button>
     </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-        <div class="p-2 mb-2 bg-grey-lightest">
+        <div class="p-2 mb-3 bg-grey-lightest">
             <h5>{{ $t('menus.logic.condition') }}</h5>
             <div class="mb-3">
                 <label>{{ $t('menus.logic.condition_address') }}</label>
