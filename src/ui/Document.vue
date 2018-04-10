@@ -39,12 +39,9 @@ export default {
 	},
 	methods: {
 		updatePrintCss() {
-			// t r b l
-			const margins = _.map(this.state.defaults.margins, (margin, key) => {
-					return 'margin-' + key + ': ' + margin + 'mm'
-				})
-				.join(';')
-			
+			// r l
+			const margins = 'margin-left:' + this.state.defaults.margins.left + 'mm;'
+			 	+ 'margin-right:' + this.state.defaults.margin.right + 'mm;'
 			this.styleEl.innerText = '@media print { @page { ' + margins + ' } }'
 		}
 	}
