@@ -372,7 +372,7 @@ function duplicateContent(content) {
         return;
     }
 
-    var clone = _extends({}, content);
+    var clone = _.cloneDeep(content);
     clone.id = (0, _cuid2.default)();
 
     var originalIndex = getContentIndex(content.id);
@@ -34677,144 +34677,85 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+var _lodash = __webpack_require__(24);
+
+var _ = _interopRequireWildcard(_lodash);
+
+var _connect = __webpack_require__(1);
 
 var _contents = __webpack_require__(2);
 
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 exports.default = {
+
     props: ['id'],
 
-    watch: {
-        id: function id() {
-            this.loadState();
-        }
-    },
-
-    data: function data() {
+    mixins: [(0, _connect.connect)(function (state, scope) {
+        var content = _.find(state.contents, { id: scope.id });
         return {
-            state: null,
-            loop: null,
-            condition: {
-                address: '',
-                comparator: null
-            },
-            options: [{ key: 'exists', hasValue: false }, { key: 'truthy', hasValue: false }, { key: 'falsy', hasValue: false }, { key: 'equals', hasValue: true }, { key: 'greater_than', hasValue: true }, { key: 'less_than', hasValue: true }]
+            loop: _.get(content, 'state.logic.loop', {
+                in: '',
+                as: ''
+            }),
+            conditions: _.get(content, 'state.logic.conditions', [])
         };
-    },
-    created: function created() {
-        this.loadState();
-    },
-
+    })],
 
     methods: {
-        loadState: function loadState() {
-            this.state = (0, _contents.getContentState)(this.id);
-            this.loadLogic();
-            this.loadCondition();
-        },
-        loadLogic: function loadLogic() {
-            if (this.state.logic && this.state.logic.loop) {
-                this.loop = _extends({}, this.state.logic.loop);
-            } else {
-                this.loop = {
-                    in: '',
-                    as: ''
-                };
-            }
-        },
-        loadCondition: function loadCondition() {
-            var _this = this;
-
-            if (this.state.logic && this.state.logic.condition) {
-                this.condition = _extends({}, this.state.logic.condition, {
-                    comparator: this.options.filter(function (o) {
-                        return o.key === _this.state.logic.condition.comparator;
-                    })[0]
-                });
-                console.log(this.condition);
-            } else {
-                this.condition = {
-                    address: '',
-                    comparator: null
-                };
-            }
-        },
-        getLogicParam: function getLogicParam(type, param) {
-            return _.get(this.state, 'logic.' + type + '.' + param);
-        },
         setLoop: function setLoop() {
-            if (!this.loop.in || !this.loop.as) {
+            if (!this.state.loop.in || !this.state.loop.as) {
                 notifyError($t('menus.logic.loop_error_title'), $t('menus.logic.loop_error_text'));
                 return;
             }
+            var state = (0, _contents.getContentState)(this.id);
             (0, _contents.updateContentState)(this.id, {
-                logic: _extends({}, this.state.logic, {
-                    loop: this.loop
+                logic: _extends({}, state.logic, {
+                    loop: this.state.loop
                 })
             });
-            this.loadState();
             notifySuccess($t('menus.logic.loop_success_title'), $t('menus.logic.loop_success_text'));
         },
         removeLoop: function removeLoop() {
+            var state = (0, _contents.getContentState)(this.id);
             (0, _contents.updateContentState)(this.id, {
-                logic: _extends({}, this.state.logic, {
-                    loop: null
+                logic: _extends({}, state.logic, {
+                    loop: undefined
                 })
             });
-            this.loadState();
             notifySuccess($t('menus.logic.loop_remove_success_title'));
         },
-        validateCondition: function validateCondition() {
-            if (!this.condition.address) {
-                throw new Error($t('menus.logic.condition_error_address'));
-            }
-            if (!this.condition.comparator) {
-                throw new Error($t('menus.logic.condition_error_comparator'));
-            }
-            if (this.condition.hasValue && !this.condition.value) {
-                throw new Error($t('menus.logic.condition_error_value'));
-            }
-        },
         addCondition: function addCondition() {
-
-            try {
-                this.validateCondition();
-            } catch (error) {
-                return notifyError($t('menus.logic.condition_error_title'), error.toString());
+            var state = (0, _contents.getContentState)(this.id);
+            if (!state.logic) {
+                state.logic = {};
             }
-
-            // Extract comparator key
-            var condition = _extends({}, this.condition, {
-                comparator: this.condition.comparator.key
-            });
-
-            (0, _contents.updateContentState)(this.id, {
-                logic: _extends({}, this.state.logic, {
-                    condition: condition
-                })
-            });
-
-            this.loadState();
-
+            if (!state.logic.conditions) {
+                state.logic = {
+                    conditions: []
+                };
+            }
+            state.logic.conditions = state.logic.conditions.concat([{ address: '', comparator: null }]);
+            (0, _contents.updateContentState)(this.id, { logic: state.logic });
             notifySuccess($t('menus.logic.condition_success_title'), $t('menus.logic.condition_success_text'));
         },
-        removeCondition: function removeCondition() {
+        updateCondition: function updateCondition(index, object) {
+            var state = (0, _contents.getContentState)(this.id);
+            state.logic.conditions = state.logic.conditions.concat([]);
+            state.logic.conditions[index] = object;
             (0, _contents.updateContentState)(this.id, {
-                logic: _extends({}, this.state.logic, {
-                    condition: null
-                })
+                logic: state.logic
             });
-            this.loadState();
+            notifySuccess('Logic updated');
+        },
+        removeCondition: function removeCondition(index) {
+            var state = (0, _contents.getContentState)(this.id);
+            state.logic.conditions = state.logic.conditions.concat([]);
+            state.logic.conditions.splice(index, 1);
+            (0, _contents.updateContentState)(this.id, {
+                logic: state.logic
+            });
             notifySuccess($t('menus.logic.condition_remove_success_title'));
         }
     }
@@ -38790,6 +38731,7 @@ _vue2.default.component('logical-presenter', __webpack_require__(239).default);
  * Tools & Helpers
  */
 _vue2.default.component('color', __webpack_require__(241).default);
+_vue2.default.component('condition', __webpack_require__(388).default);
 _vue2.default.component('page-scope', __webpack_require__(244).default);
 _vue2.default.component("top-button", __webpack_require__(246).default);
 _vue2.default.component('toolbar-button', __webpack_require__(248).default);
@@ -53143,220 +53085,133 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "p-2 bg-grey-lightest" }, [
-      _c("h5", [_vm._v(_vm._s(_vm.$t("menus.logic.loop")))]),
-      _vm._v(" "),
-      _c("div", { staticClass: "mb-3" }, [
-        _c("label", [_vm._v(_vm._s(_vm.$t("menus.logic.path")))]),
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "p-2 bg-grey-lightest" }, [
+        _c("h5", [_vm._v(_vm._s(_vm.$t("menus.logic.loop")))]),
         _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.loop.in,
-              expression: "loop.in"
-            }
-          ],
-          attrs: { type: "text" },
-          domProps: { value: _vm.loop.in },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.loop, "in", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("label", [_vm._v(_vm._s(_vm.$t("menus.logic.repeat_as")))]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.loop.as,
-              expression: "loop.as"
-            }
-          ],
-          attrs: { type: "text" },
-          domProps: { value: _vm.loop.as },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.loop, "as", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn-primary",
-          on: {
-            click: function($event) {
-              _vm.setLoop()
-            }
-          }
-        },
-        [_vm._v(_vm._s(_vm.$t("global.set")))]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.state.logic && _vm.state.logic.loop,
-              expression: "state.logic && state.logic.loop"
-            }
-          ],
-          staticClass: "btn-default",
-          on: {
-            click: function($event) {
-              _vm.removeLoop()
-            }
-          }
-        },
-        [_vm._v(_vm._s(_vm.$t("global.remove")))]
-      )
-    ]),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c("div", { staticClass: "p-2 bg-grey-lightest" }, [
-      _c("h5", [_vm._v(_vm._s(_vm.$t("menus.logic.condition")))]),
-      _vm._v(" "),
-      _c("div", { staticClass: "mb-3" }, [
-        _c("label", [_vm._v(_vm._s(_vm.$t("menus.logic.condition_address")))]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.condition.address,
-              expression: "condition.address"
-            }
-          ],
-          attrs: { type: "text" },
-          domProps: { value: _vm.condition.address },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.condition, "address", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "mb-3" }, [
-        _c(
-          "select",
-          {
+        _c("div", { staticClass: "mb-3" }, [
+          _c("label", [_vm._v(_vm._s(_vm.$t("menus.logic.path")))]),
+          _vm._v(" "),
+          _c("input", {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.condition.comparator,
-                expression: "condition.comparator"
+                value: _vm.state.loop.in,
+                expression: "state.loop.in"
               }
             ],
-            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.state.loop.in },
             on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.$set(
-                  _vm.condition,
-                  "comparator",
-                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                )
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.state.loop, "in", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("label", [_vm._v(_vm._s(_vm.$t("menus.logic.repeat_as")))]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.state.loop.as,
+                expression: "state.loop.as"
+              }
+            ],
+            attrs: { type: "text" },
+            domProps: { value: _vm.state.loop.as },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.state.loop, "as", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn-primary",
+            on: {
+              click: function($event) {
+                _vm.setLoop()
               }
             }
           },
-          [
-            _c("option", { domProps: { value: null } }, [
-              _vm._v("Choose a condition")
-            ]),
-            _vm._v(" "),
-            _vm._l(_vm.options, function(option) {
-              return _c(
-                "option",
-                { key: option.key, domProps: { value: option } },
-                [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(_vm.$t("menus.logic." + option.key)) +
-                      "\n                "
-                  )
-                ]
-              )
-            })
-          ],
-          2
+          [_vm._v(_vm._s(_vm.$t("global.set")))]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.state.loop.in,
+                expression: "state.loop.in"
+              }
+            ],
+            staticClass: "btn-default",
+            on: {
+              click: function($event) {
+                _vm.removeLoop()
+              }
+            }
+          },
+          [_vm._v(_vm._s(_vm.$t("global.remove")))]
         )
       ]),
       _vm._v(" "),
-      _vm.condition.comparator && _vm.condition.comparator.hasValue
-        ? _c("div", { staticClass: "mb-3" }, [
-            _c("label", [_vm._v(_vm._s(_vm.$t("menus.logic.this_value")))]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.condition.value,
-                  expression: "condition.value"
-                }
-              ],
-              attrs: { type: "text" },
-              domProps: { value: _vm.condition.value },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.condition, "value", $event.target.value)
-                }
-              }
-            })
-          ])
-        : _vm._e(),
+      _c("hr"),
+      _vm._v(" "),
+      _c("h5", [_vm._v("Conditions")]),
+      _vm._v(" "),
+      _vm._l(_vm.state.conditions, function(condition, i) {
+        return _c("condition", {
+          key: i,
+          attrs: { index: i, data: condition },
+          on: {
+            update: function($event) {
+              _vm.updateCondition(i, arguments[0])
+            },
+            remove: function($event) {
+              _vm.removeCondition(i)
+            }
+          }
+        })
+      }),
+      _vm._v(" "),
+      _c("br"),
       _vm._v(" "),
       _c(
         "button",
         {
-          staticClass: "btn-primary",
+          staticClass: "btn-default",
           on: {
             click: function($event) {
               _vm.addCondition()
             }
           }
         },
-        [_vm._v("Add Rule")]
+        [_vm._v("+ New Rule")]
       )
-    ])
-  ])
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -71398,6 +71253,313 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7abe7322", esExports)
+  }
+}
+
+/***/ }),
+/* 387 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var _contents = __webpack_require__(2);
+
+exports.default = {
+
+    props: ['data', 'index'],
+
+    watch: {
+        data: function data() {
+            this.reload();
+        }
+    },
+
+    created: function created() {
+        this.reload();
+    },
+    data: function data() {
+        return {
+            options: [{ key: 'exists', hasValue: false }, { key: 'truthy', hasValue: false }, { key: 'falsy', hasValue: false }, { key: 'equals', hasValue: true }, { key: 'greater_than', hasValue: true }, { key: 'less_than', hasValue: true }],
+            condition: null
+        };
+    },
+
+
+    methods: {
+        reload: function reload() {
+            var _this = this;
+
+            this.condition = _extends({}, this.data, {
+                comparator: this.options.filter(function (o) {
+                    return o.key === _this.data.comparator;
+                })[0]
+            });
+        },
+        validateCondition: function validateCondition() {
+            if (!this.condition.address) {
+                throw new Error($t('menus.logic.condition_error_address'));
+            }
+            if (!this.condition.comparator) {
+                throw new Error($t('menus.logic.condition_error_comparator'));
+            }
+            if (this.condition.hasValue && !this.condition.value) {
+                throw new Error($t('menus.logic.condition_error_value'));
+            }
+        },
+        update: function update() {
+
+            try {
+                this.validateCondition();
+            } catch (error) {
+                return notifyError($t('menus.logic.condition_error_title'), error.toString());
+            }
+
+            this.$emit('update', _extends({}, this.condition, {
+                comparator: this.condition.comparator.key
+            }));
+        },
+        remove: function remove() {
+            this.$emit('remove');
+        }
+    }
+};
+
+/***/ }),
+/* 388 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Condition_vue__ = __webpack_require__(387);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Condition_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Condition_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Condition_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Condition_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6e4b0436_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Condition_vue__ = __webpack_require__(389);
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Condition_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6e4b0436_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Condition_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/ui/tools/Condition.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6e4b0436", Component.options)
+  } else {
+    hotAPI.reload("data-v-6e4b0436", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+/* 389 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "p-2 mb-2 bg-grey-lightest" }, [
+    _c("h5", [_vm._v(_vm._s(_vm.$t("menus.logic.condition")))]),
+    _vm._v(" "),
+    _c("div", { staticClass: "mb-3" }, [
+      _c("label", [_vm._v(_vm._s(_vm.$t("menus.logic.condition_address")))]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.condition.address,
+            expression: "condition.address"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.condition.address },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.condition, "address", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "mb-3" }, [
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.condition.comparator,
+              expression: "condition.comparator"
+            }
+          ],
+          staticClass: "form-control",
+          on: {
+            change: function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.$set(
+                _vm.condition,
+                "comparator",
+                $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+              )
+            }
+          }
+        },
+        [
+          _c("option", { domProps: { value: null } }, [
+            _vm._v("Choose a condition")
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.options, function(option) {
+            return _c(
+              "option",
+              { key: option.key, domProps: { value: option } },
+              [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.$t("menus.logic." + option.key)) +
+                    "\n            "
+                )
+              ]
+            )
+          })
+        ],
+        2
+      )
+    ]),
+    _vm._v(" "),
+    _vm.condition.comparator && _vm.condition.comparator.hasValue
+      ? _c("div", { staticClass: "mb-3" }, [
+          _c("label", [_vm._v(_vm._s(_vm.$t("menus.logic.this_value")))]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.condition.value,
+                expression: "condition.value"
+              }
+            ],
+            attrs: { type: "text" },
+            domProps: { value: _vm.condition.value },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.condition, "value", $event.target.value)
+              }
+            }
+          })
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn-primary",
+        on: {
+          click: function($event) {
+            _vm.update()
+          }
+        }
+      },
+      [_vm._v("Update")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn-default",
+        on: {
+          click: function($event) {
+            _vm.remove()
+          }
+        }
+      },
+      [_vm._v("Remove")]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6e4b0436", esExports)
   }
 }
 

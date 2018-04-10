@@ -92,7 +92,7 @@ export function duplicateContent(content) {
         return
     }
 
-    const clone = {...content}
+    const clone = _.cloneDeep(content)
     clone.id = cuid()
 
     const originalIndex = getContentIndex(content.id)

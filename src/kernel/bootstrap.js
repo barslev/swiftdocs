@@ -30,6 +30,7 @@ Vue.component('logical-presenter', require('~/ui/renderers/LogicalPresenter.vue'
  * Tools & Helpers
  */
 Vue.component('color', require('~/ui/tools/Color.vue').default)
+Vue.component('condition', require('~/ui/tools/Condition.vue').default)
 Vue.component('page-scope', require('~/ui/tools/PageScope.vue').default)
 Vue.component("top-button", require("~/ui/tools/TopButton.vue").default)
 Vue.component('toolbar-button', require('~/ui/tools/Button.vue').default)
