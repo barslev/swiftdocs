@@ -3,7 +3,12 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
 import configureStore from './data/store/configureStore'
+
+import TopMenu from './ui/menus/TopMenu'
+import LeftMenu from './ui/menus/LeftMenu'
 import Document from './document/Document'
+
+import './styles/app.scss'
 
 const store = configureStore()
 
@@ -12,6 +17,8 @@ class App extends Component {
     return <Provider store={store.store}>
       <PersistGate loading={null} persistor={store.persistor}>
         <div className="App">
+          <TopMenu />
+          <LeftMenu />
           <Document></Document>
         </div>
       </PersistGate>

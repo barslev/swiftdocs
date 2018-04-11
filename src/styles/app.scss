@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+html, body {
+	@apply .bg-grey-lightest;
+}
+
+@import './designer/tailwind';
+
+@import './vendor/vtooltip';
+@import './vendor/dragula/dragula';
+@import './vendor/vue-notification/vue-notification';
+
+@import './designer/forms';
+@import './designer/modal';
+@import './designer/toolbar';
+@import './designer/dropdown';
+@import './designer/print';
+@import './designer/table';
+@import './designer/loading';
+
+.material-icons {
+	font-size:16px;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.document {
+	margin-top:80px;
+}
+
+.editMode .document {
+	margin-left:330px;
+}
+
+.document h2 {
+	margin-bottom: 0;
+}
+
+.document__page {
+	overflow: hidden;
+	background-color: #fff;
+	@apply .border;
+	margin-bottom:10mm;
+	margin-left: auto;
+	margin-right:auto;
+}
+
+.document__page_number {
+	color:#b4b4b4;
+	font-size:12px;
+	padding-bottom:4px;
+	padding-top:4px;
+	padding-right:6px;
+	clear:both;
+}
+
+.document__page_number > i {
+	font-size:16px;
+	margin-right: 3px;
+	margin-top: -1px;
+	float: left;
+}
+
+.document__page > div > .document__page-container {
+	min-height: 100%;
+}
+
+.document__page-element {
+	z-index: 5;
+	position:relative;
+}
+
+.document__page-element:hover {
+  cursor:pointer;
+}
+
+.editMode .document__page-element.hovering:after, .editMode .document__page-element.selected:after {
+  content: " ";
+  position: absolute;
+  display: block;
+  z-index: 1;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  border: 1px dashed #65B1C9;
+  background-color: transparent;
+}
+
+.editMode tr.document__page-element.selected:after {
+	content: none !important;
+}
+
+.editMode tr.document__page-element.selected > td:after {
+	content: ' ';
+	position: absolute;
+	display: block;
+	z-index: 100;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	animation: glowing 1000ms infinite;
+	background-color: rgba(189, 238, 255, 0.2);
+}
+
+@keyframes glowing {
+  0% { background-color: rgba(189, 238, 255, 0.2); }
+  10% { background-color: rgba(189, 238, 255, 0.3); }
+  50% { background-color: rgba(189, 238, 255, 0.4); }
+  80% { background-color: rgba(189, 238, 255, 0.3); }
+  100% { background-color: rgba(189, 238, 255, 0.2); }
+}
+
+.editMode .document__page-element.selected:after {
+	border: 1px solid #65B1C9;
+}
+.element__photo {
+	text-align: center;
+}
+
+button:active, button:focus {
+	outline: none;
+}
+
+.editMode .document__page-header {
+	border-bottom: 1px dashed #e4e4e4;
+}
+
+.editMode .document__page-footer {
+	border-top: 1px dashed #e4e4e4;
+}

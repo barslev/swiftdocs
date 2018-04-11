@@ -1,5 +1,5 @@
 const initialState = [
-    {id: 'a', element: 'page', container_id:null}
+    {id: 'first_page', element: 'page', container_id:null},
 ]
 
 export default (state = initialState, action) => {

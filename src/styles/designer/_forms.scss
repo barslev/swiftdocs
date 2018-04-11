@@ -1,0 +1,33 @@
+.label {
+    @apply .block .text-grey-darker .text-sm .font-bold .mb-2;
+}
+
+.form-control {
+    @apply .appearance-none .block .shadow .border .rounded-none .w-full .py-2 .px-3 .text-grey-darker .bg-white;
+}
+
+select.form-control:after {
+    content: 'arrow_drop_down';
+    font-family: 'Material Icons';
+}
+
+.btn-default {
+    @apply .mr-1 .p-2 .bg-grey-darker .text-white .text-xs .font-bold .uppercase;
+}
+
+.btn-default:hover {
+    @apply .bg-grey-dark;
+}
+
+.btn-primary {
+    @apply .mt-4 .mr-1 .p-2 .bg-blue .text-white .text-xs .font-bold .uppercase;
+}
+
+.btn-primary:hover {
+    @apply .bg-blue-light;
+}
+
+.btn-default > i {
+    float: left;
+    margin-top:-2px;
+}

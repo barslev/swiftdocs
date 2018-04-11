@@ -1,0 +1,131 @@
+.toolbar {
+    margin-top: 48px;
+    @apply .fixed .bg-grey-lighter;
+    @apply .border .border-grey-light;
+    @apply .pin-y;
+}
+
+.toolbar-left {
+    @apply .pin-l  .border-l-0 .flex;
+}
+
+.toolbar-right {
+    width: 250px;
+    @apply .pin-r .border-r-0;
+}
+
+.toolbar-tabs {
+    height: 100%;
+    @apply .bg-grey-darkest;
+}
+
+.toolbar-content {
+    width:250px;
+    @apply .p-4;
+    height: calc(100vh - 55px);
+    overflow-y: auto;
+}
+
+.toolbar-tabs a {
+    display: flex;
+    position:relative;
+    box-sizing: border-box; 
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 10px;
+    @apply .px-3 .py-4 .text-grey .font-light .uppercase;
+}
+
+.toolbar-tabs a > i {
+    @apply .mb-2;
+}
+
+.toolbar-tabs a:hover, .toolbar-tabs a.active {
+    cursor: pointer;
+    @apply .bg-black .text-grey-light;
+}
+
+.toolbar-tabs a.active:before {
+    content: ' ';
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 1px;
+    @apply .absolute .border-l-4 .border-blue;
+}
+
+.toolbar h5 {
+    @apply .mb-4 .font-normal .text-grey-dark;
+}
+
+.toolbar hr {
+    @apply .border-0 .border-t .border-grey-light .my-4;
+    display: block;
+    height: 1px;
+}
+
+
+.toolbar__button, .toolbar__button:active, .toolbar__button:focus, .toolbar__button:disabled:hover  {
+    outline: 0;
+    @apply .bg-white .border .border-grey-light .w-full .flex .p-1 .my-1 .text-xs .items-center;
+}
+
+.toolbar__button:disabled:hover {
+    @apply .text-grey-darker;
+    cursor: not-allowed;
+}
+
+.toolbar__button:hover {
+	@apply .bg-black .border-grey-darker .text-white;
+} 
+
+.toolbar__button > i {
+	@apply .mr-1;
+}
+
+
+.toolbar-right h5 {
+    @apply .mb-1 .mt-4 .text-grey-darker .text-xs .uppercase;
+}
+
+.toolbar-right h5:first-child {
+    @apply .mb-1 .mt-0;
+}
+
+.toolbar label {
+    @apply .text-xs .text-grey;
+}
+
+.toolbar input, .toolbar input.form-control, .toolbar input:focus, .toolbar input:active {
+    outline: none;
+    @apply .appearance-none .bg-transparent .border-b .border-grey-light .w-full .text-grey-darker .text-sm .shadow-none;
+}
+
+.toolbar .checkbox {
+    @apply .inline;
+}
+
+.toolbar .checkbox .material-icons {
+    @apply .text-xl .text-grey;
+}
+
+.toolbar .checkbox label {
+    display: inline-flex;
+    align-items:center;
+    cursor: pointer;
+}
+
+.toolbar .checkbox label:hover i, .toolbar .checkbox .material-icons:hover {
+    @apply .text-blue-light;
+    cursor: pointer;
+}
+
+.toolbar .checkbox input:checked ~ i {
+    @apply .text-blue;
+}
+
+.toolbar .checkbox input[type="checkbox"] {
+
+    @apply .appearance-none .border-none .w-auto;
+}

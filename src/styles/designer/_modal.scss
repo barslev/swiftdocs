@@ -1,0 +1,24 @@
+.modal__header, .modal__content, .modal__footer {
+    @apply .block .py-4 .px-4;
+}
+
+.modal__header {
+    @apply .bg-grey-lighter;
+}
+
+.modal__footer {
+    @apply .absolute .pin-b .pin-x .bg-grey-lighter;
+}
+
+.modal__title {
+    @apply .text-grey-darker;
+}
+
+.modal__close, .modal__close:active, .modal__close:focus {
+    outline: 0;
+    @apply .-mt-1 .text-grey-darker;
+}
+
+.modal__close:hover {
+    @apply .text-grey;
+}

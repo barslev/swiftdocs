@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import Presenter from './Presenter'
 import * as Page from './elements/Page'
+import * as RichText from './elements/RichText'
 import * as Container from './elements/Container'
 
 class ElementRegistry {
@@ -38,7 +39,8 @@ class ElementRegistry {
 
 const registry = new ElementRegistry([
     Page,
-    Container
+    RichText,
+    Container,
 ])
 // ... Register more elements
 

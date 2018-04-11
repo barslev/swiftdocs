@@ -1,0 +1,27 @@
+.d-table {
+    width: 100%;
+    max-width: 100%;
+    border-spacing: 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.d-table td {
+    height: 15px;
+}
+
+.editMode .d-table td.selected.resizable:before {
+    content: ' ';
+    position: absolute;
+    right:0;
+    top:0;
+    width:8px;
+    height: 100%;
+    z-index:100;
+    cursor: ew-resize;
+}
+
+.d-table td, .d-table th {
+    white-space: normal; /* Only needed when it's set differntly somewhere else */
+    word-wrap: break-word;
+}

@@ -1,0 +1,55 @@
+
+.progress {
+  @apply .text-grey .text-xs;
+}
+
+.progress:after {
+  content: '.';
+  animation: dots 1s steps(5, end) infinite;
+}
+
+.loading {
+	position: absolute;
+  top: 40%;
+  width: 100px;
+  border: 1px solid #333;
+  padding: 6px 5px;
+  left: calc(50% - 53px);
+  text-align: center;	
+}
+
+
+@keyframes dots {
+  0%, 20% {
+    color:#333;
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  40% {
+    @apply .text-grey;
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  60% {
+    text-shadow:
+      .25em 0 0 #e4e4e4,
+      .5em 0 0 rgba(0,0,0,0);}
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 #e4e4e4,
+	  .5em 0 0 #e4e4e4;}
+}
+
+.boot-error {
+    position:absolute;
+    margin: 50px;
+    left: calc(50% - 250px);
+    padding: 25px;
+    width: 400px;
+    display: inline-block;  
+    border: 1px solid maroon;
+}
+.boot-error > h3 {
+    color: maroon;
+    margin-bottom:20px;
+}
