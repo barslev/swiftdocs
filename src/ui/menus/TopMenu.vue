@@ -47,7 +47,7 @@
                     icon="arrow_upward" />
             </div>
             <div>
-                <dropdown-menu color="grey-dark" icon="language" :label="$t('languages.' + state.translation)" align="pin-r">
+                <dropdown-menu color="grey-dark" icon="language" v-if="translations.length > 1" :label="$t('languages.' + state.translation)" align="pin-r">
                     <dropdown-option v-for="language in translations" :key="language" v-if="language != translation" @click.native="changeTranslationLanguage(language)">
                         {{ $t('languages.' + language) }}
                     </dropdown-option>

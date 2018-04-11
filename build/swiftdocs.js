@@ -52722,39 +52722,41 @@ var render = function() {
         _c(
           "div",
           [
-            _c(
-              "dropdown-menu",
-              {
-                attrs: {
-                  color: "grey-dark",
-                  icon: "language",
-                  label: _vm.$t("languages." + _vm.state.translation),
-                  align: "pin-r"
-                }
-              },
-              _vm._l(_vm.translations, function(language) {
-                return language != _vm.translation
-                  ? _c(
-                      "dropdown-option",
-                      {
-                        key: language,
-                        nativeOn: {
-                          click: function($event) {
-                            _vm.changeTranslationLanguage(language)
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(_vm.$t("languages." + language)) +
-                            "\n                "
+            _vm.translations.length > 1
+              ? _c(
+                  "dropdown-menu",
+                  {
+                    attrs: {
+                      color: "grey-dark",
+                      icon: "language",
+                      label: _vm.$t("languages." + _vm.state.translation),
+                      align: "pin-r"
+                    }
+                  },
+                  _vm._l(_vm.translations, function(language) {
+                    return language != _vm.translation
+                      ? _c(
+                          "dropdown-option",
+                          {
+                            key: language,
+                            nativeOn: {
+                              click: function($event) {
+                                _vm.changeTranslationLanguage(language)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(_vm.$t("languages." + language)) +
+                                "\n                "
+                            )
+                          ]
                         )
-                      ]
-                    )
-                  : _vm._e()
-              })
-            )
+                      : _vm._e()
+                  })
+                )
+              : _vm._e()
           ],
           1
         )
