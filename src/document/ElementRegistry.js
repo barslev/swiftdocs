@@ -2,31 +2,44 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import Presenter from './Presenter'
+import * as Page from './elements/Page'
 import * as Container from './elements/Container'
 
 class ElementRegistry {
 
-    constructor() {
+    constructor(elements = []) {
         this.elements = {}
+        elements.forEach(element => this.addElement(element))
     }
 
     addElement(element) {
-        this.elements[element.meta.id] = element
+        this.elements[element.meta.id] = this.connectRenderer(element)
     }
 
-    getRenderer(element) {
-        if (!this.elements.hasOwnProperty(element)) {
-            throw new Error(`Make sure that the element named "${element}" is registered properly.`)
-        }
-        const Renderer = this.elements[element].Renderer
-        return connect(this.elements[element].mapStateToProps)((props) => {
-            return <Renderer presenter={Presenter} {...props} />
+    connectRenderer(element) {
+        const Renderer = connect(element.mapStateToProps)((props) => {
+            return <element.Renderer registry={this}
+                presenter={Presenter}
+                {...props} />
         })
+        return {
+            ...element,
+            Renderer
+        }
+    }
+
+    getRenderer(elementName) {
+        if (!this.elements.hasOwnProperty(elementName)) {
+            throw new Error(`Make sure that the element named "${elementName}" is registered properly.`)
+        }
+        return this.elements[elementName].Renderer
     }
 }
 
-const registry = new ElementRegistry()
-registry.addElement(Container)
+const registry = new ElementRegistry([
+    Page,
+    Container
+])
 // ... Register more elements
 
 export default registry

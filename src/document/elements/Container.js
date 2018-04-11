@@ -3,15 +3,14 @@ import React, { Component } from 'react'
 export const meta = {
     id: 'container',
     icon: 'crop_din',
-    label: 'Container',    
-}
-
-export const defaultStyle = {
-    borderWidth: 1,
-    border: [1,1,1,1],
-    borderColor: '#ebebeb',
-    backgroundColor: '#f4f4f4',
-    padding: [10,5,10,5],
+    label: 'Container',
+    defaultStyle: {
+        borderWidth: 1,
+        border: [1,1,1,1],
+        borderColor: '#ebebeb',
+        backgroundColor: '#f4f4f4',
+        padding: [10,5,10,5],
+    },
 }
 
 export class Renderer extends Component
@@ -26,11 +25,11 @@ export class Renderer extends Component
     }
     
     classes() {
-        const classes = ['document__page-container']
-        if (!this.props.root) {
+        const classes = ['document__page-container', this.props.className]
+        if ( ! this.props.root) {
             classes.push('document__page-child-container')
         }
-        return classes
+        return classes.filter(c => c).join(' ')
     }
 
     tag() {
@@ -43,10 +42,9 @@ export class Renderer extends Component
 }
 
 export const mapStateToProps = (state, scope) => {
-    console.log(state)
     return {
         contents: scope.root
             ? state.contents.filter(content => content.container_id === null)
-            : state.contents.filter(content => content.container_id = scope.id)
+            : state.contents.filter(content => content.container_id === scope.id)
     }
 }
