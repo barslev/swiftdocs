@@ -1,9 +1,11 @@
-const initialState = []
+const initialState = [
+    {id: 'a', element: 'page', container_id:null}
+]
 
 export default (state = initialState, action) => {
 
     let copy
-    
+
     switch (action.type) {
         // When a page is removed, remove its contents
         case 'CONTENT_INSERT':

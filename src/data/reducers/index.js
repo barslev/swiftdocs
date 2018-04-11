@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux'
 
 import data from './data'
 import title from './title'
@@ -15,5 +15,6 @@ export default combineReducers({
     session,
     contents,
     defaults,
-    attachments,    
+    attachments,
+    // Add more reducers...
 })
