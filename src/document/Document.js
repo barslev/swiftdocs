@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import Container from './Container'
+import { connect } from 'react-redux'
 
-export default class Document extends Component
+class Document extends Component
 {
     render() {
         return <div className="document">
@@ -10,3 +12,12 @@ export default class Document extends Component
         </div>
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        data: state.data.data
+    }
+}
+
+
+export default connect(mapStateToProps)(Document)

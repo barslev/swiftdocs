@@ -1,7 +1,7 @@
 const initialState = {
 	// this is automatically resolved by webpack
 	// and the value comes from package.json version
-	version: SWD_VERSION,
+	version: '0.5.0', // TODO: Make this dynamic
 	margins: {
 		top: 25,
 		left: 25,

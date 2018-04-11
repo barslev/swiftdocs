@@ -33,8 +33,9 @@ function defaultStyle(element) {
         backgroundColor: null,
     }
 
-    const elementStyles = _swd.registry.defaultStyle(element)
-    return {...defaults, ...elementStyles}
+    return {}
+    /*const elementStyles = _swd.registry.defaultStyle(element)
+    return {...defaults, ...elementStyles}*/
 }
 
 export default (state = initialState, action) => {

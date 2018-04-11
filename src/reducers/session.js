@@ -1,4 +1,7 @@
-import { MODE_EDIT } from '../actions/session'
+//import { MODE_EDIT } from '../actions/session'
+
+const MODE_EDIT = 0
+const MODE_RENDER = 1
 
 const initialState = {
     // Mode of the designer: edit or render
