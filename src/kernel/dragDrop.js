@@ -14,9 +14,14 @@ class dragDrop
     }
 
     add(container) {
-        this.drake
+        const index = this.drake
             .containers
-            .push(container)
+            .indexOf(container)
+        if (index === -1) {
+            this.drake
+                .containers
+                .push(container)
+        }
     }
 
     remove(container) {

@@ -30499,7 +30499,10 @@ var dragDrop = function () {
     }, {
         key: 'add',
         value: function add(container) {
-            this.drake.containers.push(container);
+            var index = this.drake.containers.indexOf(container);
+            if (index === -1) {
+                this.drake.containers.push(container);
+            }
         }
     }, {
         key: 'remove',
@@ -32160,7 +32163,7 @@ exports.default = {
 	methods: {
 		updatePrintCss: function updatePrintCss() {
 			// r l
-			var margins = 'margin-left:' + this.state.defaults.margins.left + 'mm;' + 'margin-right:' + this.state.defaults.margin.right + 'mm;';
+			var margins = 'margin-left:' + this.state.defaults.margins.left + 'mm;' + 'margin-right:' + this.state.defaults.margins.right + 'mm;';
 			this.styleEl.innerText = '@media print { @page { ' + margins + ' } }';
 		}
 	}
@@ -36167,14 +36170,25 @@ exports.default = {
 		allowDrop: { default: true },
 		root: { type: Boolean, default: false }
 	},
-	mounted: function mounted() {
-		if (this.allowDrop) {
-			_swd.dragDrop.add(this.$el);
+	watch: {
+		allowDrop: function allowDrop() {
+			this.makeDropTarget();
 		}
+	},
+	mounted: function mounted() {
+		this.makeDropTarget();
 	},
 	beforeDestroy: function beforeDestroy() {
 		if (this.allowDrop) {
 			_swd.dragDrop.remove(this.$el);
+		}
+	},
+
+	methods: {
+		makeDropTarget: function makeDropTarget() {
+			if (this.allowDrop) {
+				_swd.dragDrop.add(this.$el);
+			}
 		}
 	}
 };
@@ -36829,20 +36843,6 @@ var _session = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -71412,14 +71412,6 @@ var render = function() {
     [
       _c("container", {
         tag: "div",
-        staticClass: "document__page-header",
-        staticStyle: { width: "100%", overflow: "hidden", padding: "2mm 0mm" },
-        style: { height: this.state.margins.top + "mm" },
-        attrs: { id: "header", context: _vm.context, allowDrop: true }
-      }),
-      _vm._v(" "),
-      _c("container", {
-        tag: "div",
         staticClass: "flex-1",
         attrs: { id: _vm.id, context: _vm.context, allowDrop: true },
         nativeOn: {
@@ -71427,14 +71419,6 @@ var render = function() {
             _vm.selectPage()
           }
         }
-      }),
-      _vm._v(" "),
-      _c("container", {
-        tag: "div",
-        staticClass: "document__page-footer",
-        staticStyle: { width: "100%" },
-        style: { height: this.state.margins.bottom + "mm" },
-        attrs: { id: "footer", context: _vm.context, allowDrop: true }
       })
     ]
   )

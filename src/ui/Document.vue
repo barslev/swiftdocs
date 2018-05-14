@@ -41,7 +41,7 @@ export default {
 		updatePrintCss() {
 			// r l
 			const margins = 'margin-left:' + this.state.defaults.margins.left + 'mm;'
-			 	+ 'margin-right:' + this.state.defaults.margin.right + 'mm;'
+			 	+ 'margin-right:' + this.state.defaults.margins.right + 'mm;'
 			this.styleEl.innerText = '@media print { @page { ' + margins + ' } }'
 		}
 	}

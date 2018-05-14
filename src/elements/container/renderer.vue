@@ -40,15 +40,25 @@ export default {
 		allowDrop: {default: true},
 		root: {type: Boolean, default: false},
 	},
-	mounted() {
-		if (this.allowDrop) {
-			_swd.dragDrop.add(this.$el)
+	watch: {
+		allowDrop() {
+			this.makeDropTarget()
 		}
+	},
+	mounted() {
+		this.makeDropTarget()
 	},
 	beforeDestroy() {
 		if (this.allowDrop) {
 			_swd.dragDrop.remove(this.$el)
 		}
 	},
+	methods: {
+		makeDropTarget() {
+			if (this.allowDrop) {
+				_swd.dragDrop.add(this.$el)
+			}	
+		}
+	}
 }
 </script>
