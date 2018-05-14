@@ -51,9 +51,10 @@ export default class Main {
         this.storage.load(this.documentId)
             .then(migrateDocument)
             .then(this._bootDocument)
+            .then(this.dataSource.load)
             .then(() => {
                 this.action.activateMode(mode)
-            })            
+            })
             .then(this._removeLoadingIndicator)
             .then(this._createVueApp)
             .catch(this._showBootError)
@@ -82,7 +83,7 @@ export default class Main {
             // Set active translation language
             this.action.setTranslation(this.translations[0])
         }
-        
+
         // Mark all received attachments as uploaded.
         this.action.markAttachmentsAsUploaded()
     }

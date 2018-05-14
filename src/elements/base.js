@@ -11,7 +11,7 @@ export default (selector) => {
         props: [
             'id', // Element ID.
             'context', // Context to hold contextual veriables to be used at render time.
-        ],        
+        ],
         mixins: [
             connect((state, scope) => {
                 return {

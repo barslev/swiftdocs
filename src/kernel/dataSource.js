@@ -6,7 +6,7 @@ export class DataSource
     {
         this.busy = true
         this.context = {}
-        this.refresh = this.refresh.bind(this)
+        this.load = this.load.bind(this)
     }
 
     use() {
@@ -23,18 +23,20 @@ export class DataSource
     _useHttpSource(url, axios) {
         this.url = url
         this.axios = axios
-        this.refresh()
     }
 
     _useRawSource(data) {
         this.busy = false
-        setTimeout(() => {
-            dataReceived(data);
-        })
+        this.loadedData = data
     }
 
-    refresh()
+    load()
     {
+        if (this.loadedData) {
+            dataReceived(this.loadedData)
+            this.loadedData = null
+            return Promise.resolve(true)
+        }
         if (!this.axios) {
             return Promise.reject('You are using a static data source.')
         }

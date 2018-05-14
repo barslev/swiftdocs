@@ -42,7 +42,7 @@ export default {
 
     methods: {
         refresh() {
-            _swd.dataSource.refresh()
+            _swd.dataSource.load()
                 .then(() => {
                     notifySuccess(
                         $t('menus.data.msg_success_title'),
