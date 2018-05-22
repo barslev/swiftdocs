@@ -55149,7 +55149,7 @@ var initialState = {
      * We test each action type against these regexes.
      * If any of these tests pass, we assume that the action has no side effect.
      */
-};var nonModifyingActions = [/SESSION.*/, /@@.*/, /ATTACHMENTS_MARK_UPLOADED/];
+};var nonModifyingActions = [/SESSION.*/, /@@.*/, /ATTACHMENTS_MARK_UPLOADED/, /DATA_.*/];
 
 function isActionModifying(action) {
     for (var i in nonModifyingActions) {

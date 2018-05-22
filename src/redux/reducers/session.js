@@ -24,6 +24,7 @@ const nonModifyingActions = [
     /SESSION.*/,
     /@@.*/,
     /ATTACHMENTS_MARK_UPLOADED/,
+    /DATA_.*/,
     // Add more ignored action.type regexes
 ]
 
