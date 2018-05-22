@@ -74,7 +74,8 @@ export default {
                 'number': {color: 'orange', icon: 'looks_5'},
                 'array': {color: 'green', icon: 'reorder'},
                 'object': {color: 'red', icon: 'label_outline'},
-                'date': {color: 'blue', icon: 'access_time'}
+                'date': {color: 'blue', icon: 'access_time'},
+                'boolean': {color: 'grey', icon: 'view_agenda'},
             }[this.type]
         },
 
