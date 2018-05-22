@@ -130,7 +130,7 @@ export default class Main {
         this.registry.use(require('~/elements/grid'))
         this.registry.use(require('~/elements/table'))
         this.registry.use(require('~/elements/page'))
-        this.registry.use(require("~/elements/group"));
+        this.registry.use(require("~/elements/group"))
     }
 
     _showLoadingIndicator() {

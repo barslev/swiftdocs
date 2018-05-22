@@ -3,7 +3,12 @@ module.exports = [
         id: 'd-grid',
         icon: 'view_column',
         label: 'Grid',
+        menu: require('./grid-menu.vue').default,
         renderer: require('./renderer.vue').default,
+
+        defaultState: {
+            justify: 'justify-start',
+        },
     },
     {
         id: 'd-grid-pane',
@@ -11,7 +16,7 @@ module.exports = [
         label: 'Grid Pane',
         hidden: true,
         renderer: require('./pane.vue').default,
-        menu: require('./menu.vue').default,
+        menu: require('./pane-menu.vue').default,
         defaultStyle: {
             borderWidth: 1,
             borderTop: true,

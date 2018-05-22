@@ -104,7 +104,7 @@ export default {
 		
 		onContentSelected(content) {
 			// Get the custom menu for this content
-			const menu = _swd.registry.menu(content.element)
+			const menu = window._swd.registry.menu(content.element)
 
 			// Remove any custom tabs previously shown
 			this.removeCustomTabs()

@@ -17,7 +17,7 @@ import dragDrop from '~/kernel/dragDrop'
 export default {
     data() {
         return {
-			elements: _swd.registry.all(),            
+			elements: window._swd.registry.all(),
         }
     },
     mounted() {
