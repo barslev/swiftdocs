@@ -2,7 +2,7 @@
     <div is="container"
         :id="id"
         :context="context"
-        :style="{flex: state.weight}"
+        :style="{flex: state.weight, width: state.width + 'px'}"
         :allow-drop="true" />
 </template>
 <script>

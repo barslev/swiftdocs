@@ -1,5 +1,5 @@
 <template>
-    <div class="flex" is="container" :id="id" :context="context"></div>
+    <div class="flex flex-wrap justify-between" is="container" :id="id" :context="context"></div>
 </template>
 <script>
 import base from '~/elements/base'

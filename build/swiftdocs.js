@@ -36299,15 +36299,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
 
 exports.default = {
     extends: (0, _base2.default)(),
 
     methods: {
         updateWeight: function updateWeight(weight) {
-            (0, _contents.updateContentState)(this.id, {
-                weight: weight
-            });
+            (0, _contents.updateContentState)(this.id, { weight: weight });
+        },
+        updateWidth: function updateWidth(width) {
+            (0, _contents.updateContentState)(this.id, { width: width });
         },
         addBefore: function addBefore() {
             this.addPane(true);
@@ -69856,7 +69861,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("container", {
     tag: "div",
-    staticClass: "flex",
+    staticClass: "flex flex-wrap justify-between",
     attrs: { id: _vm.id, context: _vm.context }
   })
 }
@@ -69936,7 +69941,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("container", {
     tag: "div",
-    style: { flex: _vm.state.weight },
+    style: { flex: _vm.state.weight, width: _vm.state.width + "px" },
     attrs: { id: _vm.id, context: _vm.context, "allow-drop": true }
   })
 }
@@ -70026,6 +70031,20 @@ var render = function() {
         on: {
           input: function($event) {
             _vm.updateWeight(arguments[0].target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "mt-4" }, [
+      _c("label", [_vm._v("Pane Width")]),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "text" },
+        domProps: { value: _vm.state.width },
+        on: {
+          input: function($event) {
+            _vm.updateWidth(arguments[0].target.value)
           }
         }
       })
