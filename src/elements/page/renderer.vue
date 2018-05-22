@@ -24,10 +24,10 @@ export default {
 		marginCss() {
 			return {
 				'background-color': this.state.color,
-				//'padding-top': this.state.margins.top + 'mm',
+				'padding-top': this.state.margins.top + 'mm',
 				'padding-left': this.state.margins.left + 'mm',
 				'padding-right': this.state.margins.right + 'mm',
-				//'padding-bottom': this.state.margins.bottom + 'mm',
+				'padding-bottom': this.state.margins.bottom + 'mm',
 			}
 		}
 	},

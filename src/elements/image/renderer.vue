@@ -58,7 +58,7 @@ export default {
 		  if (!this.inRenderMode) {
 			  return placeholder
 		  }
-		  return _.get(context, address)
+		  return _.get(this.context, address)
 	  }
   }
 }

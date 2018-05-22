@@ -6,6 +6,7 @@
 </template>
 <script>
 import { connect } from '~/redux/connect'
+import { string as toStyle } from 'to-style'
 import { addInitialPage } from '~/redux/actions/pages'
 
 export default {
@@ -39,9 +40,15 @@ export default {
 	},
 	methods: {
 		updatePrintCss() {
-			// r l
-			const margins = 'margin-left:' + this.state.defaults.margins.left + 'mm;'
-			 	+ 'margin-right:' + this.state.defaults.margins.right + 'mm;'
+			// r l 
+			const margins = toStyle({
+				marginTop: this.state.defaults.margins.top + 'mm',
+				marginBottom: this.state.defaults.margins.bottom + 'mm',
+				marginLeft: this.state.defaults.margins.left + 'mm',
+				marginRight: this.state.defaults.margins.right + 'mm',
+			})
+			//const margins = 'margin-left:' + this.state.defaults.margins.left + 'mm;'
+			 //	+ 'margin-right:' + this.state.defaults.margins.right + 'mm;'
 			this.styleEl.innerText = '@media print { @page { ' + margins + ' } }'
 		}
 	}

@@ -32129,6 +32129,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _connect = __webpack_require__(1);
 
+var _toStyle = __webpack_require__(229);
+
 var _pages = __webpack_require__(9);
 
 exports.default = {
@@ -32162,8 +32164,15 @@ exports.default = {
 
 	methods: {
 		updatePrintCss: function updatePrintCss() {
-			// r l
-			var margins = 'margin-left:' + this.state.defaults.margins.left + 'mm;' + 'margin-right:' + this.state.defaults.margins.right + 'mm;';
+			// r l 
+			var margins = (0, _toStyle.string)({
+				marginTop: this.state.defaults.margins.top + 'mm',
+				marginBottom: this.state.defaults.margins.bottom + 'mm',
+				marginLeft: this.state.defaults.margins.left + 'mm',
+				marginRight: this.state.defaults.margins.right + 'mm'
+			});
+			//const margins = 'margin-left:' + this.state.defaults.margins.left + 'mm;'
+			//	+ 'margin-right:' + this.state.defaults.margins.right + 'mm;'
 			this.styleEl.innerText = '@media print { @page { ' + margins + ' } }';
 		}
 	}
@@ -35986,7 +35995,7 @@ exports.default = {
 			if (!this.inRenderMode) {
 				return _placeholder2.default;
 			}
-			return _.get(context, address);
+			return _.get(this.context, address);
 		}
 	}
 }; //
@@ -36866,10 +36875,10 @@ exports.default = {
 		marginCss: function marginCss() {
 			return {
 				'background-color': this.state.color,
-				//'padding-top': this.state.margins.top + 'mm',
+				'padding-top': this.state.margins.top + 'mm',
 				'padding-left': this.state.margins.left + 'mm',
-				'padding-right': this.state.margins.right + 'mm'
-				//'padding-bottom': this.state.margins.bottom + 'mm',
+				'padding-right': this.state.margins.right + 'mm',
+				'padding-bottom': this.state.margins.bottom + 'mm'
 			};
 		}
 	},
