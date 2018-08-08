@@ -81,6 +81,12 @@ The second parameter must point to an axios instance. This is a chance for you t
 
 **Note:** Axios is not included by default. You'll have to include it in your project yourself.
 
+## Adding Hyperlinks
+
+The text element can render hyperlinks. To do this, use the following format;
+
+	{{ link variableContainingTheUrl }}
+
 ## Developing Custom Elements
 
 By default, SwiftDocs provides you with basic elements such as Text, Table and Image. It's possible to develop and integrate your own elements, too.

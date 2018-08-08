@@ -35635,6 +35635,13 @@ var _handlebars2 = _interopRequireDefault(_handlebars);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+_handlebars2.default.registerHelper('link', function (link) {
+    link = _handlebars2.default.escapeExpression(link);
+    return new _handlebars2.default.SafeString('<a href="' + link + '">' + link + '</a>');
+}); //
+//
+//
+
 exports.default = {
     props: ['template', 'context'],
 
@@ -35659,9 +35666,7 @@ exports.default = {
             this.html = _handlebars2.default.compile(this.template)(this.context);
         }
     }
-}; //
-//
-//
+};
 
 /***/ }),
 /* 103 */
@@ -54042,7 +54047,7 @@ exports.default = function (document) {
     });
 
     // Finally update the document's version
-    document.defaults.version = "0.4.3";
+    document.defaults.version = "0.4.5";
 
     return document;
 };
@@ -55334,7 +55339,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var initialState = {
 	// this is automatically resolved by webpack
 	// and the value comes from package.json version
-	version: "0.4.3",
+	version: "0.4.5",
 	margins: {
 		top: 25,
 		left: 25,
