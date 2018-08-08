@@ -1,7 +1,5 @@
 <template>
-  <div>
-      {{ output }}
-    </div>
+  <div>{{ output }}</div>
 </template>
 <script>
 import base from '~/elements/base'

@@ -47,6 +47,7 @@ menus:
     msg_success_title: "Data Refreshed"
     msg_success_text: "Data has been reloaded"
     msg_error_title: "Data could not be loaded!"
+    address_copied: "Copied data address to the clipboard!"
   
   elements:
     title: "Elements"
@@ -99,6 +100,9 @@ menus:
     background_color: "Background Color"
     remove_element: "Remove Element"
     remove_this_element: "Remove This Element"
+
+  variable:
+    set: "Variable has been set"
 
 modals:
   page_color:

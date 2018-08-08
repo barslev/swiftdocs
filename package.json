@@ -22,6 +22,7 @@
   "homepage": "https://github.com/swiftmade/swiftdocs#readme",
   "dependencies": {
     "blueimp-md5": "^2.10.0",
+    "clipboard": "^2.0.1",
     "cuid": "^2.0.2",
     "dragula": "^3.7.2",
     "handlebars": "^4.0.11",

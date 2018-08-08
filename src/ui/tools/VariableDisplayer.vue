@@ -6,6 +6,9 @@
             <div class="float-right" v-if="cascading && notEmpty">
                 <i class="material-icons">more_horiz</i>
             </div>
+            <div v-else class="float-right">
+                <variable-address :address="address" />
+            </div>
         </div>
         <div v-if="collapsed">
             <div class="bg-white p-1 border text-xs pb-2" v-if="!cascading">{{ value }}</div>
@@ -17,6 +20,7 @@
                     v-for="(v1, i) in Object.keys(value)"
                     :key="i"
                     :variable="v1"
+                    :address="address + '.' + v1"
                     :value="value[v1]"></variable-displayer>
                 </div>
             </div>
@@ -27,6 +31,7 @@
                     v-for="(v1, i) in value"
                     :key="i"
                     :variable="i"
+                    :address="address + '.' + v1"
                     :value="value[i]"></variable-displayer>
                 </div>
             </div>            
@@ -46,7 +51,12 @@ function findObjectType(object) {
 }
 
 export default {
-    props: ['variable', 'value'],
+
+    props: [
+        'variable',
+        'value',
+        'address'
+    ],
 
     data() {
         return {

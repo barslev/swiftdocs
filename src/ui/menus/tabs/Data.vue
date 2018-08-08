@@ -13,6 +13,7 @@
             <variable-displayer v-for="(variable, i) in Object.keys(state.data)"
                 :key="i"
                 :variable="variable"
+                :address="variable"
                 :value="state.data[variable]"></variable-displayer>
         </div>
         <div v-else class="text-center text-sm text-grey">{{ $t('global.loading') }}</div>

@@ -38,6 +38,7 @@ Vue.component('dropdown-menu', require('~/ui/tools/DropdownMenu.vue').default)
 Vue.component('document-title', require('~/ui/tools/DocumentTitle.vue').default)
 Vue.component('dropdown-option', require('~/ui/tools/DropdownOption.vue').default)
 Vue.component('document-status', require('~/ui/tools/DocumentStatus.vue').default)
+Vue.component('variable-address', require('~/ui/tools/VariableAddress.vue').default)
 Vue.component('variable-displayer', require('~/ui/tools/VariableDisplayer.vue').default)
 
 /**
