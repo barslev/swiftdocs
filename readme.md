@@ -85,7 +85,9 @@ The second parameter must point to an axios instance. This is a chance for you t
 
 The text element can render hyperlinks. To do this, use the following format;
 
-	{{ link variableContainingTheUrl }}
+	{{ with_links variable }}
+
+This will replace any urls found in the variable into an hyperlink.
 
 ## Developing Custom Elements
 

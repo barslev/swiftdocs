@@ -35635,12 +35635,16 @@ var _handlebars2 = _interopRequireDefault(_handlebars);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_handlebars2.default.registerHelper('link', function (link) {
-    link = _handlebars2.default.escapeExpression(link);
-    return new _handlebars2.default.SafeString('<a href="' + link + '">' + link + '</a>');
-}); //
+var urlPattern = /(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim; //
 //
 //
+
+var replacePattern = '<a href="$1" target="_blank">$1</a>';
+
+_handlebars2.default.registerHelper('with_links', function (content) {
+    content = _handlebars2.default.escapeExpression(content);
+    return new _handlebars2.default.SafeString(content.replace(urlPattern, replacePattern));
+});
 
 exports.default = {
     props: ['template', 'context'],

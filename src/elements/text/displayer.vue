@@ -4,10 +4,13 @@
 <script>
 import Handlebars from 'handlebars/dist/handlebars'
 
-Handlebars.registerHelper('link', link => {
-    link = Handlebars.escapeExpression(link)
+const urlPattern = /(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim
+const replacePattern = '<a href="$1" target="_blank">$1</a>'
+
+Handlebars.registerHelper('with_links', content => {
+    content = Handlebars.escapeExpression(content)
     return new Handlebars.SafeString(
-        `<a href="${link}">${link}</a>`
+        content.replace(urlPattern, replacePattern)
     )
 })
 
