@@ -1,75 +1,32 @@
-const initialState = {}
+import Immutable from 'seamless-immutable'
+import { createActions, createReducer } from 'reduxsauce'
+import { ContentsReduxTypes } from './contents';
 
-// Some elements needn't any styling.
-// These are abstract, logical elements. Add them here..
-const noStyleElements = [
-    'page',
-    'group',
-    // ....
-]
+const INITIAL_STATE = Immutable({
+    // No elements, no styles...
+})
 
-function defaultStyle(element) {
-    const defaults = {
-        position: 'relative',
-        // Default properties for the element
-        marginTop: 0,
-        marginLeft: 0,
-        marginRight: 0,
-        marginBottom: 5,
-        //
-        paddingTop: 0,
-        paddingLeft: 0,
-        paddingRight: 0,
-        paddingBottom: 0,
-        //
-        borderWidth: 0,
-        borderColor: null,
-        borderRadius: 0,
-        borderTop: false,
-        borderLeft: false,
-        borderRight: false,
-        borderBottom: false,
-        //
-        backgroundColor: null,
-    }
+const { Types, Creators } = createActions({
+    styleSet: ['id', 'style'],
+    styleUpdate: ['id', 'prop', 'value'],
+})
 
-    return {}
-    /*const elementStyles = _swd.registry.defaultStyle(element)
-    return {...defaults, ...elementStyles}*/
-}
+export const SessionReduxTypes = Types
+export default Creators
 
-export default (state = initialState, action) => {
-    switch (action.type) {
-        
-        case 'CONTENT_INSERT':
-            
-            if (noStyleElements.indexOf(action.payload.content.element) >= 0) {
-                // Don't add any styling rules for this content
-                return state
-            }
+export const reducer = createReducer(INITIAL_STATE, {
+    
+    [Types.STYLE_SET]: (state, action) => state.merge({
+        [action.id]: action.style
+    }),
+    
+    [Types.STYLE_UPDATE]: (state, action) => state.setIn(
+        action.id + '.' + action.prop, action.value
+    ),
 
-            return {
-                ...state,
-                // Inject the new content's style
-                [action.payload.content.id]: defaultStyle(
-                    action.payload.content.element
-                )
-            }
+    [ContentsReduxTypes.CONTENT_REMOVE]: (state, action) => state.without(action.id),
 
-        case 'CONTENT_REMOVE':
-            let clone = {...state}
-            delete clone[action.payload.id]
-            return clone
-        
-        case 'STYLE_UPDATE':
-            const change = {[action.payload.prop]: action.payload.value}
-            const updatedStyle = {...state[action.payload.id], ...change}
-            return {...state, [action.payload.id]: updatedStyle}
-
-        case 'STYLE_SET':
-            return {...state, [action.payload.id]: action.payload.style}
-
-        default:
-            return state
-    }
-}
+    [ContentsReduxTypes.CONTENT_INSERT]: (state, action) => state.merge({
+        [action.content.id]: {}
+    }),
+})

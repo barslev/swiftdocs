@@ -1,34 +1,47 @@
-const initialState = [
-    {id: 'first_page', element: 'page', container_id:null},
-]
+import Immutable from 'seamless-immutable'
+import { createActions, createReducer } from 'reduxsauce'
 
-export default (state = initialState, action) => {
+const INITIAL_STATE = Immutable([
+    {id: 'first_page', element: 'page', container_id:null}
+])
 
-    let copy
+const { Types, Creators } = createActions({
 
-    switch (action.type) {
-        // When a page is removed, remove its contents
-        case 'CONTENT_INSERT':
-            copy = state.concat([])
-            copy.splice(action.payload.index, 0, action.payload.content)
-            return copy
-        case 'CONTENT_MOVE':
-            copy = state.concat([])
-            copy.splice(action.payload.oldIndex, 1)
-            copy.splice(action.payload.newIndex, 0, action.payload.content)
-            return copy
-        case 'CONTENT_REMOVE':
-            return state.filter((content) => {
-                return content.id !== action.payload.id
+    contentRemove: ['id'],
+    contentInsert: ['index', 'content'],
+    contentUpdateState: ['id', 'state'],
+    contentMove: ['oldIndex', 'newIndex', 'content'],
+
+})
+
+export const ContentsReduxTypes = Types
+export default Creators
+
+export const reducer = createReducer(INITIAL_STATE, {
+
+    [Types.CONTENT_REMOVE]: (state, action) => state.filter(
+        content => content.id !== action.id
+    ),
+
+    [Types.CONTENT_INSERT]: (state, action) => {
+        let contents = state.asMutable()
+        contents.splice(action.index, 0, action.content)
+        return Immutable(contents)
+    },
+
+    [Types.CONTENT_MOVE]: (state, action) => {
+        let contents = state.asMutable()
+        contents.splice(action.oldIndex, 1)
+        contents.splice(action.newIndex, 0, action.content)
+        return Immutable(contents)
+    },
+
+    [Types.CONTENT_UPDATE_STATE]: (state, action) => state.map(content => {
+        if (content.id === action.id) {
+            return content.merge({
+                state: action.state
             })
-        case 'CONTENT_UPDATE_STATE':
-            return state.map((content) => {
-                if (content.id === action.payload.id) {
-                    return {...content, state: action.payload.state}
-                }
-                return content
-            })
-        default:
-            return state
-    }
-}
+        }
+    }),
+
+})

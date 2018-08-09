@@ -1,20 +1,12 @@
 import {combineReducers} from 'redux'
 
-import data from './data'
-import title from './title'
-import styles from './styles'
-import session from './session'
-import contents from './contents'
-import defaults from './defaults'
-import attachments from './attachments'
-
 export default combineReducers({
-    data,
-    title,
-    styles,
-    session,
-    contents,
-    defaults,
-    attachments,
+    data: require('./data').reducer,
+    title: require('./title').reducer,
+    styles: require('./styles').reducer,
+    session: require('./session').reducer,
+    contents: require('./contents').reducer,
+    defaults: require('./defaults').reducer,
+    attachments: require('./attachments').reducer,
     // Add more reducers...
 })

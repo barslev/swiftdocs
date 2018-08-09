@@ -1,7 +1,8 @@
-const initialState = {
-	// this is automatically resolved by webpack
-	// and the value comes from package.json version
-	version: '0.5.0', // TODO: Make this dynamic
+import Immutable from 'seamless-immutable'
+import { createActions, createReducer } from 'reduxsauce'
+
+const INITIAL_STATE = Immutable({
+	version: '0.5.0',
 	margins: {
 		top: 25,
 		left: 25,
@@ -17,14 +18,16 @@ const initialState = {
 	color: '#ffffff',
 	languages: [
 		'en'
-	]
-}
+	],
+})
 
-export default (state = initialState, action) => {
-    switch (action.type) {
-		case 'DEFAULTS_UPDATE':
-			return {...state, ...action.payload}
-        default:
-            return state
-    }
-}
+const { Types, Creators } = createActions({
+    defaultsUpdate: ['defaults'],
+})
+
+export const DefaultsReduxTypes = Types
+export default Creators
+
+export const reducer = createReducer(INITIAL_STATE, {
+	[Types.DEFAULTS_UPDATE]: (state, action) => state.merge(action.defaults)
+})

@@ -1,32 +1,26 @@
-const initialState = {}
+import Immutable from 'seamless-immutable'
+import { createActions, createReducer } from 'reduxsauce'
 
-export default (state = initialState, action) => {
+const INITIAL_STATE = Immutable({
+    // No attachments
+})
 
-    let copy
-    
-    switch (action.type) {
-        case 'ATTACHMENTS_ADD':
-            return {
-                ...state,
-                [action.payload.id]: {
-                    uploaded: false,
-                    data: action.payload.data
-                }
-            }
-        
-        case 'ATTACHMENT_REMOVE':
-            copy = {...state}
-            delete copy[action.payload.id]
-            return copy
-        
-        case 'ATTACHMENTS_MARK_UPLOADED':
-            copy = {...state}
-            for (let key in copy) {
-                copy[key].uploaded = true
-            }
-            return copy
-        
-        default:
-            return state
-    }    
-}
+const { Types, Creators } = createActions({
+    attachmentRemove: ['id'],
+    attachmentAdd: ['id', 'data'],
+    attachmentMarkUploaded: ['id'],
+})
+
+export const AttachmentsReduxTypes = Types
+export default Creators
+
+export const reducer = createReducer(INITIAL_STATE, {
+    [Types.ATTACHMENT_ADD]: (state, action) => state.merge({
+        [action.id]: {
+            uploaded: false,
+            data: action.data,
+        }
+    }),
+    [Types.ATTACHMENT_REMOVE]: (state, action) => state.without(action.id),
+    [Types.ATTACHMENT_MARK_UPLOADED]: (state, action) => state.setIn(action.id + '.uploaded', true)
+})

@@ -5,7 +5,6 @@ import { PersistGate } from 'redux-persist/integration/react'
 import configureStore from './data/store/configureStore'
 
 import TopMenu from './ui/menus/TopMenu'
-import LeftMenu from './ui/menus/LeftMenu'
 import Document from './document/Document'
 
 import './styles/app.scss'
@@ -18,7 +17,6 @@ class App extends Component {
       <PersistGate loading={null} persistor={store.persistor}>
         <div className="App">
           <TopMenu />
-          <LeftMenu />
           <Document></Document>
         </div>
       </PersistGate>
