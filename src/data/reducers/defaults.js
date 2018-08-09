@@ -5,9 +5,9 @@ const INITIAL_STATE = Immutable({
 	version: '0.5.0',
 	margins: {
 		top: 25,
-		left: 25,
 		right: 25,
-		bottom: 25
+		bottom: 25,
+		left: 25
 	},
 	// Default page dimensions in mm
 	dimensions: {
@@ -15,7 +15,7 @@ const INITIAL_STATE = Immutable({
 		height: 297
 	},
 	// Default page background color
-	color: '#ffffff',
+	color: '#efefef',
 	languages: [
 		'en'
 	],

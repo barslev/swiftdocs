@@ -2,16 +2,15 @@ import Immutable from 'seamless-immutable'
 import { createActions, createReducer } from 'reduxsauce'
 
 const INITIAL_STATE = Immutable([
-    {id: 'first_page', element: 'page', container_id:null}
+    {id: 'first_page', element: 'page', container_id:null},
+    {id: 'text', element: 'richtext', container_id:'first_page', state: {text: 'Hello world!'}}
 ])
 
 const { Types, Creators } = createActions({
-
     contentRemove: ['id'],
     contentInsert: ['index', 'content'],
     contentUpdateState: ['id', 'state'],
     contentMove: ['oldIndex', 'newIndex', 'content'],
-
 })
 
 export const ContentsReduxTypes = Types
@@ -42,6 +41,7 @@ export const reducer = createReducer(INITIAL_STATE, {
                 state: action.state
             })
         }
+        return content
     }),
 
 })

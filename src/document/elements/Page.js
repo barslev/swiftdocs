@@ -16,9 +16,7 @@ export class Renderer extends Component {
         const Container = this.props.registry.getRenderer('container')
 
         return <div className="document__page flex flex-col" style={this.props.css}>
-            <Container id="header" className="document__page-header" />
             <Container id={this.props.id} className="flex-1" />
-            <Container id="footer" className="document__page-footer" />
         </div>
     }
 
@@ -27,11 +25,13 @@ export class Renderer extends Component {
 export const mapStateToProps = (state) => {
     return {
         css: {
-            width: '210mm',
-            height: '297mm',
             backgroundColor: state.defaults.color,
+            paddingTop: state.defaults.margins.top + 'mm',
+            paddingBottom: state.defaults.margins.bottom + 'mm',
             paddingLeft: state.defaults.margins.left + 'mm',
             paddingRight: state.defaults.margins.right + 'mm',
+            width: state.defaults.dimensions.width + 'mm',
+            height: state.defaults.dimensions.height + 'mm',            
         }
     }
 }

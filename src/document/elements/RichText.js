@@ -24,16 +24,13 @@ export class Renderer extends Component {
 }
 
 export const mapStateToProps = (state, scope) => {
+
+    const content = state.contents.find(
+        content => content.id === scope.id
+    )
+    
     return {
-        state: state.contents
-            .find(content => content.id === scope.id)
-            .state,
-        css: {
-            width: '210mm',
-            height: '297mm',
-            backgroundColor: state.defaults.color,
-            paddingLeft: state.defaults.margins.left + 'mm',
-            paddingRight: state.defaults.margins.right + 'mm',
-        }
+        state: content.state,
+        css: state.styles[scope.id]
     }
 }

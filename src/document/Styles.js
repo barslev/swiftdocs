@@ -9,13 +9,37 @@ class Styles extends Component {
     }
 
     parseCss() {
+        return [
+            this.parsePrintStyles(),
+            this.parseContentStyles(),
+        ].join("\n")
+    }
+
+    parsePrintStyles() {
+        return `@media print {
+    @page {
+        size: ${this.props.defaults.dimensions.width}mm ${this.props.defaults.dimensions.height}mm;
+        margin: ${this.mmArray(Object.values(this.props.defaults.margins))};
+    }
+}`
+    }
+    
+    parseContentStyles() {
         return Object.keys(this.props.styles)
             .map(id => this.toCss(id, this.props.styles[id]))
             .join("\n")
     }
 
+    arrayToString(array, unit) {
+        return array.map(val => val + unit).join(' ')
+    }
+
     pixelArray(array) {
-        return array.map(val => val + 'px').join(' ')
+        return this.arrayToString(array, 'px')   
+    }
+
+    mmArray(array) {
+        return this.arrayToString(array, 'mm')
     }
 
     borderWidths(styles) {
@@ -43,7 +67,8 @@ class Styles extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        styles: state.styles
+        styles: state.styles,
+        defaults: state.defaults,
     }
 }
 

@@ -18,17 +18,22 @@ export class Renderer extends Component
     render() {
         const Tag = this.tag()
         const Presenter = this.props.presenter
-        
+
         return <Tag className={this.classes()}>
             <Presenter items={this.props.contents}></Presenter>
         </Tag>
     }
-    
+
     classes() {
-        const classes = ['document__page-container', this.props.className]
+        const classes = [
+            'document__page-container',
+            this.props.className
+        ]
+
         if ( ! this.props.root) {
             classes.push('document__page-child-container')
         }
+
         return classes.filter(c => c).join(' ')
     }
 
