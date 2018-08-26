@@ -71,6 +71,16 @@ export default class Main {
         }
     }
 
+    _getDefaultTranslation() {
+        let def = this.translations.indexOf(
+            this.defaultLanguage
+        )
+        if (def === -1) {
+            return this.translations[0]
+        }
+        return this.translations[def]
+    }
+
     /**
      * Receives null for new documents, object for existing ones
      * Boots the redux store with the given object so the editor displays the latest state of things.
@@ -81,7 +91,7 @@ export default class Main {
 
         if (this.translations) {
             // Set active translation language
-            this.action.setTranslation(this.translations[0])
+            this.action.setTranslation(this._getDefaultTranslation())
         }
 
         // Mark all received attachments as uploaded.
