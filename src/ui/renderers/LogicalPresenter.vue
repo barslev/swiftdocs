@@ -133,6 +133,8 @@ export default {
                         return !value
                     case 'equals':
                         return value == condition.value
+                    case 'not_equal':
+                        return value != condition.value                        
                     case 'greater_than':
                         return comparable(value) > parseFloat(condition.value)
                     case 'less_than':

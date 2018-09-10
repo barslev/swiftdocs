@@ -65,6 +65,7 @@ menus:
     condition_address: "Display this when this address"
     exists: "Exists"
     equals: "Equals to"
+    not_equal: "Not equal to"
     greater_than: "Greater Than"
     less_than: "Less Than"
     this_value: "This Value"

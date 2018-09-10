@@ -45,6 +45,7 @@ export default {
                 {key: 'truthy', hasValue: false},
                 {key: 'falsy', hasValue: false},
                 {key: 'equals', hasValue: true},
+                {key: 'not_equal', hasValue: true},
                 {key: 'greater_than', hasValue: true},
                 {key: 'less_than', hasValue: true},
             ],
