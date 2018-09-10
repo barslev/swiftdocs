@@ -20,6 +20,14 @@
             'en',
             'fr'
         ]
+        
+        swiftDocs.registry.addTopMenuShortcut({
+            icon: 'phone',
+            label: 'Call',
+            callback: () => {
+                alert('Custom button!')
+            }
+        })
 
         swiftDocs.dataSource.use({
             "books" : {

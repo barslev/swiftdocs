@@ -1,5 +1,5 @@
 <template>
-    <button @click="emitClick" :disabled="disabled" type="button" class="mt-1 p-1 border hover:bg-white inline-block text-center text-xs font-bold uppercase" :class="btnClass">
+    <button @click="emitClick" :disabled="disabled" type="button" class="m-1 p-1 border hover:bg-white inline-block text-center text-xs font-bold uppercase" :class="btnClass">
         <i class="material-icons">{{ icon }}</i>
     </button>
 </template>

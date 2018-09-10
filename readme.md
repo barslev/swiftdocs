@@ -125,6 +125,29 @@ You can also use one meta file to register multiple elements at once by passing 
 
 Finally, you'll need to register your element like so:
 	
-	_swd.registry.use(require('./yourMetaFile.js'))
+	swiftDocs.registry.use(require('./yourMetaFile.js'))
 	
 After these steps, your custom element should appear in the "Elements" tab on the left menu. You should be able to drag and drop your element on to the document and it will be rendered using the renderer Vue component you passed in.
+
+
+## Adding Custom Shortcuts to Top Menu
+
+By default, Swiftdocs presents *delete, duplicate* and *parent* shortcuts on the top menu during edit mode.
+You are free to add any shortcut you want here, which could be used both in edit and render mode.
+
+To do so, use the following call:
+
+	swiftDocs.registry.addTopMenuShortcut({
+		editModeOnly: true,
+		selectionAware: true,		
+		label: 'The text to be displayed when the user hovers the shortcut',
+		icon: 'any material icon of your choosing',
+		callback: function(state, selection) {
+			// Handle the click event...
+		},
+	})
+
+Usage: 
+
+* When `editModeOnly` is set to `true`, shortcut will be hidden during render mode.
+* When `selectionAware` is set to `true`, shortcut will be disabled until a content is selected.

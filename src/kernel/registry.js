@@ -8,6 +8,8 @@ export class Registry {
         this.elements = []
         this.defaultStates = {}
         this.defaultStyles = {}
+
+        this._topMenuShortcuts = []
     }
 
     use(element) {
@@ -18,6 +20,10 @@ export class Registry {
             return
         }
         this._registerElement(element)
+    }
+
+    addTopMenuShortcut(shortcut) {
+        this._topMenuShortcuts.push(shortcut)
     }
 
     all() {
@@ -44,6 +50,10 @@ export class Registry {
 
     defaultStyle(elementId) {
         return _.get(this.defaultStyles, elementId, {})
+    }
+
+    topMenuShortcuts() {
+        return this._topMenuShortcuts
     }
 
     /**

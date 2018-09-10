@@ -32,19 +32,15 @@
                 <document-status></document-status>
             </div>
 
-            <div class="flex-1" v-if="!inRenderMode">
-                <top-button :disabled="!state.selection"
-                    @click="deleteContent()"
-                    v-tooltip="'Delete Content'"
-                    icon="delete" />
-                <top-button :disabled="!state.selection"
-                    @click="duplicateContent()"
-                    v-tooltip="'Duplicate Content'"
-                    icon="content_copy" />
-                <top-button :disabled="!state.selection"
-                    @click="selectParent()"
-                    v-tooltip="'Select Parent'"
-                    icon="arrow_upward" />
+            <div class="flex-1">
+                
+                <top-button v-for="(shortcut, index) in shortcuts"
+                    v-if="!shortcut.editModeOnly || !inRenderMode"
+                    :key="index"
+                    :icon="shortcut.icon"
+                    v-tooltip="shortcut.label"
+                    @click="invokeShortcut(shortcut)"
+                    :disabled="shortcut.selectionAware && !state.selection" />
             </div>
             <div>
                 <dropdown-menu color="grey-dark" icon="language" v-if="translations.length > 1" :label="$t('languages.' + state.translation)" align="pin-r">
@@ -59,9 +55,9 @@
 </template>
 <script>
 import { connect } from '~/redux/connect'
+import getShortcuts from './resources/shortcuts'
 import { setTranslation } from '~/redux/actions/session'
 import { beginRenderMode, beginEditMode } from '~/redux/actions/session'
-import { removeSelectedContent, duplicateSelectedContent, selectParent } from '~/redux/actions/commands'
 
 export default {
     mixins: [
@@ -84,6 +80,7 @@ export default {
     },
     data() {
         return {
+            shortcuts: getShortcuts(),
             translations: _swd.translations,
         }
     },
@@ -97,10 +94,11 @@ export default {
         changeUiLanguage() {
             this.$modal.show('language')
         },
-        // Top Button Handlers
-        selectParent: selectParent,
-        deleteContent: removeSelectedContent,
-        duplicateContent: duplicateSelectedContent,
+        invokeShortcut(shortcut) {
+            const state = store.getState()
+            const selection = state.session.selectedId
+            shortcut.callback(state, selection)
+        },
     }
 }
 </script>
