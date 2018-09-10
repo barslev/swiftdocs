@@ -33483,6 +33483,8 @@ exports.default = {
                         return !value;
                     case 'equals':
                         return value == condition.value;
+                    case 'not_equal':
+                        return value != condition.value;
                     case 'greater_than':
                         return comparable(value) > parseFloat(condition.value);
                     case 'less_than':
@@ -33648,7 +33650,7 @@ exports.default = {
     },
     data: function data() {
         return {
-            options: [{ key: 'exists', hasValue: false }, { key: 'truthy', hasValue: false }, { key: 'falsy', hasValue: false }, { key: 'equals', hasValue: true }, { key: 'greater_than', hasValue: true }, { key: 'less_than', hasValue: true }],
+            options: [{ key: 'exists', hasValue: false }, { key: 'truthy', hasValue: false }, { key: 'falsy', hasValue: false }, { key: 'equals', hasValue: true }, { key: 'not_equal', hasValue: true }, { key: 'greater_than', hasValue: true }, { key: 'less_than', hasValue: true }],
             condition: null
         };
     },
@@ -34319,14 +34321,14 @@ Object.defineProperty(exports, "__esModule", {
 
 var _connect = __webpack_require__(1);
 
+var _shortcuts = __webpack_require__(397);
+
+var _shortcuts2 = _interopRequireDefault(_shortcuts);
+
 var _session = __webpack_require__(3);
 
-var _commands = __webpack_require__(22);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -34402,6 +34404,7 @@ exports.default = {
     },
     data: function data() {
         return {
+            shortcuts: (0, _shortcuts2.default)(),
             translations: _swd.translations
         };
     },
@@ -34416,11 +34419,11 @@ exports.default = {
         changeUiLanguage: function changeUiLanguage() {
             this.$modal.show('language');
         },
-
-        // Top Button Handlers
-        selectParent: _commands.selectParent,
-        deleteContent: _commands.removeSelectedContent,
-        duplicateContent: _commands.duplicateSelectedContent
+        invokeShortcut: function invokeShortcut(shortcut) {
+            var state = store.getState();
+            var selection = state.session.selectedId;
+            shortcut.callback(state, selection);
+        }
     }
 };
 
@@ -51190,7 +51193,7 @@ var render = function() {
     "button",
     {
       staticClass:
-        "mt-1 p-1 border hover:bg-white inline-block text-center text-xs font-bold uppercase",
+        "m-1 p-1 border hover:bg-white inline-block text-center text-xs font-bold uppercase",
       class: _vm.btnClass,
       attrs: { disabled: _vm.disabled, type: "button" },
       on: { click: _vm.emitClick }
@@ -53825,71 +53828,34 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        !_vm.inRenderMode
-          ? _c(
-              "div",
-              { staticClass: "flex-1" },
-              [
-                _c("top-button", {
+        _c(
+          "div",
+          { staticClass: "flex-1" },
+          _vm._l(_vm.shortcuts, function(shortcut, index) {
+            return !shortcut.editModeOnly || !_vm.inRenderMode
+              ? _c("top-button", {
                   directives: [
                     {
                       name: "tooltip",
                       rawName: "v-tooltip",
-                      value: "Delete Content",
-                      expression: "'Delete Content'"
+                      value: shortcut.label,
+                      expression: "shortcut.label"
                     }
                   ],
-                  attrs: { disabled: !_vm.state.selection, icon: "delete" },
-                  on: {
-                    click: function($event) {
-                      _vm.deleteContent()
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("top-button", {
-                  directives: [
-                    {
-                      name: "tooltip",
-                      rawName: "v-tooltip",
-                      value: "Duplicate Content",
-                      expression: "'Duplicate Content'"
-                    }
-                  ],
+                  key: index,
                   attrs: {
-                    disabled: !_vm.state.selection,
-                    icon: "content_copy"
+                    icon: shortcut.icon,
+                    disabled: shortcut.selectionAware && !_vm.state.selection
                   },
                   on: {
                     click: function($event) {
-                      _vm.duplicateContent()
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("top-button", {
-                  directives: [
-                    {
-                      name: "tooltip",
-                      rawName: "v-tooltip",
-                      value: "Select Parent",
-                      expression: "'Select Parent'"
-                    }
-                  ],
-                  attrs: {
-                    disabled: !_vm.state.selection,
-                    icon: "arrow_upward"
-                  },
-                  on: {
-                    click: function($event) {
-                      _vm.selectParent()
+                      _vm.invokeShortcut(shortcut)
                     }
                   }
                 })
-              ],
-              1
-            )
-          : _vm._e(),
+              : _vm._e()
+          })
+        ),
         _vm._v(" "),
         _c(
           "div",
@@ -55040,6 +55006,8 @@ var Registry = exports.Registry = function () {
         this.elements = [];
         this.defaultStates = {};
         this.defaultStyles = {};
+
+        this._topMenuShortcuts = [];
     }
 
     _createClass(Registry, [{
@@ -55054,6 +55022,11 @@ var Registry = exports.Registry = function () {
                 return;
             }
             this._registerElement(element);
+        }
+    }, {
+        key: 'addTopMenuShortcut',
+        value: function addTopMenuShortcut(shortcut) {
+            this._topMenuShortcuts.push(shortcut);
         }
     }, {
         key: 'all',
@@ -55084,6 +55057,11 @@ var Registry = exports.Registry = function () {
         key: 'defaultStyle',
         value: function defaultStyle(elementId) {
             return _.get(this.defaultStyles, elementId, {});
+        }
+    }, {
+        key: 'topMenuShortcuts',
+        value: function topMenuShortcuts() {
+            return this._topMenuShortcuts;
         }
 
         /**
@@ -55159,7 +55137,7 @@ exports.default = function (document) {
     });
 
     // Finally update the document's version
-    document.defaults.version = "0.4.5";
+    document.defaults.version = "0.4.7";
 
     return document;
 };
@@ -56451,7 +56429,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var initialState = {
 	// this is automatically resolved by webpack
 	// and the value comes from package.json version
-	version: "0.4.5",
+	version: "0.4.7",
 	margins: {
 		top: 25,
 		left: 25,
@@ -56557,13 +56535,13 @@ module.exports = i18n;
 /* 329 */
 /***/ (function(module, exports) {
 
-module.exports = {"languages":{"de":"German","en":"English","fr":"French","it":"Italian","lo":"Lao","tr":"Turkish","zh":"Chinese"},"global":{"ok":"OK","set":"Set","cancel":"Cancel","remove":"Remove","loading":"Loading"},"messages":{"saving":"Saving","saved":"Saved!","save_failed":"Not Saved","saved_more":"All changes were saved.","page_added":"Page Added","page_removed":"Page Removed"},"top":{"file":"FILE","edit_document":"Edit Document","save":"Save","render":"Render Document","change_language":"Interface Language","untitled_document":"Untitled Document","enter_title":"Enter a new title for this document"},"left":{"tabs":{"data":"Data","layout":"Page Layout","elements":"Elements","style":"Style","logic":"Logic"}},"menus":{"data":{"loading":"Loading Data","refresh":"Refresh Data","explorer":"Data Explorer","msg_success_title":"Data Refreshed","msg_success_text":"Data has been reloaded","msg_error_title":"Data could not be loaded!","address_copied":"Copied data address to the clipboard!"},"elements":{"title":"Elements"},"layout":{"title":"Page Layout","margins":"Margins","page_color":"Page Color","add_new":"Add New Page"},"logic":{"loop":"Loop","path":"Path","repeat_as":"Repeat As","condition":"Display Condition","condition_address":"Display this when this address","exists":"Exists","truthy":"Evaluates to True","falsy":"Evaluates to False","equals":"Equals to","greater_than":"Greater Than","less_than":"Less Than","this_value":"This Value","loop_error_title":"Loop not set","loop_error_text":"Fill both fields to set a loop.","loop_success_title":"Loop set","loop_success_text":"Loop will be effective at render time.","loop_remove_success_title":"Loop removed","condition_error_title":"Condition not set","condition_error_address":"Please indicate an address for this condition","condition_error_comparator":"Select the type of condition first","condition_error_value":"Please indicate an address for this condition","condition_success_title":"Condition set","condition_success_text":"Condition will be effective at render time.","condition_remove_success_title":"Condition removed"},"style":{"top":"Top","left":"Left","right":"Right","bottom":"Bottom","margins":"Margins","paddings":"Paddings","borders":"Borders","width":"Width","radius":"Radius","sides":"Sides","border_color":"Border Color","fill":"Fill","background_color":"Background Color","remove_element":"Remove Element","remove_this_element":"Remove This Element"},"variable":{"set":"Variable has been set"}},"modals":{"page_color":{"title":"Page Background Color","color":"Color"},"page_margins":{"title":"Page Margins","top":"Top","left":"Left","right":"Right","bottom":"Bottom"},"language":{"title":"Interface Language","switch":"Change Language"}},"scope":{"apply_to":"Apply To","all_pages":"All Pages","only_to_page":"Only to Page {0}"}}
+module.exports = {"languages":{"de":"German","en":"English","fr":"French","it":"Italian","lo":"Lao","tr":"Turkish","zh":"Chinese"},"global":{"ok":"OK","set":"Set","cancel":"Cancel","remove":"Remove","loading":"Loading"},"messages":{"saving":"Saving","saved":"Saved!","save_failed":"Not Saved","saved_more":"All changes were saved.","page_added":"Page Added","page_removed":"Page Removed"},"top":{"file":"FILE","edit_document":"Edit Document","save":"Save","render":"Render Document","change_language":"Interface Language","untitled_document":"Untitled Document","enter_title":"Enter a new title for this document"},"left":{"tabs":{"data":"Data","layout":"Page Layout","elements":"Elements","style":"Style","logic":"Logic"}},"menus":{"data":{"loading":"Loading Data","refresh":"Refresh Data","explorer":"Data Explorer","msg_success_title":"Data Refreshed","msg_success_text":"Data has been reloaded","msg_error_title":"Data could not be loaded!","address_copied":"Copied data address to the clipboard!"},"elements":{"title":"Elements"},"layout":{"title":"Page Layout","margins":"Margins","page_color":"Page Color","add_new":"Add New Page"},"logic":{"loop":"Loop","path":"Path","repeat_as":"Repeat As","condition":"Display Condition","condition_address":"Display this when this address","exists":"Exists","truthy":"Evaluates to True","falsy":"Evaluates to False","equals":"Equals to","not_equal":"Not equal to","greater_than":"Greater Than","less_than":"Less Than","this_value":"This Value","loop_error_title":"Loop not set","loop_error_text":"Fill both fields to set a loop.","loop_success_title":"Loop set","loop_success_text":"Loop will be effective at render time.","loop_remove_success_title":"Loop removed","condition_error_title":"Condition not set","condition_error_address":"Please indicate an address for this condition","condition_error_comparator":"Select the type of condition first","condition_error_value":"Please indicate an address for this condition","condition_success_title":"Condition set","condition_success_text":"Condition will be effective at render time.","condition_remove_success_title":"Condition removed"},"style":{"top":"Top","left":"Left","right":"Right","bottom":"Bottom","margins":"Margins","paddings":"Paddings","borders":"Borders","width":"Width","radius":"Radius","sides":"Sides","border_color":"Border Color","fill":"Fill","background_color":"Background Color","remove_element":"Remove Element","remove_this_element":"Remove This Element"},"variable":{"set":"Variable has been set"}},"modals":{"page_color":{"title":"Page Background Color","color":"Color"},"page_margins":{"title":"Page Margins","top":"Top","left":"Left","right":"Right","bottom":"Bottom"},"language":{"title":"Interface Language","switch":"Change Language"}},"scope":{"apply_to":"Apply To","all_pages":"All Pages","only_to_page":"Only to Page {0}"}}
 
 /***/ }),
 /* 330 */
 /***/ (function(module, exports) {
 
-module.exports = {"languages":{"de":"Almanca","en":"İngilizce","fr":"Fransızca","it":"İtalyanca","lo":"Laoca","tr":"Türkçe","zh":"Çince"},"global":{"ok":"OK","set":"Set","cancel":"Cancel","remove":"Remove","loading":"Loading"},"messages":{"saved":"Kaydedildi!","save_failed":"Kaydedilemedi","saved_more":"All changes were saved.","page_added":"Page Added","page_removed":"Page Removed"},"top":{"file":"DOSYA","edit_document":"Dokümanı Düzenle","save":"Kaydet","render":"Görüntüleme Modu","change_language":"Arayüz Dili","untitled_document":"İsimsiz Doküman","enter_title":"Enter a new title for this document"},"left":{"tabs":{"data":"Veri","layout":"Sayfa Düzeni","elements":"Elementler","style":"Stil","logic":"Zeka"}},"menus":{"data":{"loading":"Loading Data","refresh":"Refresh Data","explorer":"Data Explorer","msg_success_title":"Data Refreshed","msg_success_text":"Data has been reloaded","msg_error_title":"Data could not be loaded!"},"elements":{"title":"Elements"},"layout":{"title":"Page Layout","margins":"Margins","page_color":"Page Color","add_new":"Add New Page"},"logic":{"loop":"Loop","path":"Path","repeat_as":"Repeat As","condition":"Display Condition","condition_address":"Display this when this address","exists":"Exists","equals":"Equals to","greater_than":"Greater Than","less_than":"Less Than","this_value":"This Value","loop_error_title":"Loop not set","loop_error_text":"Fill both fields to set a loop.","loop_success_title":"Loop set","loop_success_text":"Loop will be effective at render time.","loop_remove_success_title":"Loop removed","condition_error_title":"Condition not set","condition_error_text":"Fill all fields to set a condition.","condition_success_title":"Condition set","condition_success_text":"Condition will be effective at render time.","condition_remove_success_title":"Condition removed"},"style":{"top":"Top","left":"Left","right":"Right","bottom":"Bottom","margins":"Margins","paddings":"Paddings","borders":"Borders","width":"Width","radius":"Radius","sides":"Sides","border_color":"Border Color","fill":"Fill","background_color":"Background Color","remove_element":"Remove Element","remove_this_element":"Remove This Element"}},"modals":{"page_color":{"title":"Page Background Color","color":"Color"},"page_margins":{"title":"Page Margins","top":"Top","left":"Left","right":"Right","bottom":"Bottom"},"language":{"title":"Arayüz Dili","switch":"Dili Değiştir"}},"scope":{"apply_to":"Apply To","all_pages":"All Pages","only_to_page":"Only to Page {0}"}}
+module.exports = {"languages":{"de":"Almanca","en":"İngilizce","fr":"Fransızca","it":"İtalyanca","lo":"Laoca","tr":"Türkçe","zh":"Çince"},"global":{"ok":"OK","set":"Set","cancel":"Cancel","remove":"Remove","loading":"Loading"},"messages":{"saved":"Kaydedildi!","save_failed":"Kaydedilemedi","saved_more":"All changes were saved.","page_added":"Page Added","page_removed":"Page Removed"},"top":{"file":"DOSYA","edit_document":"Dokümanı Düzenle","save":"Kaydet","render":"Görüntüleme Modu","change_language":"Arayüz Dili","untitled_document":"İsimsiz Doküman","enter_title":"Enter a new title for this document"},"left":{"tabs":{"data":"Veri","layout":"Sayfa Düzeni","elements":"Elementler","style":"Stil","logic":"Zeka"}},"menus":{"data":{"loading":"Loading Data","refresh":"Refresh Data","explorer":"Data Explorer","msg_success_title":"Data Refreshed","msg_success_text":"Data has been reloaded","msg_error_title":"Data could not be loaded!"},"elements":{"title":"Elements"},"layout":{"title":"Page Layout","margins":"Margins","page_color":"Page Color","add_new":"Add New Page"},"logic":{"loop":"Loop","path":"Path","repeat_as":"Repeat As","condition":"Display Condition","condition_address":"Display this when this address","exists":"Exists","equals":"Equals to","not_equal":"Not equal to","greater_than":"Greater Than","less_than":"Less Than","this_value":"This Value","loop_error_title":"Loop not set","loop_error_text":"Fill both fields to set a loop.","loop_success_title":"Loop set","loop_success_text":"Loop will be effective at render time.","loop_remove_success_title":"Loop removed","condition_error_title":"Condition not set","condition_error_text":"Fill all fields to set a condition.","condition_success_title":"Condition set","condition_success_text":"Condition will be effective at render time.","condition_remove_success_title":"Condition removed"},"style":{"top":"Top","left":"Left","right":"Right","bottom":"Bottom","margins":"Margins","paddings":"Paddings","borders":"Borders","width":"Width","radius":"Radius","sides":"Sides","border_color":"Border Color","fill":"Fill","background_color":"Background Color","remove_element":"Remove Element","remove_this_element":"Remove This Element"}},"modals":{"page_color":{"title":"Page Background Color","color":"Color"},"page_margins":{"title":"Page Margins","top":"Top","left":"Left","right":"Right","bottom":"Bottom"},"language":{"title":"Arayüz Dili","switch":"Dili Değiştir"}},"scope":{"apply_to":"Apply To","all_pages":"All Pages","only_to_page":"Only to Page {0}"}}
 
 /***/ }),
 /* 331 */
@@ -72847,6 +72825,36 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-7abe7322", esExports)
   }
 }
+
+/***/ }),
+/* 397 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _commands = __webpack_require__(22);
+
+exports.default = function () {
+
+    var makeContentEditButton = function makeContentEditButton(icon, label, callback) {
+        return {
+            editModeOnly: true,
+            selectionAware: true,
+            label: label,
+            icon: icon,
+            callback: callback
+        };
+    };
+
+    var defaultShortcuts = [makeContentEditButton('delete', 'Delete Content', _commands.removeSelectedContent), makeContentEditButton('content_copy', 'Duplicate Content', _commands.duplicateSelectedContent), makeContentEditButton('arrow_upward', 'Select Parent', _commands.selectParent)];
+
+    return defaultShortcuts.concat(_swd.registry.topMenuShortcuts());
+};
 
 /***/ })
 /******/ ]);
