@@ -1,5 +1,5 @@
 <template>
-	<div class="document__page flex flex-col" :style="marginCss" style="width:210mm;min-height:297mm;">
+	<div class="document__page flex flex-col" :style="marginCss" style="width:210mm;min-height:296.9mm;">
 		<div :id="id"
 			is="container"
 			class="flex-1"
