@@ -1,15 +1,9 @@
 @media print {
-  @page {  
+  @page {
       size:210mm 297mm;
-      margin: 15mm;
-      @top-left {
-          content: 'header!';
-      }
-      @bottom-right {
-          content: counter(page);
-      }
   }
   body {
+      margin: 0 !important;
       background-color: #fff;
   }
   body * {
@@ -42,4 +36,9 @@
   .document__page-element.hovering::before, .document__page-element.selected::before {
       display:none;
   }
+
+    table { page-break-inside:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }  
 }

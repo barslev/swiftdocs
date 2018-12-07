@@ -47,9 +47,16 @@ export default {
 				marginLeft: this.state.defaults.margins.left + 'mm',
 				marginRight: this.state.defaults.margins.right + 'mm',
 			})
-			//const margins = 'margin-left:' + this.state.defaults.margins.left + 'mm;'
-			 //	+ 'margin-right:' + this.state.defaults.margins.right + 'mm;'
-			this.styleEl.innerText = '@media print { @page { ' + margins + ' } }'
+
+			const pageHeight = 296
+			const yMargin = Number(this.state.defaults.margins.top) + Number(this.state.defaults.margins.bottom)
+
+			const documentPage = toStyle({
+				minHeight: (pageHeight - yMargin) + 'mm'
+			})
+
+			this.styleEl.innerText = '@media print { @page { ' + margins + ' }'
+				+ ' .document__page { ' + documentPage + ' } }'
 		}
 	}
 }
