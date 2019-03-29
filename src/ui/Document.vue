@@ -52,11 +52,11 @@ export default {
 			const yMargin = Number(this.state.defaults.margins.top) + Number(this.state.defaults.margins.bottom)
 
 			const documentPage = toStyle({
-				minHeight: (pageHeight - yMargin) + 'mm'
+				minHeight: (pageHeight - yMargin) + 'mm !important'
 			})
 
-			this.styleEl.innerText = '@media print { @page { ' + margins + ' }'
-				+ ' .document__page { ' + documentPage + ' } }'
+			this.styleEl.innerText = '@media print { @page { ' + margins + ' } }'
+				+ ' .document__page { ' + documentPage + ' }'
 		}
 	}
 }
