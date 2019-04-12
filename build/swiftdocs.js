@@ -35830,7 +35830,7 @@ exports.default = {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _base = __webpack_require__(4);
@@ -35847,22 +35847,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
 
-    extends: (0, _base2.default)(),
+  extends: (0, _base2.default)(),
 
-    methods: {
-        renderOutput: function renderOutput() {
-            return _.get(this.context, this.state.variable);
-        }
-    },
-
-    computed: {
-        output: function output() {
-            if (this.inRenderMode) {
-                return this.renderOutput();
-            }
-            return this.state.placeholder;
-        }
+  methods: {
+    renderOutput: function renderOutput() {
+      if (!this.state.variable) {
+        return null;
+      }
+      if (this.state.variable.indexOf('$index') >= 0) {
+        this.state.variable = this.state.variable.replace('$index', this.context.$index);
+      }
+      return _.get(this.context, this.state.variable);
     }
+  },
+
+  computed: {
+    output: function output() {
+      if (this.inRenderMode) {
+        return this.renderOutput();
+      }
+      return this.state.placeholder;
+    }
+  }
 };
 
 /***/ }),
@@ -55173,7 +55179,7 @@ exports.default = function (document) {
     });
 
     // Finally update the document's version
-    document.defaults.version = "0.4.10";
+    document.defaults.version = "0.4.11";
 
     return document;
 };
@@ -56465,7 +56471,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var initialState = {
 	// this is automatically resolved by webpack
 	// and the value comes from package.json version
-	version: "0.4.10",
+	version: "0.4.11",
 	margins: {
 		top: 25,
 		left: 25,

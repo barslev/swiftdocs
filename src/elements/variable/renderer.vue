@@ -11,6 +11,15 @@ export default {
   
   methods: {
       renderOutput() {
+        if (!this.state.variable) {
+          return null
+        }
+        if (this.state.variable.indexOf('$index') >= 0) {
+          this.state.variable = this.state.variable.replace(
+            '$index',
+            this.context.$index
+          )
+        }
         return _.get(this.context, this.state.variable)
       }
   },
