@@ -14,7 +14,7 @@ export default {
         if (!this.state.variable) {
           return null
         }
-        if (this.state.variable.indexOf('$index') >= 0) {
+        if (this.state.variable.indexOf('$index') >= 1) {
           this.state.variable = this.state.variable.replace(
             '$index',
             this.context.$index
