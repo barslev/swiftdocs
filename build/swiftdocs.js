@@ -33453,11 +33453,13 @@ exports.default = {
             var _this2 = this;
 
             var items = [];
+            var indexAs = loop.index_as ? loop.index_as : '$index';
+
             _.each(_.get(this.context, loop.in), function (foo, $index) {
+                var _extends2;
+
                 items.push(_extends({}, item, {
-                    context: Vue.nonreactive(_extends({}, _this2.context, _defineProperty({
-                        $index: $index
-                    }, loop.as, foo)))
+                    context: Vue.nonreactive(_extends({}, _this2.context, (_extends2 = {}, _defineProperty(_extends2, indexAs, $index), _defineProperty(_extends2, loop.as, foo), _extends2)))
                 }));
             });
             return items;
@@ -34830,6 +34832,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //
+//
+//
+//
+//
 //
 //
 //
@@ -54602,7 +54608,7 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _c("div", [
+        _c("div", { staticClass: "mb-3" }, [
           _c("label", [_vm._v(_vm._s(_vm.$t("menus.logic.repeat_as")))]),
           _vm._v(" "),
           _c("input", {
@@ -54622,6 +54628,31 @@ var render = function() {
                   return
                 }
                 _vm.$set(_vm.state.loop, "as", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("label", [_vm._v(_vm._s(_vm.$t("menus.logic.index_as")))]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.state.loop.index_as,
+                expression: "state.loop.index_as"
+              }
+            ],
+            attrs: { type: "text", placeholder: "$index" },
+            domProps: { value: _vm.state.loop.index_as },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.state.loop, "index_as", $event.target.value)
               }
             }
           })
@@ -56577,13 +56608,13 @@ module.exports = i18n;
 /* 330 */
 /***/ (function(module, exports) {
 
-module.exports = {"languages":{"de":"German","en":"English","fr":"French","it":"Italian","lo":"Lao","tr":"Turkish","zh":"Chinese"},"global":{"ok":"OK","set":"Set","cancel":"Cancel","remove":"Remove","loading":"Loading"},"messages":{"saving":"Saving","saved":"Saved!","save_failed":"Not Saved","saved_more":"All changes were saved.","page_added":"Page Added","page_removed":"Page Removed"},"top":{"file":"FILE","edit_document":"Edit Document","save":"Save","render":"Render Document","change_language":"Interface Language","untitled_document":"Untitled Document","enter_title":"Enter a new title for this document"},"left":{"tabs":{"data":"Data","layout":"Page Layout","elements":"Elements","style":"Style","logic":"Logic"}},"menus":{"data":{"loading":"Loading Data","refresh":"Refresh Data","explorer":"Data Explorer","msg_success_title":"Data Refreshed","msg_success_text":"Data has been reloaded","msg_error_title":"Data could not be loaded!","address_copied":"Copied data address to the clipboard!"},"elements":{"title":"Elements"},"layout":{"title":"Page Layout","margins":"Margins","page_color":"Page Color","add_new":"Add New Page"},"logic":{"loop":"Loop","path":"Path","repeat_as":"Repeat As","condition":"Display Condition","condition_address":"Display this when this address","exists":"Exists","truthy":"Evaluates to True","falsy":"Evaluates to False","equals":"Equals to","not_equal":"Not equal to","greater_than":"Greater Than","less_than":"Less Than","this_value":"This Value","loop_error_title":"Loop not set","loop_error_text":"Fill both fields to set a loop.","loop_success_title":"Loop set","loop_success_text":"Loop will be effective at render time.","loop_remove_success_title":"Loop removed","condition_error_title":"Condition not set","condition_error_address":"Please indicate an address for this condition","condition_error_comparator":"Select the type of condition first","condition_error_value":"Please indicate an address for this condition","condition_success_title":"Condition set","condition_success_text":"Condition will be effective at render time.","condition_remove_success_title":"Condition removed"},"style":{"top":"Top","left":"Left","right":"Right","bottom":"Bottom","margins":"Margins","paddings":"Paddings","borders":"Borders","width":"Width","radius":"Radius","sides":"Sides","border_color":"Border Color","fill":"Fill","background_color":"Background Color","remove_element":"Remove Element","remove_this_element":"Remove This Element"},"variable":{"set":"Variable has been set"}},"modals":{"page_color":{"title":"Page Background Color","color":"Color"},"page_margins":{"title":"Page Margins","top":"Top","left":"Left","right":"Right","bottom":"Bottom"},"language":{"title":"Interface Language","switch":"Change Language"}},"scope":{"apply_to":"Apply To","all_pages":"All Pages","only_to_page":"Only to Page {0}"}}
+module.exports = {"languages":{"de":"German","en":"English","fr":"French","it":"Italian","lo":"Lao","tr":"Turkish","zh":"Chinese"},"global":{"ok":"OK","set":"Set","cancel":"Cancel","remove":"Remove","loading":"Loading"},"messages":{"saving":"Saving","saved":"Saved!","save_failed":"Not Saved","saved_more":"All changes were saved.","page_added":"Page Added","page_removed":"Page Removed"},"top":{"file":"FILE","edit_document":"Edit Document","save":"Save","render":"Render Document","change_language":"Interface Language","untitled_document":"Untitled Document","enter_title":"Enter a new title for this document"},"left":{"tabs":{"data":"Data","layout":"Page Layout","elements":"Elements","style":"Style","logic":"Logic"}},"menus":{"data":{"loading":"Loading Data","refresh":"Refresh Data","explorer":"Data Explorer","msg_success_title":"Data Refreshed","msg_success_text":"Data has been reloaded","msg_error_title":"Data could not be loaded!","address_copied":"Copied data address to the clipboard!"},"elements":{"title":"Elements"},"layout":{"title":"Page Layout","margins":"Margins","page_color":"Page Color","add_new":"Add New Page"},"logic":{"loop":"Loop","path":"Path","repeat_as":"Repeat As","index_as":"Index As","condition":"Display Condition","condition_address":"Display this when this address","exists":"Exists","truthy":"Evaluates to True","falsy":"Evaluates to False","equals":"Equals to","not_equal":"Not equal to","greater_than":"Greater Than","less_than":"Less Than","this_value":"This Value","loop_error_title":"Loop not set","loop_error_text":"Fill both fields to set a loop.","loop_success_title":"Loop set","loop_success_text":"Loop will be effective at render time.","loop_remove_success_title":"Loop removed","condition_error_title":"Condition not set","condition_error_address":"Please indicate an address for this condition","condition_error_comparator":"Select the type of condition first","condition_error_value":"Please indicate an address for this condition","condition_success_title":"Condition set","condition_success_text":"Condition will be effective at render time.","condition_remove_success_title":"Condition removed"},"style":{"top":"Top","left":"Left","right":"Right","bottom":"Bottom","margins":"Margins","paddings":"Paddings","borders":"Borders","width":"Width","radius":"Radius","sides":"Sides","border_color":"Border Color","fill":"Fill","background_color":"Background Color","remove_element":"Remove Element","remove_this_element":"Remove This Element"},"variable":{"set":"Variable has been set"}},"modals":{"page_color":{"title":"Page Background Color","color":"Color"},"page_margins":{"title":"Page Margins","top":"Top","left":"Left","right":"Right","bottom":"Bottom"},"language":{"title":"Interface Language","switch":"Change Language"}},"scope":{"apply_to":"Apply To","all_pages":"All Pages","only_to_page":"Only to Page {0}"}}
 
 /***/ }),
 /* 331 */
 /***/ (function(module, exports) {
 
-module.exports = {"languages":{"de":"Almanca","en":"İngilizce","fr":"Fransızca","it":"İtalyanca","lo":"Laoca","tr":"Türkçe","zh":"Çince"},"global":{"ok":"OK","set":"Set","cancel":"Cancel","remove":"Remove","loading":"Loading"},"messages":{"saved":"Kaydedildi!","save_failed":"Kaydedilemedi","saved_more":"All changes were saved.","page_added":"Page Added","page_removed":"Page Removed"},"top":{"file":"DOSYA","edit_document":"Dokümanı Düzenle","save":"Kaydet","render":"Görüntüleme Modu","change_language":"Arayüz Dili","untitled_document":"İsimsiz Doküman","enter_title":"Enter a new title for this document"},"left":{"tabs":{"data":"Veri","layout":"Sayfa Düzeni","elements":"Elementler","style":"Stil","logic":"Zeka"}},"menus":{"data":{"loading":"Loading Data","refresh":"Refresh Data","explorer":"Data Explorer","msg_success_title":"Data Refreshed","msg_success_text":"Data has been reloaded","msg_error_title":"Data could not be loaded!"},"elements":{"title":"Elements"},"layout":{"title":"Page Layout","margins":"Margins","page_color":"Page Color","add_new":"Add New Page"},"logic":{"loop":"Loop","path":"Path","repeat_as":"Repeat As","condition":"Display Condition","condition_address":"Display this when this address","exists":"Exists","equals":"Equals to","not_equal":"Not equal to","greater_than":"Greater Than","less_than":"Less Than","this_value":"This Value","loop_error_title":"Loop not set","loop_error_text":"Fill both fields to set a loop.","loop_success_title":"Loop set","loop_success_text":"Loop will be effective at render time.","loop_remove_success_title":"Loop removed","condition_error_title":"Condition not set","condition_error_text":"Fill all fields to set a condition.","condition_success_title":"Condition set","condition_success_text":"Condition will be effective at render time.","condition_remove_success_title":"Condition removed"},"style":{"top":"Top","left":"Left","right":"Right","bottom":"Bottom","margins":"Margins","paddings":"Paddings","borders":"Borders","width":"Width","radius":"Radius","sides":"Sides","border_color":"Border Color","fill":"Fill","background_color":"Background Color","remove_element":"Remove Element","remove_this_element":"Remove This Element"}},"modals":{"page_color":{"title":"Page Background Color","color":"Color"},"page_margins":{"title":"Page Margins","top":"Top","left":"Left","right":"Right","bottom":"Bottom"},"language":{"title":"Arayüz Dili","switch":"Dili Değiştir"}},"scope":{"apply_to":"Apply To","all_pages":"All Pages","only_to_page":"Only to Page {0}"}}
+module.exports = {"languages":{"de":"Almanca","en":"İngilizce","fr":"Fransızca","it":"İtalyanca","lo":"Laoca","tr":"Türkçe","zh":"Çince"},"global":{"ok":"OK","set":"Set","cancel":"Cancel","remove":"Remove","loading":"Loading"},"messages":{"saved":"Kaydedildi!","save_failed":"Kaydedilemedi","saved_more":"All changes were saved.","page_added":"Page Added","page_removed":"Page Removed"},"top":{"file":"DOSYA","edit_document":"Dokümanı Düzenle","save":"Kaydet","render":"Görüntüleme Modu","change_language":"Arayüz Dili","untitled_document":"İsimsiz Doküman","enter_title":"Enter a new title for this document"},"left":{"tabs":{"data":"Veri","layout":"Sayfa Düzeni","elements":"Elementler","style":"Stil","logic":"Zeka"}},"menus":{"data":{"loading":"Loading Data","refresh":"Refresh Data","explorer":"Data Explorer","msg_success_title":"Data Refreshed","msg_success_text":"Data has been reloaded","msg_error_title":"Data could not be loaded!"},"elements":{"title":"Elements"},"layout":{"title":"Page Layout","margins":"Margins","page_color":"Page Color","add_new":"Add New Page"},"logic":{"loop":"Loop","path":"Path","repeat_as":"Repeat As","index_as":"Index As","condition":"Display Condition","condition_address":"Display this when this address","exists":"Exists","equals":"Equals to","not_equal":"Not equal to","greater_than":"Greater Than","less_than":"Less Than","this_value":"This Value","loop_error_title":"Loop not set","loop_error_text":"Fill both fields to set a loop.","loop_success_title":"Loop set","loop_success_text":"Loop will be effective at render time.","loop_remove_success_title":"Loop removed","condition_error_title":"Condition not set","condition_error_text":"Fill all fields to set a condition.","condition_success_title":"Condition set","condition_success_text":"Condition will be effective at render time.","condition_remove_success_title":"Condition removed"},"style":{"top":"Top","left":"Left","right":"Right","bottom":"Bottom","margins":"Margins","paddings":"Paddings","borders":"Borders","width":"Width","radius":"Radius","sides":"Sides","border_color":"Border Color","fill":"Fill","background_color":"Background Color","remove_element":"Remove Element","remove_this_element":"Remove This Element"}},"modals":{"page_color":{"title":"Page Background Color","color":"Color"},"page_margins":{"title":"Page Margins","top":"Top","left":"Left","right":"Right","bottom":"Bottom"},"language":{"title":"Arayüz Dili","switch":"Dili Değiştir"}},"scope":{"apply_to":"Apply To","all_pages":"All Pages","only_to_page":"Only to Page {0}"}}
 
 /***/ }),
 /* 332 */

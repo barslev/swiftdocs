@@ -62,6 +62,7 @@ menus:
     loop: "Loop"
     path: "Path"
     repeat_as: "Repeat As"
+    index_as: "Index As"
     condition: "Display Condition"
     condition_address: "Display this when this address"
     exists: "Exists"

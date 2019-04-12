@@ -6,10 +6,14 @@
                 <label>{{ $t('menus.logic.path') }}</label>
                 <input type="text" v-model="state.loop.in" />
             </div>
-            <div>
-                <label>{{ $t('menus.logic.repeat_as') }}</label>
+            <div class="mb-3">
+                <label>{{ $t('menus.logic.repeat_as') }}</label> 
                 <input type="text" v-model="state.loop.as" />
             </div>
+            <div>
+                <label>{{ $t('menus.logic.index_as') }}</label>
+                <input type="text" v-model="state.loop.index_as" placeholder="$index" />
+            </div>            
             <button class="btn-primary" @click="setLoop()">{{ $t('global.set') }}</button>
             <button class="btn-default" @click="removeLoop()" v-show="state.loop.in">{{ $t('global.remove') }}</button>
         </div>

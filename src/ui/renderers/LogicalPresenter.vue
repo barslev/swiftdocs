@@ -91,13 +91,16 @@ export default {
 
         getLoopedItems(item, loop) {
             let items = []
+            const indexAs = loop.index_as ? loop.index_as : '$index'
+
             _.each(_.get(this.context, loop.in), (foo, $index) => {
+
                 items.push({
                     ...item,
                     context: Vue.nonreactive({
                         ...this.context,
-                        $index,
-                        [loop.as]: foo
+                        [indexAs]: $index,
+                        [loop.as]: foo,
                     })
                 })
             })
