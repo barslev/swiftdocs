@@ -42,22 +42,32 @@ export default {
 	},
 	watch: {
 		allowDrop() {
-			this.makeDropTarget()
+			this.toggleDropTarget()
+		},
+		inRenderMode() {
+			this.toggleDropTarget()
 		}
-	},
-	mounted() {
-		this.makeDropTarget()
 	},
 	beforeDestroy() {
-		if (this.allowDrop) {
-			_swd.dragDrop.remove(this.$el)
-		}
+		this.destroyDropTarget()
 	},
 	methods: {
+		toggleDropTarget() {
+			if (this.inRenderMode && this.allowDrop) {
+				return this.destroyDropTarget()
+			} else if (!this.inRenderMode && this.allowDrop) {
+				this.makeDropTarget()
+			}
+		},
+		destroyDropTarget() {
+			if (this._isDropTarget) {
+				_swd.dragDrop.remove(this.$el)
+				this._isDropTarget = false
+			}
+		},
 		makeDropTarget() {
-			if (this.allowDrop) {
-				_swd.dragDrop.add(this.$el)
-			}	
+			_swd.dragDrop.add(this.$el)
+			this._isDropTarget = true
 		}
 	}
 }
