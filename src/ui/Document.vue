@@ -48,11 +48,18 @@ export default {
 				marginRight: this.state.defaults.margins.right + 'mm',
 			})
 
+			const pageWidth = 210
 			const pageHeight = 296
 			const yMargin = Number(this.state.defaults.margins.top) + Number(this.state.defaults.margins.bottom)
 
 			const documentPage = toStyle({
-				minHeight: (pageHeight - yMargin) + 'mm !important'
+				width: `${pageWidth}mm`,
+				minHeight: (pageHeight - yMargin) + 'mm !important',
+				backgroundColor: this.state.defaults.color,
+				paddingTop: this.state.defaults.margins.top + 'mm',
+				paddingBottom: this.state.defaults.margins.bottom + 'mm',
+				paddingLeft: this.state.defaults.margins.left + 'mm',
+				paddingRight: this.state.defaults.margins.right + 'mm',	
 			})
 
 			this.styleEl.innerText = '@media print { @page { ' + margins + ' } }'

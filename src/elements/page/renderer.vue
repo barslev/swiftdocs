@@ -1,5 +1,5 @@
 <template>
-	<div class="document__page flex flex-col" :style="marginCss" style="width:210mm;">
+	<div class="document__page flex flex-col">
 		<div :id="id"
 			is="container"
 			class="flex-1"
@@ -14,23 +14,7 @@ import base from '~/elements/base.js'
 import {deselectContent} from '~/redux/actions/session'
 
 export default {
-    extends: base((state) => {
-        return {
-            color: state.defaults.color,
-            margins: state.defaults.margins,
-        }
-    }),
-	computed: {
-		marginCss() {
-			return {
-				'background-color': this.state.color,
-				'padding-top': this.state.margins.top + 'mm',
-				'padding-left': this.state.margins.left + 'mm',
-				'padding-right': this.state.margins.right + 'mm',
-				'padding-bottom': this.state.margins.bottom + 'mm',
-			}
-		}
-	},
+    extends: base(),
 	methods: {
 		selectPage() {
 			if (!this.inRenderMode) {
