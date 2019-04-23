@@ -1,10 +1,17 @@
 import { connect } from '~/redux/connect'
 import { getContentState } from '~/redux/actions/contents'
 
-export default (selector) => {
+const defaultSelector = (state, scope) => getContentState(scope.id, {})
 
-    if (!selector) {
-        selector = () => {}
+export default (customSelector) => {
+
+    let selector = defaultSelector
+
+    if (customSelector) {
+        selector = (state, scope) => ({
+            ...getContentState(scope.id, {}),
+            ...customSelector(state, scope),
+        })
     }
 
     return {
@@ -13,12 +20,7 @@ export default (selector) => {
             'context', // Context to hold contextual veriables to be used at render time.
         ],
         mixins: [
-            connect((state, scope) => {
-                return {
-                    ...getContentState(scope.id, {}),
-                    ...selector(state, scope),
-                }
-            })
+            connect(selector)
         ]
     }
 }
