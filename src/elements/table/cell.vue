@@ -3,6 +3,7 @@
         :id="id"
         html-tag="td"
         :context="context"
+        :children="children"
         :colspan="state.colspan ? state.colspan : null"
         :rowspan="state.rowspan ? state.rowspan : null"
         :width="state.width ? state.width : null"

@@ -6,6 +6,7 @@
             html-tag="table"
             :allow-drop="false"
             :context="context"
+            :children="children"
             class="d-table d-table-bordered" />
             <div v-else class="text-center text-sm text-grey p-4">
                 <i>Empty Table</i>

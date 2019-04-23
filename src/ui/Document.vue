@@ -1,6 +1,10 @@
 <template>
 	<div class="document">
-		<container v-if="!inRenderMode || !state.dataLoading" :root="true" :allowDrop="false" :context="state.data"></container>
+		<container v-if="!inRenderMode || !state.dataLoading"
+			:root="true"
+			:allowDrop="false"
+			:context="state.data"
+			:children="documentTree"></container>
 		<css />
 	</div>
 </template>
@@ -8,6 +12,19 @@
 import { connect } from '~/redux/connect'
 import { string as toStyle } from 'to-style'
 import { addInitialPage } from '~/redux/actions/pages'
+
+const getContentsAndChildren = (contents, containerId) => {
+	return contents
+		.filter(c => c.container_id === containerId)
+		.map(c => {
+			c.children = getContentsAndChildren(contents, c.id)
+			return c
+		})
+}
+
+const buildDocumentTree = (contents) => {
+	return getContentsAndChildren(contents, null)
+}
 
 export default {
 	mixins: [
@@ -18,6 +35,7 @@ export default {
 				data: state.data.data ? Vue.nonreactive({...state.data.data}) : null,
 				dataLoading: state.data.loading,
 				defaults: state.defaults,
+				contents: state.contents,
 			}
 		})
 	],
@@ -30,6 +48,11 @@ export default {
 	watch: {
 		'state.defaults'() {
 			this.updatePrintCss()
+		},
+	},
+	computed: {
+		documentTree() {
+			return buildDocumentTree(this.state.contents)
 		}
 	},
 	mounted() {

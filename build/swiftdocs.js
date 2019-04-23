@@ -262,8 +262,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-exports.findContent = findContent;
 exports.getContentIndex = getContentIndex;
+exports.findContent = findContent;
 exports.insertContent = insertContent;
 exports.insertContentAtIndex = insertContentAtIndex;
 exports.moveContent = moveContent;
@@ -286,14 +286,22 @@ var _session = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* ============ Content Basics ============ */
+var contentIndexCache = {};
 
-function findContent(id) {
-    return _.find(store.getState().contents, { id: id });
+var resetContentIndexCache = function resetContentIndexCache() {
+    contentIndexCache = {};
+};
+
+/* ============ Content Basics ============ */
+function getContentIndex(id) {
+    if (typeof contentIndexCache[id] === 'undefined') {
+        contentIndexCache[id] = _.findIndex(store.getState().contents, { id: id });
+    }
+    return contentIndexCache[id];
 }
 
-function getContentIndex(id) {
-    return _.findIndex(store.getState().contents, { id: id });
+function findContent(id) {
+    return store.getState().contents[getContentIndex(id)];
 }
 
 /* ============ Content Insert, Duplicate and Move ============ */
@@ -322,6 +330,7 @@ function insertContentAtIndex(element, container_id, index) {
         state: state
     };
 
+    resetContentIndexCache();
     store.dispatch({
         type: 'CONTENT_INSERT',
         payload: {
@@ -347,6 +356,8 @@ function moveContent(id, containerId, beforeId) {
     var content = Object.assign({}, state.contents[oldIndex], {
         container_id: containerId
     });
+
+    resetContentIndexCache();
 
     store.dispatch({
         type: 'CONTENT_MOVE',
@@ -377,6 +388,8 @@ function duplicateContent(content) {
 
     var originalIndex = getContentIndex(content.id);
 
+    resetContentIndexCache();
+
     store.dispatch({
         type: 'CONTENT_INSERT',
         payload: {
@@ -392,6 +405,8 @@ function duplicateContent(content) {
 /* ============ Content Removal ============ */
 
 function dispatchRemoval(id) {
+    resetContentIndexCache();
+
     store.dispatch({
         type: 'CONTENT_REMOVE',
         payload: {
@@ -647,18 +662,25 @@ var _connect = __webpack_require__(1);
 
 var _contents = __webpack_require__(2);
 
-exports.default = function (selector) {
+var defaultSelector = function defaultSelector(state, scope) {
+    return (0, _contents.getContentState)(scope.id, {});
+};
 
-    if (!selector) {
-        selector = function selector() {};
+exports.default = function (customSelector) {
+
+    var selector = defaultSelector;
+
+    if (customSelector) {
+        selector = function selector(state, scope) {
+            return _extends({}, (0, _contents.getContentState)(scope.id, {}), customSelector(state, scope));
+        };
     }
 
     return {
         props: ['id', // Element ID.
-        'context'],
-        mixins: [(0, _connect.connect)(function (state, scope) {
-            return _extends({}, (0, _contents.getContentState)(scope.id, {}), selector(state, scope));
-        })]
+        'context', // Context to hold contextual veriables to be used at render time.
+        'children'],
+        mixins: [(0, _connect.connect)(selector)]
     };
 };
 
@@ -32126,12 +32148,29 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 var _connect = __webpack_require__(1);
 
 var _toStyle = __webpack_require__(62);
 
 var _pages = __webpack_require__(9);
+
+var getContentsAndChildren = function getContentsAndChildren(contents, containerId) {
+	return contents.filter(function (c) {
+		return c.container_id === containerId;
+	}).map(function (c) {
+		c.children = getContentsAndChildren(contents, c.id);
+		return c;
+	});
+};
+
+var buildDocumentTree = function buildDocumentTree(contents) {
+	return getContentsAndChildren(contents, null);
+};
 
 exports.default = {
 	mixins: [(0, _connect.connect)(function (state, scope) {
@@ -32140,7 +32179,8 @@ exports.default = {
 			pages: state.pages,
 			data: state.data.data ? Vue.nonreactive(_extends({}, state.data.data)) : null,
 			dataLoading: state.data.loading,
-			defaults: state.defaults
+			defaults: state.defaults,
+			contents: state.contents
 		};
 	})],
 	data: function data() {
@@ -32153,6 +32193,11 @@ exports.default = {
 	watch: {
 		'state.defaults': function stateDefaults() {
 			this.updatePrintCss();
+		}
+	},
+	computed: {
+		documentTree: function documentTree() {
+			return buildDocumentTree(this.state.contents);
 		}
 	},
 	mounted: function mounted() {
@@ -32172,11 +32217,18 @@ exports.default = {
 				marginRight: this.state.defaults.margins.right + 'mm'
 			});
 
+			var pageWidth = 210;
 			var pageHeight = 296;
 			var yMargin = Number(this.state.defaults.margins.top) + Number(this.state.defaults.margins.bottom);
 
 			var documentPage = (0, _toStyle.string)({
-				minHeight: pageHeight - yMargin + 'mm !important'
+				width: pageWidth + 'mm',
+				minHeight: pageHeight - yMargin + 'mm !important',
+				backgroundColor: this.state.defaults.color,
+				paddingTop: this.state.defaults.margins.top + 'mm',
+				paddingBottom: this.state.defaults.margins.bottom + 'mm',
+				paddingLeft: this.state.defaults.margins.left + 'mm',
+				paddingRight: this.state.defaults.margins.right + 'mm'
 			});
 
 			this.styleEl.innerText = '@media print { @page { ' + margins + ' } }' + ' .document__page { ' + documentPage + ' }';
@@ -33290,6 +33342,7 @@ var _session = __webpack_require__(3);
 //
 //
 //
+//
 
 exports.default = {
 	mixins: [(0, _connect.connect)(function (state, scope) {
@@ -33422,7 +33475,7 @@ exports.default = {
                 // Display a rendered version of items
                 this.displayItems = this.displayRenderedItems(
                 // Pass a clone of the current items
-                this.items.concat([]));
+                [].concat(this.items));
                 return;
             }
             // Display them as is
@@ -35860,7 +35913,7 @@ exports.default = {
       if (!this.state.variable) {
         return null;
       }
-      if (this.state.variable.indexOf('$index') >= 0) {
+      if (this.state.variable.indexOf('$index') >= 1) {
         this.state.variable = this.state.variable.replace('$index', this.context.$index);
       }
       return _.get(this.context, this.state.variable);
@@ -36234,14 +36287,6 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-var _connect = __webpack_require__(1);
-
-var childFilter = function childFilter(scope) {
-	return function (content) {
-		return content.container_id === scope.id;
-	};
-}; //
 //
 //
 //
@@ -36251,45 +36296,47 @@ var childFilter = function childFilter(scope) {
 //
 //
 //
-
-var rootFilter = function rootFilter() {
-	return function (content) {
-		return content.container_id === null;
-	};
-};
+//
+//
 
 exports.default = {
-	mixins: [(0, _connect.connect)(function (state, scope) {
-		return {
-			contents: state.contents.filter(scope.root ? rootFilter() : childFilter(scope))
-		};
-	})],
 	props: {
 		id: {},
 		context: {},
+		children: {},
 		htmlTag: { default: 'div' },
 		allowDrop: { default: true },
 		root: { type: Boolean, default: false }
 	},
 	watch: {
 		allowDrop: function allowDrop() {
-			this.makeDropTarget();
+			this.toggleDropTarget();
+		},
+		inRenderMode: function inRenderMode() {
+			this.toggleDropTarget();
 		}
-	},
-	mounted: function mounted() {
-		this.makeDropTarget();
 	},
 	beforeDestroy: function beforeDestroy() {
-		if (this.allowDrop) {
-			_swd.dragDrop.remove(this.$el);
-		}
+		this.destroyDropTarget();
 	},
 
 	methods: {
-		makeDropTarget: function makeDropTarget() {
-			if (this.allowDrop) {
-				_swd.dragDrop.add(this.$el);
+		toggleDropTarget: function toggleDropTarget() {
+			if (this.inRenderMode && this.allowDrop) {
+				return this.destroyDropTarget();
+			} else if (!this.inRenderMode && this.allowDrop) {
+				this.makeDropTarget();
 			}
+		},
+		destroyDropTarget: function destroyDropTarget() {
+			if (this._isDropTarget) {
+				_swd.dragDrop.remove(this.$el);
+				this._isDropTarget = false;
+			}
+		},
+		makeDropTarget: function makeDropTarget() {
+			_swd.dragDrop.add(this.$el);
+			this._isDropTarget = true;
 		}
 	}
 };
@@ -36360,13 +36407,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
 
 exports.default = {
 	extends: (0, _base2.default)(),
 
 	created: function created() {
-		var children = (0, _contents.childrenContent)(this.id);
-		if (!children.length) {
+		if (!this.children.length) {
 			// Default grid elements... Add 3 by default
 			(0, _contents.insertContent)('d-grid-pane', this.id);
 			(0, _contents.insertContent)('d-grid-pane', this.id);
@@ -36395,6 +36446,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
     extends: (0, _base2.default)()
 }; //
+//
 //
 //
 //
@@ -36486,6 +36538,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
     extends: (0, _base2.default)()
 }; //
+//
 //
 //
 //
@@ -36698,25 +36751,21 @@ exports.default = Generator;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-var _connect = __webpack_require__(1);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
 
-    props: ['id', 'context'],
+    props: ['id', 'context', 'children']
 
-    mixins: [(0, _connect.connect)(function (state, scope) {
-        return {
-            cells: state.contents.filter(function (content) {
-                return content.container_id === scope.id;
-            })
-        };
-    })]
-}; //
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 118 */
@@ -36799,6 +36848,7 @@ exports.default = {
 //
 //
 //
+//
 
 /***/ }),
 /* 120 */
@@ -36832,6 +36882,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 
 exports.default = {
     props: ['payload'],
@@ -36854,7 +36905,7 @@ exports.default = {
 
     methods: {
         isResizable: function isResizable() {
-            return !this.payload;
+            return !this.inRenderMode && !this.payload;
         }
     }
 };
@@ -37004,28 +37055,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 
 exports.default = {
-	extends: (0, _base2.default)(function (state) {
-		return {
-			color: state.defaults.color,
-			margins: state.defaults.margins
-		};
-	}),
-	computed: {
-		marginCss: function marginCss() {
-			return {
-				'background-color': this.state.color,
-				'padding-top': this.state.margins.top + 'mm',
-				'padding-left': this.state.margins.left + 'mm',
-				'padding-right': this.state.margins.right + 'mm',
-				'padding-bottom': this.state.margins.bottom + 'mm'
-			};
-		}
-	},
+	extends: (0, _base2.default)(),
 	methods: {
 		selectPage: function selectPage() {
-			(0, _session.deselectContent)();
+			if (!this.inRenderMode) {
+				(0, _session.deselectContent)();
+			}
 		}
 	}
 };
@@ -37040,31 +37078,25 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-var _connect = __webpack_require__(1);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
-	mixins: [(0, _connect.connect)(function (state, scope) {
-		return {
-			contents: state.contents.filter(function (content) {
-				return content.container_id === scope.id;
-			})
-		};
-	})],
 	props: {
 		id: {},
 		context: {},
+		children: {},
 		htmlTag: { default: 'div' }
 	}
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 125 */
@@ -50333,7 +50365,12 @@ var render = function() {
     [
       !_vm.inRenderMode || !_vm.state.dataLoading
         ? _c("container", {
-            attrs: { root: true, allowDrop: false, context: _vm.state.data }
+            attrs: {
+              root: true,
+              allowDrop: false,
+              context: _vm.state.data,
+              children: _vm.documentTree
+            }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -50572,6 +50609,7 @@ var render = function() {
       id: _vm.element.id,
       "data-id": _vm.element.id,
       context: _vm.context,
+      children: _vm.element.children,
       payload: _vm.payload
     }
   })
@@ -70951,7 +70989,7 @@ var render = function() {
     attrs: {
       "html-tag": _vm.htmlTag,
       "container-id": _vm.id,
-      items: _vm.state.contents,
+      items: _vm.children,
       context: _vm.context
     }
   })
@@ -71190,7 +71228,7 @@ var render = function() {
     tag: "div",
     staticClass: "flex flex-wrap",
     class: _vm.state.justify ? _vm.state.justify : "justify-between",
-    attrs: { id: _vm.id, context: _vm.context }
+    attrs: { id: _vm.id, context: _vm.context, children: _vm.children }
   })
 }
 var staticRenderFns = []
@@ -71270,7 +71308,12 @@ var render = function() {
   return _c("container", {
     tag: "div",
     style: { flex: _vm.state.weight, width: _vm.state.width + "px" },
-    attrs: { id: _vm.id, context: _vm.context, "allow-drop": true }
+    attrs: {
+      id: _vm.id,
+      context: _vm.context,
+      children: _vm.children,
+      "allow-drop": true
+    }
   })
 }
 var staticRenderFns = []
@@ -71553,7 +71596,8 @@ var render = function() {
             id: _vm.id,
             "html-tag": "table",
             "allow-drop": false,
-            context: _vm.context
+            context: _vm.context,
+            children: _vm.children
           }
         })
       : _c("div", { staticClass: "text-center text-sm text-grey p-4" }, [
@@ -71857,13 +71901,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "tr",
-    _vm._l(_vm.state.cells, function(cell, i) {
+    _vm._l(_vm.children, function(cell, i) {
       return _c("el", {
         key: i,
         attrs: {
           element: cell,
           context: _vm.context,
-          payload: i + 1 == _vm.state.cells.length
+          payload: i + 1 == _vm.children.length
         }
       })
     })
@@ -72077,6 +72121,7 @@ var render = function() {
       id: _vm.id,
       "html-tag": _vm.state.tag,
       context: _vm.context,
+      children: _vm.children,
       "allow-drop": false
     }
   })
@@ -72374,6 +72419,7 @@ var render = function() {
       id: _vm.id,
       "html-tag": "td",
       context: _vm.context,
+      children: _vm.children,
       colspan: _vm.state.colspan ? _vm.state.colspan : null,
       rowspan: _vm.state.rowspan ? _vm.state.rowspan : null,
       width: _vm.state.width ? _vm.state.width : null,
@@ -72761,26 +72807,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "document__page flex flex-col",
-      staticStyle: { width: "210mm" },
-      style: _vm.marginCss
-    },
-    [
-      _c("container", {
-        tag: "div",
-        staticClass: "flex-1",
-        attrs: { id: _vm.id, context: _vm.context, allowDrop: true },
-        nativeOn: {
-          click: function($event) {
-            _vm.selectPage()
-          }
+  return _c("div", { staticClass: "document__page flex flex-col" }, [
+    _c("container", {
+      tag: "div",
+      staticClass: "flex-1",
+      attrs: {
+        id: _vm.id,
+        context: _vm.context,
+        children: _vm.children,
+        allowDrop: true
+      },
+      nativeOn: {
+        click: function($event) {
+          _vm.selectPage()
         }
-      })
-    ]
-  )
+      }
+    })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -72883,7 +72926,7 @@ var render = function() {
     attrs: {
       "html-tag": _vm.htmlTag,
       "container-id": _vm.id,
-      items: _vm.state.contents,
+      items: _vm.children,
       context: _vm.context
     }
   })

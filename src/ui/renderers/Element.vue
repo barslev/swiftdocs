@@ -5,6 +5,7 @@
         :id="element.id"
         :data-id="element.id"
 		:context="context"
+		:children="element.children"
 		:payload="payload" />
 </template>
 <script>

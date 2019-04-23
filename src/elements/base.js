@@ -18,6 +18,7 @@ export default (customSelector) => {
         props: [
             'id', // Element ID.
             'context', // Context to hold contextual veriables to be used at render time.
+            'children',
         ],
         mixins: [
             connect(selector)

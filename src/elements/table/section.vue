@@ -3,6 +3,7 @@
         :id="id"
         :html-tag="state.tag"
         :context="context"
+        :children="children"
         :allow-drop="false" />
 </template>
 <script>

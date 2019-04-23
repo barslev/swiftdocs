@@ -4,38 +4,17 @@
 		:html-tag="htmlTag"
 		class="document__page-container"
 		:container-id="id"
-		:items="state.contents" :context="context"
+		:items="children"
+		:context="context"
 		:class="root ? '' : 'document__page-child-container'">
 	</div>
 </template>
 <script>
-import {connect} from '~/redux/connect'
-
-const childFilter = (scope) => {
-	return (content) => {
-		return content.container_id === scope.id
-	}
-}
-
-const rootFilter = () => {
-	return (content) => {
-		return content.container_id === null
-	}
-}
-
 export default {
-	mixins: [
-		connect((state, scope) => {
-			return {
-				contents: state.contents.filter(
-					scope.root ? rootFilter() : childFilter(scope)
-				)
-			}
-		})
-	],
 	props: {
 		id: {},
 		context: {},
+		children: {},
 		htmlTag: {default: 'div'},
 		allowDrop: {default: true},
 		root: {type: Boolean, default: false},

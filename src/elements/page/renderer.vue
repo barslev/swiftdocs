@@ -4,6 +4,7 @@
 			is="container"
 			class="flex-1"
 			:context="context"
+			:children="children"
 			:allowDrop="true"
 			@click.native="selectPage()"></div>
 		</div>

@@ -2,6 +2,7 @@
     <div is="container"
         :id="id"
         :context="context"
+        :children="children"
         :style="{flex: state.weight, width: state.width + 'px'}"
         :allow-drop="true" />
 </template>

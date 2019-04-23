@@ -1,16 +1,20 @@
 <template>
-    <div class="flex flex-wrap" :class="state.justify ? state.justify : 'justify-between'" is="container" :id="id" :context="context"></div>
+    <div :id="id"
+		is="container"
+		class="flex flex-wrap"
+		:class="state.justify ? state.justify : 'justify-between'"
+		:context="context"
+		:children="children"></div>
 </template>
 <script>
 import base from '~/elements/base'
-import {insertContent, childrenContent} from '~/redux/actions/contents'
+import {insertContent} from '~/redux/actions/contents'
 
 export default {
 	extends: base(),
 
 	created() {
-		const children = childrenContent(this.id)
-		if (!children.length) {
+		if (!this.children.length) {
 			// Default grid elements... Add 3 by default
 			insertContent('d-grid-pane', this.id)
 			insertContent('d-grid-pane', this.id)
