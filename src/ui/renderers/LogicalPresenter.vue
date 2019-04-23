@@ -60,7 +60,7 @@ export default {
                 // Display a rendered version of items
                 this.displayItems = this.displayRenderedItems(
                     // Pass a clone of the current items
-                    this.items.concat([])
+                    [].concat(this.items)
                 )
                 return
             }
