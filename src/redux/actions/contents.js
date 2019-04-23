@@ -3,15 +3,27 @@ import { findPage } from './pages'
 import {copyStylesToContent} from './styles'
 import {isDocumentAlterable} from './session'
 
-/* ============ Content Basics ============ */
+let contentIndexCache = {}
 
-export function findContent(id) {
-    return _.find(store.getState().contents, { id })
+const resetContentIndexCache = () => {
+    contentIndexCache = {}
 }
 
-export function getContentIndex(id)
-{
-    return _.findIndex(store.getState().contents, {id: id})
+/* ============ Content Basics ============ */
+export function getContentIndex(id) {
+    if (typeof contentIndexCache[id] === 'undefined') {
+        contentIndexCache[id] = _.findIndex(
+            store.getState().contents,
+            {id: id}
+        )
+    }
+    return contentIndexCache[id]
+}
+
+export function findContent(id) {
+    return store.getState().contents[
+        getContentIndex(id)
+    ]
 }
 
 /* ============ Content Insert, Duplicate and Move ============ */
@@ -40,6 +52,7 @@ export function insertContentAtIndex(element, container_id, index) {
         state,
     }    
 
+    resetContentIndexCache()
     store.dispatch({
         type: 'CONTENT_INSERT',
         payload: {
@@ -67,6 +80,8 @@ export function moveContent(id, containerId, beforeId) {
     const content = Object.assign({}, state.contents[oldIndex], {
         container_id: containerId
     })
+
+    resetContentIndexCache()
 
     store.dispatch({
         type: 'CONTENT_MOVE',
@@ -97,6 +112,8 @@ export function duplicateContent(content) {
 
     const originalIndex = getContentIndex(content.id)
     
+    resetContentIndexCache()
+    
     store.dispatch({
         type: 'CONTENT_INSERT',
         payload: {
@@ -112,6 +129,8 @@ export function duplicateContent(content) {
 /* ============ Content Removal ============ */
 
  function dispatchRemoval(id) {
+    resetContentIndexCache()
+
     store.dispatch({
         type: 'CONTENT_REMOVE',
         payload: {
@@ -173,7 +192,7 @@ export function updateContentState(id, fragment) {
         ...originalState,
         ...fragment
     }
-
+    
     store.dispatch({
         type: 'CONTENT_UPDATE_STATE',
         payload: { id, state: modifiedState }
