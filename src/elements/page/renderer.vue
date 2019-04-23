@@ -33,7 +33,9 @@ export default {
 	},
 	methods: {
 		selectPage() {
-			deselectContent()
+			if (!this.inRenderMode) {
+				deselectContent()
+			}
 		}
 	}
 }
