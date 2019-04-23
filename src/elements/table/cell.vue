@@ -38,7 +38,7 @@ export default {
     },
     methods: {
         isResizable() {
-            return ! this.payload
+            return !this.inRenderMode && ! this.payload
         }
     }
 }
