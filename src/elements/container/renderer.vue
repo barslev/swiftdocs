@@ -5,7 +5,6 @@
 		class="document__page-container"
 		:container-id="id"
 		:items="children"
-		:context="context"
 		:class="root ? '' : 'document__page-child-container'">
 	</div>
 </template>
@@ -13,7 +12,6 @@
 export default {
 	props: {
 		id: {},
-		context: {},
 		children: {},
 		htmlTag: {default: 'div'},
 		allowDrop: {default: true},

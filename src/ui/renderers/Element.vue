@@ -4,7 +4,7 @@
         :class="['css-' + element.id, state.selected ? 'selected' : '', 'element__' + element.element]"
         :id="element.id"
         :data-id="element.id"
-		:context="context"
+		:context="element.context"
 		:children="element.children"
 		:payload="payload" />
 </template>
@@ -22,7 +22,6 @@ export default {
 	],
     props: [
 		'element',
-		'context',
 		'payload',
 	],
 	created() {
