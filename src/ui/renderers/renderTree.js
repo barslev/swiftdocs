@@ -1,5 +1,4 @@
-import Immutable from 'seamless-immutable';
-import {getContextData} from '~/redux/actions/data'
+import Immutable from 'seamless-immutable'
 import {getContentState} from '~/redux/actions/contents'
 
 const comparable = value => {
@@ -42,7 +41,7 @@ export default (contents, data, inRenderMode) => {
 
     const loopContent = (content, loop) => {
         const indexAs = loop.index_as ? loop.index_as : '$index'
-        const array = getContextData(loop.in, content.context, [])
+        const array = _.get(content.context, loop.in, content.context)
 
         return _.map(array, (arrayItem, $index) => content.merge({
             context: {
@@ -68,10 +67,7 @@ export default (contents, data, inRenderMode) => {
 
     const evaluateCondition = (content, condition) => {
         try {
-            const value = getContextData(
-                condition.address,
-                content.context
-            )
+            const value = _.get(content.context, condition.address)
             switch (condition.comparator) {
                 case 'exists':
                     return typeof value !== 'undefined' && value !== null

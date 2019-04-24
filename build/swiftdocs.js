@@ -50226,8 +50226,6 @@ var _seamlessImmutable = __webpack_require__(400);
 
 var _seamlessImmutable2 = _interopRequireDefault(_seamlessImmutable);
 
-var _data = __webpack_require__(16);
-
 var _contents = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -50275,7 +50273,7 @@ exports.default = function (contents, data, inRenderMode) {
 
     var loopContent = function loopContent(content, loop) {
         var indexAs = loop.index_as ? loop.index_as : '$index';
-        var array = (0, _data.getContextData)(loop.in, content.context, []);
+        var array = _.get(content.context, loop.in, content.context);
 
         return _.map(array, function (arrayItem, $index) {
             var _extends2;
@@ -50301,7 +50299,7 @@ exports.default = function (contents, data, inRenderMode) {
 
     var evaluateCondition = function evaluateCondition(content, condition) {
         try {
-            var value = (0, _data.getContextData)(condition.address, content.context);
+            var value = _.get(content.context, condition.address);
             switch (condition.comparator) {
                 case 'exists':
                     return typeof value !== 'undefined' && value !== null;
