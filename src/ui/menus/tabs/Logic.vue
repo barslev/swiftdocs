@@ -91,6 +91,7 @@ export default {
             }
             if (!state.logic.conditions) {
                 state.logic = {
+                    ...state.logic,
                     conditions: []
                 }
             }
