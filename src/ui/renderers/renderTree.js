@@ -53,13 +53,13 @@ export default (contents, data, inRenderMode) => {
     }
 
     const applyConditions = (contents) => {
-        return _.filter(contents, (content) => {
+        return contents.filter((content) => {
             let state = getContentState(content.id)
-            let condition = _.get(state, 'logic.conditions')
-            if (!condition) {
+            let conditions = _.get(state, 'logic.conditions', [])
+            if (!conditions || !conditions.length) {
                 return true
             }
-            return _.get(state, 'logic.conditions', []).every(condition => {
+            return conditions.every(condition => {
                 return evaluateCondition(content, condition)
             })
         })
@@ -67,7 +67,10 @@ export default (contents, data, inRenderMode) => {
 
     const evaluateCondition = (content, condition) => {
         try {
-            const value = _.get(content.context, condition.address)
+            const value = _.get(
+                content.context,
+                condition.address
+            )
             switch (condition.comparator) {
                 case 'exists':
                     return typeof value !== 'undefined' && value !== null
