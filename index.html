@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
     <title>Document Designer</title>
-</head>
-<body>
-    <div id="app">
-    </div>
+  </head>
+  <body>
+    <div id="app"></div>
     <script src="build/swiftdocs.min.js"></script>
     <script>
-    var swiftDocs = new SwiftDocs('#app', 'test')
+      var swiftDocs = new SwiftDocs("#app", "test");
 
-    swiftDocs.translations = [
-        'en',
-        'fr'
-    ]
+      swiftDocs.translations = ["en", "fr"];
 
-    swiftDocs.dataSource.use({
+      swiftDocs.availableFonts = swiftDocs.availableFonts.concat(["Roboto"]);
+
+      swiftDocs.dataSource.use({
         books: [
-            {title: 'Zero to One', author: 'Peter Thiel', score: 4},
-            { title: 'The Lean Startup', author: 'Eric Ries', score: 5 },
-            { title: 'Becoming Steve Jobs', author: 'Bob Robert', score: 5},
+          { title: "Zero to One", author: "Peter Thiel", score: 4 },
+          { title: "The Lean Startup", author: "Eric Ries", score: 5 },
+          { title: "Becoming Steve Jobs", author: "Bob Robert", score: 5 }
         ]
-    })
-    
-    swiftDocs.start()
+      });
+
+      swiftDocs.start();
     </script>
-</body>
+  </body>
 </html>
